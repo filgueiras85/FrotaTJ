@@ -87,8 +87,8 @@ public class PanelCadastroUsuario extends JPanel {
 		add(btnSalvar);
 		add(btnVoltar);
 		
-		final JPasswordField senhaUsuario = new JPasswordField(6);
-	
+		final JPasswordField senhaUsuario = new JPasswordField();
+
 		senhaUsuario.setBounds(104, 68, 232, 20);
 				
 		add(senhaUsuario);

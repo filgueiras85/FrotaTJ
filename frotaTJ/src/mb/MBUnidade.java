@@ -62,7 +62,7 @@ public class MBUnidade {
 		
 	}
 
-	public List<Unidade> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Unidade> listarUnidades() throws ClassNotFoundException, SQLException{
 		UnidadeDAO daoUnidade = UnidadeDAO.getInstance();
 		return daoUnidade.findAll();
 	}

@@ -60,7 +60,7 @@ public class MBAbastecimento {
 		
 	}
 
-	public List<Abastecimento> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Abastecimento> listarAbastecimentos() throws ClassNotFoundException, SQLException{
 		AbastecimentoDAO abastecimentoDAO = AbastecimentoDAO.getInstance();
 		return abastecimentoDAO.findAll();
 	}

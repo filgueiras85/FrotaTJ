@@ -128,16 +128,13 @@ public class PanelListagemUsuario extends PanelExemplo {
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		MBUsuario mbUsuario = MBUsuario.getInstance();
-		List<Usuario> listaUsuario = mbUsuario.findByAll();
+		List<Usuario> listaUsuario = mbUsuario.listarUsuarios();
 		for (int i=0;i<listaUsuario.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaUsuario.get(i).getIdUsuario()+"", listaUsuario.get(i).getNome()+"", listaUsuario.get(i).getMatricula()+"", listaUsuario.get(i).getEmail()+"",
 			});
 		}
 	}
-
-
-
 
 
 }

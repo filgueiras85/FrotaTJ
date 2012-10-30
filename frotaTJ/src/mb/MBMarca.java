@@ -60,7 +60,7 @@ public class MBMarca {
 		
 	}
 
-	public List<Marca> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Marca> listarMarcas() throws ClassNotFoundException, SQLException{
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findAll();
 	}

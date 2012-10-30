@@ -56,7 +56,7 @@ public class MBUsuario {
 		return daoUsuario.findById(id);
 	}
 
-	public List<Usuario> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Usuario> listarUsuarios() throws ClassNotFoundException, SQLException{
 		UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 		return daoUsuario.findAll();
 	}

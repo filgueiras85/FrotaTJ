@@ -63,7 +63,7 @@ public class MBServico {
 		
 	}
 
-	public List<Servico> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Servico> listarServicos() throws ClassNotFoundException, SQLException{
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		return daoServico.findAll();
 	}

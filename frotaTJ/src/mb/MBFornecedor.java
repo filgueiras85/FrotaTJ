@@ -63,7 +63,7 @@ public class MBFornecedor {
 		
 	}
 
-	public List<Fornecedor> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Fornecedor> listarFornecedores() throws ClassNotFoundException, SQLException{
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		return daoFornecedor.findAll();
 	}

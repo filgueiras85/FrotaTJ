@@ -63,7 +63,7 @@ public class MBMotorista {
 		
 	}
 
-	public List<Motorista> findByAll() throws ClassNotFoundException, SQLException{
+	public List<Motorista> listarMotoristas() throws ClassNotFoundException, SQLException{
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		return daoMotorista.findAll();
 	}
