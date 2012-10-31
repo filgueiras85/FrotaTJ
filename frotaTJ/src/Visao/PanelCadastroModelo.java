@@ -27,17 +27,18 @@ import dao.Modelo;
 public class PanelCadastroModelo extends PanelExemplo {
 	private JTextField textFieldNome;
 	private JComboBox<Marca> comboBoxMarca;
+	private String winDir= ("c:\\frotaTJ\\imagens\\");
 	/**
 	 * Create the panel.
 	 */
 	public PanelCadastroModelo(final int idModeloSelecionado) {
 		
 		JLabel lblCadastroModelo = new JLabel("  Cadastro Modelo");
-		lblCadastroModelo.setIcon(new ImageIcon("C:\\Program Files\\Sistema de Manuten\u00E7\u00E3o de Frota TJSC\\imagens\\1517_32x32.png"));
+		lblCadastroModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Program Files\\Sistema de Manuten\u00E7\u00E3o de Frota TJSC\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon(winDir+"7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -46,7 +47,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Program Files\\Sistema de Manuten\u00E7\u00E3o de Frota TJSC\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon(winDir+"7484_32x32.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -127,7 +128,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnCancelar))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMarca)
 							.addGap(18)
@@ -138,9 +139,9 @@ public class PanelCadastroModelo extends PanelExemplo {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(26)
+					.addContainerGap()
 					.addComponent(lblCadastroModelo)
-					.addGap(46)
+					.addGap(61)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNome))
@@ -148,7 +149,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBoxMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMarca))
-					.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
