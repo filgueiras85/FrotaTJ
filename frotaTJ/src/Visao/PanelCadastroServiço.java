@@ -12,7 +12,10 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.SwingConstants;
@@ -50,7 +53,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCadastroServiço(final int idServicoSelecionado) {
+	
+	public PanelCadastroServiço( final int idServicoSelecionado) {
 		
 		JLabel lblCadastroServio = new JLabel("Cadastro Servi\u00E7o");
 		lblCadastroServio.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -168,12 +172,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MBServico mbServico = MBServico.getInstance();
 				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
 				MBMotorista mbMotorista = MBMotorista.getInstance();
 				MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 				MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-				java.sql.Timestamp data = new java.sql.Timestamp(System.currentTimeMillis());
+				MBServico mbServico = MBServico.getInstance();
+
+				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
 						mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()),
 						mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
@@ -208,7 +213,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						} catch (Exception e) {
 						// TODO: handle exception
 					}
-				PanelListagemServiço();
+				
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -307,12 +312,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 			
 			try {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
+				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
+				
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescrição.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
 				textFieldValor.setText(s.getValor().toString());
-				textFieldData.setText(System.currentTimeMillis()+"");
-					
+				textFieldData.setText(b);
+				textFieldOrçamento.setText(s.getNroOrcamento());
+				// selecionar combobox fornecedor	
 				boolean aux = false ;
 				int  i=0; 
 					
@@ -322,8 +330,40 @@ public class PanelCadastroServiço extends PanelExemplo {
 				   		i++;
 						
 					}
-					comboBoxFornecedor.setSelectedIndex(i);} catch (ClassNotFoundException | SQLException e) {
-						// TODO Auto-generated catch block
+					comboBoxFornecedor.setSelectedIndex(i);
+					//Selecionar combobox veiculo
+					i=0;
+					aux = false;
+					while(aux==false){
+						aux= mbVeiculo.listarVeiculos().get(i).getIdveiculo()==s.getVeiculo().getIdveiculo();
+				   		if (aux==true) break; 
+				   		i++;
+					}
+					comboBoxVeiculo.setSelectedIndex(i);
+					//Selecionar combobox Motorista
+
+					i=0;
+					aux = false;
+					while(aux==false){
+						aux= mbMotorista.listarMotoristas().get(i).getIdmotorista()==s.getMotorista().getIdmotorista();
+				   		if (aux==true) break; 
+				   		i++;
+					}
+					comboBoxMotorista.setSelectedIndex(i);
+					//Selecionar combobox TipoServiço
+
+					i=0;
+					aux = false;
+					while(aux==false){
+						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==s.getTipoServico().getIdtipoServico();
+				   		if (aux==true) break; 
+				   		i++;
+					}
+					comboBoxTipoServiço.setSelectedIndex(i);
+			
+			} catch (ClassNotFoundException | SQLException e) {
+						
+						
 						e.printStackTrace();
 					}finally{
 						
@@ -340,4 +380,18 @@ public class PanelCadastroServiço extends PanelExemplo {
 		}
 		
 	}
+	public java.util.Date transformaData(String data)  
+	{  
+	  SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
+	  try  
+	  {  
+	    return formatador.parse(data);  
+	  }  
+	  catch(ParseException ex)  
+	  {   
+	      throw new RuntimeException(ex);  
+	  }  
+	}
+	
+	
 }

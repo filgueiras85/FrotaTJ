@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import mb.MBUsuario;
+
 import dao.Fornecedor;
 import dao.Motorista;
 import dao.TipoServico;
@@ -63,6 +65,7 @@ public class Servico implements java.io.Serializable {
 			Fornecedor fornecedor, TipoServico tipoServico, Timestamp data,
 			Double valor, String nroOrcamento, Integer nfTicket,
 			String descricao, Integer km) {
+		this.usuario = MBUsuario.getInstance().retornarUsuario(1);
 		this.idServico = id;
 		this.motorista = motorista;
 		this.veiculo = veiculo;

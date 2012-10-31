@@ -159,7 +159,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 			MBModelo mbModelo = MBModelo.getInstance();
 			
 			try {
-				Modelo m = mbModelo.retornarModelo(idModeloSelecionado	);
+				Modelo m = mbModelo.retornarModelo(idModeloSelecionado);
 				textFieldNome.setText(m.getNome());
 					
 				boolean aux = false ;

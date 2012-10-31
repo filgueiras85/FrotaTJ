@@ -1,5 +1,5 @@
 package Visao;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -10,14 +10,20 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+import mb.MBServico;
+
 import dao.Servico;
-import dao.ServicoDAO;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.List;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class PanelListagemServiço extends PanelExemplo {
 	private JTable table;
+	private int idServicoSelecionado;
 
 	/**
 	 * Create the panel.
@@ -40,14 +46,34 @@ public class PanelListagemServiço extends PanelExemplo {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JButton btnApagar = new JButton("Apagar");
+		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				MBServico mbServico = MBServico.getInstance();
+				try {
+					Servico s = mbServico.retornarServico(idServicoSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Serviço selecionado ?");
+					if (op==JOptionPane.YES_OPTION ) {
+						
+						
+						JOptionPane.showMessageDialog(null,mbServico.apagar(s));
+						atualizarTabela();
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"erro - "+e);
+					// TODO: handle exception
+				}
+			
+			}
+		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JButton btnEditar = new JButton("Editar");
+		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelEditarServico();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -87,8 +113,17 @@ public class PanelListagemServiço extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addContainerGap())
 		);
-		
+		btnEditar.setVisible(false);
+		btnApagar.setVisible(false);
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+				btnEditar.setVisible(true);
+				btnApagar.setVisible(true);
+			}
+		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -98,6 +133,15 @@ public class PanelListagemServiço extends PanelExemplo {
 			}
 		));
 		scrollPane.setViewportView(table);
+		try {
+			atualizarTabela();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setLayout(groupLayout);
 	}
 	public void PanelCadastroServiço(){
@@ -107,6 +151,29 @@ public class PanelListagemServiço extends PanelExemplo {
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelCadastroServiço(0);
+		}
+	}
+	public void PanelEditarServico(){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelCadastroServiço(idServicoSelecionado);
+		} catch (Exception e) {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+			parent.PanelCadastroServiço(idServicoSelecionado);
+		}
+	}
+	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+		MBServico mbServico= MBServico.getInstance();
+		List<Servico> listaServico = mbServico.listarServicos();
+		for (int i=0;i<listaServico.size();i++){
+			((DefaultTableModel)table.getModel()).addRow(new String[]{
+					listaServico.get(i).getData2().toString().substring(8, 10)+"/"+listaServico.get(i).getData2().toString().substring(5, 7)+
+					"/"+listaServico.get(i).getData2().toString().substring(0, 4), listaServico.get(i).getIdServico()+"", 
+					listaServico.get(i).getValor()+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
+					listaServico.get(i).getDescricao(), listaServico.get(i).getKm()+"", listaServico.get(i).getMotorista().getNome(),
+					listaServico.get(i).getTipoServico().getNome(),	listaServico.get(i).getVeiculo().getPlaca()+"", 
+					listaServico.get(i).getFornecedor().getNome()});
 		}
 	}
 }

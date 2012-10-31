@@ -219,8 +219,8 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo,"panelCadastroUsuario");
 	}
-	public void PanelCadastroModelo(int i){
-		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( i);
+	public void PanelCadastroModelo(int j){
+		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
 		panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroModelo");
