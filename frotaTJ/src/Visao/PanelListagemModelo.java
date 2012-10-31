@@ -9,15 +9,22 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+
+import dao.Modelo;
+
+import mb.MBModelo;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class PanelListagemModelo extends PanelExemplo {
 	private JTable table;
-
+	private int idModeloSelecionado;
 	/**
 	 * Create the panel.
 	 */
@@ -45,14 +52,14 @@ public class PanelListagemModelo extends PanelExemplo {
 		});
 		
 		
-		JButton btnApagar = new JButton("Apagar");
+		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JButton btnEditar = new JButton("Editar");
+		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroModelo();
+				PanelEditarModelo();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -92,8 +99,18 @@ public class PanelListagemModelo extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addContainerGap())
 		);
+		btnEditar.setVisible(false);
+		btnApagar.setVisible(false);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				idModeloSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				btnEditar.setVisible(true);
+				btnApagar.setVisible(true);
+			}
+		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -102,16 +119,43 @@ public class PanelListagemModelo extends PanelExemplo {
 			}
 		));
 		scrollPane.setViewportView(table);
+		try {
+			atualizarTabela();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setLayout(groupLayout);
 
 	}
 	public void PanelCadastroModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroModelo();
+			parent.PanelCadastroModelo(0);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroModelo();
+			parent.PanelCadastroModelo(0);
+		}
+	}
+	public void PanelEditarModelo(){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelCadastroModelo(idModeloSelecionado);
+		} catch (Exception e) {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+			parent.PanelCadastroModelo(idModeloSelecionado);
+		}
+	}
+	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+		MBModelo mbModelo= MBModelo.getInstance();
+		List<Modelo> listaModelo = mbModelo.listarModelos();
+		for (int i=0;i<listaModelo.size();i++){
+			((DefaultTableModel)table.getModel()).addRow(new String[]{
+					listaModelo.get(i).getIdmodelo()+"", listaModelo.get(i).getNome()+"", listaModelo.get(i).getMarca()+""});
 		}
 	}
 	

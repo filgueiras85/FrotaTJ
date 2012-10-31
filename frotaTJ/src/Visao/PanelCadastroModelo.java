@@ -1,4 +1,6 @@
 package Visao;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -10,16 +12,25 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.Vector;
+
 import javax.swing.ImageIcon;
+
+import mb.MBMarca;
+import mb.MBModelo;
+
+import dao.Marca;
+import dao.Modelo;
 
 
 public class PanelCadastroModelo extends PanelExemplo {
 	private JTextField textFieldNome;
-
+	private JComboBox<Marca> comboBoxMarca;
 	/**
 	 * Create the panel.
 	 */
-	public PanelCadastroModelo() {
+	public PanelCadastroModelo(final int idModeloSelecionado) {
 		
 		JLabel lblCadastroModelo = new JLabel("  Cadastro Modelo");
 		lblCadastroModelo.setIcon(new ImageIcon("C:\\Program Files\\Sistema de Manuten\u00E7\u00E3o de Frota TJSC\\imagens\\1517_32x32.png"));
@@ -39,9 +50,42 @@ public class PanelCadastroModelo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelListagemModelo();
-			}
-		});
+				MBMarca mbMarca= MBMarca.getInstance();
+				Modelo m =  new Modelo(mbMarca.retornarMarca(comboBoxMarca.getItemAt(comboBoxMarca.getSelectedIndex()).getIdmarca()), textFieldNome.getText());
+
+				MBModelo mbModelo = MBModelo.getInstance();
+				
+					try {
+						if (idModeloSelecionado==0){
+							String retorno = mbModelo.inserir(m);
+							if (retorno.equals("ok")){
+								JOptionPane.showMessageDialog(null,"Produto inserido!");
+								PanelListagemModelo();
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
+						}else{
+							String retorno =  mbModelo.editar(m);
+							if (retorno.equals("ok")){
+								JOptionPane.showMessageDialog(null,"Produto alterado!");
+								PanelListagemModelo();
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
+					}
+						} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
+					
+					
+		
+				}
+				
+				}
+				
+			
+		);
 		
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -53,29 +97,37 @@ public class PanelCadastroModelo extends PanelExemplo {
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
-		JComboBox comboBoxMarca = new JComboBox();
+		MBMarca mbMarca = MBMarca.getInstance();
+		comboBoxMarca = new JComboBox<Marca>();
+		DefaultComboBoxModel<Marca> modeloComboBox;
+		try {
+			modeloComboBox = new DefaultComboBoxModel<Marca>(new Vector(mbMarca.listarMarcas()));
+			comboBoxMarca.setModel(modeloComboBox);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//DefaultComboBoxModel<Fornecedor>(mbFornecedor.listarFornecedores());
 		comboBoxMarca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCadastroModelo)
-							.addGap(281))
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblNome)
 							.addGap(18)
-							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancelar))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMarca)
 							.addGap(18)
-							.addComponent(comboBoxMarca, 0, 367, Short.MAX_VALUE)))
+							.addComponent(comboBoxMarca, 0, 616, Short.MAX_VALUE))
+						.addComponent(lblCadastroModelo))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -91,15 +143,41 @@ public class PanelCadastroModelo extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBoxMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMarca))
-					.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
 					.addGap(27))
 		);
 		setLayout(groupLayout);
+		if (idModeloSelecionado>0){
+			MBModelo mbModelo = MBModelo.getInstance();
+			
+			try {
+				Modelo m = mbModelo.retornarModelo(idModeloSelecionado	);
+				textFieldNome.setText(m.getNome());
+					
+				boolean aux = false ;
+				int  i=0; 
+					
+				while(aux==false){
+						aux= mbMarca.listarMarcas().get(i).getIdmarca()==m.getMarca().getIdmarca();
+				   		if (aux==true) break; 
+				   		i++;
+						
+					}
+					comboBoxMarca.setSelectedIndex(i);
 
+				
+								
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"erro - "+e);
+				// TODO: handle exception
+			}
+			
+		}
 	}
+	
 	public void PanelListagemModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();

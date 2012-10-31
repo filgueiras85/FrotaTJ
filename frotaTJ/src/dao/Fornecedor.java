@@ -20,7 +20,7 @@ import dao.Servico;
  * Fornecedor entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "fornecedor", catalog = "tjsc")
+@Table(name = "fornecedor", catalog = "frotatj")
 public class Fornecedor implements java.io.Serializable {
 
 	// Fields

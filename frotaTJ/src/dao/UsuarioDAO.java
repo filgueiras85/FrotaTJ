@@ -204,8 +204,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Usuario> findAll() {
-		EntityManagerHelper.log("finding all Usuario instances", Level.INFO,
-				null);
+		EntityManagerHelper.log("finding all Usuario instances", Level.INFO,null);
 		try {
 			final String queryString = "select model from Usuario model";
 			Query query = getEntityManager().createQuery(queryString);

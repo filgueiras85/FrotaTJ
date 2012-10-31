@@ -76,7 +76,7 @@ public class TelaPrincipal extends JFrame {
 		mntmModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
 		mntmModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroModelo();
+				PanelCadastroModelo(0);
 			}
 		});
 		mnCadastrar.add(mntmModelo);
@@ -219,8 +219,8 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo,"panelCadastroUsuario");
 	}
-	public void PanelCadastroModelo(){
-		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo();
+	public void PanelCadastroModelo(int i){
+		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( i);
 		panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroModelo");

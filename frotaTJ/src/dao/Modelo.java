@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.print.DocFlavor.STRING;
 
 import dao.Marca;
 import dao.TipoServicoModelo;
@@ -24,7 +25,7 @@ import dao.Veiculo;
  * Modelo entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "modelo", catalog = "tjsc")
+@Table(name = "modelo", catalog = "frotatj")
 public class Modelo implements java.io.Serializable {
 
 	// Fields
@@ -43,8 +44,10 @@ public class Modelo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Modelo(Marca marca) {
+	public Modelo(Marca marca, String nome) {
+		
 		this.marca = marca;
+		this.nome = nome;
 	}
 
 	/** full constructor */

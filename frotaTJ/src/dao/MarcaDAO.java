@@ -180,8 +180,7 @@ public class MarcaDAO implements IMarcaDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Marca> findAll() {
-		EntityManagerHelper
-				.log("finding all Marca instances", Level.INFO, null);
+		EntityManagerHelper.log("finding all Marca instances", Level.INFO, null);
 		try {
 			final String queryString = "select model from Marca model";
 			Query query = getEntityManager().createQuery(queryString);

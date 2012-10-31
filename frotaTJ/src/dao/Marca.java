@@ -20,7 +20,7 @@ import dao.Modelo;
  * Marca entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "marca", catalog = "tjsc")
+@Table(name = "marca", catalog = "frotatj")
 public class Marca implements java.io.Serializable {
 
 	// Fields
@@ -71,4 +71,8 @@ public class Marca implements java.io.Serializable {
 		this.modelos = modelos;
 	}
 
+	public String toString()
+	{
+		return this.getNome();
+	}
 }

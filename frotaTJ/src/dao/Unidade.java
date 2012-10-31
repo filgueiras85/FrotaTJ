@@ -20,7 +20,7 @@ import dao.Veiculo;
  * Unidade entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "unidade", catalog = "tjsc")
+@Table(name = "unidade", catalog = "frotatj")
 public class Unidade implements java.io.Serializable {
 
 	// Fields

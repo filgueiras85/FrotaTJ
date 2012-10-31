@@ -17,7 +17,7 @@ import dao.Modelo;
  * TipoServicoModelo entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "tipo_servico_modelo", catalog = "tjsc")
+@Table(name = "tipo_servico_modelo", catalog = "frotatj")
 public class TipoServicoModelo implements java.io.Serializable {
 
 	// Fields
