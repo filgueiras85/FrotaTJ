@@ -51,20 +51,25 @@ public class PanelCadastroModelo extends PanelExemplo {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBMarca mbMarca= MBMarca.getInstance();
-				Modelo m =  new Modelo(mbMarca.retornarMarca(comboBoxMarca.getItemAt(comboBoxMarca.getSelectedIndex()).getIdmarca()), textFieldNome.getText());
 
 				MBModelo mbModelo = MBModelo.getInstance();
-				
+				Modelo m =  new Modelo(new Integer(idModeloSelecionado),mbMarca.retornarMarca(comboBoxMarca.getItemAt(comboBoxMarca.getSelectedIndex()).getIdmarca()), textFieldNome.getText());
+
 					try {
 						if (idModeloSelecionado==0){
+							if (m.getIdmodelo()==0){
+								m.setIdmodelo(null);
+							}
 							String retorno = mbModelo.inserir(m);
 							if (retorno.equals("ok")){
+								
 								JOptionPane.showMessageDialog(null,"Produto inserido!");
 								PanelListagemModelo();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
 							}
 						}else{
+							
 							String retorno =  mbModelo.editar(m);
 							if (retorno.equals("ok")){
 								JOptionPane.showMessageDialog(null,"Produto alterado!");

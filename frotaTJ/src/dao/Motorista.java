@@ -115,4 +115,8 @@ public class Motorista implements java.io.Serializable {
 		this.veiculos = veiculos;
 	}
 
+	public String toString()
+	{
+		return this.getNome();
+	}
 }

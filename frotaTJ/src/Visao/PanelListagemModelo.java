@@ -1,4 +1,5 @@
 package Visao;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -53,6 +54,24 @@ public class PanelListagemModelo extends PanelExemplo {
 		
 		
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MBModelo mbModelo = MBModelo.getInstance();
+				try {
+					Modelo m = mbModelo.retornarModelo(idModeloSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Modelo selecionado ?");
+					if (op==JOptionPane.YES_OPTION ) {
+						
+						
+						JOptionPane.showMessageDialog(null,mbModelo.apagar(m));
+						atualizarTabela();
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"erro - "+e);
+					// TODO: handle exception
+				}
+			}
+		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		final JButton btnEditar = new JButton("Editar");

@@ -44,8 +44,8 @@ public class Modelo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Modelo(Marca marca, String nome) {
-		
+	public Modelo(Integer idmodelo,Marca marca, String nome) {
+		this.idmodelo= idmodelo;
 		this.marca = marca;
 		this.nome = nome;
 	}
@@ -53,6 +53,7 @@ public class Modelo implements java.io.Serializable {
 	/** full constructor */
 	public Modelo(Marca marca, String nome, Set<Veiculo> veiculos,
 			Set<TipoServicoModelo> tipoServicoModelos) {
+		
 		this.marca = marca;
 		this.nome = nome;
 		this.veiculos = veiculos;

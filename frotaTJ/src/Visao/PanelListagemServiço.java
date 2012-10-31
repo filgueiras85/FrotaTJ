@@ -103,10 +103,10 @@ public class PanelListagemServiço extends PanelExemplo {
 	public void PanelCadastroServiço(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço();
+			parent.PanelCadastroServiço(0);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço();
+			parent.PanelCadastroServiço(0);
 		}
 	}
 }

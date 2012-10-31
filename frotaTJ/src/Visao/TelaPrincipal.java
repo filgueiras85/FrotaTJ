@@ -89,7 +89,7 @@ public class TelaPrincipal extends JFrame {
 		mntmServio.setIcon(new ImageIcon(winDir+"ico-recursos-integra.png"));
 		mntmServio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelCadastroServiço(0);
 			}
 		});
 		mnCadastrar.add(mntmServio);
@@ -225,8 +225,8 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroModelo");
 	}
-	public void PanelCadastroServiço(){
-		PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço();
+	public void PanelCadastroServiço(int i){
+		PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
 		panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroServiço");

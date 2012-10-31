@@ -37,7 +37,7 @@ public class Veiculo implements java.io.Serializable {
 	private Motorista motorista;
 	private Unidade unidade;
 	private String placa;
-	private String revavan;
+	private String renavan;
 	private String chassi;
 	private Integer odometro;
 	private Boolean situacao;
@@ -61,14 +61,14 @@ public class Veiculo implements java.io.Serializable {
 
 	/** full constructor */
 	public Veiculo(Modelo modelo, Motorista motorista, Unidade unidade,
-			String placa, String revavan, String chassi, Integer odometro,
+			String placa, String renavan, String chassi, Integer odometro,
 			Boolean situacao, Set<Abastecimento> abastecimentos,
 			Set<Servico> servicos, Set<TipoServicoVeiculo> tipoServicoVeiculos) {
 		this.modelo = modelo;
 		this.motorista = motorista;
 		this.unidade = unidade;
 		this.placa = placa;
-		this.revavan = revavan;
+		this.renavan = renavan;
 		this.chassi = chassi;
 		this.odometro = odometro;
 		this.situacao = situacao;
@@ -128,13 +128,13 @@ public class Veiculo implements java.io.Serializable {
 		this.placa = placa;
 	}
 
-	@Column(name = "revavan", length = 20)
-	public String getRevavan() {
-		return this.revavan;
+	@Column(name = "renavan", length = 20)
+	public String getrenavan() {
+		return this.renavan;
 	}
 
-	public void setRevavan(String revavan) {
-		this.revavan = revavan;
+	public void setrenavan(String renavan) {
+		this.renavan = renavan;
 	}
 
 	@Column(name = "chassi", length = 50)
@@ -192,4 +192,8 @@ public class Veiculo implements java.io.Serializable {
 		this.tipoServicoVeiculos = tipoServicoVeiculos;
 	}
 
+	public String toString()
+	{
+		return this.getPlaca();
+	}
 }

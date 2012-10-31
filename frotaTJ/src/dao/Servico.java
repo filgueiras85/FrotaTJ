@@ -50,13 +50,30 @@ public class Servico implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Servico(Usuario usuario, Motorista motorista, Veiculo veiculo,
+	public Servico(Integer id,Usuario usuario, Motorista motorista, Veiculo veiculo,
 			Fornecedor fornecedor, TipoServico tipoServico) {
+		this.idServico = id;
 		this.usuario = usuario;
 		this.motorista = motorista;
 		this.veiculo = veiculo;
 		this.fornecedor = fornecedor;
 		this.tipoServico = tipoServico;
+	}
+	public Servico(Integer id, Motorista motorista, Veiculo veiculo,
+			Fornecedor fornecedor, TipoServico tipoServico, Timestamp data,
+			Double valor, String nroOrcamento, Integer nfTicket,
+			String descricao, Integer km) {
+		this.idServico = id;
+		this.motorista = motorista;
+		this.veiculo = veiculo;
+		this.fornecedor = fornecedor;
+		this.tipoServico = tipoServico;
+		this.data2 = data;
+		this.valor = valor;
+		this.nroOrcamento = nroOrcamento;
+		this.nfTicket = nfTicket;
+		this.descricao = descricao;
+		this.km = km;
 	}
 
 	/** full constructor */
