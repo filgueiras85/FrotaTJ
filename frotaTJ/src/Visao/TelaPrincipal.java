@@ -61,6 +61,11 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenuItem mntmAbastecimento = new JMenuItem("Abastecimento");
 		mntmAbastecimento.setIcon(new ImageIcon(winDir+"2895_32x32.png"));
+		mntmAbastecimento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroAbastecimento(0);
+			}
+		});
 		mnCadastrar.add(mntmAbastecimento);
 		
 		JMenuItem mntmFornecedor = new JMenuItem("Fornecedor");
@@ -231,5 +236,12 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroServiço");
 	}
+	public void PanelCadastroAbastecimento(int j){
+		PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento( j);
+		panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroAbastecimento");
+	}
 }
+
 
