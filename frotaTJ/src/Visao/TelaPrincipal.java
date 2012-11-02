@@ -218,6 +218,14 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo,"panelListagemUsuario");
 	}
+	
+	public void PanelListagemVeiculo(){
+		PanelListagemVeiculo panelListagemVeiculo = new PanelListagemVeiculo();
+		panelConteudo.add(panelListagemVeiculo, "panelListagemVeiculo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemVeiculo");
+	}
+	
 	public void PanelCadastroUsuario(){
 		PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario();
 		panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
@@ -242,6 +250,14 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroAbastecimento");
 	}
+	
+	public void PanelCadastroVeiculo(int id){
+		PanelCadastroVeiculo panelCadastroVeiculo = new PanelCadastroVeiculo(id);
+		panelConteudo.add(panelCadastroVeiculo, "panelCadastroVeiculo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroVeiculo");
+	}
+	
 }
 
 
