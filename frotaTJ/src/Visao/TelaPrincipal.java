@@ -117,6 +117,11 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.add(mntmUsuario);
 		
 		JMenuItem mntmCarro = new JMenuItem("Veiculo");
+		mntmCarro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroVeiculo(0);
+			}
+		});
 		mntmCarro.setIcon(new ImageIcon(winDir+"1519_32x32.png"));
 		mnCadastrar.add(mntmCarro);
 		
@@ -168,6 +173,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		JMenuItem menuItem_9 = new JMenuItem("Veiculo");
+		menuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelListagemVeiculo();
+			}
+		});
 		mnListar.add(menuItem_9);
 		
 		JMenu mnRelatorios = new JMenu("Relatorios");
