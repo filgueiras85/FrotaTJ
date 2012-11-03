@@ -1,4 +1,5 @@
 package Visao;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -10,8 +11,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+import mb.MBServico;
 import mb.MBVeiculo;
 
+import dao.Servico;
 import dao.Veiculo;
 import dao.VeiculoDAO;
 
@@ -19,18 +22,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class PanelListagemVeiculo extends PanelExemplo {
 	private JTable table;
 	private int idVeiculoSelecionado;
+	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelListagemVeiculo() {
-		final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
-		
+	public PanelListagemVeiculo() {		
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
@@ -51,13 +55,26 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		
 		
-		JButton btnApagar = new JButton("Apagar");
+		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Veiculo v = mbVeiculo.retornarVeiculo(idVeiculoSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Veículo selecionado?");
+					if (op==JOptionPane.YES_OPTION ) {
+						
+						
+						JOptionPane.showMessageDialog(null,mbVeiculo.apagar(v));
+						atualizarTabela();
+					}
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"erro - "+e1);
+					// TODO: handle exception
+				}
 			}
 		});
 		
-		JButton btnEditar = new JButton("Editar");
+		final JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Veiculo v = new Veiculo();
@@ -66,6 +83,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				PanelCadastroVeiculo(idVeiculoSelecionado);
 			}
 		});
+		
+		
+	//----------------------------Layout do Panel ----------------------------\\
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -100,7 +120,19 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					.addContainerGap())
 		);
 		
+		btnEditar.setVisible(false);
+		btnApagar.setVisible(false);
+		
+	//--------------------------------------Tabela ------------------------------\\
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				btnEditar.setVisible(true);
+				btnApagar.setVisible(true);
+			}
+		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null, null, null, null, null},
@@ -110,9 +142,20 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		));
 		scrollPane.setViewportView(table);
+		try {
+			atualizarTabela();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setLayout(groupLayout);
 
 	}
+	
+//-----------------------------------Métodos ---------------------------------\\
 	public void PanelCadastroVeiculo(int id){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
@@ -120,6 +163,18 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelCadastroVeiculo(id);
+		}
+	}
+	
+	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		for (int i=0;i<listaVeiculo.size();i++){
+			((DefaultTableModel)table.getModel()).addRow(new String[]{
+					listaVeiculo.get(i).getIdveiculo()+"", 
+					listaVeiculo.get(i).getPlaca()+"", listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi()+"",
+					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao()+"", listaVeiculo.get(i).getModelo().getNome(),
+					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 		}
 	}
 	

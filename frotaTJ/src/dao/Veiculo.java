@@ -51,6 +51,18 @@ public class Veiculo implements java.io.Serializable {
 	/** default constructor */
 	public Veiculo() {
 	}
+	/**constructor de cadastro */
+	public Veiculo(Integer idVeiculo, Modelo modelo, Motorista motorista, Unidade unidade,
+			String placa, String renavan, String chassi, Integer odometro){
+		this.idveiculo = idVeiculo;
+		this.modelo = modelo;
+		this.motorista = motorista;
+		this.unidade = unidade;
+		this.placa = placa;
+		this.renavan = renavan;
+		this.chassi = chassi;
+		this.odometro = odometro;		
+	}
 
 	/** minimal constructor */
 	public Veiculo(Modelo modelo, Motorista motorista, Unidade unidade) {
@@ -60,10 +72,11 @@ public class Veiculo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Veiculo(Modelo modelo, Motorista motorista, Unidade unidade,
+	public Veiculo(Integer idVeiculo, Modelo modelo, Motorista motorista, Unidade unidade,
 			String placa, String renavan, String chassi, Integer odometro,
 			Boolean situacao, Set<Abastecimento> abastecimentos,
 			Set<Servico> servicos, Set<TipoServicoVeiculo> tipoServicoVeiculos) {
+		this.idveiculo = idVeiculo;
 		this.modelo = modelo;
 		this.motorista = motorista;
 		this.unidade = unidade;
