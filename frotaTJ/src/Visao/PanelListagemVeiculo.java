@@ -35,11 +35,13 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemVeiculo() {		
+	// ------------------- Lebel -----------------------\\
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
+	//------------------------- Botões ----------------------------\\
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -142,6 +144,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+	//--------------------------------Atualizando a Tabela ---------------------------\\	
 		try {
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
