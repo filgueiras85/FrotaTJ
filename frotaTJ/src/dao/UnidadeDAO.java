@@ -54,12 +54,12 @@ public class UnidadeDAO implements IUnidadeDAO {
 	 *             when the operation fails
 	 */
 	public void save(Unidade entity) {
-		EntityManagerHelper.log("saving Unidade instance", Level.INFO, null);
+		//EntityManagerHelper.log("saving Unidade instance", Level.INFO, null);
 		try {
 			EntityManagerHelper.beginTransaction();getEntityManager().persist(entity);EntityManagerHelper.commit();
-			EntityManagerHelper.log("save successful", Level.INFO, null);
+			//EntityManagerHelper.log("save successful", Level.INFO, null);
 		} catch (RuntimeException re) {
-			EntityManagerHelper.log("save failed", Level.SEVERE, re);
+			//EntityManagerHelper.log("save failed", Level.SEVERE, re);
 			throw re;
 		}
 	}
@@ -84,14 +84,14 @@ public class UnidadeDAO implements IUnidadeDAO {
 	 *             when the operation fails
 	 */
 	public void delete(Unidade entity) {
-		EntityManagerHelper.log("deleting Unidade instance", Level.INFO, null);
+		//EntityManagerHelper.log("deleting Unidade instance", Level.INFO, null);
 		try {
 			entity = getEntityManager().getReference(Unidade.class,
 					entity.getIdunidade());
 			EntityManagerHelper.beginTransaction();getEntityManager().remove(entity);EntityManagerHelper.commit();
-			EntityManagerHelper.log("delete successful", Level.INFO, null);
+			//EntityManagerHelper.log("delete successful", Level.INFO, null);
 		} catch (RuntimeException re) {
-			EntityManagerHelper.log("delete failed", Level.SEVERE, re);
+			//EntityManagerHelper.log("delete failed", Level.SEVERE, re);
 			throw re;
 		}
 	}
@@ -120,27 +120,27 @@ public class UnidadeDAO implements IUnidadeDAO {
 	 *             if the operation fails
 	 */
 	public Unidade update(Unidade entity) {
-		EntityManagerHelper.log("updating Unidade instance", Level.INFO, null);
+		//EntityManagerHelper.log("updating Unidade instance", Level.INFO, null);
 		try {
 			EntityManagerHelper.beginTransaction();
 			Unidade result = getEntityManager().merge(entity);
 			EntityManagerHelper.commit();
-			EntityManagerHelper.log("update successful", Level.INFO, null);
+			//EntityManagerHelper.log("update successful", Level.INFO, null);
 			return result;
 		} catch (RuntimeException re) {
-			EntityManagerHelper.log("update failed", Level.SEVERE, re);
+			//EntityManagerHelper.log("update failed", Level.SEVERE, re);
 			throw re;
 		}
 	}
 
 	public Unidade findById(Integer id) {
-		EntityManagerHelper.log("finding Unidade instance with id: " + id,
-				Level.INFO, null);
+		//EntityManagerHelper.log("finding Unidade instance with id: " + id,
+		//		Level.INFO, null);
 		try {
 			Unidade instance = getEntityManager().find(Unidade.class, id);
 			return instance;
 		} catch (RuntimeException re) {
-			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			//EntityManagerHelper.log("find failed", Level.SEVERE, re);
 			throw re;
 		}
 	}
@@ -156,8 +156,8 @@ public class UnidadeDAO implements IUnidadeDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Unidade> findByProperty(String propertyName, final Object value) {
-		EntityManagerHelper.log("finding Unidade instance with property: "
-				+ propertyName + ", value: " + value, Level.INFO, null);
+		//EntityManagerHelper.log("finding Unidade instance with property: "
+		//		+ propertyName + ", value: " + value, Level.INFO, null);
 		try {
 			final String queryString = "select model from Unidade model where model."
 					+ propertyName + "= :propertyValue";
@@ -165,8 +165,8 @@ public class UnidadeDAO implements IUnidadeDAO {
 			query.setParameter("propertyValue", value);
 			return query.getResultList();
 		} catch (RuntimeException re) {
-			EntityManagerHelper.log("find by property name failed",
-					Level.SEVERE, re);
+			//EntityManagerHelper.log("find by property name failed",
+		//			Level.SEVERE, re);
 			throw re;
 		}
 	}

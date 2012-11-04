@@ -22,7 +22,8 @@ import java.util.List;
 
 public class PanelListagemUsuario extends PanelExemplo {
 	private JTable table;
-
+	private int idUsuarioSelecionado;
+	MBUsuario mbUsuario = MBUsuario.getInstance();
 	/**
 	 * Create the panel.
 	 */
@@ -35,11 +36,6 @@ public class PanelListagemUsuario extends PanelExemplo {
 
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroUsuario();
-			}
-		});
 
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -49,11 +45,7 @@ public class PanelListagemUsuario extends PanelExemplo {
 
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroUsuario();
-			}
-		});
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -98,11 +90,12 @@ public class PanelListagemUsuario extends PanelExemplo {
 				new Object[][] {
 				},
 				new String[] {
-						"Id", "Nome", "Matricula", "Email"
+						"Id", "Nome", "Matricula", "Email", "Tipo Usuario"
 				}
 				));
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
+		
 		try {
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
@@ -112,16 +105,46 @@ public class PanelListagemUsuario extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroUsuario(0);
+			}
+		});
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Usuario usuario = new Usuario();
+				idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);
+				PanelCadastroUsuario(idUsuarioSelecionado);
+			}
+		});
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Usuario usuario = new Usuario();
+				idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);
+				mbUsuario.apagar(usuario);
+				try {
+					atualizarTabela();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
-	public void PanelCadastroUsuario(){
+	public void PanelCadastroUsuario(int idUsuario){
 		try {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroUsuario();
+			parent.PanelCadastroUsuario(idUsuario);
 		} catch (Exception e) {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroUsuario();
+			parent.PanelCadastroUsuario(idUsuario);
 		}
 	}
 

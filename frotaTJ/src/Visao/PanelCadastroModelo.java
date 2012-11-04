@@ -106,13 +106,20 @@ public class PanelCadastroModelo extends PanelExemplo {
 		MBMarca mbMarca = MBMarca.getInstance();
 		comboBoxMarca = new JComboBox<Marca>();
 		DefaultComboBoxModel<Marca> modeloComboBox;
-		try {
-			modeloComboBox = new DefaultComboBoxModel<Marca>(new Vector(mbMarca.listarMarcas()));
-			comboBoxMarca.setModel(modeloComboBox);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+			try {
+				modeloComboBox = new DefaultComboBoxModel<Marca>(new Vector(mbMarca.listarMarcas()));
+				comboBoxMarca.setModel(modeloComboBox);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		
+		
 		//DefaultComboBoxModel<Fornecedor>(mbFornecedor.listarFornecedores());
 		comboBoxMarca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);

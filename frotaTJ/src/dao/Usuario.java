@@ -27,7 +27,7 @@ public class Usuario implements java.io.Serializable {
 	private Integer idUsuario;
 	private String nome;
 	private String matricula;
-	private char[] senha;
+	private String senha;
 	private String email;
 	private Boolean administrador;
 	private Set<Servico> servicos = new HashSet<Servico>(0);
@@ -37,7 +37,7 @@ public class Usuario implements java.io.Serializable {
 	/** default constructor */
 	public Usuario() {
 	}
-	public Usuario(Integer idUsuario, String nome, String matricula, char[] senha, String email, Boolean administrador){
+	public Usuario(Integer idUsuario, String nome, String matricula, String senha, String email, Boolean administrador){
 		this.idUsuario = idUsuario;
 		this.nome = nome;
 		this.matricula = matricula;
@@ -46,7 +46,7 @@ public class Usuario implements java.io.Serializable {
 		this.administrador = administrador;
 	}
 	/** full constructor */
-	public Usuario(String nome, String matricula, char[] senha, String email,
+	public Usuario(String nome, String matricula, String senha, String email,
 			Boolean administrador, Set<Servico> servicos) {
 		this.nome = nome;
 		this.matricula = matricula;
@@ -87,11 +87,11 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@Column(name = "senha", length = 6)
-	public char[] getSenha() {
+	public String getSenha() {
 		return this.senha;
 	}
 
-	public void setSenha(char[] senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
