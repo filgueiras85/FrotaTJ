@@ -40,7 +40,7 @@ public class Veiculo implements java.io.Serializable {
 	private String renavan;
 	private String chassi;
 	private Integer odometro;
-	private Boolean situacao;
+	private String situacao;
 	private Set<Abastecimento> abastecimentos = new HashSet<Abastecimento>(0);
 	private Set<Servico> servicos = new HashSet<Servico>(0);
 	private Set<TipoServicoVeiculo> tipoServicoVeiculos = new HashSet<TipoServicoVeiculo>(
@@ -74,7 +74,7 @@ public class Veiculo implements java.io.Serializable {
 	/** full constructor */
 	public Veiculo(Integer idVeiculo, Modelo modelo, Motorista motorista, Unidade unidade,
 			String placa, String renavan, String chassi, Integer odometro,
-			Boolean situacao, Set<Abastecimento> abastecimentos,
+			String situacao, Set<Abastecimento> abastecimentos,
 			Set<Servico> servicos, Set<TipoServicoVeiculo> tipoServicoVeiculos) {
 		this.idveiculo = idVeiculo;
 		this.modelo = modelo;
@@ -169,11 +169,11 @@ public class Veiculo implements java.io.Serializable {
 	}
 
 	@Column(name = "situacao")
-	public Boolean getSituacao() {
+	public String getSituacao() {
 		return this.situacao;
 	}
 
-	public void setSituacao(Boolean situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

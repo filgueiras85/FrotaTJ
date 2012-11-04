@@ -52,6 +52,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				PanelInicial();
 				
 			}
 		});
@@ -170,14 +171,24 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		}
 	}
 	
+	public void PanelInicial(){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelInicial();
+		} catch (Exception e) {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+			parent.PanelInicial();
+		}
+	}
+	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
 		for (int i=0;i<listaVeiculo.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaVeiculo.get(i).getIdveiculo()+"", 
-					listaVeiculo.get(i).getPlaca()+"", listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi()+"",
-					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao()+"", listaVeiculo.get(i).getModelo().getNome(),
+					listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
+					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 		}
 	}

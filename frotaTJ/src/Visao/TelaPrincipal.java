@@ -43,17 +43,29 @@ public class TelaPrincipal extends JFrame {
 		setContentPane(panelConteudo);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+	
+	//-------------------------- Menu Inicio --------------------------\\
 		JMenu mnInicio = new JMenu(" Inicio");
 		mnInicio.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnInicio.setIcon(new ImageIcon(winDir+"7161_32x32.png"));
 		menuBar.add(mnInicio);
 		
+		JMenuItem mntmTelaInicial = new JMenuItem("Tela Inicial");
+		mntmTelaInicial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelInicial();
+			}
+		});
+		mnInicio.add(mntmTelaInicial);
+
+	//-------------------------- Menu Arquivo --------------------------\\		
 		JMenu mnArquivo = new JMenu("Arquivo");
 		mnArquivo.setIcon(new ImageIcon(winDir+"8366_32x32.png"));
 		mnArquivo.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnArquivo);
 		
+		
+	//-------------------------- Menu Cadastrar --------------------------\\		
 		JMenu mnCadastrar = new JMenu("Cadastrar");
 		mnCadastrar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnCadastrar.setIcon(new ImageIcon(winDir+"6098_32x32.png"));
@@ -121,6 +133,7 @@ public class TelaPrincipal extends JFrame {
 		});		
 		mnCadastrar.add(mntmUsuario);
 		
+		//Item Cadastrar Veiculo
 		JMenuItem mntmCarro = new JMenuItem("Veiculo");
 		mntmCarro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -130,6 +143,8 @@ public class TelaPrincipal extends JFrame {
 		mntmCarro.setIcon(new ImageIcon(winDir+"1519_32x32.png"));
 		mnCadastrar.add(mntmCarro);
 		
+		
+	//-------------------------- Menu Listar --------------------------\\	
 		JMenu mnListar = new JMenu("Listagem");
 		mnListar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnListar.setIcon(new ImageIcon(winDir+"6169_32x32.png"));
@@ -181,6 +196,8 @@ public class TelaPrincipal extends JFrame {
 				PanelListagemUsuario();
 			}
 		});
+		
+		//Menu Item Listar Veiculo
 		JMenuItem menuItem_9 = new JMenuItem("Veiculo");
 		menuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,11 +206,13 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_9);
 		
+	//-------------------------- Menu Relatorios --------------------------\\		
 		JMenu mnRelatorios = new JMenu("Relatorios");
 		mnRelatorios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnRelatorios.setIcon(new ImageIcon(winDir+"1588_32x32.png"));
 		menuBar.add(mnRelatorios);
-		
+	
+	//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.setIcon(new ImageIcon(winDir+"7837_32x32.png"));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
@@ -214,8 +233,17 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 	}
-
-
+	
+	//--------------------- Método para voltar para o Panel Inicial ----------------------\\
+	public void PanelInicial(){
+		PanelInicial panelInicial = new PanelInicial();
+		panelConteudo.add(panelInicial, "panelInicial");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelInicial");
+	}	
+	
+	
+	//--------------------- Métodos para troca de Panel de cadastro ---------------------\\
 	public void PanelCadastroAbastecimento(int j){
 		PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento( j);
 		panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
@@ -258,6 +286,8 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo,"panelCadastroUsuario");
 	}
 
+	
+//--------------------- Métodos para troca de Panel de cadastro ---------------------\\	
 	public void PanelListagemModelo(){
 		PanelListagemModelo panelListagemModelo = new PanelListagemModelo();
 		panelConteudo.add(panelListagemModelo, "panelListagemModelo");
