@@ -35,8 +35,8 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	private JTextField textFieldOdometro;
 	private JTextField textFieldChassi;
 	private JTextField textFieldRenavan;
-	private JComboBox<Modelo> comboBoxModelo;
-	private JComboBox<Unidade> comboBoxUnidade;
+	private JComboBox<String> comboBoxModelo;
+	private JComboBox<String> comboBoxUnidade;
 	private JComboBox<Motorista> comboBoxMotorista;
 
 	/**
@@ -91,21 +91,36 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		textFieldRenavan.setColumns(10);
 
 	// ------------------------------ ComboBoxs ---------------------------\\		
-		comboBoxModelo = new JComboBox<Modelo>();
+		comboBoxModelo = new JComboBox<String>();
 		comboBoxModelo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DefaultComboBoxModel<Modelo> modelComboBoxModelo;
+		DefaultComboBoxModel<String> modelComboBoxModelo;
+		final Vector<Modelo> listaModelo = new Vector<>();
+		final Vector<String> listaNomeModelo = new Vector<>();
 		try {
-			modelComboBoxModelo = new DefaultComboBoxModel<Modelo>(new Vector(mbModelo.listarModelos()));
+			listaModelo.addAll(mbModelo.listarModelos());
+			
+			for (int i = 0; i<listaModelo.size();i++){
+				listaNomeModelo.add(listaModelo.get(i).getNome());
+			}
+			modelComboBoxModelo = new DefaultComboBoxModel<String>(listaNomeModelo);
 			comboBoxModelo.setModel(modelComboBoxModelo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
 		
-		comboBoxUnidade = new JComboBox<Unidade>();
+		comboBoxUnidade = new JComboBox<String>();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DefaultComboBoxModel<Unidade> modelComboBoxUnidade;
+		DefaultComboBoxModel<String> modelComboBoxUnidade;
+		final Vector<Unidade> listaUnidade = new Vector<>();
+		final Vector<String> listaNomeUnidade = new Vector<>();
+		
 		try {
-			modelComboBoxUnidade = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
+			listaUnidade.addAll(mbUnidade.listarUnidades());
+			
+			for (int i = 0; i<listaUnidade.size();i++){
+				listaNomeUnidade.add(listaUnidade.get(i).getNome());
+			}
+			modelComboBoxUnidade = new DefaultComboBoxModel<String>(listaNomeUnidade);
 			comboBoxUnidade.setModel(modelComboBoxUnidade);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -134,8 +149,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean situacao=true;
-				Veiculo v = new Veiculo(idVeiculoSelecionado, mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText()));
+				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText()));
 				try {
 					if (idVeiculoSelecionado==0){
 						if (v.getIdveiculo()==0){
