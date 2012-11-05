@@ -17,6 +17,7 @@ import dao.Unidade;
 import dao.Veiculo;
 
 import mb.MBModelo;
+import mb.MBUnidade;
 import mb.MBVeiculo;
 
 import java.awt.event.MouseAdapter;
@@ -36,7 +37,12 @@ public class PanelInicial extends PanelExemplo {
 	private JTable table;
 	private int idVeiculoSelecionado;
 	private JTextField textFieldPlaca;
+	private JComboBox<String> comboBoxSituacao;
+	private JComboBox<String> comboBoxUnidade;
+	
+	
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+	final MBUnidade mbUnidade = MBUnidade.getInstance();
 	/**
 	 * Create the panel.
 	 * @throws ClassNotFoundException 
@@ -64,41 +70,27 @@ public class PanelInicial extends PanelExemplo {
 		
 	//--------------------------- ComboBox ---------------------------\\
 		
-		JComboBox comboBoxSituacao = new JComboBox();
+		comboBoxSituacao = new JComboBox<String>();
 		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DefaultComboBoxModel<String> modelComboBoxSituacao;
-		
-		Vector<String> vectorSituacao = new Vector<>();
-
-		try {
-			
-			for (int i=0; i<mbVeiculo.listarVeiculos().size()-1; i++){
-				vectorSituacao.add(mbVeiculo.listarVeiculos().get(i).getSituacao());
-			}
-			
-			modelComboBoxSituacao = new DefaultComboBoxModel<String>(vectorSituacao);
-			comboBoxSituacao.setModel(modelComboBoxSituacao);
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		comboBoxSituacao.addItem("ok");
+		comboBoxSituacao.addItem("a fazer");
+		comboBoxSituacao.addItem("atrasado");	
 		
 		
-		JComboBox comboBoxUnidade = new JComboBox();
+		comboBoxUnidade = new JComboBox<String>();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DefaultComboBoxModel<Unidade> modelComboBoxUnidade;
+		DefaultComboBoxModel<String> modelComboBoxUnidade;
+		final Vector<Unidade> listaUnidade = new Vector<>();
+		final Vector<String> listaNomeUnidade = new Vector<>();
 		
-		Vector<Unidade> vectorUnidade = new Vector<>();
-
 		try {
-			for (int i=0; i<mbVeiculo.listarVeiculos().size()-1; i++){
-				vectorUnidade.add(mbVeiculo.listarVeiculos().get(i).getUnidade());
+			listaUnidade.addAll(mbUnidade.listarUnidades());
+			
+			for (int i = 0; i<listaUnidade.size();i++){
+				listaNomeUnidade.add(listaUnidade.get(i).getNome());
 			}
-			modelComboBoxUnidade = new DefaultComboBoxModel<Unidade>(vectorUnidade);
-			comboBoxSituacao.setModel(modelComboBoxUnidade);
+			modelComboBoxUnidade = new DefaultComboBoxModel<String>(listaNomeUnidade);
+			comboBoxUnidade.setModel(modelComboBoxUnidade);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
