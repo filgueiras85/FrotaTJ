@@ -20,6 +20,7 @@ import mb.MBUnidade;
 
 
 import dao.Unidade;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class PanelListagemUnidade extends PanelExemplo {
@@ -37,9 +38,6 @@ public class PanelListagemUnidade extends PanelExemplo {
 
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnApagar = new JButton("Apagar");
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -65,16 +63,16 @@ public class PanelListagemUnidade extends PanelExemplo {
 					.addComponent(lblListagemUsuario))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 430, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(130)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+					.addGap(10))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(213, Short.MAX_VALUE)
 					.addComponent(btnNovo)
 					.addGap(6)
 					.addComponent(btnEditar)
 					.addGap(6)
 					.addComponent(btnApagar)
-					.addGap(6)
-					.addComponent(btnVoltar))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -82,13 +80,13 @@ public class PanelListagemUnidade extends PanelExemplo {
 					.addGap(11)
 					.addComponent(lblListagemUsuario)
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNovo)
 						.addComponent(btnEditar)
-						.addComponent(btnApagar)
-						.addComponent(btnVoltar)))
+						.addComponent(btnApagar))
+					.addGap(18))
 		);
 		setLayout(groupLayout);
 		

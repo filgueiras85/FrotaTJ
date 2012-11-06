@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class TelaPrincipal extends JFrame {
@@ -47,17 +49,15 @@ public class TelaPrincipal extends JFrame {
 	
 	//-------------------------- Menu Inicio --------------------------\\
 		JMenu mnInicio = new JMenu(" Inicio");
-		mnInicio.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
-		mnInicio.setIcon(new ImageIcon(winDir+"7161_32x32.png"));
-		menuBar.add(mnInicio);
-		
-		JMenuItem mntmTelaInicial = new JMenuItem("Tela Inicial");
-		mntmTelaInicial.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		mnInicio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				PanelInicial();
 			}
 		});
-		mnInicio.add(mntmTelaInicial);
+		mnInicio.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
+		mnInicio.setIcon(new ImageIcon(winDir+"7161_32x32.png"));
+		menuBar.add(mnInicio);
 
 	//-------------------------- Menu Arquivo --------------------------\\		
 		JMenu mnArquivo = new JMenu("Arquivo");

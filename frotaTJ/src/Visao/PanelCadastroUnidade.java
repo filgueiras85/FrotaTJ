@@ -39,12 +39,11 @@ public class PanelCadastroUnidade extends PanelExemplo {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 					.addGap(189))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(86)
-					.addComponent(btnSalvar, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-					.addGap(30)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(178))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(284, Short.MAX_VALUE)
+					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -53,11 +52,11 @@ public class PanelCadastroUnidade extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNome))
-					.addPreferredGap(ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addGap(76))
+					.addContainerGap())
 		);
 		setLayout(groupLayout);
 		
