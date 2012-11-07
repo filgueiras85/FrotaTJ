@@ -15,6 +15,7 @@ import mb.MBUnidade;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class PanelCadastroUnidade extends PanelExemplo {
 	private JTextField txtNome;
@@ -25,37 +26,49 @@ public class PanelCadastroUnidade extends PanelExemplo {
 		txtNome.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnSalvar = new JButton("Salvar");
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		
+		JLabel lblCadastroDeUnidade = new JLabel("Cadastro de Unidade");
+		lblCadastroDeUnidade.setFont(new Font("Tahoma", Font.BOLD, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(53)
-					.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-					.addGap(189))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(284, Short.MAX_VALUE)
+					.addContainerGap(247, Short.MAX_VALUE)
 					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addGap(29))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(36)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+							.addGap(27)
+							.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+							.addGap(189))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblCadastroDeUnidade)
+							.addContainerGap(204, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(75)
+					.addGap(25)
+					.addComponent(lblCadastroDeUnidade)
+					.addGap(36)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNome))
-					.addPreferredGap(ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancelar)
-						.addComponent(btnSalvar))
+						.addComponent(btnSalvar)
+						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
@@ -70,7 +83,6 @@ public class PanelCadastroUnidade extends PanelExemplo {
 			}
 		}
 		
-		
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ( idUnidadeSelecionada == 0){
@@ -80,17 +92,23 @@ public class PanelCadastroUnidade extends PanelExemplo {
 					Unidade unidade = new Unidade(idUnidadeSelecionada, txtNome.getText());
 					mbUnidade.editar(unidade);
 				}
+				PanelListagemUnidade();
 			}
 		});
 
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * Voltar para onde? TelaPrincipal.
-				 *
-				 */
+				PanelListagemUnidade();
 			}
 		});
-		
+	}
+	public void PanelListagemUnidade(){
+		try {
+			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelListagemUnidade();
+		} catch (Exception e) {
+			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+			parent.PanelListagemUnidade();
+		}
 	}
 }

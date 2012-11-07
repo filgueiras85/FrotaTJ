@@ -16,6 +16,8 @@ import mb.MBUsuario;
 import dao.Usuario;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class PanelListagemUsuario extends PanelExemplo {
 	 */
 	public PanelListagemUsuario() {
 
-		JLabel lblListagemUsuario = new JLabel("Listagem Usuarios");
+		JLabel lblListagemUsuario = new JLabel("Listagem de Usuarios");
 		lblListagemUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -37,36 +39,31 @@ public class PanelListagemUsuario extends PanelExemplo {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
-		JButton btnApagar = new JButton("Apagar");
+		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		JButton btnEditar = new JButton("Editar");
+		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		btnEditar.setVisible(false);
+		btnApagar.setVisible(false);
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
-										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-												.addContainerGap()
-												.addComponent(btnNovo)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnEditar)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnApagar)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnVoltar))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addContainerGap()
-														.addComponent(lblListagemUsuario)))
-														.addContainerGap())
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(btnNovo)
+										.addGap(18)
+										.addComponent(btnEditar)
+										.addGap(18)
+										.addComponent(btnApagar)
+										.addGap(17))
+										.addComponent(lblListagemUsuario))
+										.addContainerGap())
 				);
 		groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -74,13 +71,12 @@ public class PanelListagemUsuario extends PanelExemplo {
 						.addContainerGap()
 						.addComponent(lblListagemUsuario)
 						.addGap(18)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnVoltar)
 								.addComponent(btnApagar)
-								.addComponent(btnNovo)
-								.addComponent(btnEditar))
+								.addComponent(btnEditar)
+								.addComponent(btnNovo))
 								.addContainerGap())
 				);
 
@@ -95,7 +91,7 @@ public class PanelListagemUsuario extends PanelExemplo {
 				));
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
-		
+
 		try {
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
@@ -105,7 +101,14 @@ public class PanelListagemUsuario extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				btnEditar.setVisible(true);
+				btnApagar.setVisible(true);
+			}
+		});
+
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCadastroUsuario(0);
@@ -113,9 +116,7 @@ public class PanelListagemUsuario extends PanelExemplo {
 		});
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Usuario usuario = new Usuario();
 				idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);
 				PanelCadastroUsuario(idUsuarioSelecionado);
 			}
 		});
@@ -153,11 +154,16 @@ public class PanelListagemUsuario extends PanelExemplo {
 		MBUsuario mbUsuario = MBUsuario.getInstance();
 		List<Usuario> listaUsuario = mbUsuario.listarUsuarios();
 		for (int i=0;i<listaUsuario.size();i++){
-			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaUsuario.get(i).getIdUsuario()+"", listaUsuario.get(i).getNome()+"", listaUsuario.get(i).getMatricula()+"", listaUsuario.get(i).getEmail()+"",
+			if ( listaUsuario.get(i).getAdministrador() == true ){
+				((DefaultTableModel)table.getModel()).addRow(new String[]{
+						listaUsuario.get(i).getIdUsuario()+"", listaUsuario.get(i).getNome()+"", 
+						listaUsuario.get(i).getMatricula()+"", listaUsuario.get(i).getEmail()+"", "Administrador",
+				});
+			}else{((DefaultTableModel)table.getModel()).addRow(new String[]{
+					listaUsuario.get(i).getIdUsuario()+"", listaUsuario.get(i).getNome()+"", 
+					listaUsuario.get(i).getMatricula()+"", listaUsuario.get(i).getEmail()+"", "Usuario",
 			});
+			}
 		}
 	}
-
-
 }

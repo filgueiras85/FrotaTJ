@@ -3,6 +3,8 @@ package Visao;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,12 +41,13 @@ public class PanelListagemUnidade extends PanelExemplo {
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		JButton btnApagar = new JButton("Apagar");
+		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		JButton btnEditar = new JButton("Editar");
+		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
+		btnEditar.setVisible(false);
+		btnApagar.setVisible(false);
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
@@ -100,7 +103,13 @@ public class PanelListagemUnidade extends PanelExemplo {
 			e.printStackTrace();
 		}
 		
-		
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				btnEditar.setVisible(true);
+				btnApagar.setVisible(true);
+			}
+		});
+
 		btnNovo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				PanelCadastroUnidade(0);	

@@ -21,13 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 
 public class PanelCadastroUsuario extends PanelExemplo {
 	private JTextField txtNome;
 	private JTextField txtMatricula;
 	private JTextField txtEmail;
-	private JPasswordField senhaUsuario;
+
 	private boolean tipoUsuario;	 
 
 	public PanelCadastroUsuario(final int idUsuarioSelecionado) {
@@ -42,108 +43,113 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		txtEmail.setColumns(10);
 
 		final JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
+		rdbtnAdministrador.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JRadioButton rdbtnUsuario = new JRadioButton("Usu\u00E1rio");
+		rdbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnSalvar = new JButton("Salvar");
 
-		JButton btnVoltar = new JButton("Voltar");
+		JButton btnCancelar = new JButton("Cancelar");
 		add(rdbtnUsuario);
 		add(rdbtnAdministrador);
 		add(txtMatricula);
 		add(txtNome);
 		add(txtEmail);
 		add(btnSalvar);
-		add(btnVoltar);
+		add(btnCancelar);
 
 		final JPasswordField senhaUsuario = new JPasswordField();
 
 		add(senhaUsuario);
 
 		JLabel lblNome = new JLabel("Nome");
-		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNome.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblNome);
 
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblSenha.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblSenha);
 
 		JLabel lblMatricula = new JLabel("Matricula");
-		lblMatricula.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblMatricula);
 
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblEmail);
+		
+		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
+		lblCadastroDeUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(48)
-					.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-					.addGap(114))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(48)
-					.addComponent(lblSenha, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(senhaUsuario, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-					.addGap(114))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(21)
-					.addComponent(lblMatricula, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(txtMatricula, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-					.addGap(114))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(48)
-					.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblCadastroDeUsuario)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(rdbtnAdministrador, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(rdbtnUsuario, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-							.addGap(61))
+							.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addComponent(txtNome, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-							.addGap(114))))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(183, Short.MAX_VALUE)
-					.addComponent(btnSalvar)
-					.addGap(31)
-					.addComponent(btnVoltar)
-					.addGap(112))
+							.addComponent(lblSenha, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addComponent(senhaUsuario, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblMatricula, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(txtMatricula, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(rdbtnAdministrador, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(rdbtnUsuario, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(btnSalvar)
+											.addGap(18)
+											.addComponent(btnCancelar))))
+								.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(37)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNome)
-						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap()
+					.addComponent(lblCadastroDeUsuario)
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNome))
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(senhaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSenha))
 					.addGap(11)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSenha)
-						.addComponent(senhaUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblMatricula)
+						.addComponent(txtMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblMatricula))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblEmail)
-						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmail))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnAdministrador)
 						.addComponent(rdbtnUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnSalvar, Alignment.TRAILING)
-						.addComponent(btnVoltar))
-					.addGap(79))
+					.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancelar)
+						.addComponent(btnSalvar))
+					.addGap(57))
 		);
 		setLayout(groupLayout);
 		
@@ -218,16 +224,17 @@ public class PanelCadastroUsuario extends PanelExemplo {
 					MBUsuario mbUsuario = MBUsuario.getInstance();
 					mbUsuario.editar(usuario);					
 				}
+				PanelListagemUsuario();
 			}
 		});
-		btnVoltar.addActionListener(new ActionListener() {
+		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					PaneListagemUsuario();
+					PanelListagemUsuario();
 			}
 		});
 	}
-	public void PaneListagemUsuario(){
+	public void PanelListagemUsuario(){
 		try {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemUsuario();
