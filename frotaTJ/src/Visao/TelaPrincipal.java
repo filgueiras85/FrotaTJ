@@ -352,7 +352,14 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.add(panelListagemVeiculo, "panelListagemVeiculo");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelListagemVeiculo");
-	}	
+	}
+	
+	public void PanelListagemAbastecimento(){
+		PanelListagemAbastecimento panelListagemAbastecimento = new PanelListagemAbastecimento();
+		panelConteudo.add(panelListagemAbastecimento, "panelListagemAbastecimento");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemAbastecimento");
+	}
 }
 
 

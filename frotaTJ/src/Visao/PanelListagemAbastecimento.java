@@ -10,8 +10,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+import mb.MBAbastecimento;
 import mb.MBServico;
 
+import dao.Abastecimento;
 import dao.Servico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,18 +25,18 @@ import java.awt.event.MouseEvent;
 
 public class PanelListagemAbastecimento extends PanelExemplo {
 	private JTable table;
-	private int idServicoSelecionado;
+	private int idAbastecimentoSelecionado;;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelListagemAbastecimento() {
-		
+
 		JLabel lblListagemAbastecimentos = new JLabel("Listagem Abastecimentos");
 		lblListagemAbastecimentos.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
+
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
@@ -42,96 +44,96 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 				PanelCadastroServiço();
 			}
 		});
-		
+
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				MBServico mbServico = MBServico.getInstance();
+				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 				try {
-					Servico s = mbServico.retornarServico(idServicoSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Serviço selecionado ?");
+					Abastecimento a = mbAbastecimento.retornarAbastecimento(idAbastecimentoSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Abastecimento selecionado ?");
 					if (op==JOptionPane.YES_OPTION ) {
-						
-						
-						JOptionPane.showMessageDialog(null,mbServico.apagar(s));
+
+
+						JOptionPane.showMessageDialog(null,mbAbastecimento.apagar(a));
 						atualizarTabela();
 					}
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"erro - "+e);
 					// TODO: handle exception
 				}
-			
+
 			}
 		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelEditarServico();
+				PanelEditarAbastecimento();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnNovo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVoltar))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblListagemAbastecimentos)))
-					.addContainerGap())
-		);
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(btnNovo)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnEditar)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnApagar)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnVoltar))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addContainerGap()
+														.addComponent(lblListagemAbastecimentos)))
+														.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemAbastecimentos)
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVoltar)
-						.addComponent(btnApagar)
-						.addComponent(btnNovo)
-						.addComponent(btnEditar))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addComponent(lblListagemAbastecimentos)
+						.addGap(18)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnVoltar)
+								.addComponent(btnApagar)
+								.addComponent(btnNovo)
+								.addComponent(btnEditar))
+								.addContainerGap())
+				);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+				idAbastecimentoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Id", "Hodômetro", "Data"
-			}
-		));
+				new Object[][] {
+				},
+				new String[] {
+						"Id", "Veiculo", "Hodômetro", "Data"
+				}
+				));
 		scrollPane.setViewportView(table);
 		try {
 			atualizarTabela();
@@ -153,27 +155,24 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 			parent.PanelCadastroServiço(0);
 		}
 	}
-	public void PanelEditarServico(){
+	public void PanelEditarAbastecimento(){
+
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroAbastecimento(idAbastecimentoSelecionado);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroAbastecimento(idAbastecimentoSelecionado);
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		MBServico mbServico= MBServico.getInstance();
-		List<Servico> listaServico = mbServico.listarServicos();
-		for (int i=0;i<listaServico.size();i++){
+		MBAbastecimento mbAbastecimento= MBAbastecimento.getInstance();
+		List<Abastecimento> listaAbastecimento = mbAbastecimento.listarAbastecimentos();
+		for (int i=0;i<listaAbastecimento.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaServico.get(i).getData2().toString().substring(8, 10)+"/"+listaServico.get(i).getData2().toString().substring(5, 7)+
-					"/"+listaServico.get(i).getData2().toString().substring(0, 4), listaServico.get(i).getIdServico()+"", 
-					listaServico.get(i).getValor()+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
-					listaServico.get(i).getDescricao(), listaServico.get(i).getKm()+"", listaServico.get(i).getMotorista().getNome(),
-					listaServico.get(i).getTipoServico().getNome(),	listaServico.get(i).getVeiculo().getPlaca()+"", 
-					listaServico.get(i).getFornecedor().getNome()});
+					listaAbastecimento.get(i).getData2().toString().substring(0, 4), listaAbastecimento.get(i).getIdabastecimento()+"", 
+			});
 		}
 	}
 }
