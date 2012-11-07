@@ -87,13 +87,13 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addComponent(lblListagemTipoServiçoModelo, Alignment.TRAILING)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)))
+							.addComponent(btnApagar))
+						.addComponent(lblListagemTipoServiçoModelo))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
