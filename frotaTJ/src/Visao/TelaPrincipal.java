@@ -147,7 +147,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmTipoServioModelo = new JMenuItem("Tipo Servi\u00E7o Modelo");
 		mntmTipoServioModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroTipoServiçoModelo(0);
+				PanelCadastroTipoServiçoModelo(0, 0);
 			}
 		});
 		mnCadastrar.add(mntmTipoServioModelo);
@@ -268,8 +268,8 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo, "panelCadastroAbastecimento");
 	}
 	
-	public void PanelCadastroTipoServiçoModelo(int j){
-		PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j);
+	public void PanelCadastroTipoServiçoModelo(int j, int i){
+		PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
 		panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");

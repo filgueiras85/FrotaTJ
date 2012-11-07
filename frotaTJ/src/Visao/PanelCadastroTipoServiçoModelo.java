@@ -40,7 +40,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCadastroTipoServiçoModelo(final int idTipoServiçoModeloSelecionado) {
+	public PanelCadastroTipoServiçoModelo(final int idModeloSelecionado, final int idTipoServiçoselecionado) {
 		
 		JLabel lblCadastroTipoServicoModelo = new JLabel("  Cadastro Tipo Servi\u00E7o - Modelo");
 		lblCadastroTipoServicoModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
@@ -68,7 +68,12 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 				TipoServicoModelo t = new TipoServicoModelo(tipoServicoModeloId, mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()), mbTipoServico.retornarTipoServico(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico()), Integer.parseInt(textFieldKM.getText()), Integer.parseInt(textFieldData.getText()));
 
 					try {
-						
+						if (idModeloSelecionado==0 || idTipoServiçoselecionado == 0){
+							if (t.getId().getModeloIdmodelo()==0 || t.getId().getTipoServicoIdtipoServico()==0){
+								
+								t.setId(tipoServicoModeloId);
+							}
+							
 							String retorno = mbTipoServiçoModelo.inserir(t);
 							if (retorno.equals("ok")){
 								
@@ -77,7 +82,16 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
 							}
-						}
+						}else{
+							
+							String retorno =  mbTipoServiçoModelo.editar(t);
+							if (retorno.equals("ok")){
+								JOptionPane.showMessageDialog(null,"Alterado!");
+								PanelListagemTipoServiçoModelo();
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
+					}}
 						 catch (Exception e) {
 						// TODO: handle exception
 					}
@@ -202,6 +216,41 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 					.addGap(31))
 		);
 		setLayout(groupLayout);
+		if (idModeloSelecionado>0 || idTipoServiçoselecionado>0){
+			MBTipoServiçoModelo mbt = MBTipoServiçoModelo.getInstance();
+			
+			try {
+				TipoServicoModeloId id = new TipoServicoModeloId(new Integer(idTipoServiçoselecionado), new Integer(idModeloSelecionado));
+				TipoServicoModelo t = mbt.retornarTipoServicoModelo(id);
+				textFieldData.setText(t.getTempo().toString());
+				textFieldKM.setText(t.getKm().toString());
+					
+				boolean aux = false ;
+				int  i=0; 
+					
+				while(aux==false){
+						aux= mbModelo.listarModelos().get(i).getIdmodelo()==t.getModelo().getIdmodelo();
+				   		if (aux==true) break; 
+				   		i++;
+						
+					}
+					comboBoxModelo.setSelectedIndex(i);
+				i=0;
+				aux = false;
+				while(aux==false){
+						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==t.getTipoServico().getIdtipoServico();
+				   		if (aux==true) break; 
+				   		i++;
+						
+					}
+					comboBoxTipoServiço.setSelectedIndex(i);
+								
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"erro - "+e);
+				// TODO: handle exception
+			}
+			
+		}
 		
 	}
 	
