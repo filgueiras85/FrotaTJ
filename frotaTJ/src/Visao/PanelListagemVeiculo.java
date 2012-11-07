@@ -117,9 +117,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnVoltar.addActionListener(new ActionListener() {
+		JButton btnDetalhes = new JButton("Detalhes");
+		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelInicial();
 				
@@ -170,6 +170,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		try {
 			listaUnidade.addAll(mbUnidade.listarUnidades());
 			
+			listaNomeUnidade.add("Selecionar");
 			for (int i = 0; i<listaUnidade.size();i++){
 				listaNomeUnidade.add(listaUnidade.get(i).getNome());
 			}
@@ -181,6 +182,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 		comboBoxSituacao = new JComboBox<String>();
 		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		comboBoxSituacao.addItem("Selecionar");
 		comboBoxSituacao.addItem("ok");
 		comboBoxSituacao.addItem("a fazer");
 		comboBoxSituacao.addItem("atrasado");
@@ -189,7 +191,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		comboBoxMotorista = new JComboBox<Motorista>();
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		DefaultComboBoxModel<Motorista> modelComboBoxMotorista;
+		//comboBoxMotorista.addItem("Selecionar");
 		try {
+
 			modelComboBoxMotorista = new DefaultComboBoxModel<Motorista>(new Vector(mbMotorista.listarMotoristas()));
 			comboBoxMotorista.setModel(modelComboBoxMotorista);
 		} catch (Exception e) {
@@ -208,11 +212,11 @@ public class PanelListagemVeiculo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDetalhes)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVoltar))
+							.addComponent(btnApagar))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -262,9 +266,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNovo)
-						.addComponent(btnEditar)
 						.addComponent(btnApagar)
-						.addComponent(btnVoltar))
+						.addComponent(btnEditar)
+						.addComponent(btnDetalhes))
 					.addContainerGap())
 		);
 		

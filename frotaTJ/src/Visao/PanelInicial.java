@@ -72,6 +72,7 @@ public class PanelInicial extends PanelExemplo {
 		
 		comboBoxSituacao = new JComboBox<String>();
 		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		comboBoxSituacao.addItem("Selecionar");
 		comboBoxSituacao.addItem("ok");
 		comboBoxSituacao.addItem("a fazer");
 		comboBoxSituacao.addItem("atrasado");	
@@ -86,6 +87,7 @@ public class PanelInicial extends PanelExemplo {
 		try {
 			listaUnidade.addAll(mbUnidade.listarUnidades());
 			
+			listaNomeUnidade.add("Selecionar");
 			for (int i = 0; i<listaUnidade.size();i++){
 				listaNomeUnidade.add(listaUnidade.get(i).getNome());
 			}
@@ -102,10 +104,44 @@ public class PanelInicial extends PanelExemplo {
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				((DefaultTableModel)table.getModel()).setRowCount(0);				
+				ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
+				
+				for (int i=0; i<table.getRowCount(); i++){
+					((DefaultTableModel)table.getModel()).removeRow(i);
+				}
+				
+				try {
+					listaVeiculo.addAll(mbVeiculo.listarVeiculos());
+					
+					for (int i=0; i<listaVeiculo.size()-1; i++){
+						if(listaVeiculo.get(i).getPlaca().equals(textFieldPlaca.getText()) &&
+						listaVeiculo.get(i).getUnidade().getNome().equals(comboBoxUnidade.getSelectedItem().toString()) &&
+						listaVeiculo.get(i).getSituacao().equals(comboBoxSituacao.getSelectedItem().toString())){
+
+						((DefaultTableModel)table.getModel()).addRow(new String[]{
+									listaVeiculo.get(i).getIdveiculo()+"", 
+									listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome(), listaVeiculo.get(i).getSituacao()});
+						
+						//"ID", "Placa", "Unidade", "Motorista", "Situa\u00E7\u00E3o"
+							
+						}
+					}
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JButton btnDetalhes = new JButton("Detalhes");
+		btnDetalhes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		
 
@@ -118,22 +154,23 @@ public class PanelInicial extends PanelExemplo {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblPlaca)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblUnidade)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxUnidade, 0, 83, Short.MAX_VALUE)
+							.addComponent(comboBoxUnidade, 0, 34, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblSitucao)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSituacao, 0, 81, Short.MAX_VALUE)
+							.addComponent(comboBoxSituacao, 0, 33, Short.MAX_VALUE)
 							.addGap(39)
 							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblTitulo))
+						.addComponent(lblTitulo, Alignment.TRAILING)
+						.addComponent(btnDetalhes, Alignment.TRAILING))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -151,8 +188,10 @@ public class PanelInicial extends PanelExemplo {
 						.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnPesquisar))
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnDetalhes)
+					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		
 		
