@@ -40,10 +40,7 @@ import dao.Veiculo;
 public class PanelCadastroMotorista extends PanelExemplo {
 	private JTextField textFieldMatricula;
 	private JTextField textFieldNome;
-	private	JComboBox<TipoServico> comboBoxTipoServiço;
 	private JComboBox<Motorista> comboBoxUnidade;
-	private JComboBox<Fornecedor> comboBoxFornecedor;
-	private JComboBox<Veiculo> comboBoxVeiculo;
 
 
 	/**
@@ -66,32 +63,20 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblTipodeServio = new JLabel("Tipo de Servi\u00E7o");
-		lblTipodeServio.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
 		JLabel lblUnidade = new JLabel("Unidade");
 		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel lblVeiculo = new JLabel("Veiculo");
-		lblVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel lblFornecedor = new JLabel("Fornecedor");
-		lblFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldNome.setColumns(10);
 		
 		MBTipoServico mbTipoServico= MBTipoServico.getInstance();
-		comboBoxTipoServiço = new JComboBox<TipoServico>();
 		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
 		try {
 			modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServico.listarTipoServicos()));
-			comboBoxTipoServiço.setModel(modeloComboBoxTipoServico);
 		} catch (Exception e) {
 			// TODO: handle exception
-		}		
-		comboBoxTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		}
 		MBMotorista mbMotorista= MBMotorista.getInstance();
 		comboBoxUnidade = new JComboBox<Motorista>();
 		DefaultComboBoxModel<Motorista> modeloComboBoxMotorista;
@@ -103,27 +88,20 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		}	
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-		comboBoxFornecedor = new JComboBox<Fornecedor>();
 		DefaultComboBoxModel<Fornecedor> modeloComboBoxFornecedor;
 		try {
 			modeloComboBoxFornecedor = new DefaultComboBoxModel<Fornecedor>(new Vector(mbFornecedor.listarFornecedores()));
-			comboBoxFornecedor.setModel(modeloComboBoxFornecedor);
 		} catch (Exception e) {
 			// TODO: handle exception
-		}	
-		comboBoxFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		}
 		
 		MBVeiculo mbVeiculo= MBVeiculo.getInstance();
-		comboBoxVeiculo = new JComboBox<Veiculo>();
 		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
 		try {
 			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
-			comboBoxVeiculo.setModel(modeloComboBoxVeiculo);
 		} catch (Exception e) {
 			// TODO: handle exception
-		}	
-		
-		comboBoxVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		}
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -188,28 +166,21 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblVeiculo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNome)
-										.addComponent(lblMatricula)
-										.addComponent(lblFornecedor)
-										.addComponent(lblTipodeServio)
-										.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-									.addGap(10)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBoxUnidade, 0, 0, Short.MAX_VALUE)
-										.addComponent(textFieldMatricula, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-										.addComponent(textFieldNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-										.addComponent(comboBoxVeiculo, 0, 304, Short.MAX_VALUE)
-										.addComponent(comboBoxTipoServiço, 0, 304, Short.MAX_VALUE)
-										.addComponent(comboBoxFornecedor, Alignment.TRAILING, 0, 304, Short.MAX_VALUE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))))
-						.addComponent(lblCadastroMotorista))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNome)
+								.addComponent(lblMatricula)
+								.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBoxUnidade, 0, 0, Short.MAX_VALUE)
+								.addComponent(textFieldMatricula, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+								.addComponent(textFieldNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
+						.addComponent(lblCadastroMotorista)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addContainerGap(427, Short.MAX_VALUE)
+							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -229,23 +200,11 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(155)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBoxTipoServiço, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTipodeServio))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblVeiculo)
-						.addComponent(comboBoxVeiculo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBoxFornecedor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFornecedor))
-					.addGap(37)
+					.addGap(71)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addGap(83))
+					.addGap(298))
 		);
 		setLayout(groupLayout);
 		if (idServicoSelecionado>0){
