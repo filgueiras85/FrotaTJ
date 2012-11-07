@@ -42,7 +42,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	private JTextField textFieldPlaca;
 	private JComboBox<String> comboBoxUnidade;
 	private JComboBox<String> comboBoxSituacao;
-	private JComboBox<Motorista> comboBoxMotorista;
+	private JComboBox<String> comboBoxMotorista;
 
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	final MBUnidade mbUnidade = MBUnidade.getInstance();
@@ -188,13 +188,19 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		comboBoxSituacao.addItem("atrasado");
 		
 			
-		comboBoxMotorista = new JComboBox<Motorista>();
+		comboBoxMotorista = new JComboBox<String>();
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DefaultComboBoxModel<Motorista> modelComboBoxMotorista;
-		//comboBoxMotorista.addItem("Selecionar");
+		DefaultComboBoxModel<String> modelComboBoxMotorista;
+		final Vector<Motorista> listaMotorista = new Vector<>();
+		final Vector<String> listaNomeMotorista = new Vector<>();
 		try {
-
-			modelComboBoxMotorista = new DefaultComboBoxModel<Motorista>(new Vector(mbMotorista.listarMotoristas()));
+			listaMotorista.addAll(mbMotorista.listarMotoristas());
+			
+			listaNomeMotorista.add("Selecionar");
+			for (int i = 0; i<listaMotorista.size();i++){
+				listaNomeMotorista.add(listaMotorista.get(i).getNome());
+			}
+			modelComboBoxMotorista = new DefaultComboBoxModel<String>(listaNomeMotorista);
 			comboBoxMotorista.setModel(modelComboBoxMotorista);
 		} catch (Exception e) {
 			// TODO: handle exception
