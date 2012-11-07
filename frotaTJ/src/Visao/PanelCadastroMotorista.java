@@ -1,35 +1,28 @@
 package Visao;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Date;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
-
-import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
-
-import com.sun.jmx.snmp.Timestamp;
 
 import mb.MBFornecedor;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
 import mb.MBVeiculo;
-
 import dao.Fornecedor;
 import dao.Motorista;
 import dao.Servico;
@@ -115,7 +108,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
+				/*MBTipoServico mbTipoServico = MBTipoServico.getInstance();
 				MBMotorista mbMotorista = MBMotorista.getInstance();
 				MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 				MBFornecedor mbFornecedor= MBFornecedor.getInstance();
@@ -156,7 +149,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 						} catch (Exception e) {
 						// TODO: handle exception
 					}
-				
+			*/	
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -214,12 +207,10 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
 				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
 				
-				textFieldCupomFiscal.setText(s.getNfTicket().toString());
-				textFieldDescrição.setText(s.getDescricao());
-				textFieldKm.setText(s.getKm().toString());
+				
 				textFieldNome.setText(s.getValor().toString());
 				textFieldMatricula.setText(b);
-				textFieldOrçamento.setText(s.getNroOrcamento());
+			
 				// selecionar combobox fornecedor	
 				boolean aux = false ;
 				int  i=0; 
@@ -230,7 +221,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				   		i++;
 						
 					}
-					comboBoxFornecedor.setSelectedIndex(i);
+					/*comboBoxFornecedor.setSelectedIndex(i);
 					//Selecionar combobox veiculo
 					i=0;
 					aux = false;
@@ -248,7 +239,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 						aux= mbMotorista.listarMotoristas().get(i).getIdmotorista()==s.getMotorista().getIdmotorista();
 				   		if (aux==true) break; 
 				   		i++;
-					}
+					}*/
 					comboBoxUnidade.setSelectedIndex(i);
 					//Selecionar combobox TipoServiço
 
@@ -259,7 +250,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				   		if (aux==true) break; 
 				   		i++;
 					}
-					comboBoxTipoServiço.setSelectedIndex(i);
+					/*comboBoxTipoServiço.setSelectedIndex(i);*/
 			
 			} catch (ClassNotFoundException | SQLException e) {
 						
