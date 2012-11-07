@@ -171,8 +171,10 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		List<Abastecimento> listaAbastecimento = mbAbastecimento.listarAbastecimentos();
 		for (int i=0;i<listaAbastecimento.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaAbastecimento.get(i).getData2().toString().substring(0, 4), listaAbastecimento.get(i).getIdabastecimento()+"", 
-			});
+					listaAbastecimento.get(i).getData2().toString().substring(8, 10)+"/"+listaAbastecimento.get(i).getData2().toString().substring(5, 7)+
+					"/"+listaAbastecimento.get(i).getData2().toString().substring(0, 4), listaAbastecimento.get(i).getIdabastecimento()+"", 
+					listaAbastecimento.get(i).getVeiculo().getPlaca()+""});
+		
 		}
 	}
 }
