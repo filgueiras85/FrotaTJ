@@ -1,5 +1,6 @@
 package Visao;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -10,28 +11,30 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-import mb.MBServico;
+import dao.Modelo;
+import dao.TipoServicoModelo;
 
-import dao.Servico;
+import mb.MBModelo;
+import mb.MBTipoServiçoModelo;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 
-public class PanelListagemServiço extends PanelExemplo {
+public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 	private JTable table;
-	private int idServicoSelecionado;
-
+	private int idTipoServicoModelo;
 	/**
 	 * Create the panel.
 	 */
-	public PanelListagemServiço() {
+	public PanelListagemTipoServiçoModelo() {
 		
-		JLabel lblListagemServios = new JLabel("Listagem Servi\u00E7os");
-		lblListagemServios.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		JLabel lblListagemTipoServiçoModelo = new JLabel("Listagem Tipo Servi\u00E7o Modelo");
+		lblListagemTipoServiçoModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -39,29 +42,28 @@ public class PanelListagemServiço extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelCadastroTipoServiçoModelo();
 			}
 		});
+		
 		
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				MBServico mbServico = MBServico.getInstance();
+				MBModelo mbModelo = MBModelo.getInstance();
 				try {
-					Servico s = mbServico.retornarServico(idServicoSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Serviço selecionado ?");
+					Modelo m = mbModelo.retornarModelo(idTipoServicoModelo);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Modelo selecionado ?");
 					if (op==JOptionPane.YES_OPTION ) {
 						
 						
-						JOptionPane.showMessageDialog(null,mbServico.apagar(s));
+						JOptionPane.showMessageDialog(null,mbModelo.apagar(m));
 						atualizarTabela();
 					}
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"erro - "+e);
 					// TODO: handle exception
 				}
-			
 			}
 		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -70,7 +72,7 @@ public class PanelListagemServiço extends PanelExemplo {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelEditarServico();
+				PanelEditarModelo();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -86,40 +88,40 @@ public class PanelListagemServiço extends PanelExemplo {
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnApagar))
-						.addComponent(lblListagemServios))
+						.addComponent(lblListagemTipoServiçoModelo))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblListagemServios)
+					.addComponent(lblListagemTipoServiçoModelo)
 					.addGap(18)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(11)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnApagar)
 						.addComponent(btnNovo)
 						.addComponent(btnEditar))
-					.addGap(16))
+					.addContainerGap())
 		);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
+		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+			public void mouseClicked(MouseEvent e) {
+				idTipoServicoModelo = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
 			}
 		});
-		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Data", "Id", "Valor", "Or\u00E7amento", "Nota Fiscal", "Descri\u00E7\u00E3o", "Km", "Motorista", "Tipo", "Veiculo", "Fornecedor"
+				"ID", "Tipo de Serviço","Modelo", "KM", "Tempo"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -133,37 +135,37 @@ public class PanelListagemServiço extends PanelExemplo {
 			e.printStackTrace();
 		}
 		setLayout(groupLayout);
+
 	}
-	public void PanelCadastroServiço(){
+	
+	public void PanelEditarModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroModelo(idTipoServicoModelo);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroModelo(idTipoServicoModelo);
 		}
 	}
-	public void PanelEditarServico(){
+	public void PanelCadastroTipoServiçoModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroTipoServiçoModelo(0);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
-		}
+			parent.PanelCadastroTipoServiçoModelo(0);
+			}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		MBServico mbServico= MBServico.getInstance();
-		List<Servico> listaServico = mbServico.listarServicos();
-		for (int i=0;i<listaServico.size();i++){
+		MBTipoServiçoModelo mbTipoServiçoModelo= MBTipoServiçoModelo.getInstance();
+		List<TipoServicoModelo> listaTipoServicoModelos= mbTipoServiçoModelo.listarTipoServicosModelos();
+		for (int i=0;i<listaTipoServicoModelos.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaServico.get(i).getData2().toString().substring(8, 10)+"/"+listaServico.get(i).getData2().toString().substring(5, 7)+
-					"/"+listaServico.get(i).getData2().toString().substring(0, 4), listaServico.get(i).getIdServico()+"", 
-					listaServico.get(i).getValor()+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
-					listaServico.get(i).getDescricao(), listaServico.get(i).getKm()+"", listaServico.get(i).getMotorista().getNome(),
-					listaServico.get(i).getTipoServico().getNome(),	listaServico.get(i).getVeiculo().getPlaca()+"", 
-					listaServico.get(i).getFornecedor().getNome()});
+					listaTipoServicoModelos.get(i).getId()+"", listaTipoServicoModelos.get(i).getModelo()+"",listaTipoServicoModelos.get(i).getTipoServico()+"", 
+					listaTipoServicoModelos.get(i).getKm()+"", listaTipoServicoModelos.get(i).getTempo()+""});
 		}
 	}
-}
+	
+	}
+

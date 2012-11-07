@@ -144,6 +144,14 @@ public class TelaPrincipal extends JFrame {
 		mntmCarro.setIcon(new ImageIcon(winDir+"1519_32x32.png"));
 		mnCadastrar.add(mntmCarro);
 		
+		JMenuItem mntmTipoServioModelo = new JMenuItem("Tipo Servi\u00E7o Modelo");
+		mntmTipoServioModelo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroTipoServiçoModelo(0);
+			}
+		});
+		mnCadastrar.add(mntmTipoServioModelo);
+		
 		
 	//-------------------------- Menu Listar --------------------------\\	
 		JMenu mnListar = new JMenu("Listagem");
@@ -207,6 +215,14 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_9);
 		
+		JMenuItem mntmTipoDeServio_1 = new JMenuItem("Tipo de Servi\u00E7o Modelo");
+		mntmTipoDeServio_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemTipoServiçoModelo();
+			}
+		});
+		mnListar.add(mntmTipoDeServio_1);
+		
 	//-------------------------- Menu Relatorios --------------------------\\		
 		JMenu mnRelatorios = new JMenu("Relatorios");
 		mnRelatorios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
@@ -252,6 +268,13 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo, "panelCadastroAbastecimento");
 	}
 	
+	public void PanelCadastroTipoServiçoModelo(int j){
+		PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j);
+		panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");
+	}
+	
 	public void PanelCadastroModelo(int j){
 		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
 		panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
@@ -288,12 +311,19 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	
-//--------------------- Métodos para troca de Panel de cadastro ---------------------\\	
+//--------------------- Métodos para troca de Panel de Listagem ---------------------\\	
 	public void PanelListagemModelo(){
 		PanelListagemModelo panelListagemModelo = new PanelListagemModelo();
 		panelConteudo.add(panelListagemModelo, "panelListagemModelo");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelListagemModelo");
+	}
+	
+	public void PanelListagemTipoServiçoModelo(){
+		PanelListagemTipoServiçoModelo panelListagemTipoServiçoModelo = new PanelListagemTipoServiçoModelo();
+		panelConteudo.add(panelListagemTipoServiçoModelo, "panelListagemTipoServiçoModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemTipoServiçoModelo");
 	}
 	
 	public void PanelListagemServiço(){

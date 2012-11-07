@@ -68,12 +68,3 @@ public class MBTipoServico {
 		return daoTipoServico.findAll();
 	}
 }
-
-
-
-
-
-
-
-
-

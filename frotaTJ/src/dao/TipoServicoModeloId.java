@@ -83,5 +83,10 @@ public class TipoServicoModeloId implements java.io.Serializable {
 						.hashCode());
 		return result;
 	}
+	
+	public String toString()
+	{
+		return this.getModeloIdmodelo().toString();
+	}
 
 }

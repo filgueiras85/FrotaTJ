@@ -44,14 +44,6 @@ public class PanelListagemModelo extends PanelExemplo {
 			}
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		
 		
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
@@ -85,22 +77,16 @@ public class PanelListagemModelo extends PanelExemplo {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVoltar))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblListagemModelos)))
+							.addComponent(btnApagar))
+						.addComponent(lblListagemModelos))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -109,10 +95,9 @@ public class PanelListagemModelo extends PanelExemplo {
 					.addContainerGap()
 					.addComponent(lblListagemModelos)
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVoltar)
 						.addComponent(btnApagar)
 						.addComponent(btnNovo)
 						.addComponent(btnEditar))
