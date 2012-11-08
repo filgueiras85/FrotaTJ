@@ -22,18 +22,20 @@ import mb.MBFornecedor;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBUnidade;
 import mb.MBVeiculo;
 import dao.Fornecedor;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
+import dao.Unidade;
 import dao.Veiculo;
 
 
 public class PanelCadastroMotorista extends PanelExemplo {
 	private JTextField textFieldMatricula;
 	private JTextField textFieldNome;
-	private JComboBox<Motorista> comboBoxUnidade;
+	private JComboBox<Unidade> comboBoxUnidade;
 
 
 	/**
@@ -70,12 +72,12 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		MBMotorista mbMotorista= MBMotorista.getInstance();
-		comboBoxUnidade = new JComboBox<Motorista>();
-		DefaultComboBoxModel<Motorista> modeloComboBoxMotorista;
+		MBUnidade mbUnidade= MBUnidade.getInstance();
+		comboBoxUnidade = new JComboBox<Unidade>();
+		DefaultComboBoxModel<Unidade> modeloComboBoxUnidade;
 		try {
-			modeloComboBoxMotorista = new DefaultComboBoxModel<Motorista>(new Vector(mbMotorista.listarMotoristas()));
-			comboBoxUnidade.setModel(modeloComboBoxMotorista);
+			modeloComboBoxUnidade = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
+			comboBoxUnidade.setModel(modeloComboBoxUnidade);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	

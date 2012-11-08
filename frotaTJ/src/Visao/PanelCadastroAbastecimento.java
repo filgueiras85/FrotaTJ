@@ -40,7 +40,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 	 * Create the panel.
 	 */
 
-	public PanelCadastroAbastecimento( final int idServicoSelecionado) {
+	public PanelCadastroAbastecimento( final int idAbastecimentoSelecionado) {
 
 		JLabel lblCadastroAbastecimento = new JLabel("Cadastro Abastecimento\r\n");
 		lblCadastroAbastecimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -56,14 +56,14 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		JLabel lblHodometro = new JLabel("Hod\u00F4metro");
 		lblHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		JLabel lblVeiculo = new JLabel("Veiculo");
-		lblVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JLabel lblPlaca = new JLabel("Placa");
+		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		textFieldHodometro = new JTextField();
 		textFieldHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldHodometro.setColumns(10);
 
-
+ 
 		MBVeiculo mbVeiculo= MBVeiculo.getInstance();
 		comboBoxVeiculo = new JComboBox<Veiculo>();
 		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
@@ -141,7 +141,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblHodometro)
 												.addComponent(lblData)
-												.addComponent(lblVeiculo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+												.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
 												.addGap(53)
 												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 														.addComponent(comboBoxVeiculo, 0, 485, Short.MAX_VALUE)
@@ -171,7 +171,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 										.addComponent(textFieldHodometro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblVeiculo)
+												.addComponent(lblPlaca)
 												.addComponent(comboBoxVeiculo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 												.addGap(76)
 												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)

@@ -101,6 +101,11 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenuItem mntmMotorista = new JMenuItem("Motorista");
 		mntmMotorista.setIcon(new ImageIcon(winDir+"7133_32x32.png"));
+		mntmMotorista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroMotorista(0);
+			}
+		});
 		mnCadastrar.add(mntmMotorista);
 		
 		JMenuItem mntmServio = new JMenuItem("Servi\u00E7o");
@@ -160,6 +165,11 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnListar);
 		
 		JMenuItem menuItem = new JMenuItem("Abastecimento");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemAbastecimento();
+			}
+		});
 		mnListar.add(menuItem);
 		
 		JMenuItem menuItem_1 = new JMenuItem("Fornecedor");
@@ -177,6 +187,11 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_3);
 		
 		JMenuItem menuItem_4 = new JMenuItem("Motorista");
+		menuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemMotorista();
+			}
+		});
 		mnListar.add(menuItem_4);
 		
 		JMenuItem menuItem_5 = new JMenuItem("Servi\u00E7o");
@@ -261,12 +276,7 @@ public class TelaPrincipal extends JFrame {
 	
 	
 	//--------------------- Métodos para troca de Panel de cadastro ---------------------\\
-	public void PanelCadastroAbastecimento(int j){
-		PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento( j);
-		panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
-		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-		cardLayout.show(panelConteudo, "panelCadastroAbastecimento");
-	}
+	
 	
 	public void PanelCadastroTipoServiçoModelo(int j, int i){
 		PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
@@ -308,6 +318,20 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo,"panelCadastroUsuario");
+	}
+	
+	public void PanelCadastroAbastecimento(int idAbastecimento){
+		PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento(idAbastecimento);
+		panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroAbastecimento");
+	}
+	
+	public void PanelCadastroMotorista(int idMotorista){
+		PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(idMotorista);
+		panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroMotorista");
 	}
 
 	
@@ -359,6 +383,13 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.add(panelListagemAbastecimento, "panelListagemAbastecimento");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelListagemAbastecimento");
+	}
+	
+	public void PanelListagemMotorista(){
+		PanelListagemMotorista panelListagemMotorista = new PanelListagemMotorista();
+		panelConteudo.add(panelListagemMotorista, "panelListagemMotorista");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemMotorista");
 	}
 }
 
