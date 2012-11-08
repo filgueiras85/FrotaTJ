@@ -28,12 +28,15 @@ import mb.MBFornecedor;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
 import dao.Fornecedor;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
+import dao.TipoServicoModelo;
+import dao.TipoServicoModeloId;
 import dao.Veiculo;
 
 
@@ -186,13 +189,14 @@ public class PanelCadastroServiço extends PanelExemplo {
 						mbTipoServico.retornarTipoServico((comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico())),
 						data, Double.parseDouble(textFieldValor.getText()), textFieldOrçamento.getText(), 
 						Integer.parseInt(textFieldCupomFiscal.getText()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText()));
-
+					
 					try {
 						if (idServicoSelecionado==0){
 							if (s.getIdServico()==0){
 								s.setIdServico(null);
 							}
 							String retorno = mbServico.inserir(s);
+							AtualizarVeiculo();
 							if (retorno.equals("ok")){
 								
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
@@ -203,6 +207,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						}else{
 							
 							String retorno =  mbServico.editar(s);
+							AtualizarVeiculo();
 							if (retorno.equals("ok")){
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
@@ -393,5 +398,41 @@ public class PanelCadastroServiço extends PanelExemplo {
 	  }  
 	}
 	
+	public void AtualizarVeiculo(){
+		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+		
+		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
+		
+		int aux = veiculo.getOdometro();
+		
+		veiculo.setOdometro(Integer.parseInt(textFieldKm.getText()));
+		boolean boo = false ;
+		int  i=0; 
+		try {	
+		 for (int j = 0; j < mbTipoServiçoModelo.listarTipoServicosModelos().size(); j++) {
+			 
+					if(mbTipoServiçoModelo.listarTipoServicosModelos().get(i).getKm()+aux<veiculo.getOdometro()){
+						veiculo.setSituacao("ok");
+					}else{
+						if(mbTipoServiçoModelo.listarTipoServicosModelos().get(i).getKm()+aux>veiculo.getOdometro()){
+							veiculo.setSituacao("atrasado");
+						}else{
+							veiculo.setSituacao("a fazer");
+						}
+				}}
+		 mbVeiculo.editar(veiculo);
+		} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+				
+		   		
+				
+			
+		
+		
+	}
 	
-}
+
