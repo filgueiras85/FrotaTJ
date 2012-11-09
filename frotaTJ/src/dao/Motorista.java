@@ -56,6 +56,13 @@ public class Motorista implements java.io.Serializable {
 		this.servicos = servicos;
 		this.veiculos = veiculos;
 	}
+	
+	public Motorista(Integer idmotorista, Unidade unidade, String matricula, String nome) {
+		this.idmotorista = idmotorista;
+		this.unidade = unidade;
+		this.matricula = matricula;
+		this.nome = nome;
+		}
 
 	// Property accessors
 	@Id

@@ -66,14 +66,13 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				MBUnidade mbUnidade= MBUnidade.getInstance();
 
 				MBMotorista mbMotorista = MBMotorista.getInstance();
-				Motorista m =  new Motorista(mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldMatricula.getText(), textFieldNome.getText(), null, null);
+				Motorista m =  new Motorista(new Integer(idMotoristaSelecionado), mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldMatricula.getText(), textFieldNome.getText());
 
 				try {
 					if (idMotoristaSelecionado==0){
 						if (m.getIdmotorista()==0){
 							m.setIdmotorista(null);
-							System.out.println(m);
-						}
+							}
 						String retorno = mbMotorista.inserir(m);
 						if (retorno.equals("ok")){
 
