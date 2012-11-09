@@ -51,44 +51,6 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		JLabel lblCadastroMotorista = new JLabel("Cadastro Motorista");
 		lblCadastroMotorista.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
-		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
-		
-		textFieldMatricula = new JTextField();
-		textFieldMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldMatricula.setColumns(10);
-		
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel lblUnidade = new JLabel("Unidade");
-		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		textFieldNome = new JTextField();
-		textFieldNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldNome.setColumns(10);
-		
-		
-		final MBUnidade mbUnidade = MBUnidade.getInstance();
-		comboBoxUnidade = new JComboBox<Unidade>();
-		DefaultComboBoxModel<Unidade> modeloComboBox;
-		
-			try {
-				modeloComboBox = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
-				comboBoxUnidade.setModel(modeloComboBox);
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		
-		
-		
-			
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
@@ -143,30 +105,62 @@ public class PanelCadastroMotorista extends PanelExemplo {
 			
 		);
 		
+		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
+		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		textFieldMatricula = new JTextField();
+		textFieldMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldMatricula.setColumns(10);
+		
+		JLabel lblNome = new JLabel("Nome");
+		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel lblUnidade = new JLabel("Unidade");
+		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		textFieldNome = new JTextField();
+		textFieldNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldNome.setColumns(10);
 		
 		
+		MBUnidade mbUnidade = MBUnidade.getInstance();
+		comboBoxUnidade = new JComboBox<Unidade>();
+		DefaultComboBoxModel<Unidade> modeloComboBox;
+		
+			try {
+				modeloComboBox = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
+				comboBoxUnidade.setModel(modeloComboBox);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		
+		
+		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNome)
-								.addComponent(lblMatricula)
-								.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxUnidade, 0, 0, Short.MAX_VALUE)
-								.addComponent(textFieldMatricula, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-								.addComponent(textFieldNome, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
-						.addComponent(lblCadastroMotorista)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap(427, Short.MAX_VALUE)
+							.addComponent(lblNome)
+							.addGap(18)
+							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
+							.addComponent(btnCancelar))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblUnidade)
+							.addGap(18)
+							.addComponent(comboBoxUnidade, 0, 616, Short.MAX_VALUE))
+						.addComponent(lblCadastroMotorista))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -174,27 +168,21 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblCadastroMotorista)
-					.addGap(28)
+					.addGap(61)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMatricula)
-						.addComponent(textFieldMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNome))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNome)
-						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(71)
+						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUnidade))
+					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addGap(298))
+					.addGap(27))
 		);
 		setLayout(groupLayout);
-		
-		
 		if (idMotoristaSelecionado>0){
 			MBMotorista mbMotorista = MBMotorista.getInstance();
 			
@@ -221,7 +209,13 @@ public class PanelCadastroMotorista extends PanelExemplo {
 			}
 			
 		}
+	
+		
+			
+		
+		
 	}
+				
 	
 	public void PanelListagemMotorista(){
 		try {
@@ -246,5 +240,4 @@ public class PanelCadastroMotorista extends PanelExemplo {
 	  }  
 	}
 	
-	
-}
+	}

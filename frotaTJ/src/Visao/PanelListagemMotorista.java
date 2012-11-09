@@ -33,12 +33,12 @@ public class PanelListagemMotorista extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemMotorista() {
-		
+
 		JLabel lblListagemMotoristas = new JLabel("Listagem Motoristas");
 		lblListagemMotoristas.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
+
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
@@ -46,21 +46,18 @@ public class PanelListagemMotorista extends PanelExemplo {
 				PanelCadastroMotorista();
 			}
 		});
-		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
+
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				MBMotorista mbMotorista = MBMotorista.getInstance();
 				try {
 					Motorista m = mbMotorista.retornarMotorista(idMotoristaSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Motorista selecionado ?");
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Motorista selecionado?");
 					if (op==JOptionPane.YES_OPTION ) {
-						
-						
+
+
 						JOptionPane.showMessageDialog(null,mbMotorista.apagar(m));
 						atualizarTabela();
 					}
@@ -68,11 +65,10 @@ public class PanelListagemMotorista extends PanelExemplo {
 					JOptionPane.showMessageDialog(null,"erro - "+e);
 					// TODO: handle exception
 				}
-			
 			}
 		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
@@ -82,60 +78,55 @@ public class PanelListagemMotorista extends PanelExemplo {
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnNovo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVoltar))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblListagemMotoristas)))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addComponent(btnNovo)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnEditar)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnApagar))
+										.addComponent(lblListagemMotoristas))
+										.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemMotoristas)
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVoltar)
-						.addComponent(btnApagar)
-						.addComponent(btnNovo)
-						.addComponent(btnEditar))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addComponent(lblListagemMotoristas)
+						.addGap(18)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnApagar)
+								.addComponent(btnNovo)
+								.addComponent(btnEditar))
+								.addContainerGap())
+				);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				idMotoristaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+			public void mouseClicked(MouseEvent e) {
+				idMotoristaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
 			}
 		});
+
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Id", "Nome", "Matrícula" 
-			}
-		));
+				new Object[][] {
+				},
+				new String[] {
+						"Id", "Nome", "Matrícula" 
+				}
+				));
 		scrollPane.setViewportView(table);
 		try {
 			atualizarTabela();
@@ -147,6 +138,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 			e.printStackTrace();
 		}
 		setLayout(groupLayout);
+
 	}
 	public void PanelCadastroMotorista(){
 		try {

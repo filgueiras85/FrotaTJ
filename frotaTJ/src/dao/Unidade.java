@@ -99,4 +99,9 @@ public class Unidade implements java.io.Serializable {
 		this.veiculos_1 = veiculos_1;
 	}
 
+	public String toString()
+	{
+		return this.getNome();
+	}
+	
 }
