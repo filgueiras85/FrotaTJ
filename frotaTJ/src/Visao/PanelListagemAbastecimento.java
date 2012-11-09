@@ -11,9 +11,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
 import mb.MBAbastecimento;
+import mb.MBModelo;
 import mb.MBServico;
 
 import dao.Abastecimento;
+import dao.Modelo;
 import dao.Servico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -44,9 +46,6 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 				PanelCadastroServiço();
 			}
 		});
-
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.addActionListener(new ActionListener() {
@@ -80,41 +79,34 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
-										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-												.addContainerGap()
-												.addComponent(btnNovo)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnEditar)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnApagar)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnVoltar))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addContainerGap()
-														.addComponent(lblListagemAbastecimentos)))
-														.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnNovo)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnApagar))
+						.addComponent(lblListagemAbastecimentos))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblListagemAbastecimentos)
-						.addGap(18)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnVoltar)
-								.addComponent(btnApagar)
-								.addComponent(btnNovo)
-								.addComponent(btnEditar))
-								.addContainerGap())
-				);
+					.addContainerGap()
+					.addComponent(lblListagemAbastecimentos)
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnApagar)
+						.addComponent(btnEditar)
+						.addComponent(btnNovo))
+					.addContainerGap())
+		);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
 		table = new JTable();
@@ -131,7 +123,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 				new Object[][] {
 				},
 				new String[] {
-						"Id", "Veiculo", "Hodômetro", "Data"
+						"Id", "Placa", "Hodômetro", "Data"
 				}
 				));
 		scrollPane.setViewportView(table);
@@ -167,14 +159,11 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		MBAbastecimento mbAbastecimento= MBAbastecimento.getInstance();
+		MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 		List<Abastecimento> listaAbastecimento = mbAbastecimento.listarAbastecimentos();
 		for (int i=0;i<listaAbastecimento.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaAbastecimento.get(i).getData2().toString().substring(8, 10)+"/"+listaAbastecimento.get(i).getData2().toString().substring(5, 7)+
-					"/"+listaAbastecimento.get(i).getData2().toString().substring(0, 4), listaAbastecimento.get(i).getIdabastecimento()+"", 
-					listaAbastecimento.get(i).getVeiculo().getPlaca()+""});
-		
+					listaAbastecimento.get(i).getIdabastecimento()+"", listaAbastecimento.get(i).getVeiculo()+"", listaAbastecimento.get(i).getData2()+"", listaAbastecimento.get(i).getKmOdometro()+""});
 		}
 	}
 }
