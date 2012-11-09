@@ -403,8 +403,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 		
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
-		
+		TipoServicoModeloId tipoServicoModeloId = new TipoServicoModeloId();
+		tipoServicoModeloId.setModeloIdmodelo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getModelo().getIdmodelo());
 		int aux = veiculo.getOdometro();
+		TipoServicoModelo tipoServicoModelo = new TipoServicoModelo();
 		
 		veiculo.setOdometro(Integer.parseInt(textFieldKm.getText()));
 		boolean boo = false ;
