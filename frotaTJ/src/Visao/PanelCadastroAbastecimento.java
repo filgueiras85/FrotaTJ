@@ -18,11 +18,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
+import mb.MBAbastecimento;
 import mb.MBFornecedor;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
 import mb.MBVeiculo;
+import dao.Abastecimento;
 import dao.Fornecedor;
 import dao.Motorista;
 import dao.Servico;
@@ -33,7 +35,7 @@ import dao.Veiculo;
 public class PanelCadastroAbastecimento extends PanelExemplo {
 	private JTextField textFieldData;
 	private JTextField textFieldHodometro;
-	private JComboBox<Veiculo> comboBoxVeiculo;
+	private JComboBox<Veiculo> comboBoxPlaca;
 
 
 	/**
@@ -64,17 +66,17 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		textFieldHodometro.setColumns(10);
 
  
-		MBVeiculo mbVeiculo= MBVeiculo.getInstance();
-		comboBoxVeiculo = new JComboBox<Veiculo>();
+		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+		comboBoxPlaca = new JComboBox<Veiculo>();
 		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
 		try {
 			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
-			comboBoxVeiculo.setModel(modeloComboBoxVeiculo);
+			comboBoxPlaca.setModel(modeloComboBoxVeiculo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
 
-		comboBoxVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -88,26 +90,19 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*	MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-				MBMotorista mbMotorista = MBMotorista.getInstance();
-				MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
-				MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-				MBServico mbServico = MBServico.getInstance();
-
+				
+				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
+				
 				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
-				Servico s =  new Servico(new Integer(idServicoSelecionado), 
-						mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
-						mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
-						mbTipoServico.retornarTipoServico((comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico())),
-						data, Double.parseDouble(textFieldHodometro.getText()), textFieldOrçamento.getText(), 
-						Integer.parseInt(textFieldCupomFiscal.getText()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText()));
+				Abastecimento a =  new Abastecimento();
+						mbAbastecimento.retornarAbastecimento(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
 
 					try {
-						if (idServicoSelecionado==0){
-							if (s.getIdServico()==0){
-								s.setIdServico(null);
+						if (idAbastecimentoSelecionado==0){
+							if (a.getIdabastecimento()==0){
+								a.setIdabastecimento(null);
 							}
-							String retorno = mbServico.inserir(s);
+							String retorno = mbAbastecimento.inserir(a);
 							if (retorno.equals("ok")){
 
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
@@ -117,9 +112,9 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 							}
 						}else{
 
-							String retorno =  mbServico.editar(s);
+							String retorno =  mbAbastecimento.editar(a);
 							if (retorno.equals("ok")){
-								JOptionPane.showMessageDialog(null,"Serviço alterado!");
+								JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
 								PanelListagemServiço();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
@@ -127,7 +122,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 					}
 						} catch (Exception e) {
 						// TODO: handle exception
-					}*/
+					}
 
 			}
 		});
@@ -144,7 +139,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 												.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
 												.addGap(53)
 												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-														.addComponent(comboBoxVeiculo, 0, 485, Short.MAX_VALUE)
+														.addComponent(comboBoxPlaca, 0, 485, Short.MAX_VALUE)
 														.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
 														.addComponent(textFieldHodometro, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
 														.addComponent(lblCadastroAbastecimento))
@@ -172,7 +167,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblPlaca)
-												.addComponent(comboBoxVeiculo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addComponent(comboBoxPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 												.addGap(76)
 												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 														.addComponent(btnSalvar)

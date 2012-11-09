@@ -19,12 +19,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import mb.MBFornecedor;
+import mb.MBMarca;
+import mb.MBModelo;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 import dao.Fornecedor;
+import dao.Marca;
+import dao.Modelo;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
@@ -42,7 +46,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 	 * Create the panel.
 	 */
 	
-	public PanelCadastroMotorista( final int idServicoSelecionado) {
+	public PanelCadastroMotorista( final int idMotoristaSelecionado) {
 		
 		JLabel lblCadastroMotorista = new JLabel("Cadastro Motorista");
 		lblCadastroMotorista.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -65,44 +69,31 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		textFieldNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldNome.setColumns(10);
 		
-		MBTipoServico mbTipoServico= MBTipoServico.getInstance();
-		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
-		try {
-			modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServico.listarTipoServicos()));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		MBUnidade mbUnidade= MBUnidade.getInstance();
+		
+		final MBUnidade mbUnidade = MBUnidade.getInstance();
 		comboBoxUnidade = new JComboBox<Unidade>();
-		DefaultComboBoxModel<Unidade> modeloComboBoxUnidade;
-		try {
-			modeloComboBoxUnidade = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
-			comboBoxUnidade.setModel(modeloComboBoxUnidade);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-		DefaultComboBoxModel<Fornecedor> modeloComboBoxFornecedor;
-		try {
-			modeloComboBoxFornecedor = new DefaultComboBoxModel<Fornecedor>(new Vector(mbFornecedor.listarFornecedores()));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		DefaultComboBoxModel<Unidade> modeloComboBox;
 		
-		MBVeiculo mbVeiculo= MBVeiculo.getInstance();
-		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
-		try {
-			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+			try {
+				modeloComboBox = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
+				comboBoxUnidade.setModel(modeloComboBox);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		
+		
+		
+			
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelListagemServiço();
+				PanelListagemMotorista();
 			}
 		});
 		
@@ -110,40 +101,30 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-				MBMotorista mbMotorista = MBMotorista.getInstance();
-				MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
-				MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-				MBServico mbServico = MBServico.getInstance();
+				MBUnidade mbUnidade= MBUnidade.getInstance();
 
-				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldMatricula.getText()+" 00:00:01").getTime());
-				Servico s =  new Servico(new Integer(idServicoSelecionado), 
-						mbMotorista.retornarMotorista(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdmotorista()),
-						mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
-						mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
-						mbTipoServico.retornarTipoServico((comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico())),
-						data, Double.parseDouble(textFieldNome.getText()), textFieldOrçamento.getText(), 
-						Integer.parseInt(textFieldCupomFiscal.getText()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText()));
+				MBMotorista mbMotorista = MBMotorista.getInstance();
+				Motorista m =  new Motorista(mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldMatricula.getText(), textFieldNome.getText(), null, null);
 
 					try {
-						if (idServicoSelecionado==0){
-							if (s.getIdServico()==0){
-								s.setIdServico(null);
+						if (idMotoristaSelecionado==0){
+							if (m.getIdmotorista()==0){
+								m.setIdmotorista(null);
 							}
-							String retorno = mbServico.inserir(s);
+							String retorno = mbMotorista.inserir(m);
 							if (retorno.equals("ok")){
 								
-								JOptionPane.showMessageDialog(null,"Serviço inserido!");
-								PanelListagemServiço();
+								JOptionPane.showMessageDialog(null,"Motorista inserido!");
+								PanelListagemMotorista();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
 							}
 						}else{
 							
-							String retorno =  mbServico.editar(s);
+							String retorno =  mbMotorista.editar(m);
 							if (retorno.equals("ok")){
-								JOptionPane.showMessageDialog(null,"Serviço alterado!");
-								PanelListagemServiço();
+								JOptionPane.showMessageDialog(null,"Motorista alterado!");
+								PanelListagemMotorista();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
 							}
@@ -151,9 +132,19 @@ public class PanelCadastroMotorista extends PanelExemplo {
 						} catch (Exception e) {
 						// TODO: handle exception
 					}
-			*/	
-			}
-		});
+					
+					
+					
+		
+				}
+				
+				}
+				
+			
+		);
+		
+		
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -202,74 +193,43 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addGap(298))
 		);
 		setLayout(groupLayout);
-		if (idServicoSelecionado>0){
-			MBServico mbServico = MBServico.getInstance();
+		
+		
+		if (idMotoristaSelecionado>0){
+			MBMotorista mbMotorista = MBMotorista.getInstance();
 			
 			try {
-				Servico s = mbServico.retornarServico(idServicoSelecionado);
-				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
-				
-				
-				textFieldNome.setText(s.getValor().toString());
-				textFieldMatricula.setText(b);
-			
-				// selecionar combobox fornecedor	
+				Motorista m = mbMotorista.retornarMotorista(idMotoristaSelecionado);
+				textFieldNome.setText(m.getNome());
+					
 				boolean aux = false ;
 				int  i=0; 
 					
 				while(aux==false){
-						aux= mbFornecedor.listarFornecedores().get(i).getIdfornecedor()==s.getFornecedor().getIdfornecedor();
+						aux= mbUnidade.listarUnidades().get(i).getIdunidade()==m.getUnidade().getIdunidade();
 				   		if (aux==true) break; 
 				   		i++;
 						
 					}
-					/*comboBoxFornecedor.setSelectedIndex(i);
-					//Selecionar combobox veiculo
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbVeiculo.listarVeiculos().get(i).getIdveiculo()==s.getVeiculo().getIdveiculo();
-				   		if (aux==true) break; 
-				   		i++;
-					}
-					comboBoxVeiculo.setSelectedIndex(i);
-					//Selecionar combobox Motorista
-
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbMotorista.listarMotoristas().get(i).getIdmotorista()==s.getMotorista().getIdmotorista();
-				   		if (aux==true) break; 
-				   		i++;
-					}*/
 					comboBoxUnidade.setSelectedIndex(i);
-					//Selecionar combobox TipoServiço
 
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==s.getTipoServico().getIdtipoServico();
-				   		if (aux==true) break; 
-				   		i++;
-					}
-					/*comboBoxTipoServiço.setSelectedIndex(i);*/
+				
+								
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"erro - "+e);
+				// TODO: handle exception
+			}
 			
-			} catch (ClassNotFoundException | SQLException e) {
-						
-						
-						e.printStackTrace();
-					}finally{
-						
-					}}
-
+		}
 	}
-	public void PanelListagemServiço(){
+	
+	public void PanelListagemMotorista(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelListagemServiço();
+			parent.PanelListagemMotorista();
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemServiço();
+			parent.PanelListagemMotorista();
 		}
 		
 	}

@@ -10,8 +10,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
+import mb.MBModelo;
+import mb.MBMotorista;
 import mb.MBServico;
 
+import dao.Modelo;
+import dao.Motorista;
 import dao.Servico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,7 +27,7 @@ import java.awt.event.MouseEvent;
 
 public class PanelListagemMotorista extends PanelExemplo {
 	private JTable table;
-	private int idServicoSelecionado;
+	private int idMotoristaSelecionado;
 
 	/**
 	 * Create the panel.
@@ -39,7 +43,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelCadastroMotorista();
 			}
 		});
 		
@@ -50,14 +54,14 @@ public class PanelListagemMotorista extends PanelExemplo {
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				MBServico mbServico = MBServico.getInstance();
+				MBMotorista mbMotorista = MBMotorista.getInstance();
 				try {
-					Servico s = mbServico.retornarServico(idServicoSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Serviço selecionado ?");
+					Motorista m = mbMotorista.retornarMotorista(idMotoristaSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Motorista selecionado ?");
 					if (op==JOptionPane.YES_OPTION ) {
 						
 						
-						JOptionPane.showMessageDialog(null,mbServico.apagar(s));
+						JOptionPane.showMessageDialog(null,mbMotorista.apagar(m));
 						atualizarTabela();
 					}
 				} catch (Exception e) {
@@ -73,7 +77,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelEditarServico();
+				PanelEditarMotorista();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -119,7 +123,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+				idMotoristaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
 			}
@@ -129,7 +133,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 			new Object[][] {
 			},
 			new String[] {
-				"Id", "Matrícula", "Nome"
+				"Id", "Nome", "Matrícula" 
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -144,36 +148,31 @@ public class PanelListagemMotorista extends PanelExemplo {
 		}
 		setLayout(groupLayout);
 	}
-	public void PanelCadastroServiço(){
+	public void PanelCadastroMotorista(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroMotorista(0);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroMotorista(0);
 		}
 	}
-	public void PanelEditarServico(){
+	public void PanelEditarMotorista(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroMotorista(idMotoristaSelecionado);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroMotorista(idMotoristaSelecionado);
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		MBServico mbServico= MBServico.getInstance();
-		List<Servico> listaServico = mbServico.listarServicos();
-		for (int i=0;i<listaServico.size();i++){
+		MBMotorista mbMotorista= MBMotorista.getInstance();
+		List<Motorista> listaMotorista = mbMotorista.listarMotoristas();
+		for (int i=0;i<listaMotorista.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaServico.get(i).getData2().toString().substring(8, 10)+"/"+listaServico.get(i).getData2().toString().substring(5, 7)+
-					"/"+listaServico.get(i).getData2().toString().substring(0, 4), listaServico.get(i).getIdServico()+"", 
-					listaServico.get(i).getValor()+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
-					listaServico.get(i).getDescricao(), listaServico.get(i).getKm()+"", listaServico.get(i).getMotorista().getNome(),
-					listaServico.get(i).getTipoServico().getNome(),	listaServico.get(i).getVeiculo().getPlaca()+"", 
-					listaServico.get(i).getFornecedor().getNome()});
+					listaMotorista.get(i).getIdmotorista()+"", listaMotorista.get(i).getNome()+"", listaMotorista.get(i).getMatricula()+""});
 		}
 	}
 }
