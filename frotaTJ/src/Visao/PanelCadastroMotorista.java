@@ -45,12 +45,12 @@ public class PanelCadastroMotorista extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	
+
 	public PanelCadastroMotorista( final int idMotoristaSelecionado) {
-		
+
 		JLabel lblCadastroMotorista = new JLabel("Cadastro Motorista");
 		lblCadastroMotorista.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
@@ -58,7 +58,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				PanelListagemMotorista();
 			}
 		});
-		
+
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
@@ -68,79 +68,80 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				MBMotorista mbMotorista = MBMotorista.getInstance();
 				Motorista m =  new Motorista(mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldMatricula.getText(), textFieldNome.getText(), null, null);
 
-					try {
-						if (idMotoristaSelecionado==0){
-							if (m.getIdmotorista()==0){
-								m.setIdmotorista(null);
-							}
-							String retorno = mbMotorista.inserir(m);
-							if (retorno.equals("ok")){
-								
-								JOptionPane.showMessageDialog(null,"Motorista inserido!");
-								PanelListagemMotorista();
-							}else{
-								JOptionPane.showMessageDialog(null,retorno);
-							}
+				try {
+					if (idMotoristaSelecionado==0){
+						if (m.getIdmotorista()==0){
+							m.setIdmotorista(null);
+							System.out.println(m);
+						}
+						String retorno = mbMotorista.inserir(m);
+						if (retorno.equals("ok")){
+
+							JOptionPane.showMessageDialog(null,"Motorista inserido!");
+							PanelListagemMotorista();
 						}else{
-							
-							String retorno =  mbMotorista.editar(m);
-							if (retorno.equals("ok")){
-								JOptionPane.showMessageDialog(null,"Motorista alterado!");
-								PanelListagemMotorista();
-							}else{
-								JOptionPane.showMessageDialog(null,retorno);
-							}
+							JOptionPane.showMessageDialog(null,retorno);
+						}
+					}else{
+
+						String retorno =  mbMotorista.editar(m);
+						if (retorno.equals("ok")){
+							JOptionPane.showMessageDialog(null,"Motorista alterado!");
+							PanelListagemMotorista();
+						}else{
+							JOptionPane.showMessageDialog(null,retorno);
+						}
 					}
-						} catch (Exception e) {
-						// TODO: handle exception
-					}
-					
-					
-					
-		
+				} catch (Exception e) {
+					// TODO: handle exception
 				}
-				
-				}
-				
-			
-		);
-		
+
+
+
+
+			}
+
+		}
+
+
+				);
+
 		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
 		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblMatricula.setHorizontalAlignment(SwingConstants.LEFT);
-		
+
 		textFieldMatricula = new JTextField();
 		textFieldMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldMatricula.setColumns(10);
-		
+
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		JLabel lblUnidade = new JLabel("Unidade");
 		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		textFieldNome = new JTextField();
 		textFieldNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldNome.setColumns(10);
-		
-		
+
+
 		MBUnidade mbUnidade = MBUnidade.getInstance();
 		comboBoxUnidade = new JComboBox<Unidade>();
 		DefaultComboBoxModel<Unidade> modeloComboBox;
-		
-			try {
-				modeloComboBox = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
-				comboBoxUnidade.setModel(modeloComboBox);
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		
-		
+
+		try {
+			modeloComboBox = new DefaultComboBoxModel<Unidade>(new Vector(mbUnidade.listarUnidades()));
+			comboBoxUnidade.setModel(modeloComboBox);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
+
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -149,9 +150,13 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblNome)
-							.addGap(18)
-							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblMatricula)
+								.addComponent(lblNome))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+								.addComponent(textFieldMatricula, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -159,7 +164,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblUnidade)
 							.addGap(18)
-							.addComponent(comboBoxUnidade, 0, 616, Short.MAX_VALUE))
+							.addComponent(comboBoxUnidade, 0, 360, Short.MAX_VALUE))
 						.addComponent(lblCadastroMotorista))
 					.addContainerGap())
 		);
@@ -170,13 +175,17 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addComponent(lblCadastroMotorista)
 					.addGap(61)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNome))
+						.addComponent(lblNome)
+						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMatricula)
+						.addComponent(textFieldMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblUnidade))
-					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
@@ -185,38 +194,38 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		setLayout(groupLayout);
 		if (idMotoristaSelecionado>0){
 			MBMotorista mbMotorista = MBMotorista.getInstance();
-			
+
 			try {
 				Motorista m = mbMotorista.retornarMotorista(idMotoristaSelecionado);
 				textFieldNome.setText(m.getNome());
-					
+				textFieldMatricula.setText(m.getMatricula());
 				boolean aux = false ;
 				int  i=0; 
-					
-				while(aux==false){
-						aux= mbUnidade.listarUnidades().get(i).getIdunidade()==m.getUnidade().getIdunidade();
-				   		if (aux==true) break; 
-				   		i++;
-						
-					}
-					comboBoxUnidade.setSelectedIndex(i);
 
-				
-								
+				while(aux==false){
+					aux= mbUnidade.listarUnidades().get(i).getIdunidade()==m.getUnidade().getIdunidade();
+					if (aux==true) break; 
+					i++;
+
+				}
+				comboBoxUnidade.setSelectedIndex(i);
+
+
+
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null,"erro - "+e);
 				// TODO: handle exception
 			}
-			
+
 		}
-	
-		
-			
-		
-		
+
+
+
+
+
 	}
-				
-	
+
+
 	public void PanelListagemMotorista(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
@@ -225,19 +234,19 @@ public class PanelCadastroMotorista extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelListagemMotorista();
 		}
-		
+
 	}
 	public java.util.Date transformaData(String data)  
 	{  
-	  SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
-	  try  
-	  {  
-	    return formatador.parse(data);  
-	  }  
-	  catch(ParseException ex)  
-	  {   
-	      throw new RuntimeException(ex);  
-	  }  
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
+		try  
+		{  
+			return formatador.parse(data);  
+		}  
+		catch(ParseException ex)  
+		{   
+			throw new RuntimeException(ex);  
+		}  
 	}
-	
-	}
+
+}
