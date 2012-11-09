@@ -1,6 +1,8 @@
 package Visao;
 
 import java.awt.EventQueue;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
@@ -18,11 +20,22 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+
+import mb.MBUnidade;
+
+import dao.Marca;
+import dao.Unidade;
 
 
 public class TelaPrincipal extends JFrame {
 
 	private String winDir= ("c:\\frotaTJ\\imagens\\");
+	private String unidadeSelecionada;
 
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
@@ -58,12 +71,6 @@ public class TelaPrincipal extends JFrame {
 		mnInicio.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnInicio.setIcon(new ImageIcon(winDir+"7161_32x32.png"));
 		menuBar.add(mnInicio);
-
-	//-------------------------- Menu Arquivo --------------------------\\		
-		JMenu mnArquivo = new JMenu("Arquivo");
-		mnArquivo.setIcon(new ImageIcon(winDir+"8366_32x32.png"));
-		mnArquivo.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
-		menuBar.add(mnArquivo);
 		
 		
 	//-------------------------- Menu Cadastrar --------------------------\\		
@@ -249,6 +256,34 @@ public class TelaPrincipal extends JFrame {
 		mnNewMenu.setIcon(new ImageIcon(winDir+"7837_32x32.png"));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnNewMenu);
+		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
+		
+	//------------------------- ComboBoxPesquisaUnidade -------------------------\\
+		JComboBox<String> comboBoxUnidade = new JComboBox<String>();
+		MBUnidade mbUnidade = MBUnidade.getInstance();
+		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		comboBoxUnidade.setMaximumRowCount(230);
+		comboBoxUnidade.addItem("Selecione uma Unidade");
+		Vector<Unidade> listaUnidade = new Vector<>();
+		Vector<String> listaNomeUnidade = new Vector<>();
+		try {
+			listaUnidade.addAll(mbUnidade.listarUnidades());
+			
+			for (int i=0; i<listaUnidade.size(); i++){
+				listaNomeUnidade.add(listaUnidade.get(i).getNome());
+				comboBoxUnidade.addItem(listaUnidade.get(i).getNome());
+			}
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		menuBar.add(comboBoxUnidade);
+		unidadeSelecionada = comboBoxUnidade.getSelectedItem()+"";
+		
+		
 		getContentPane().setLayout(new CardLayout(0, 0));
 		panelConteudo.add(panelInicial, "panelInicial");
 		
