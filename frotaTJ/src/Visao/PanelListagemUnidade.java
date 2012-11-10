@@ -7,23 +7,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.GroupLayout.Alignment;
-
 import javax.swing.table.DefaultTableModel;
-
-import mb.MBUnidade;
-
-
-import dao.Unidade;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import mb.MBUnidade;
+import dao.Unidade;
 
 public class PanelListagemUnidade extends PanelExemplo {
 	private int idUnidadeSelecionada;

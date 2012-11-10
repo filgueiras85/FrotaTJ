@@ -1,8 +1,5 @@
 package Visao;
 
-import javax.swing.JPanel;
-
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
@@ -10,10 +7,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-
-
-import mb.MBUsuario;
-import dao.Usuario;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -22,6 +15,9 @@ import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Font;
+
+import mb.MBUsuario;
+import dao.Usuario;
 
 
 public class PanelCadastroUsuario extends PanelExemplo {
@@ -182,7 +178,6 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		 * Limita o numero de caracteres da senha para 6
 		 */
 		senhaUsuario.addKeyListener(new KeyAdapter() {
-			@Override
 			public void keyTyped(KeyEvent e) {
 				if ( senhaUsuario.getPassword().length >= 6) {
 					e.consume();
