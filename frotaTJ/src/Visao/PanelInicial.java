@@ -206,9 +206,10 @@ public class PanelInicial extends PanelExemplo {
 		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID", "Placa", "Unidade", "Motorista", "Situa\u00E7\u00E3o"
+				"ID", "Placa", "Unidade", "Motorista", "Situa\u00E7\u00E3o", "Pend\u00EAncias"
 			}
 		));
 		scrollPane.setViewportView(table);

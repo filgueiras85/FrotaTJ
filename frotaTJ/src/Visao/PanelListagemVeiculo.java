@@ -121,8 +121,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelInicial();
-				
+				TelaDetalhesVeiculo t = new TelaDetalhesVeiculo(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+""));
+				t.show();
 			}
 		});
 		
@@ -151,9 +151,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Veiculo v = new Veiculo();
 				idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				v = mbVeiculo.retornarVeiculo(idVeiculoSelecionado);
 				PanelCadastroVeiculo(idVeiculoSelecionado);
 			}
 		});
@@ -293,10 +291,10 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista"
+				"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista", "Pend\u00EAncias"
 			}
 		));
 		scrollPane.setViewportView(table);

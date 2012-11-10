@@ -280,6 +280,10 @@ public class TelaPrincipal extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		JLabel label = new JLabel("                               ");
+		menuBar.add(label);
+		
 		menuBar.add(comboBoxUnidade);
 		unidadeSelecionada = comboBoxUnidade.getSelectedItem()+"";
 		
