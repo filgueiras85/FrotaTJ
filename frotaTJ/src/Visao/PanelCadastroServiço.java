@@ -399,8 +399,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 	
 	public void AtualizarOdometro(){
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
-		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
-		
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
 		int aux = Integer.parseInt(textFieldKm.getText());;
 		if(veiculo.getOdometro()<aux){
