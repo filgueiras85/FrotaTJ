@@ -17,18 +17,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import java.sql.Timestamp;
 
 import mb.MBAbastecimento;
 import mb.MBFornecedor;
+import mb.MBModelo;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBUnidade;
 import mb.MBVeiculo;
 import dao.Abastecimento;
 import dao.Fornecedor;
+import dao.Modelo;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
+import dao.Unidade;
 import dao.Veiculo;
 
 
@@ -65,16 +70,21 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		textFieldHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldHodometro.setColumns(10);
 
- 
+
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		comboBoxPlaca = new JComboBox<Veiculo>();
-		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
+		DefaultComboBoxModel<Veiculo> modeloComboBox;
+
 		try {
-			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
-			comboBoxPlaca.setModel(modeloComboBoxVeiculo);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
+			modeloComboBox = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
+			comboBoxPlaca.setModel(modeloComboBox);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -82,7 +92,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelListagemServiço();
+				PanelListagemAbastecimento();
 			}
 		});
 
@@ -90,39 +100,39 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
+				java.sql.Timestamp data2 = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
-				
-				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
-				Abastecimento a =  new Abastecimento();
-						mbAbastecimento.retornarAbastecimento(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
+				MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+				Abastecimento a =  new Abastecimento(new Integer(idAbastecimentoSelecionado), mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()), Integer.parseInt(textFieldHodometro.getText()), data2);
 
-					try {
-						if (idAbastecimentoSelecionado==0){
-							if (a.getIdabastecimento()==0){
-								a.setIdabastecimento(null);
-							}
-							String retorno = mbAbastecimento.inserir(a);
-							if (retorno.equals("ok")){
 
-								JOptionPane.showMessageDialog(null,"Serviço inserido!");
-								PanelListagemServiço();
-							}else{
-								JOptionPane.showMessageDialog(null,retorno);
-							}
+				try {
+					if (idAbastecimentoSelecionado==0){
+						if (a.getIdabastecimento()==0){
+							a.setIdabastecimento(null);
+						}
+						String retorno = mbAbastecimento.inserir(a);
+						if (retorno.equals("ok")){
+
+							JOptionPane.showMessageDialog(null,"Abastecimento inserido!");
+							PanelListagemAbastecimento();
 						}else{
+							JOptionPane.showMessageDialog(null,retorno);
+						}
+					}else{
 
-							String retorno =  mbAbastecimento.editar(a);
-							if (retorno.equals("ok")){
-								JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
-								PanelListagemServiço();
-							}else{
-								JOptionPane.showMessageDialog(null,retorno);
-							}
+						String retorno =  mbAbastecimento.editar(a);
+						if (retorno.equals("ok")){
+							JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
+							PanelListagemAbastecimento();
+						}else{
+							JOptionPane.showMessageDialog(null,retorno);
+						}
 					}
-						} catch (Exception e) {
-						// TODO: handle exception
-					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 
 			}
 		});
@@ -175,76 +185,42 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 														.addGap(284))
 				);
 		setLayout(groupLayout);
-		/*if (idServicoSelecionado>0){
-			MBServico mbServico = MBServico.getInstance();
+		if (idAbastecimentoSelecionado>0){
+			MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 
 			try {
-				Servico s = mbServico.retornarServico(idServicoSelecionado);
-				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
+				Abastecimento a = mbAbastecimento.retornarAbastecimento(idAbastecimentoSelecionado);
+				textFieldData.setText(a.getData2().toString());
+				textFieldHodometro.setText(a.getKmOdometro().toString());
 
-				textFieldCupomFiscal.setText(s.getNfTicket().toString());
-				textFieldDescrição.setText(s.getDescricao());
-				textFieldKm.setText(s.getKm().toString());
-				textFieldHodometro.setText(s.getValor().toString());
-				textFieldData.setText(b);
-				textFieldOrçamento.setText(s.getNroOrcamento());
-				// selecionar combobox fornecedor	
+
 				boolean aux = false ;
 				int  i=0; 
 
 				while(aux==false){
-						aux= mbFornecedor.listarFornecedores().get(i).getIdfornecedor()==s.getFornecedor().getIdfornecedor();
-				   		if (aux==true) break; 
-				   		i++;
+					aux= mbVeiculo.listarVeiculos().get(i).getIdveiculo()==a.getVeiculo().getIdveiculo();
+					if (aux==true) break; 
+					i++;
 
-					}
-					comboBoxFornecedor.setSelectedIndex(i);
-					//Selecionar combobox veiculo
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbVeiculo.listarVeiculos().get(i).getIdveiculo()==s.getVeiculo().getIdveiculo();
-				   		if (aux==true) break; 
-				   		i++;
-					}
-					comboBoxVeiculo.setSelectedIndex(i);
-					//Selecionar combobox Motorista
-
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbMotorista.listarMotoristas().get(i).getIdmotorista()==s.getMotorista().getIdmotorista();
-				   		if (aux==true) break; 
-				   		i++;
-					}
-					comboBoxMotorista.setSelectedIndex(i);
-					//Selecionar combobox TipoServiço
-
-					i=0;
-					aux = false;
-					while(aux==false){
-						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==s.getTipoServico().getIdtipoServico();
-				   		if (aux==true) break; 
-				   		i++;
-					}
-					comboBoxTipoServiço.setSelectedIndex(i);
-
-			} catch (ClassNotFoundException | SQLException e) {
+				}
+				comboBoxPlaca.setSelectedIndex(i);
 
 
-						e.printStackTrace();
-					}finally{
 
-					}}*/
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"erro - "+e);
+				// TODO: handle exception
+			}
 
+		}
 	}
-	public void PanelListagemServiço(){
+	public void PanelListagemAbastecimento(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelListagemServiço();
+			parent.PanelListagemAbastecimento();
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemServiço();
+			parent.PanelListagemAbastecimento();
 		}
 
 	}

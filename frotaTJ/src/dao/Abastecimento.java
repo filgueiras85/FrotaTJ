@@ -2,6 +2,7 @@ package dao;
 // default package
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Abastecimento implements java.io.Serializable {
 	private Integer idabastecimento;
 	private Veiculo veiculo;
 	private Integer kmOdometro;
-	private Date data2;
+	private Timestamp data2;
 
 	// Constructors
 
@@ -43,7 +44,15 @@ public class Abastecimento implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Abastecimento(Veiculo veiculo, Integer kmOdometro, Date data2) {
+	public Abastecimento(Integer idabastecimento, Veiculo veiculo, Integer kmOdometro, Timestamp data2) {
+		this.idabastecimento = idabastecimento;
+		this.veiculo = veiculo;
+		this.kmOdometro = kmOdometro;
+		this.data2 = data2;
+	}
+
+	public Abastecimento(Integer idabastecimento, Veiculo veiculo, int kmOdometro, Timestamp data2) {
+		this.idabastecimento = idabastecimento;
 		this.veiculo = veiculo;
 		this.kmOdometro = kmOdometro;
 		this.data2 = data2;
@@ -80,14 +89,19 @@ public class Abastecimento implements java.io.Serializable {
 		this.kmOdometro = kmOdometro;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "data_2", length = 10)
-	public Date getData2() {
-		return this.data2;
-	}
+	//@Temporal(TemporalType.TIMESTAMP)
+		@Column(name = "data_2", length = 19)
+		public Timestamp getData2() {
+			return this.data2;
+		}
 
-	public void setData2(Date data2) {
-		this.data2 = data2;
+		public void setData2(Timestamp data2) {
+			this.data2 = data2;
+		}
+
+	public String toString()
+	{
+		return toString();
 	}
 
 }

@@ -43,7 +43,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelCadastroAbastecimento();
 			}
 		});
 
@@ -109,11 +109,12 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
+		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				idAbastecimentoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+				idAbastecimentoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
 			}
@@ -138,13 +139,13 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		}
 		setLayout(groupLayout);
 	}
-	public void PanelCadastroServiço(){
+	public void PanelCadastroAbastecimento(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroAbastecimento(0);
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroAbastecimento(0);
 		}
 	}
 	public void PanelEditarAbastecimento(){
