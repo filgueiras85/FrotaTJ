@@ -25,6 +25,7 @@ import mb.MBModelo;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 import dao.Abastecimento;
@@ -114,7 +115,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						}
 						String retorno = mbAbastecimento.inserir(a);
 						if (retorno.equals("ok")){
-
+							AtualizarOdometro();
 							JOptionPane.showMessageDialog(null,"Abastecimento inserido!");
 							PanelListagemAbastecimento();
 						}else{
@@ -124,6 +125,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 						String retorno =  mbAbastecimento.editar(a);
 						if (retorno.equals("ok")){
+							AtualizarOdometro();
 							JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
 							PanelListagemAbastecimento();
 						}else{
@@ -236,6 +238,18 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			throw new RuntimeException(ex);  
 		}  
 	}
+	public void AtualizarOdometro(){
+		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+				
+		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
+		int aux = Integer.parseInt(textFieldHodometro.getText());;
+		if(veiculo.getOdometro()<aux){
+			veiculo.setOdometro(aux);
+			 mbVeiculo.editar(veiculo);
+		}
+
+		
+		}
 
 
 }

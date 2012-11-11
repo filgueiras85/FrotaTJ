@@ -107,6 +107,7 @@ public class PanelListagemModelo extends PanelExemplo {
 		btnApagar.setVisible(false);
 		
 		table = new JTable();
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -119,9 +120,12 @@ public class PanelListagemModelo extends PanelExemplo {
 			new Object[][] {
 			},
 			new String[] {
-				"Id","Nome", "Marca"
+				"Id", "Nome", "Marca"
 			}
 		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(0).setMinWidth(40);
+		table.getColumnModel().getColumn(0).setMaxWidth(100);
 		scrollPane.setViewportView(table);
 		try {
 			atualizarTabela();

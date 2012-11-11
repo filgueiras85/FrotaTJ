@@ -196,9 +196,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 								s.setIdServico(null);
 							}
 							String retorno = mbServico.inserir(s);
-							AtualizarVeiculo();
 							if (retorno.equals("ok")){
-								
+								AtualizarOdometro();
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
 								PanelListagemServiço();
 							}else{
@@ -207,8 +206,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 						}else{
 							
 							String retorno =  mbServico.editar(s);
-							AtualizarVeiculo();
 							if (retorno.equals("ok")){
+								AtualizarOdometro();
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
 							}else{
@@ -398,36 +397,18 @@ public class PanelCadastroServiço extends PanelExemplo {
 	  }  
 	}
 	
-	public void AtualizarVeiculo(){
+	public void AtualizarOdometro(){
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 		
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
-		TipoServicoModeloId tipoServicoModeloId = new TipoServicoModeloId();
-		tipoServicoModeloId.setModeloIdmodelo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getModelo().getIdmodelo());
-		int aux = veiculo.getOdometro();
-		TipoServicoModelo tipoServicoModelo = new TipoServicoModelo();
+		int aux = Integer.parseInt(textFieldKm.getText());;
+		if(veiculo.getOdometro()<aux){
+			veiculo.setOdometro(aux);
+			 mbVeiculo.editar(veiculo);
+		}
+
 		
-		veiculo.setOdometro(Integer.parseInt(textFieldKm.getText()));
-		boolean boo = false ;
-		int  i=0; 
-		try {	
-		 for (int j = 0; j < mbTipoServiçoModelo.listarTipoServicosModelos().size(); j++) {
-			 
-					if(mbTipoServiçoModelo.listarTipoServicosModelos().get(i).getKm()+aux<veiculo.getOdometro()){
-						veiculo.setSituacao("ok");
-					}else{
-						if(mbTipoServiçoModelo.listarTipoServicosModelos().get(i).getKm()+aux>veiculo.getOdometro()){
-							veiculo.setSituacao("atrasado");
-						}else{
-							veiculo.setSituacao("a fazer");
-						}
-				}}
-		 mbVeiculo.editar(veiculo);
-		} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 		}
 				
 		   		

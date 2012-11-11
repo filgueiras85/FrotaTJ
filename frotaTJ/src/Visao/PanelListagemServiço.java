@@ -114,7 +114,7 @@ public class PanelListagemServiço extends PanelExemplo {
 				btnApagar.setVisible(true);
 			}
 		});
-		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -122,6 +122,14 @@ public class PanelListagemServiço extends PanelExemplo {
 				"Data", "Id", "Valor", "Or\u00E7amento", "Nota Fiscal", "Descri\u00E7\u00E3o", "Km", "Motorista", "Tipo", "Veiculo", "Fornecedor"
 			}
 		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(85);
+		table.getColumnModel().getColumn(0).setMinWidth(85);
+		table.getColumnModel().getColumn(0).setMaxWidth(85);
+		table.getColumnModel().getColumn(1).setPreferredWidth(70);
+		table.getColumnModel().getColumn(1).setMinWidth(16);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
+		table.getColumnModel().getColumn(9).setMinWidth(75);
+		table.getColumnModel().getColumn(9).setMaxWidth(75);
 		scrollPane.setViewportView(table);
 		try {
 			atualizarTabela();
