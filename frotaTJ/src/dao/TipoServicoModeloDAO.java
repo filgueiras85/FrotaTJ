@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import mb.MBTipoServiçoModelo;
+
 import dao.EntityManagerHelper;
 
 /**
@@ -24,6 +26,7 @@ public class TipoServicoModeloDAO implements ITipoServicoModeloDAO {
 	// property constants
 	public static final String KM = "km";
 	public static final String TEMPO = "tempo";
+	public static final String MODELO = "modelo_idmodelo";
 	
 	private static TipoServicoModeloDAO instance = new TipoServicoModeloDAO();
 	private TipoServicoModeloDAO(){}
@@ -185,7 +188,8 @@ public class TipoServicoModeloDAO implements ITipoServicoModeloDAO {
 	public List<TipoServicoModelo> findByTempo(Object tempo) {
 		return findByProperty(TEMPO, tempo);
 	}
-
+	
+	
 	/**
 	 * Find all TipoServicoModelo entities.
 	 * 

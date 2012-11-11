@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.Modelo;
 import dao.TipoServico;
 import dao.TipoServicoDAO;
 import dao.TipoServicoModelo;
@@ -63,6 +64,30 @@ public class MBTipoServiçoModelo {
 	public TipoServicoModelo retornarTipoServicoModelo(TipoServicoModeloId id) {
 		TipoServicoModeloDAO daoTipoServicoModelo = TipoServicoModeloDAO.getInstance();
 		return daoTipoServicoModelo.findById(id);
+		
+	}
+	
+	public List<TipoServico> ListarosTipoServicoModelo(Integer id) {
+		List<TipoServicoModelo> Lista1;
+		try {
+			Lista1 = listarTipoServicosModelos();
+			List<TipoServico> lista = new ArrayList<>();
+			
+			for (int i = 0; i < Lista1.size(); i++) {
+				if(Lista1.get(i).getModelo().getIdmodelo().equals(id)){
+					lista.add(Lista1.get(i).getTipoServico());
+				}
+				
+			}
+			
+			
+			return lista;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 		
 	}
 

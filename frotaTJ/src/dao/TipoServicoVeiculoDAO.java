@@ -23,6 +23,7 @@ import dao.EntityManagerHelper;
 public class TipoServicoVeiculoDAO implements ITipoServicoVeiculoDAO {
 	// property constants
 	public static final String SITUACAO = "situacao";
+	public static final String VEICULO = "veiculo_idveiculo";
 	
 	private static TipoServicoVeiculoDAO instance = new TipoServicoVeiculoDAO();
 	private TipoServicoVeiculoDAO(){}
@@ -179,6 +180,10 @@ public class TipoServicoVeiculoDAO implements ITipoServicoVeiculoDAO {
 
 	public List<TipoServicoVeiculo> findBySituacao(Object situacao) {
 		return findByProperty(SITUACAO, situacao);
+	}
+	
+	public List<TipoServicoVeiculo> findByVeiculo(Object veiculo){
+		return findByProperty(VEICULO, veiculo);
 	}
 
 	/**
