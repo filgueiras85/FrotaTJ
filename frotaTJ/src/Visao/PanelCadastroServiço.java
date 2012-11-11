@@ -329,7 +329,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 				int  i=0; 
 					
 				while(aux==false){
-						aux= mbFornecedor.listarFornecedores().get(i).getIdfornecedor()==s.getFornecedor().getIdfornecedor();
+						aux= mbFornecedor.listarFornecedores().get(i).equals(s.getFornecedor());
 				   		if (aux==true) break; 
 				   		i++;
 						
@@ -339,7 +339,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 					i=0;
 					aux = false;
 					while(aux==false){
-						aux= mbVeiculo.listarVeiculos().get(i).getIdveiculo()==s.getVeiculo().getIdveiculo();
+						aux= mbVeiculo.listarVeiculos().get(i).equals(s.getVeiculo());
 				   		if (aux==true) break; 
 				   		i++;
 					}
@@ -349,7 +349,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 					i=0;
 					aux = false;
 					while(aux==false){
-						aux= mbMotorista.listarMotoristas().get(i).getIdmotorista()==s.getMotorista().getIdmotorista();
+						aux= mbMotorista.listarMotoristas().get(i).equals(s.getMotorista());
 				   		if (aux==true) break; 
 				   		i++;
 					}
@@ -359,7 +359,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 					i=0;
 					aux = false;
 					while(aux==false){
-						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==s.getTipoServico().getIdtipoServico();
+						aux= mbTipoServico.listarTipoServicos().get(i).equals(s.getTipoServico());
 				   		if (aux==true) break; 
 				   		i++;
 					}

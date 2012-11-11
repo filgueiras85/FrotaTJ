@@ -174,7 +174,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 				int  i=0; 
 					
 				while(aux==false){
-						aux= mbMarca.listarMarcas().get(i).getIdmarca()==m.getMarca().getIdmarca();
+						aux= mbMarca.listarMarcas().get(i).equals(m.getMarca());
 				   		if (aux==true) break; 
 				   		i++;
 						

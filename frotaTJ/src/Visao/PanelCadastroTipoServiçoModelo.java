@@ -238,7 +238,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 				i=0;
 				aux = false;
 				while(aux==false){
-						aux= mbTipoServico.listarTipoServicos().get(i).getIdtipoServico()==t.getTipoServico().getIdtipoServico();
+						aux= mbTipoServico.listarTipoServicos().get(i).equals(t.getTipoServico());
 				   		if (aux==true) break; 
 				   		i++;
 						
