@@ -348,8 +348,11 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 				situacao = situacao+lista.get(i).Situacao();
 				aux = aux+ok;	
 				}
+			MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 			if(situacao.equalsIgnoreCase(aux)){
 				v.setSituacao("ok");
+				mbVeiculo.editar(v);
+				
 			}
 			
 		}
