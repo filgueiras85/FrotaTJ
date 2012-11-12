@@ -37,7 +37,10 @@ public class PanelCadastroUsuario extends PanelExemplo {
 
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-
+		
+		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
+		lblCadastroDeUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
 		final JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
 		rdbtnAdministrador.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -78,9 +81,7 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		add(lblEmail);
-		
-		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
-		lblCadastroDeUsuario.setFont(new Font("Tahoma", Font.BOLD, 20));
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

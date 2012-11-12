@@ -253,6 +253,11 @@ public class TelaPrincipal extends JFrame {
 	
 	//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
+		mnNewMenu.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				PanelLogin();
+			}
+		});
 		mnNewMenu.setIcon(new ImageIcon(winDir+"7837_32x32.png"));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnNewMenu);
@@ -313,6 +318,13 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo, "panelInicial");
 	}	
 	
+	public void PanelLogin(){
+		PanelLogin panelLogin = new PanelLogin();
+		panelConteudo.add(panelLogin, "panelLogin");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelLogin");
+
+	}
 	
 	//--------------------- Métodos para troca de Panel de cadastro ---------------------\\
 	

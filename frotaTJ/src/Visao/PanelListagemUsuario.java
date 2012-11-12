@@ -94,10 +94,8 @@ public class PanelListagemUsuario extends PanelExemplo {
 		try {
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -128,10 +126,8 @@ public class PanelListagemUsuario extends PanelExemplo {
 				try {
 					atualizarTabela();
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
