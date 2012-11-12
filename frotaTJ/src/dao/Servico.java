@@ -213,5 +213,9 @@ public class Servico implements java.io.Serializable {
 	public void setKm(Integer km) {
 		this.km = km;
 	}
+	public String toString()
+	{
+		return this.getVeiculo().toString();
+	}
 
 }

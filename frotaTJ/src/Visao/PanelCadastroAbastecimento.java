@@ -264,32 +264,48 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		MBServico mbServico = MBServico.getInstance();		
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
 		String ok = "Ok";
-		String situacao=null;
-		String aux = null;
+		String situacao="";
+		String aux = "";
 		List<TipoServicoVeiculo> lista = new ArrayList<>();
 		lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
 		System.out.println(lista.size());
 		for(int i = 0; i<lista.size();i++){
-			Vector<Servico> listaServico = (Vector<Servico>) mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
-			if(v.getOdometro()+listaTipoServico.get(i).getKm()<listaServico.lastElement().getKm()){
+			List<Servico> listaServico = mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
+			System.out.println(lista.size()+"lista");
+			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
+			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 				lista.get(i).setSituacao(true);
+				System.out.println("bom");
+
 			}else{
-				if(v.getOdometro()+listaTipoServico.get(i).getKm()>listaServico.lastElement().getKm()){
+				if(v.getOdometro()>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 					lista.get(i).setSituacao(false);
+					System.out.println("atrasado1");
 				}else{
-					if(v.getOdometro()+listaTipoServico.get(i).getKm()==listaServico.lastElement().getKm()){
+					if(v.getOdometro()==listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 						lista.get(i).setSituacao(false);
+						System.out.println("atrasado2");
+
 					}	
 				}
 				
 			}
+			
+				
+			}
+		for(int i = 0; i<lista.size();i++){
 			situacao = situacao+lista.get(i).Situacao();
 			aux = aux+ok;	
+			System.out.println(situacao);
 			}
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		if(situacao.equalsIgnoreCase(aux)){
 			v.setSituacao("ok");
 			mbVeiculo.editar(v);
+			
+		}else{
+		v.setSituacao("atrasado");
+		mbVeiculo.editar(v);
 	}
 	}
 }

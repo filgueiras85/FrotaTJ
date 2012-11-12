@@ -55,7 +55,10 @@ public class MBServico {
 			System.out.println(Lista1.size()+"servico");
 			for (int i = 0; i < Lista1.size(); i++) {
 				if(Lista1.get(i).getVeiculo().getIdveiculo().equals(id)){
-					lista.add(Lista1.get(i));
+					if(Lista1.get(i).getTipoServico().equals(tipoServico)){
+						lista.add(Lista1.get(i));
+
+					}
 				}
 				System.out.println(Lista1.get(i).getVeiculo().getIdveiculo().equals(id));
 				
