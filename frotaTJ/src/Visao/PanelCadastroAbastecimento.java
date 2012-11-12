@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -25,6 +27,7 @@ import mb.MBModelo;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
@@ -34,6 +37,9 @@ import dao.Modelo;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
+import dao.TipoServicoModelo;
+import dao.TipoServicoVeiculo;
+import dao.TipoServicoVeiculoId;
 import dao.Unidade;
 import dao.Veiculo;
 
@@ -86,6 +92,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		Veiculo veiculoSelecionado = (Veiculo) comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex());
 
 		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -101,7 +108,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 				java.sql.Timestamp data2 = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 				MBVeiculo mbVeiculo = MBVeiculo.getInstance();
@@ -116,6 +123,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						String retorno = mbAbastecimento.inserir(a);
 						if (retorno.equals("ok")){
 							AtualizarOdometro();
+							AtualizarSituacao(a.getVeiculo());
 							JOptionPane.showMessageDialog(null,"Abastecimento inserido!");
 							PanelListagemAbastecimento();
 						}else{
@@ -250,6 +258,38 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 		
 		}
-
-
+	public void AtualizarSituacao(Veiculo v){
+		MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+		MBServico mbServico = MBServico.getInstance();		
+		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
+		String ok = "Ok";
+		String situacao=null;
+		String aux = null;
+		List<TipoServicoVeiculo> lista = new ArrayList<>();
+		lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
+		System.out.println(lista.size());
+		for(int i = 0; i<lista.size();i++){
+			Vector<Servico> listaServico = (Vector<Servico>) mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
+			if(v.getOdometro()+listaTipoServico.get(i).getKm()<listaServico.lastElement().getKm()){
+				lista.get(i).setSituacao(true);
+			}else{
+				if(v.getOdometro()+listaTipoServico.get(i).getKm()>listaServico.lastElement().getKm()){
+					lista.get(i).setSituacao(false);
+				}else{
+					if(v.getOdometro()+listaTipoServico.get(i).getKm()==listaServico.lastElement().getKm()){
+						lista.get(i).setSituacao(false);
+					}	
+				}
+				
+			}
+			situacao = situacao+lista.get(i).Situacao();
+			aux = aux+ok;	
+			}
+		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+		if(situacao.equalsIgnoreCase(aux)){
+			v.setSituacao("ok");
+			mbVeiculo.editar(v);
+	}
+	}
 }

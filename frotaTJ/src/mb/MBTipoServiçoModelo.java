@@ -90,7 +90,29 @@ public class MBTipoServiçoModelo {
 		return null;
 		
 	}
-
+	public List<TipoServicoModelo> ListarosTipoServicodoModelo(Integer id) {
+		List<TipoServicoModelo> Lista1;
+		try {
+			Lista1 = listarTipoServicosModelos();
+			List<TipoServicoModelo> lista = new ArrayList<>();
+			
+			for (int i = 0; i < Lista1.size(); i++) {
+				if(Lista1.get(i).getModelo().getIdmodelo().equals(id)){
+					lista.add(Lista1.get(i));
+				}
+				
+			}
+			
+			
+			return lista;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 	public List<TipoServicoModelo> listarTipoServicosModelos() throws ClassNotFoundException, SQLException{
 		TipoServicoModeloDAO daoTipoServicoModelo = TipoServicoModeloDAO.getInstance();
 		return daoTipoServicoModelo.findAll();

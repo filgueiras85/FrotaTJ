@@ -9,6 +9,9 @@ import java.util.List;
 
 import dao.Servico;
 import dao.ServicoDAO;
+import dao.TipoServico;
+import dao.TipoServicoModelo;
+import dao.TipoServicoVeiculo;
 
 public class MBServico {
 	private static MBServico servicoMB = new MBServico();
@@ -43,6 +46,30 @@ public class MBServico {
 			retorno = "erro";
 		}
 		return retorno;
+	}
+	public List<Servico> ListarosServicodoVeiculo(Integer id, TipoServico tipoServico) {
+		List<Servico> Lista1;
+		try {
+			Lista1 = listarServicos();
+			List<Servico> lista = new ArrayList<>();
+			System.out.println(Lista1.size()+"servico");
+			for (int i = 0; i < Lista1.size(); i++) {
+				if(Lista1.get(i).getVeiculo().getIdveiculo().equals(id)){
+					lista.add(Lista1.get(i));
+				}
+				System.out.println(Lista1.get(i).getVeiculo().getIdveiculo().equals(id));
+				
+			}
+			
+			System.out.println(lista);
+			return lista;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 	}
 	
 

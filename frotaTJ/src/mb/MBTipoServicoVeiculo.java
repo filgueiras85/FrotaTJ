@@ -76,16 +76,18 @@ public class MBTipoServicoVeiculo {
 		List<TipoServicoVeiculo> Lista1;
 		try {
 			Lista1 = listarTipoServicosModelos();
+			
 			List<TipoServicoVeiculo> lista = new ArrayList<>();
 			
 			for (int i = 0; i < Lista1.size(); i++) {
+				System.out.println(Lista1.get(i).getVeiculo().getIdveiculo().equals(id));
 				if(Lista1.get(i).getVeiculo().getIdveiculo().equals(id)){
 					lista.add(Lista1.get(i));
 				}
 				
 			}
 			
-			
+			System.out.println(lista.size()+"oi"+Lista1.size());
 			return lista;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
