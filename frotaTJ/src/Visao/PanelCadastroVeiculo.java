@@ -15,11 +15,16 @@ import javax.swing.JButton;
 
 import dao.Modelo;
 import dao.Motorista;
+import dao.TipoServico;
+import dao.TipoServicoVeiculo;
+import dao.TipoServicoVeiculoId;
 import dao.Unidade;
 import dao.Veiculo;
 
 import mb.MBModelo;
 import mb.MBMotorista;
+import mb.MBTipoServicoVeiculo;
+import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 import mb.MBVeiculo;
@@ -27,6 +32,7 @@ import mb.MBVeiculo;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -156,6 +162,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 							v.setIdveiculo(null);
 						}
 						String retorno = mbVeiculo.inserir(v);
+						Situação(v, idVeiculoSelecionado);
 						if (retorno.equals("ok")){
 							
 							JOptionPane.showMessageDialog(null,"Veículo cadastrado com sucesso!");
@@ -321,6 +328,33 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelListagemVeiculo();
 		}
+	}
+	public void Situação(Veiculo v, int idVeiculoSelecionado){
+		if(idVeiculoSelecionado==0){
+			MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+			MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+			List<TipoServico> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicoModelo(v.getModelo().getIdmodelo());
+			String ok = "Ok";
+			String situacao=null;
+			String aux = null;
+			for(int i = 0;i<listaTipoServico.size();i++){
+			TipoServicoVeiculoId tipoServicoVeiculoId = new TipoServicoVeiculoId(v.getIdveiculo(), listaTipoServico.get(i).getIdtipoServico());
+			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, v, listaTipoServico.get(i), true);
+			mbTipoServicoVeiculo.inserir(tipoServicoVeiculo);
+			}
+			List<TipoServicoVeiculo> lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
+			
+			for(int i = 0; i<lista.size();i++){
+				situacao = situacao+lista.get(i).Situacao();
+				aux = aux+ok;	
+				}
+			if(situacao.equalsIgnoreCase(aux)){
+				v.setSituacao("ok");
+			}
+			
+		}
+		
+		
 	}
 }
 
