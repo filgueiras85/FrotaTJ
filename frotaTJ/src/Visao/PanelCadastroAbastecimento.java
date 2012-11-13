@@ -122,8 +122,10 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						}
 						String retorno = mbAbastecimento.inserir(a);
 						if (retorno.equals("ok")){
-							AtualizarOdometro();
-							AtualizarSituacao(a.getVeiculo());
+							if(AtualizarOdometro()){
+								AtualizarSituacao(a.getVeiculo());
+							}
+							
 							JOptionPane.showMessageDialog(null,"Abastecimento inserido!");
 							PanelListagemAbastecimento();
 						}else{
@@ -133,7 +135,9 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 						String retorno =  mbAbastecimento.editar(a);
 						if (retorno.equals("ok")){
-							AtualizarOdometro();
+							if(AtualizarOdometro()){
+								AtualizarSituacao(a.getVeiculo());
+							}
 							JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
 							PanelListagemAbastecimento();
 						}else{
@@ -246,7 +250,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			throw new RuntimeException(ex);  
 		}  
 	}
-	public void AtualizarOdometro(){
+	public boolean AtualizarOdometro(){
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 				
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
@@ -254,8 +258,11 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		if(veiculo.getOdometro()<aux){
 			veiculo.setOdometro(aux);
 			 mbVeiculo.editar(veiculo);
+			 return true;
+		}else{
+			return false;
 		}
-
+		
 		
 		}
 	public void AtualizarSituacao(Veiculo v){
