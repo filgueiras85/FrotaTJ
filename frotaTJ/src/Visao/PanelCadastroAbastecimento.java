@@ -277,6 +277,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
 		System.out.println(lista.size());
 		for(int i = 0; i<lista.size();i++){
+			if(listaTipoServico.get(i).getKm()<v.getOdometro()){
 			List<Servico> listaServico = mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
@@ -285,7 +286,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 					lista.get(i).setSituacao(true);
 					System.out.println("atrasado3");
-					aux = "null";
+					
 					situacao = "null";
 
 				}else{
@@ -308,7 +309,17 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				
 			}
 			
-				
+			}else{if(listaTipoServico.get(i).getKm()<(v.getOdometro()+200)){
+				lista.get(i).setSituacao(true);
+				situacao = "null";
+
+			}
+			else{
+				lista.get(i).setSituacao(true);
+
+			}
+			}
+			
 			}
 		for(int i = 0; i<lista.size();i++){
 			situacao = situacao+lista.get(i).Situacao();
@@ -331,7 +342,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				}
 				else{
 					v.setSituacao("A Fazer");
-					mbVeiculo.editar(v);
+					System.out.print(mbVeiculo.editar(v));
 
 				}
 			}
@@ -341,5 +352,6 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			}
 		
 	}
+		
 	}
 }

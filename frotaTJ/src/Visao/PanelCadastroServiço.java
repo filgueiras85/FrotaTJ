@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -29,6 +30,7 @@ import mb.MBFornecedor;
 import mb.MBMotorista;
 import mb.MBServico;
 import mb.MBTipoServico;
+import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
@@ -39,6 +41,7 @@ import dao.Servico;
 import dao.TipoServico;
 import dao.TipoServicoModelo;
 import dao.TipoServicoModeloId;
+import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 
 
@@ -210,7 +213,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 							}
 							String retorno = mbServico.inserir(s);
 							if (retorno.equals("ok")){
-								AtualizarOdometro();
+								if(AtualizarOdometro()){
+									AtualizarSituacao(s.getVeiculo());
+								}
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
 								PanelListagemServiço();
 							}else{
@@ -220,7 +225,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 							
 							String retorno =  mbServico.editar(s);
 							if (retorno.equals("ok")){
-								AtualizarOdometro();
+								if(AtualizarOdometro()){
+									AtualizarSituacao(s.getVeiculo());
+								}
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
 							}else{
@@ -423,13 +430,16 @@ public class PanelCadastroServiço extends PanelExemplo {
 	  }  
 	}
 	
-	public void AtualizarOdometro(){
+	public boolean AtualizarOdometro(){
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
 		int aux = Integer.parseInt(textFieldKm.getText());;
 		if(veiculo.getOdometro()<aux){
 			veiculo.setOdometro(aux);
 			 mbVeiculo.editar(veiculo);
+			 return true;
+		}else{
+			return false;
 		}
 
 		
@@ -448,6 +458,83 @@ public class PanelCadastroServiço extends PanelExemplo {
 		
 		comboBoxTipoServico_1.updateUI();
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	}
+	public void AtualizarSituacao(Veiculo v){
+		MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+		MBServico mbServico = MBServico.getInstance();		
+		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
+		String ok = "Ok";
+		String situacao="";
+		String aux = "";
+		List<TipoServicoVeiculo> lista = new ArrayList<>();
+		lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
+		System.out.println(lista.size());
+		for(int i = 0; i<lista.size();i++){
+			List<Servico> listaServico = mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
+			System.out.println(lista.size()+"lista");
+			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
+			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
+				
+				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
+					lista.get(i).setSituacao(true);
+					System.out.println("atrasado3");
+					
+					situacao = "null";
+
+				}else{
+					lista.get(i).setSituacao(true);
+					System.out.println("bom");
+				}
+				
+
+			}else{
+				if(v.getOdometro()>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
+					lista.get(i).setSituacao(false);
+					System.out.println("atrasado1");
+				}else{
+					if(v.getOdometro()==listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
+						lista.get(i).setSituacao(false);
+						System.out.println("atrasado2");
+
+					}	
+				}
+				
+			}
+			
+				
+			}
+		for(int i = 0; i<lista.size();i++){
+			situacao = situacao+lista.get(i).Situacao();
+			aux = aux+ok;	
+			System.out.println(situacao+"si");
+			System.out.println(aux+"au");
+
+			}
+		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+		System.out.println(situacao.contains("null")+"hh");
+		if(situacao.equalsIgnoreCase(aux)){
+			v.setSituacao("ok");
+			mbVeiculo.editar(v);
+			
+		}else{
+			if(situacao.contains("null")){
+				if(situacao.contains("atrasado")){
+					v.setSituacao("atrasado");
+					mbVeiculo.editar(v);
+				}
+				else{
+					v.setSituacao("A Fazer");
+					System.out.print(mbVeiculo.editar(v));
+
+				}
+			}
+			else{
+				v.setSituacao("atrasado");
+				mbVeiculo.editar(v);
+			}
+		
+	}
 	}
 	}
 	

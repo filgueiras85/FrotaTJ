@@ -155,7 +155,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText()));
+				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText()), null);
 				try {
 					if (idVeiculoSelecionado==0){
 						if (v.getIdveiculo()==0){
@@ -171,7 +171,8 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 							JOptionPane.showMessageDialog(null,retorno);
 						}
 					}else{
-						
+						Veiculo v2 = mbVeiculo.retornarVeiculo(v.getIdveiculo());
+						v.setSituacao(v2.getSituacao());
 						String retorno =  mbVeiculo.editar(v);
 						if (retorno.equals("ok")){
 							JOptionPane.showMessageDialog(null,"Veículo alterado com sucesso!");
