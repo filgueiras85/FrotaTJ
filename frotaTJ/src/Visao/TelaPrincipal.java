@@ -255,7 +255,7 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				PanelLogin();
+				TelaLogin();
 			}
 		});
 		mnNewMenu.setIcon(new ImageIcon(winDir+"7837_32x32.png"));
@@ -318,12 +318,9 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo, "panelInicial");
 	}	
 	
-	public void PanelLogin(){
-		PanelLogin panelLogin = new PanelLogin();
-		panelConteudo.add(panelLogin, "panelLogin");
-		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-		cardLayout.show(panelConteudo, "panelLogin");
-
+	public void TelaLogin(){
+		TelaLogin telaLogin = new TelaLogin();
+		telaLogin.show();
 	}
 	
 	//--------------------- Métodos para troca de Panel de cadastro ---------------------\\
