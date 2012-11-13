@@ -281,8 +281,18 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-				lista.get(i).setSituacao(true);
-				System.out.println("bom");
+				
+				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
+					lista.get(i).setSituacao(true);
+					System.out.println("atrasado3");
+					aux = "null";
+					situacao = "null";
+
+				}else{
+					lista.get(i).setSituacao(true);
+					System.out.println("bom");
+				}
+				
 
 			}else{
 				if(v.getOdometro()>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
@@ -303,16 +313,33 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		for(int i = 0; i<lista.size();i++){
 			situacao = situacao+lista.get(i).Situacao();
 			aux = aux+ok;	
-			System.out.println(situacao);
+			System.out.println(situacao+"si");
+			System.out.println(aux+"au");
+
 			}
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+		System.out.println(situacao.contains("null")+"hh");
 		if(situacao.equalsIgnoreCase(aux)){
 			v.setSituacao("ok");
 			mbVeiculo.editar(v);
 			
 		}else{
-		v.setSituacao("atrasado");
-		mbVeiculo.editar(v);
+			if(situacao.contains("null")){
+				if(situacao.contains("atrasado")){
+					v.setSituacao("atrasado");
+					mbVeiculo.editar(v);
+				}
+				else{
+					v.setSituacao("A Fazer");
+					mbVeiculo.editar(v);
+
+				}
+			}
+			else{
+				v.setSituacao("atrasado");
+				mbVeiculo.editar(v);
+			}
+		
 	}
 	}
 }

@@ -91,7 +91,11 @@ public class TipoServicoVeiculo implements java.io.Serializable {
 		if(this.situacao.equals(true)){
 			return "Ok";
 		}else{
-			return "Atrasado";
+			if(this.situacao.equals(false)){
+				return "Atrasado";
+			}else{
+				return "A Fazer";
+			}
 		}
 	}
 	public void setSituacao(Boolean situacao) {
