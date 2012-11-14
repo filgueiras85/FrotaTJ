@@ -327,7 +327,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			}
 			
 			}else{if(listaTipoServico.get(i).getKm()<(v.getOdometro()+200)){
-				lista.get(i).setSituacao("OK");
+				lista.get(i).setSituacao("A Fazer");
 				situacao = "null";
 
 			}
