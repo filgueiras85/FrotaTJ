@@ -474,6 +474,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 			List<Servico> listaServico = mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
+			if(listaServico.size()>0){
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 				
 				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
@@ -501,7 +502,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 				}
 				
 			}
-			
+			}else{
+				lista.get(i).setSituacao(true);
+
+			}
 				
 			}
 		for(int i = 0; i<lista.size();i++){
