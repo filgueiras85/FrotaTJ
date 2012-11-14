@@ -108,7 +108,11 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+			    try{  
+			        int check = Integer.parseInt(textFieldHodometro.getText());  
+		    		        			    		        	
+			    		        
+			    			
 				java.sql.Timestamp data2 = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 				MBVeiculo mbVeiculo = MBVeiculo.getInstance();
@@ -147,7 +151,13 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
+				
 
+			}
+
+			    catch (NumberFormatException e) {  
+			    	JOptionPane.showMessageDialog(null,"Por favor, verifique o cadastro do Hodômetro.\n            Ele aceita apenas números inteiros. \n                  Não use virgula nem ponto.");
+			    }  
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -198,6 +208,9 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 														.addComponent(btnCancelar))
 														.addGap(284))
 				);
+		
+		
+		
 		setLayout(groupLayout);
 		if (idAbastecimentoSelecionado>0){
 			MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
@@ -238,6 +251,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}
 
 	}
+	
 	public java.util.Date transformaData(String data)  
 	{  
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
@@ -247,9 +261,12 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}  
 		catch(ParseException ex)  
 		{   
-			throw new RuntimeException(ex);  
-		}  
+			
+			JOptionPane.showMessageDialog(null,"Por favor, verifique a data do cadastro. /n     A data deve estar no formato: 15/11/2012");
+		}
+		return null;  
 	}
+	
 	public boolean AtualizarOdometro(){
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 				
