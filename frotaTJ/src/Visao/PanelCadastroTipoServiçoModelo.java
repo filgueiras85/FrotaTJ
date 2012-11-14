@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -20,7 +21,9 @@ import javax.swing.ImageIcon;
 import mb.MBMarca;
 import mb.MBModelo;
 import mb.MBTipoServico;
+import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
+import mb.MBVeiculo;
 
 import dao.Marca;
 import dao.Modelo;
@@ -28,6 +31,9 @@ import dao.TipoServico;
 import dao.TipoServicoModelo;
 import dao.TipoServicoModeloDAO;
 import dao.TipoServicoModeloId;
+import dao.TipoServicoVeiculo;
+import dao.TipoServicoVeiculoId;
+import dao.Veiculo;
 
 
 public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
@@ -68,15 +74,16 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 				TipoServicoModelo t = new TipoServicoModelo(tipoServicoModeloId, mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()), mbTipoServico.retornarTipoServico(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico()), Integer.parseInt(textFieldKM.getText()), Integer.parseInt(textFieldData.getText()));
 
 					try {
-						if (idModeloSelecionado==0 || idTipoServiçoselecionado == 0){
-							if (t.getId().getModeloIdmodelo()==0 || t.getId().getTipoServicoIdtipoServico()==0){
+						if (idModeloSelecionado==0 && idTipoServiçoselecionado == 0){
+							if (t.getId().getModeloIdmodelo()==0 && t.getId().getTipoServicoIdtipoServico()==0){
 								
 								t.setId(tipoServicoModeloId);
 							}
 							
 							String retorno = mbTipoServiçoModelo.inserir(t);
+							
 							if (retorno.equals("ok")){
-								
+								AtualizarTipoServicosdosveiculos(t);
 								JOptionPane.showMessageDialog(null,"Inserido!");
 								PanelListagemTipoServiçoModelo();
 							}else{
@@ -263,5 +270,21 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 			parent.PanelListagemTipoServiçoModelo();
 		}
 	}
-}
+	
+	public void AtualizarTipoServicosdosveiculos( TipoServicoModelo tipoServicoModelo){
+		
+			MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+			MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+			List<Veiculo> listaVeiculo= mbVeiculo.ListarosVeiculodoModelo(tipoServicoModelo.getModelo());
+			for(int i = 0;i<listaVeiculo.size();i++){
+			TipoServicoVeiculoId tipoServicoVeiculoId = new TipoServicoVeiculoId(listaVeiculo.get(i).getIdveiculo(), tipoServicoModelo.getTipoServico().getIdtipoServico());
+			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, listaVeiculo.get(i), tipoServicoModelo.getTipoServico(), true);
+			mbTipoServicoVeiculo.inserir(tipoServicoVeiculo);
+			}
+			
+			
+		}
+		
+	}
+
 
