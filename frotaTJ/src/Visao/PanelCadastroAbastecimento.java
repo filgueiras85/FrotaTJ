@@ -287,7 +287,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 		MBServico mbServico = MBServico.getInstance();		
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
-		String ok = "Ok";
+		String ok = "OK";
 		String situacao="";
 		String aux = "";
 		List<TipoServicoVeiculo> lista = new ArrayList<>();
@@ -301,24 +301,24 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 				
 				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-					lista.get(i).setSituacao(true);
+					lista.get(i).setSituacao("A Fazer");
 					System.out.println("atrasado3");
 					
 					situacao = "null";
 
 				}else{
-					lista.get(i).setSituacao(true);
+					lista.get(i).setSituacao("OK");
 					System.out.println("bom");
 				}
 				
 
 			}else{
 				if(v.getOdometro()>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-					lista.get(i).setSituacao(false);
+					lista.get(i).setSituacao("Atrasado");
 					System.out.println("atrasado1");
 				}else{
 					if(v.getOdometro()==listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-						lista.get(i).setSituacao(false);
+						lista.get(i).setSituacao("A Fazer");
 						System.out.println("atrasado2");
 
 					}	
@@ -327,19 +327,19 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			}
 			
 			}else{if(listaTipoServico.get(i).getKm()<(v.getOdometro()+200)){
-				lista.get(i).setSituacao(true);
+				lista.get(i).setSituacao("OK");
 				situacao = "null";
 
 			}
 			else{
-				lista.get(i).setSituacao(true);
+				lista.get(i).setSituacao("OK");
 
 			}
 			}
 			
 			}
 		for(int i = 0; i<lista.size();i++){
-			situacao = situacao+lista.get(i).Situacao();
+			situacao = situacao+lista.get(i).getSituacao();
 			aux = aux+ok;	
 			System.out.println(situacao+"si");
 			System.out.println(aux+"au");
@@ -348,13 +348,13 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		System.out.println(situacao.contains("null")+"hh");
 		if(situacao.equalsIgnoreCase(aux)){
-			v.setSituacao("ok");
+			v.setSituacao("OK");
 			mbVeiculo.editar(v);
 			
 		}else{
 			if(situacao.contains("null")){
-				if(situacao.contains("atrasado")){
-					v.setSituacao("atrasado");
+				if(situacao.contains("Atrasado")){
+					v.setSituacao("Atrasado");
 					mbVeiculo.editar(v);
 				}
 				else{
@@ -364,7 +364,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				}
 			}
 			else{
-				v.setSituacao("atrasado");
+				v.setSituacao("Atrasado");
 				mbVeiculo.editar(v);
 			}
 		

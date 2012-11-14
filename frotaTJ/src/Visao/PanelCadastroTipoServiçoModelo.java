@@ -278,7 +278,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 			List<Veiculo> listaVeiculo= mbVeiculo.ListarosVeiculodoModelo(tipoServicoModelo.getModelo());
 			for(int i = 0;i<listaVeiculo.size();i++){
 			TipoServicoVeiculoId tipoServicoVeiculoId = new TipoServicoVeiculoId(listaVeiculo.get(i).getIdveiculo(), tipoServicoModelo.getTipoServico().getIdtipoServico());
-			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, listaVeiculo.get(i), tipoServicoModelo.getTipoServico(), true);
+			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, listaVeiculo.get(i), tipoServicoModelo.getTipoServico(), "OK");
 			mbTipoServicoVeiculo.inserir(tipoServicoVeiculo);
 			}
 			

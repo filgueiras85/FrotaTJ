@@ -335,23 +335,23 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 			MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 			List<TipoServico> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicoModelo(v.getModelo().getIdmodelo());
-			String ok = "Ok";
+			String ok = "OK";
 			String situacao=null;
 			String aux = null;
 			for(int i = 0;i<listaTipoServico.size();i++){
 			TipoServicoVeiculoId tipoServicoVeiculoId = new TipoServicoVeiculoId(v.getIdveiculo(), listaTipoServico.get(i).getIdtipoServico());
-			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, v, listaTipoServico.get(i), true);
+			TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, v, listaTipoServico.get(i), "OK");
 			mbTipoServicoVeiculo.inserir(tipoServicoVeiculo);
 			}
 			List<TipoServicoVeiculo> lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
 			
 			for(int i = 0; i<lista.size();i++){
-				situacao = situacao+lista.get(i).Situacao();
+				situacao = situacao+lista.get(i).getSituacao();
 				aux = aux+ok;	
 				}
 			MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 			if(situacao.equalsIgnoreCase(aux)){
-				v.setSituacao("ok");
+				v.setSituacao("OK");
 				mbVeiculo.editar(v);
 				
 			}
