@@ -115,9 +115,14 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnCadastrar.add(mntmServio);
 		
-		JMenuItem mntmTipoDeServio = new JMenuItem("Tipo de Servi\u00E7o");
-		mntmTipoDeServio.setIcon(new ImageIcon(winDir+"servicos-icone.png"));
-		mnCadastrar.add(mntmTipoDeServio);
+		JMenuItem mntmTipoDeServico = new JMenuItem("Tipo de Servi\u00E7o");
+		mntmTipoDeServico.setIcon(new ImageIcon(winDir+"servicos-icone.png"));
+		mntmTipoDeServico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroTipoServico(0);
+			}
+		});
+		mnCadastrar.add(mntmTipoDeServico);
 		
 		JMenuItem mntmUnidade = new JMenuItem("Unidade");
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
@@ -208,6 +213,11 @@ public class TelaPrincipal extends JFrame {
 		
 		JMenuItem menuItem_6 = new JMenuItem("Tipo de Servi\u00E7o");
 		menuItem_6.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\servicos-icone.png"));
+		menuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemTipoServico();
+			}
+		});
 		mnListar.add(menuItem_6);
 		
 		JMenuItem menuItem_7 = new JMenuItem("Unidade");
@@ -362,6 +372,14 @@ public class TelaPrincipal extends JFrame {
 		cardLayout.show(panelConteudo,"panelCadastroUnidade");
 	}
 	
+	public void PanelCadastroTipoServico(int idTipoServico){
+		PanelCadastroTipoServico panelCadastroTipoServico = new PanelCadastroTipoServico(idTipoServico);
+		panelConteudo.add(panelCadastroTipoServico, "panelCadastroTipoServico");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroTipoServico");
+	}
+	
+	
 	public void PanelCadastroUsuario(int idUsuario){
 		PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
 		panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
@@ -411,6 +429,13 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.add(panelListagemUnidade, "panelListagemUnidade");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo,"panelListagemUnidade");
+	}
+	
+	public void PanelListagemTipoServico(){
+		PanelListagemTipoServico panelListagemTipoServico = new PanelListagemTipoServico();
+		panelConteudo.add(panelListagemTipoServico, "panelListagemTipoServico");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelListagemTipoServico");
 	}
 	
 	public void PanelListagemUsuario(){
