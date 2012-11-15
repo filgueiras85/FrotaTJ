@@ -1,6 +1,5 @@
 package Visao;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -49,6 +48,10 @@ public class TelaLogin extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * TODO Implementar metodo de para controle de acesso ( usuario ou administrador )
+	 *  e limitar tempo de acesso ( configuravel )
+     *  telaPrincipal, trocar usuario faz o logof e fica tela login
 	 */
 	public TelaLogin() {
 		final MBUsuario mbUsuario = MBUsuario.getInstance();
@@ -69,13 +72,15 @@ public class TelaLogin extends JFrame {
 		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		JButton btnSair = new JButton("Sair");
+		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
 		
 		final JComboBox<String> cmbUsuario = new JComboBox<String>();
 		cmbUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
 		final Vector<Usuario> listaUsuario = new Vector<>();
 		Vector<String> listaNomeUsuario = new Vector<>();
-		
 		try{
 			listaUsuario.addAll(mbUsuario.listarUsuarios());
 			for (int i=0;i<listaUsuario.size();i++){
@@ -101,15 +106,14 @@ public class TelaLogin extends JFrame {
 				Usuario usuario = mbUsuario.retornarUsuario(listaUsuario.get(cmbUsuario.getSelectedIndex()).getIdUsuario());
 				String senha = new String(senhaUsuario.getPassword());
 				if ( senha.equals(usuario.getSenha())){
+					
 					JOptionPane.showMessageDialog(null, "Deuboa");
 				}else{
 					JOptionPane.showMessageDialog(null, "Senha incorreta");
 				}
 			}
 		});
-		
-	
-		JButton btnSair = new JButton("Sair");
+
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

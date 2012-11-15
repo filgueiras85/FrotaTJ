@@ -36,19 +36,10 @@ public class TelaPrincipal extends JFrame {
 
 	private String winDir= ("c:\\frotaTJ\\imagens\\");
 	private String unidadeSelecionada;
-
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public TelaPrincipal() {
 		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
