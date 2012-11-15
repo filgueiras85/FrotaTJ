@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 
 public class PanelListagemModelo extends PanelExemplo {
@@ -32,11 +33,13 @@ public class PanelListagemModelo extends PanelExemplo {
 	public PanelListagemModelo() {
 		
 		JLabel lblListagemModelos = new JLabel("Listagem Modelos");
+		lblListagemModelos.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1517_32x32.png"));
 		lblListagemModelos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -46,6 +49,7 @@ public class PanelListagemModelo extends PanelExemplo {
 		
 		
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBModelo mbModelo = MBModelo.getInstance();
@@ -67,6 +71,7 @@ public class PanelListagemModelo extends PanelExemplo {
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

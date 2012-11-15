@@ -30,6 +30,7 @@ import mb.MBUnidade;
 
 import dao.Marca;
 import dao.Unidade;
+import java.awt.Toolkit;
 
 
 public class TelaPrincipal extends JFrame {
@@ -41,7 +42,8 @@ public class TelaPrincipal extends JFrame {
 
 	
 	public TelaPrincipal() {
-		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1517_32x32.png"));
+		setTitle("Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 800, 600);
 		setLocationRelativeTo(null);
@@ -131,6 +133,15 @@ public class TelaPrincipal extends JFrame {
 				PanelCadastroUnidade(0);
 			}
 		});
+		
+		JMenuItem mntmTipoServioModelo = new JMenuItem("Tipo Servi\u00E7o Modelo");
+		mntmTipoServioModelo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\11988_32x32.png"));
+		mntmTipoServioModelo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroTipoServiçoModelo(0, 0);
+			}
+		});
+		mnCadastrar.add(mntmTipoServioModelo);
 		mnCadastrar.add(mntmUnidade);
 		
 		JMenuItem mntmUsuario = new JMenuItem("Usuario ");
@@ -151,14 +162,6 @@ public class TelaPrincipal extends JFrame {
 		});
 		mntmCarro.setIcon(new ImageIcon(winDir+"1519_32x32.png"));
 		mnCadastrar.add(mntmCarro);
-		
-		JMenuItem mntmTipoServioModelo = new JMenuItem("Tipo Servi\u00E7o Modelo");
-		mntmTipoServioModelo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroTipoServiçoModelo(0, 0);
-			}
-		});
-		mnCadastrar.add(mntmTipoServioModelo);
 		
 		
 	//-------------------------- Menu Listar --------------------------\\	
@@ -227,6 +230,15 @@ public class TelaPrincipal extends JFrame {
 				PanelListagemUnidade();
 			}
 		});
+		
+		JMenuItem mntmTipoDeServio_1 = new JMenuItem("Tipo de Servi\u00E7o Modelo");
+		mntmTipoDeServio_1.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\11988_32x32.png"));
+		mntmTipoDeServio_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemTipoServiçoModelo();
+			}
+		});
+		mnListar.add(mntmTipoDeServio_1);
 		mnListar.add(menuItem_7);
 		
 		JMenuItem menuItem_8 = new JMenuItem("Usuario ");
@@ -247,14 +259,6 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnListar.add(menuItem_9);
-		
-		JMenuItem mntmTipoDeServio_1 = new JMenuItem("Tipo de Servi\u00E7o Modelo");
-		mntmTipoDeServio_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PanelListagemTipoServiçoModelo();
-			}
-		});
-		mnListar.add(mntmTipoDeServio_1);
 		
 	//-------------------------- Menu Relatorios --------------------------\\		
 		JMenu mnRelatorios = new JMenu("Relatorios");

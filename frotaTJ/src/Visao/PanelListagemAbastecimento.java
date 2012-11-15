@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 
 public class PanelListagemAbastecimento extends PanelExemplo {
@@ -35,11 +36,13 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 	public PanelListagemAbastecimento() {
 
 		JLabel lblListagemAbastecimentos = new JLabel("Listagem Abastecimentos");
+		lblListagemAbastecimentos.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\2895_32x32.png"));
 		lblListagemAbastecimentos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JScrollPane scrollPane = new JScrollPane();
 
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -48,6 +51,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		});
 
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -71,6 +75,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

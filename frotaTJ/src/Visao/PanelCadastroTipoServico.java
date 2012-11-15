@@ -17,6 +17,7 @@ import mb.MBUnidade;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PanelCadastroTipoServico extends PanelExemplo {
 	private JTextField txtNome;
@@ -34,20 +35,23 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		
 		JLabel lblCadastroDeTipoServico = new JLabel("Cadastro de Tipo De Servico");
-		lblCadastroDeTipoServico.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCadastroDeTipoServico.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\servicos-icone.png"));
+		lblCadastroDeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(247, Short.MAX_VALUE)
-					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(226, Short.MAX_VALUE)
+					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 					.addGap(29))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(36)
@@ -59,7 +63,7 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 							.addGap(189))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCadastroDeTipoServico)
-							.addContainerGap(204, Short.MAX_VALUE))))
+							.addContainerGap(131, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -72,8 +76,8 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 						.addComponent(lblNome))
 					.addPreferredGap(ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSalvar)
-						.addComponent(btnCancelar))
+						.addComponent(btnCancelar)
+						.addComponent(btnSalvar))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);

@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 
 
 public class PanelCadastroVeiculo extends PanelExemplo {
@@ -56,6 +57,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		
 	// ------------------------------ Labels ---------------------------\\	
 		JLabel lblCadastroModelo = new JLabel("Cadastro Veiculo\r\n");
+		lblCadastroModelo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1519_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel lblPlaca = new JLabel("Placa");
@@ -144,6 +146,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		
 	// ------------------------------ Botões ---------------------------\\	
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -152,6 +155,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -199,43 +203,37 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblOdometro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblPlaca)
-								.addComponent(lblRenavan, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblChassi, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-								.addComponent(textFieldRenavan, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-								.addComponent(textFieldChassi, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-								.addComponent(textFieldOdometro, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblModelo)
-									.addGap(39))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxUnidade, Alignment.TRAILING, 0, 338, Short.MAX_VALUE)
-								.addComponent(comboBoxModelo, 0, 338, Short.MAX_VALUE)))
+							.addComponent(btnCancelar))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(comboBoxMotorista, 0, 340, Short.MAX_VALUE))
-						.addComponent(lblCadastroModelo))
+							.addComponent(comboBoxMotorista, 0, 518, Short.MAX_VALUE))
+						.addComponent(lblCadastroModelo)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblOdometro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblPlaca)
+									.addComponent(lblRenavan, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblChassi, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(lblModelo)
+								.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBoxModelo, Alignment.TRAILING, 0, 516, Short.MAX_VALUE)
+								.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+								.addComponent(textFieldRenavan, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+								.addComponent(textFieldChassi, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+								.addComponent(textFieldOdometro, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+								.addComponent(comboBoxUnidade, Alignment.TRAILING, 0, 516, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
+					.addGap(22)
 					.addComponent(lblCadastroModelo)
-					.addGap(47)
+					.addGap(50)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPlaca)
 						.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

@@ -18,6 +18,7 @@ import java.util.List;
 
 import mb.MBUsuario;
 import dao.Usuario;
+import javax.swing.ImageIcon;
 
 
 
@@ -31,17 +32,21 @@ public class PanelListagemUsuario extends PanelExemplo {
 	public PanelListagemUsuario() {
 
 		JLabel lblListagemUsuario = new JLabel("Listagem de Usuarios");
+		lblListagemUsuario.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7837_32x32.png"));
 		lblListagemUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JScrollPane scrollPane = new JScrollPane();
 
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		btnEditar.setVisible(false);
@@ -49,35 +54,35 @@ public class PanelListagemUsuario extends PanelExemplo {
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(btnNovo)
-										.addGap(18)
-										.addComponent(btnEditar)
-										.addGap(18)
-										.addComponent(btnApagar)
-										.addGap(17))
-										.addComponent(lblListagemUsuario))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnNovo)
+							.addGap(18)
+							.addComponent(btnEditar)
+							.addGap(18)
+							.addComponent(btnApagar)
+							.addGap(17))
+						.addComponent(lblListagemUsuario))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblListagemUsuario)
-						.addGap(18)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnApagar)
-								.addComponent(btnEditar)
-								.addComponent(btnNovo))
-								.addContainerGap())
-				);
+					.addContainerGap()
+					.addComponent(lblListagemUsuario)
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnApagar)
+						.addComponent(btnEditar)
+						.addComponent(btnNovo))
+					.addContainerGap())
+		);
 
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));

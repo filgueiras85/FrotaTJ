@@ -43,6 +43,7 @@ import dao.TipoServicoModelo;
 import dao.TipoServicoModeloId;
 import dao.TipoServicoVeiculo;
 import dao.Veiculo;
+import javax.swing.ImageIcon;
 
 
 public class PanelCadastroServiço extends PanelExemplo {
@@ -66,6 +67,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	public PanelCadastroServiço( final int idServicoSelecionado) {
 		
 		JLabel lblCadastroServio = new JLabel("Cadastro Servi\u00E7o");
+		lblCadastroServio.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\ico-recursos-integra.png"));
 		lblCadastroServio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel lblData = new JLabel("Data");
@@ -180,6 +182,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		textFieldKm.setColumns(10);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -188,6 +191,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -250,7 +254,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblKm)
@@ -262,31 +266,33 @@ public class PanelCadastroServiço extends PanelExemplo {
 								.addComponent(lblFornecedor))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxFornecedor, 0, 708, Short.MAX_VALUE)
-								.addComponent(textFieldOrçamento, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
-								.addComponent(comboBoxVeiculo, 0, 708, Short.MAX_VALUE)
-								.addComponent(comboBoxMotorista, 0, 708, Short.MAX_VALUE)
-								.addComponent(comboBoxTipoServico_1, 0, 708, Short.MAX_VALUE)))
-						.addComponent(lblCadastroServio)
-						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(comboBoxFornecedor, 0, 327, Short.MAX_VALUE)
+								.addComponent(textFieldOrçamento, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(comboBoxVeiculo, 0, 327, Short.MAX_VALUE)
+								.addComponent(comboBoxMotorista, 0, 327, Short.MAX_VALUE)
+								.addComponent(comboBoxTipoServico_1, 0, 327, Short.MAX_VALUE)))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblVeiculo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblTipoServiço))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addContainerGap(609, Short.MAX_VALUE)
+							.addContainerGap(228, Short.MAX_VALUE)
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+							.addGap(5)
+							.addComponent(btnCancelar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblCadastroServio)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(

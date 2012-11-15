@@ -31,6 +31,7 @@ import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 
 
 public class PanelInicial extends PanelExemplo {
@@ -102,6 +103,7 @@ public class PanelInicial extends PanelExemplo {
 		
 	//--------------------------- Botões ---------------------------\\	
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1408_16x16.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
@@ -137,6 +139,7 @@ public class PanelInicial extends PanelExemplo {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnDetalhes = new JButton("Detalhes");
+		btnDetalhes.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8390_16x16.png"));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -167,10 +170,10 @@ public class PanelInicial extends PanelExemplo {
 							.addComponent(lblSitucao)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBoxSituacao, 0, 33, Short.MAX_VALUE)
-							.addGap(39)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblTitulo, Alignment.TRAILING)
-						.addComponent(btnDetalhes, Alignment.TRAILING))
+							.addGap(32)
+							.addComponent(btnPesquisar))
+						.addComponent(btnDetalhes, Alignment.TRAILING)
+						.addComponent(lblTitulo))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -191,7 +194,7 @@ public class PanelInicial extends PanelExemplo {
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnDetalhes)
-					.addContainerGap(13, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		

@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import mb.MBTipoServico;
 //import mb.MBUnidade;
 import dao.TipoServico;
+import javax.swing.ImageIcon;
 //import dao.Unidade;
 
 public class PanelListagemTipoServico extends PanelExemplo {
@@ -31,17 +32,21 @@ public class PanelListagemTipoServico extends PanelExemplo {
 	 */
 	public PanelListagemTipoServico() {
 		JLabel lblListagemTipoServico = new JLabel("Listagem dos Tipo De Servico");
+		lblListagemTipoServico.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\servicos-icone.png"));
 		lblListagemTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JScrollPane scrollPane = new JScrollPane();
 
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);

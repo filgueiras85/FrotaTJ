@@ -34,6 +34,7 @@ import java.util.Vector;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 
 public class PanelListagemVeiculo extends PanelExemplo {
@@ -54,6 +55,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	public PanelListagemVeiculo() {		
 	// ------------------- Lebel -----------------------\\
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
+		lblListagemVeiculos.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1519_32x32.png"));
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JLabel lblPlaca = new JLabel("Placa");
@@ -75,6 +77,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 	//------------------------- Botões ----------------------------\\
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1408_16x16.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
@@ -110,6 +113,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));		
 		
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -118,6 +122,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		
 		JButton btnDetalhes = new JButton("Detalhes");
+		btnDetalhes.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8390_16x16.png"));
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,6 +133,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 		
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,6 +154,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -212,7 +219,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -224,35 +231,31 @@ public class PanelListagemVeiculo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxUnidade, 0, 34, Short.MAX_VALUE)
+							.addComponent(comboBoxUnidade, 0, 4, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblMotrista, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxMotorista, 0, 34, Short.MAX_VALUE)
+							.addComponent(comboBoxMotorista, 0, 4, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSituacao, 0, 43, Short.MAX_VALUE)
-							.addGap(47)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxSituacao, 0, 12, Short.MAX_VALUE)
+							.addGap(40)
+							.addComponent(btnPesquisar))
 						.addComponent(lblListagemVeiculos))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemVeiculos)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(27)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblListagemVeiculos)
 							.addGap(28)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -264,9 +267,12 @@ public class PanelListagemVeiculo extends PanelExemplo {
 									.addComponent(comboBoxMotorista, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 									.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))))
+									.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(70)
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNovo)
