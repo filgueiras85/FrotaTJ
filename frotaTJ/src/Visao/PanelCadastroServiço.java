@@ -67,7 +67,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	public PanelCadastroServiço( final int idServicoSelecionado) {
 		
 		JLabel lblCadastroServio = new JLabel("Cadastro Servi\u00E7o");
-		lblCadastroServio.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\ico-recursos-integra.png"));
+		lblCadastroServio.setIcon(new ImageIcon("imagens\\ico-recursos-integra.png"));
 		lblCadastroServio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel lblData = new JLabel("Data");
@@ -182,7 +182,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		textFieldKm.setColumns(10);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,7 +191,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

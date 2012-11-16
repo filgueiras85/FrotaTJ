@@ -58,7 +58,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 	public PanelCadastroAbastecimento( final int idAbastecimentoSelecionado) {
 
 		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro Abastecimento\r\n");
-		lblCadastroAbastecimento.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\2895_32x32.png"));
+		lblCadastroAbastecimento.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		lblCadastroAbastecimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JLabel lblData = new JLabel("Data");
@@ -99,7 +99,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -108,7 +108,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		});
 
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

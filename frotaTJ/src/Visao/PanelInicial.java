@@ -103,7 +103,7 @@ public class PanelInicial extends PanelExemplo {
 		
 	//--------------------------- Botões ---------------------------\\	
 		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1408_16x16.png"));
+		btnPesquisar.setIcon(new ImageIcon("imagens\\1408_16x16.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
@@ -139,7 +139,7 @@ public class PanelInicial extends PanelExemplo {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnDetalhes = new JButton("Detalhes");
-		btnDetalhes.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8390_16x16.png"));
+		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}

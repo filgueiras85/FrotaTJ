@@ -30,13 +30,13 @@ public class PanelCadastroUnidade extends PanelExemplo {
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		
 		JLabel lblCadastroDeUnidade = new JLabel("Cadastro de Unidade");
-		lblCadastroDeUnidade.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\4049_32x32.png"));
+		lblCadastroDeUnidade.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
 		lblCadastroDeUnidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);

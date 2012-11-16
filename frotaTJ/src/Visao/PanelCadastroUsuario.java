@@ -40,7 +40,7 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		txtEmail.setColumns(10);
 		
 		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
-		lblCadastroDeUsuario.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7818_32x32.png"));
+		lblCadastroDeUsuario.setIcon(new ImageIcon("imagens\\7818_32x32.png"));
 		lblCadastroDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		final JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
@@ -50,10 +50,10 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		rdbtnUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		add(rdbtnUsuario);
 		add(rdbtnAdministrador);
 		add(txtMatricula);

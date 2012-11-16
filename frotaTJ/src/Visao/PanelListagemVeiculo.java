@@ -55,7 +55,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	public PanelListagemVeiculo() {		
 	// ------------------- Lebel -----------------------\\
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
-		lblListagemVeiculos.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1519_32x32.png"));
+		lblListagemVeiculos.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JLabel lblPlaca = new JLabel("Placa");
@@ -77,7 +77,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 	//------------------------- Botões ----------------------------\\
 		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1408_16x16.png"));
+		btnPesquisar.setIcon(new ImageIcon("imagens\\1408_16x16.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
@@ -113,7 +113,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));		
 		
 		JButton btnNovo = new JButton("Novo");
-		btnNovo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8391_16x16.png"));
+		btnNovo.setIcon(new ImageIcon("imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -122,7 +122,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		
 		JButton btnDetalhes = new JButton("Detalhes");
-		btnDetalhes.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8390_16x16.png"));
+		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -133,7 +133,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 		
 		final JButton btnApagar = new JButton("Apagar");
-		btnApagar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7464_32x32.png"));
+		btnApagar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		
 		final JButton btnEditar = new JButton("Editar");
-		btnEditar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\8427_16x16.png"));
+		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

@@ -35,14 +35,14 @@ import java.awt.Toolkit;
 
 public class TelaPrincipal extends JFrame {
 
-	private String winDir= ("c:\\frotaTJ\\imagens\\");
+	private String winDir= ("imagens\\");
 	private String unidadeSelecionada;
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
 
 	
 	public TelaPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\1517_32x32.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
 		setTitle("Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 800, 600);
@@ -135,7 +135,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		
 		JMenuItem mntmTipoServioModelo = new JMenuItem("Tipo Servi\u00E7o Modelo");
-		mntmTipoServioModelo.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\11988_32x32.png"));
+		mntmTipoServioModelo.setIcon(new ImageIcon("imagens\\11988_32x32.png"));
 		mntmTipoServioModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCadastroTipoServiçoModelo(0, 0);
@@ -167,11 +167,11 @@ public class TelaPrincipal extends JFrame {
 	//-------------------------- Menu Listar --------------------------\\	
 		JMenu mnListar = new JMenu("Listagem");
 		mnListar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
-		mnListar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7674_32x32.png"));
+		mnListar.setIcon(new ImageIcon("imagens\\7674_32x32.png"));
 		menuBar.add(mnListar);
 		
 		JMenuItem menuItem = new JMenuItem("Abastecimento");
-		menuItem.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\2895_32x32.png"));
+		menuItem.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemAbastecimento();
@@ -180,15 +180,15 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem);
 		
 		JMenuItem menuItem_1 = new JMenuItem("Fornecedor");
-		menuItem_1.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\1003_32x32.png"));
+		menuItem_1.setIcon(new ImageIcon("imagens\\1003_32x32.png"));
 		mnListar.add(menuItem_1);
 		
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
-		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\3303_32x32.png"));
+		menuItem_2.setIcon(new ImageIcon("imagens\\3303_32x32.png"));
 		mnListar.add(menuItem_2);
 		
 		JMenuItem menuItem_3 = new JMenuItem("Modelo");
-		menuItem_3.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\1517_32x32.png"));
+		menuItem_3.setIcon(new ImageIcon("imagens\\1517_32x32.png"));
 		menuItem_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemModelo();
@@ -197,7 +197,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_3);
 		
 		JMenuItem menuItem_4 = new JMenuItem("Motorista");
-		menuItem_4.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7133_32x32.png"));
+		menuItem_4.setIcon(new ImageIcon("imagens\\7133_32x32.png"));
 		menuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemMotorista();
@@ -206,7 +206,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_4);
 		
 		JMenuItem menuItem_5 = new JMenuItem("Servi\u00E7o");
-		menuItem_5.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\ico-recursos-integra.png"));
+		menuItem_5.setIcon(new ImageIcon("imagens\\ico-recursos-integra.png"));
 		menuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemServiço();
@@ -215,7 +215,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_5);
 		
 		JMenuItem menuItem_6 = new JMenuItem("Tipo de Servi\u00E7o");
-		menuItem_6.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\servicos-icone.png"));
+		menuItem_6.setIcon(new ImageIcon("imagens\\servicos-icone.png"));
 		menuItem_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemTipoServico();
@@ -224,7 +224,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_6);
 		
 		JMenuItem menuItem_7 = new JMenuItem("Unidade");
-		menuItem_7.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\4049_32x32.png"));
+		menuItem_7.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
 		menuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemUnidade();
@@ -232,7 +232,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		
 		JMenuItem mntmTipoDeServio_1 = new JMenuItem("Tipo de Servi\u00E7o Modelo");
-		mntmTipoDeServio_1.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\11988_32x32.png"));
+		mntmTipoDeServio_1.setIcon(new ImageIcon("imagens\\11988_32x32.png"));
 		mntmTipoDeServio_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemTipoServiçoModelo();
@@ -242,7 +242,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_7);
 		
 		JMenuItem menuItem_8 = new JMenuItem("Usuario ");
-		menuItem_8.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7818_32x32.png"));
+		menuItem_8.setIcon(new ImageIcon("imagens\\7818_32x32.png"));
 		mnListar.add(menuItem_8);
 		menuItem_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -252,7 +252,7 @@ public class TelaPrincipal extends JFrame {
 		
 		//Menu Item Listar Veiculo
 		JMenuItem menuItem_9 = new JMenuItem("Veiculo");
-		menuItem_9.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\1519_32x32.png"));
+		menuItem_9.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		menuItem_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PanelListagemVeiculo();

@@ -27,7 +27,7 @@ import dao.Modelo;
 public class PanelCadastroModelo extends PanelExemplo {
 	private JTextField textFieldNome;
 	private JComboBox<Marca> comboBoxMarca;
-	private String winDir= ("c:\\frotaTJ\\imagens\\");
+	private String winDir= ("imagens\\");
 	/**
 	 * Create the panel.
 	 */
@@ -47,7 +47,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon(winDir+"7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

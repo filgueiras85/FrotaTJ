@@ -55,7 +55,7 @@ public class TelaLogin extends JFrame {
      *  telaPrincipal, trocar usuario faz o logof e fica tela login
 	 */
 	public TelaLogin() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Frankilyn\\Documents\\GitHub\\FrotaTJ\\imagens\\7837_32x32.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\7837_32x32.png"));
 		setTitle("Login");
 		final MBUsuario mbUsuario = MBUsuario.getInstance();
 
