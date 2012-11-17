@@ -54,41 +54,41 @@ public class PanelListagemUsuario extends PanelExemplo {
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
 
-		GroupLayout groupLayout = new GroupLayout(this);
+			 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnNovo)
+		
+		groupLayout.createParallelGroup(Alignment.TRAILING)
+		.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(btnNovo)
+								.addGap(18)
+									.addComponent(btnEditar)
+									.addGap(18)
+									.addComponent(btnApagar)
+									.addGap(17))
+								.addComponent(lblListagemUsuario))
+							.addContainerGap())
+				);
+			 		groupLayout.setVerticalGroup(
+	
+				groupLayout.createParallelGroup(Alignment.LEADING)
+			 				.addGroup(groupLayout.createSequentialGroup()
+		
+							.addContainerGap()
+							.addComponent(lblListagemUsuario)
 							.addGap(18)
-							.addComponent(btnEditar)
-							.addGap(18)
-							.addComponent(btnApagar)
-							.addGap(17))
-						.addComponent(lblListagemUsuario))
-					.addContainerGap())
-		)));
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemUsuario)
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnApagar)
-						.addComponent(btnEditar)
-						.addComponent(btnNovo))
-					.addContainerGap())
-		);
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnApagar)
+								.addComponent(btnEditar)
+								.addComponent(btnNovo))
+							.addContainerGap())
+				);
+
 
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
