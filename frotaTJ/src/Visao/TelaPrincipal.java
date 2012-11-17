@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -21,15 +22,19 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import util.Util;
+
 import mb.MBUnidade;
 
 import dao.Marca;
 import dao.Unidade;
+import dao.Usuario;
 
 
 public class TelaPrincipal extends JFrame {
@@ -40,7 +45,7 @@ public class TelaPrincipal extends JFrame {
 	private PanelConteudo panelConteudo = new PanelConteudo();
 
 	
-	public TelaPrincipal() {
+	public TelaPrincipal(final Usuario usuario) {
 		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 800, 600);
@@ -50,6 +55,8 @@ public class TelaPrincipal extends JFrame {
 		setContentPane(panelConteudo);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		final Util util = Util.getInstance();
 	
 	//-------------------------- Menu Inicio --------------------------\\
 		JMenu mnInicio = new JMenu(" Inicio");
@@ -66,6 +73,16 @@ public class TelaPrincipal extends JFrame {
 		
 	//-------------------------- Menu Cadastrar --------------------------\\		
 		JMenu mnCadastrar = new JMenu("Cadastrar");
+		mnCadastrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(null, usuario.getNome());
+				if (!util.tempoLogin(usuario)){
+					setVisible(false);
+					TelaLogin();
+				}
+			}
+		});
 		mnCadastrar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnCadastrar.setIcon(new ImageIcon(winDir+"6098_32x32.png"));
 		menuBar.add(mnCadastrar);
@@ -132,7 +149,14 @@ public class TelaPrincipal extends JFrame {
 		mntmUsuario.setIcon(new ImageIcon(winDir+"7818_32x32.png"));
 		mntmUsuario.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroUsuario(0);
+				
+				if (util.tempoLogin(usuario)){
+					PanelCadastroUsuario(0);					
+				}else{
+					setVisible(false);
+					TelaLogin();
+				}
+
 			}
 		});		
 		mnCadastrar.add(mntmUsuario);
@@ -158,6 +182,15 @@ public class TelaPrincipal extends JFrame {
 		
 	//-------------------------- Menu Listar --------------------------\\	
 		JMenu mnListar = new JMenu("Listagem");
+		mnListar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (!util.tempoLogin(usuario)){
+					setVisible(false);
+					TelaLogin();
+				}
+			}
+		});
 		mnListar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnListar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7674_32x32.png"));
 		menuBar.add(mnListar);
@@ -248,6 +281,15 @@ public class TelaPrincipal extends JFrame {
 		
 	//-------------------------- Menu Relatorios --------------------------\\		
 		JMenu mnRelatorios = new JMenu("Relatorios");
+		mnRelatorios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (!util.tempoLogin(usuario)){
+					setVisible(false);
+					TelaLogin();
+				}
+			}
+		});
 		mnRelatorios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnRelatorios.setIcon(new ImageIcon(winDir+"1588_32x32.png"));
 		menuBar.add(mnRelatorios);
@@ -302,7 +344,8 @@ public class TelaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaPrincipal frame = new TelaPrincipal();
+					//TelaPrincipal frame = new TelaPrincipal();
+					Visao.TelaLogin frame = new TelaLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -363,6 +406,7 @@ public class TelaPrincipal extends JFrame {
 	}
 	
 	public void PanelCadastroUsuario(int idUsuario){
+		
 		PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
 		panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
@@ -440,6 +484,8 @@ public class TelaPrincipal extends JFrame {
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelListagemMotorista");
 	}
+	
+
 }
 
 

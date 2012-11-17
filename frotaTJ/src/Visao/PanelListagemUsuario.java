@@ -4,6 +4,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -49,35 +51,35 @@ public class PanelListagemUsuario extends PanelExemplo {
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(btnNovo)
-										.addGap(18)
-										.addComponent(btnEditar)
-										.addGap(18)
-										.addComponent(btnApagar)
-										.addGap(17))
-										.addComponent(lblListagemUsuario))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnNovo)
+							.addGap(18)
+							.addComponent(btnEditar)
+							.addGap(18)
+							.addComponent(btnApagar)
+							.addGap(17))
+						.addComponent(lblListagemUsuario))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblListagemUsuario)
-						.addGap(18)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnApagar)
-								.addComponent(btnEditar)
-								.addComponent(btnNovo))
-								.addContainerGap())
-				);
+					.addContainerGap()
+					.addComponent(lblListagemUsuario)
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnApagar)
+						.addComponent(btnEditar)
+						.addComponent(btnNovo))
+					.addContainerGap())
+		);
 
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -114,21 +116,24 @@ public class PanelListagemUsuario extends PanelExemplo {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				PanelCadastroUsuario(idUsuarioSelecionado);
-			}
+					PanelCadastroUsuario(idUsuarioSelecionado);
+				}
 		});
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Usuario usuario = new Usuario();
-				idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);
-				mbUsuario.apagar(usuario);
-				try {
-					atualizarTabela();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Usuário selecionado?");
+				if (opcao ==JOptionPane.YES_OPTION ) {
+					Usuario usuario = new Usuario();
+					idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+					usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);
+					mbUsuario.apagar(usuario);
+					try {
+						atualizarTabela();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});

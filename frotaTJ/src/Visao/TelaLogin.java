@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -19,11 +20,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-
-import mb.MBUsuario;
 import javax.swing.JButton;
 
+import mb.MBUsuario;
+import util.Util;
 import dao.Usuario;
+
+
 
 public class TelaLogin extends JFrame {
 
@@ -55,7 +58,7 @@ public class TelaLogin extends JFrame {
 	 */
 	public TelaLogin() {
 		final MBUsuario mbUsuario = MBUsuario.getInstance();
-
+		final Util util = Util.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 402, 257);
 		contentPane = new JPanel();
@@ -63,6 +66,7 @@ public class TelaLogin extends JFrame {
 		setContentPane(contentPane);
 		
 		senhaUsuario = new JPasswordField();
+		senhaUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
 		lblUsurio.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -104,16 +108,26 @@ public class TelaLogin extends JFrame {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario usuario = mbUsuario.retornarUsuario(listaUsuario.get(cmbUsuario.getSelectedIndex()).getIdUsuario());
+				Date dataLogin = new Date();
 				String senha = new String(senhaUsuario.getPassword());
 				if ( senha.equals(usuario.getSenha())){
-					
-					JOptionPane.showMessageDialog(null, "Deuboa");
+					usuario.setDataLogin(dataLogin);
+					setVisible(false);
+					TelaPrincipal(usuario);
 				}else{
 					JOptionPane.showMessageDialog(null, "Senha incorreta");
 				}
 			}
 		});
 
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int sair = JOptionPane.showConfirmDialog(null, "Deseja sair?","", JOptionPane.YES_NO_OPTION);
+				if (sair == JOptionPane.YES_OPTION){
+					System.exit(0);
+				}
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -125,17 +139,16 @@ public class TelaLogin extends JFrame {
 					.addGap(25)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(27)
 							.addComponent(btnEntrar)
-							.addGap(18)
+							.addGap(32)
 							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(senhaUsuario, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-								.addGap(185))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(cmbUsuario, 0, 243, Short.MAX_VALUE)
-								.addGap(70)))))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(senhaUsuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+								.addComponent(cmbUsuario, 0, 231, Short.MAX_VALUE))
+							.addGap(70))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -150,10 +163,15 @@ public class TelaLogin extends JFrame {
 						.addComponent(lblSenha))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnEntrar)
-						.addComponent(btnSair))
-					.addContainerGap(74, Short.MAX_VALUE))
+						.addComponent(btnSair)
+						.addComponent(btnEntrar))
+					.addContainerGap(63, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	public void TelaPrincipal(Usuario usuario){
+		TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
+		telaPrincipal.show();
 	}
 }

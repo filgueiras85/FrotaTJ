@@ -112,8 +112,9 @@ public class PanelCadastroUsuario extends PanelExemplo {
 										.addComponent(rdbtnUsuario, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(btnSalvar)
-											.addGap(18)
-											.addComponent(btnCancelar))))
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(btnCancelar)
+											.addGap(8))))
 								.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
@@ -142,10 +143,10 @@ public class PanelCadastroUsuario extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnAdministrador)
 						.addComponent(rdbtnUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancelar)
-						.addComponent(btnSalvar))
+						.addComponent(btnSalvar)
+						.addComponent(btnCancelar))
 					.addGap(57))
 		);
 		setLayout(groupLayout);
@@ -188,17 +189,17 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		
 		rdbtnAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (rdbtnAdministrador.isSelected() && idUsuarioSelecionado == 0){	
+				if (rdbtnAdministrador.isSelected()){	
 					rdbtnUsuario.setSelected(false);
 					tipoUsuario = true;
-				}else{
+				}else if(rdbtnUsuario.isSelected()){
 					rdbtnAdministrador.setSelected(false);
 				}
 			}
 		});
 		rdbtnUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (rdbtnUsuario.isSelected() && idUsuarioSelecionado == 0){
+				if (rdbtnUsuario.isSelected() ){
 					rdbtnAdministrador.setSelected(false);
 					tipoUsuario = false;
 				}else{
@@ -211,16 +212,29 @@ public class PanelCadastroUsuario extends PanelExemplo {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String senha = new String(senhaUsuario.getPassword());
-				if (idUsuarioSelecionado == 0){					
+				if (idUsuarioSelecionado == 0){	
 					Usuario usuario = new Usuario(null, txtNome.getText(), txtMatricula.getText(), senha, txtEmail.getText(), tipoUsuario);
-					MBUsuario mbUsuario = MBUsuario.getInstance();
-					mbUsuario.inserir(usuario);
+					String retorno = mbUsuario.inserir(usuario);
+					if (retorno.equals("Ok")){
+						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+						PanelListagemUsuario();
+					}else{
+						JOptionPane.showMessageDialog(null,retorno);
+					}
 				}else{
 					Usuario usuario = new Usuario(idUsuarioSelecionado, txtNome.getText(), txtMatricula.getText(), senha, txtEmail.getText(), tipoUsuario);
-					MBUsuario mbUsuario = MBUsuario.getInstance();
-					mbUsuario.editar(usuario);					
+					String retorno = mbUsuario.editar(usuario);
+					if (retorno.equals("Ok")){
+						Usuario us = mbUsuario.retornarUsuario(idUsuarioSelecionado);	
+						if (us.getSenha() != senha){ 
+							JOptionPane.showMessageDialog(null, "A nova senha deverá ser utilizada a partir do próximo login" );
+						}
+						JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso");
+						PanelListagemUsuario();						
+					}else{
+						JOptionPane.showMessageDialog(null,retorno);
+					}
 				}
-				PanelListagemUsuario();
 			}
 		});
 		btnCancelar.addActionListener(new ActionListener() {

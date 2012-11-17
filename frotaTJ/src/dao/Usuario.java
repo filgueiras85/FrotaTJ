@@ -1,6 +1,8 @@
 package dao;
 // default package
 
+import java.lang.annotation.Retention;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -8,10 +10,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Transient;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
 
 import dao.Usuario;
 
@@ -30,20 +36,25 @@ public class Usuario implements java.io.Serializable {
 	private String senha;
 	private String email;
 	private Boolean administrador;
+	private Date dataLogin;
 	private Set<Servico> servicos = new HashSet<Servico>(0);
 
 	// Constructors
 
 	/** default constructor */
 	public Usuario() {
+	
 	}
-	public Usuario(Integer idUsuario, String nome, String matricula, String senha, String email, Boolean administrador){
+	
+	public Usuario(Integer idUsuario, String nome, String matricula, String senha, 
+			String email, Boolean administrador){
 		this.idUsuario = idUsuario;
 		this.nome = nome;
 		this.matricula = matricula;
 		this.senha = senha;
 		this.email = email;
 		this.administrador = administrador;
+
 	}
 	/** full constructor */
 	public Usuario(String nome, String matricula, String senha, String email,
@@ -55,7 +66,7 @@ public class Usuario implements java.io.Serializable {
 		this.administrador = administrador;
 		this.servicos = servicos;
 	}
-
+	
 	// Property accessors
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -102,9 +113,9 @@ public class Usuario implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
+	}	
 
-	@Column(name = "administrador")
+	@Column(name = "administrador")	
 	public Boolean getAdministrador() {
 		return this.administrador;
 	}
@@ -120,6 +131,14 @@ public class Usuario implements java.io.Serializable {
 
 	public void setServicos(Set<Servico> servicos) {
 		this.servicos = servicos;
+	}
+
+	@Transient
+	public Date getDataLogin() {
+		return dataLogin;
+	}
+	public void setDataLogin(Date dataLogin) {
+		this.dataLogin = dataLogin;
 	}
 
 }

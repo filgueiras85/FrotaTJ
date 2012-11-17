@@ -22,6 +22,7 @@ public class MBUsuario {
 		UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 		try {
 			daoUsuario.save(usuario);
+			
 		} catch (Exception e) {
 			retorno = "erro";
 		}

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.GroupLayout.Alignment;
@@ -54,30 +55,31 @@ public class PanelListagemUnidade extends PanelExemplo {
 		scrollPane.setViewportView(table);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(lblListagemUsuario))
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
 					.addGap(10))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(213, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(207, Short.MAX_VALUE)
 					.addComponent(btnNovo)
 					.addGap(6)
 					.addComponent(btnEditar)
 					.addGap(6)
 					.addComponent(btnApagar)
 					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(236, Short.MAX_VALUE)
+					.addComponent(lblListagemUsuario)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(11)
+					.addContainerGap()
 					.addComponent(lblListagemUsuario)
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNovo)
@@ -117,18 +119,21 @@ public class PanelListagemUnidade extends PanelExemplo {
 		});
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Unidade unidade = new Unidade();
-				idUnidadeSelecionada = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				unidade = mbUnidade.retornarUnidade(idUnidadeSelecionada);
-				mbUnidade.apagar(unidade);
-				try {
-					atualizarTabela();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar a Unidade selecionada?");
+				if (opcao ==JOptionPane.YES_OPTION ) {
+					Unidade unidade = new Unidade();
+					idUnidadeSelecionada = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+					unidade = mbUnidade.retornarUnidade(idUnidadeSelecionada);
+					mbUnidade.apagar(unidade);
+					try {
+						atualizarTabela();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			
