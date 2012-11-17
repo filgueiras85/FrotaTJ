@@ -34,11 +34,10 @@ import mb.MBUnidade;
 
 import dao.Marca;
 import dao.Unidade;
-<<<<<<< HEAD
+
 import dao.Usuario;
-=======
+
 import java.awt.Toolkit;
->>>>>>> 1e962a86555a95087fa7533614849c07960026e3
 
 
 public class TelaPrincipal extends JFrame {
@@ -48,15 +47,14 @@ public class TelaPrincipal extends JFrame {
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
 
-	
-<<<<<<< HEAD
+
+
 	public TelaPrincipal(final Usuario usuario) {
-		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
-=======
-	public TelaPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
+		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
+
+
 		setTitle("Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
->>>>>>> 1e962a86555a95087fa7533614849c07960026e3
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 50, 800, 600);
 		setLocationRelativeTo(null);
@@ -86,7 +84,6 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null, usuario.getNome());
 				if (!util.tempoLogin(usuario)){
 					setVisible(false);
 					TelaLogin();
