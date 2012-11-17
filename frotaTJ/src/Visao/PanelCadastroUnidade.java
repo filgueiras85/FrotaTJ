@@ -16,6 +16,7 @@ import mb.MBUnidade;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PanelCadastroUnidade extends PanelExemplo {
 	private JTextField txtNome;
@@ -29,20 +30,23 @@ public class PanelCadastroUnidade extends PanelExemplo {
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		
 		JLabel lblCadastroDeUnidade = new JLabel("Cadastro de Unidade");
-		lblCadastroDeUnidade.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCadastroDeUnidade.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
+		lblCadastroDeUnidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(247, Short.MAX_VALUE)
-					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(234, Short.MAX_VALUE)
+					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCancelar)
 					.addGap(29))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(36)

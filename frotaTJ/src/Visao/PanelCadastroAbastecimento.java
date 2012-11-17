@@ -42,6 +42,7 @@ import dao.TipoServicoVeiculo;
 import dao.TipoServicoVeiculoId;
 import dao.Unidade;
 import dao.Veiculo;
+import javax.swing.ImageIcon;
 
 
 public class PanelCadastroAbastecimento extends PanelExemplo {
@@ -56,7 +57,8 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 	public PanelCadastroAbastecimento( final int idAbastecimentoSelecionado) {
 
-		JLabel lblCadastroAbastecimento = new JLabel("Cadastro Abastecimento\r\n");
+		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro Abastecimento\r\n");
+		lblCadastroAbastecimento.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		lblCadastroAbastecimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JLabel lblData = new JLabel("Data");
@@ -97,6 +99,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -105,6 +108,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		});
 
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -162,52 +166,52 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblHodometro)
-												.addComponent(lblData)
-												.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-												.addGap(53)
-												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-														.addComponent(comboBoxPlaca, 0, 485, Short.MAX_VALUE)
-														.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-														.addComponent(textFieldHodometro, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
-														.addComponent(lblCadastroAbastecimento))
-														.addContainerGap())
-														.addGroup(groupLayout.createSequentialGroup()
-																.addContainerGap(329, Short.MAX_VALUE)
-																.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-																.addGap(19))
-				);
-		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblCadastroAbastecimento)
-						.addGap(28)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHodometro)
 								.addComponent(lblData)
-								.addComponent(textFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblHodometro)
-										.addComponent(textFieldHodometro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblPlaca)
-												.addComponent(comboBoxPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGap(76)
-												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(btnSalvar)
-														.addComponent(btnCancelar))
-														.addGap(284))
-				);
+								.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+							.addGap(53)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(comboBoxPlaca, 0, 304, Short.MAX_VALUE)
+								.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+								.addComponent(textFieldHodometro, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
+						.addComponent(lblCadastroAbastecimento))
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(227, Short.MAX_VALUE)
+					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCancelar)
+					.addGap(19))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblCadastroAbastecimento)
+					.addGap(28)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblData)
+						.addComponent(textFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblHodometro)
+						.addComponent(textFieldHodometro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblPlaca)
+						.addComponent(comboBoxPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(76)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSalvar)
+						.addComponent(btnCancelar))
+					.addGap(284))
+		);
 		
 		
 		

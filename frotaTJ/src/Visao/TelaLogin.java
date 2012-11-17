@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import mb.MBUsuario;
 import util.Util;
 import dao.Usuario;
+import java.awt.Toolkit;
 
 
 
@@ -57,6 +58,8 @@ public class TelaLogin extends JFrame {
      *  telaPrincipal, trocar usuario faz o logof e fica tela login
 	 */
 	public TelaLogin() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\7837_32x32.png"));
+		setTitle("Login");
 		final MBUsuario mbUsuario = MBUsuario.getInstance();
 		final Util util = Util.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

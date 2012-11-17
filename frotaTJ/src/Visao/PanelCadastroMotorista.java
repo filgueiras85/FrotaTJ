@@ -34,6 +34,7 @@ import dao.Servico;
 import dao.TipoServico;
 import dao.Unidade;
 import dao.Veiculo;
+import javax.swing.ImageIcon;
 
 
 public class PanelCadastroMotorista extends PanelExemplo {
@@ -49,9 +50,11 @@ public class PanelCadastroMotorista extends PanelExemplo {
 	public PanelCadastroMotorista( final int idMotoristaSelecionado) {
 
 		JLabel lblCadastroMotorista = new JLabel("Cadastro Motorista");
+		lblCadastroMotorista.setIcon(new ImageIcon("imagens\\7133_32x32.png"));
 		lblCadastroMotorista.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,6 +63,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		});
 
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

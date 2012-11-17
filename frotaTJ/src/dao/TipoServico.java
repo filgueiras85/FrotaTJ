@@ -34,8 +34,15 @@ public class TipoServico implements java.io.Serializable {
 
 	// Constructors
 
-	/** default constructor */
+	/** default constructor 
+	 * @param string 
+	 * @param object */
+	
 	public TipoServico() {
+	}
+	public TipoServico(Integer idtipoServico, String nome){
+		this.idtipoServico = idtipoServico;
+		this.nome = nome;
 	}
 
 	/** full constructor */
