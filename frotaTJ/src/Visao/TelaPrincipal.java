@@ -171,8 +171,7 @@ public class TelaPrincipal extends JFrame {
 		mntmUsuario.setIcon(new ImageIcon(winDir+"7818_32x32.png"));
 		mntmUsuario.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if (!usuarioLogado.tempoLogin()){
+				if (usuarioLogado.tempoLogin()){
 					PanelCadastroUsuario(0);					
 				}else{
 					setVisible(false);
