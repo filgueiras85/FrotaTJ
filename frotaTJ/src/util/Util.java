@@ -29,16 +29,4 @@ public class Util {
 		}
 		return null;  
 	}
-
-	public boolean tempoLogin(Usuario usuario){
-		Date dataAtual = new Date();
-		long tempo = (dataAtual.getTime() - usuario.getDataLogin().getTime())/1000;
-		if (tempo > 20 ){
-			JOptionPane.showMessageDialog(null, "Sessão EXPIRADA!");
-			return false;
-		}else{
-			usuario.setDataLogin(dataAtual);
-			return true;
-		}
-	}
 }

@@ -1,7 +1,7 @@
 package dao;
 // default package
 
-import java.lang.annotation.Retention;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +16,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.NotFound;
 
 import dao.Usuario;
 
@@ -36,7 +34,6 @@ public class Usuario implements java.io.Serializable {
 	private String senha;
 	private String email;
 	private Boolean administrador;
-	private Date dataLogin;
 	private Set<Servico> servicos = new HashSet<Servico>(0);
 
 	// Constructors
@@ -45,7 +42,7 @@ public class Usuario implements java.io.Serializable {
 	public Usuario() {
 	
 	}
-	
+
 	public Usuario(Integer idUsuario, String nome, String matricula, String senha, 
 			String email, Boolean administrador){
 		this.idUsuario = idUsuario;
@@ -66,6 +63,8 @@ public class Usuario implements java.io.Serializable {
 		this.administrador = administrador;
 		this.servicos = servicos;
 	}
+	
+
 	
 	// Property accessors
 	@Id
@@ -132,13 +131,4 @@ public class Usuario implements java.io.Serializable {
 	public void setServicos(Set<Servico> servicos) {
 		this.servicos = servicos;
 	}
-
-	@Transient
-	public Date getDataLogin() {
-		return dataLogin;
-	}
-	public void setDataLogin(Date dataLogin) {
-		this.dataLogin = dataLogin;
-	}
-
 }

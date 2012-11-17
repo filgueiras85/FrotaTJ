@@ -219,7 +219,7 @@ public class PanelCadastroUsuario extends PanelExemplo {
 				if (idUsuarioSelecionado == 0){	
 					Usuario usuario = new Usuario(null, txtNome.getText(), txtMatricula.getText(), senha, txtEmail.getText(), tipoUsuario);
 					String retorno = mbUsuario.inserir(usuario);
-					if (retorno.equals("Ok")){
+					if (retorno.equals("ok")){
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
 						PanelListagemUsuario();
 					}else{
@@ -228,13 +228,13 @@ public class PanelCadastroUsuario extends PanelExemplo {
 				}else{
 					Usuario usuario = new Usuario(idUsuarioSelecionado, txtNome.getText(), txtMatricula.getText(), senha, txtEmail.getText(), tipoUsuario);
 					String retorno = mbUsuario.editar(usuario);
-					if (retorno.equals("Ok")){
+					if (retorno.equals("ok")){
 						Usuario us = mbUsuario.retornarUsuario(idUsuarioSelecionado);	
 						if (us.getSenha() != senha){ 
 							JOptionPane.showMessageDialog(null, "A nova senha deverá ser utilizada a partir do próximo login" );
 						}
 						JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso");
-						PanelListagemUsuario();						
+						PanelListagemUsuario();				
 					}else{
 						JOptionPane.showMessageDialog(null,retorno);
 					}

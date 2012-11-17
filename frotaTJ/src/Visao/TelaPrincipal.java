@@ -28,6 +28,7 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import util.UsuarioUtil;
 import util.Util;
 
 import mb.MBUnidade;
@@ -49,7 +50,7 @@ public class TelaPrincipal extends JFrame {
 
 
 
-	public TelaPrincipal(final Usuario usuario) {
+	public TelaPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
 		setTitle("Sistema de Manuten\u00E7\u00E3o de Frota do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 
@@ -64,9 +65,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		final Util util = Util.getInstance();
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 	
-	//-------------------------- Menu Inicio --------------------------\\
+		//-------------------------- Menu Inicio --------------------------\\
 		JMenu mnInicio = new JMenu(" Inicio");
 		mnInicio.addMouseListener(new MouseAdapter() {
 			@Override
@@ -84,7 +85,7 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if (!util.tempoLogin(usuario)){
+				if (!usuarioLogado.tempoLogin()){
 					setVisible(false);
 					TelaLogin();
 				}
@@ -171,7 +172,7 @@ public class TelaPrincipal extends JFrame {
 		mntmUsuario.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if (util.tempoLogin(usuario)){
+				if (!usuarioLogado.tempoLogin()){
 					PanelCadastroUsuario(0);					
 				}else{
 					setVisible(false);
@@ -198,7 +199,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if (!util.tempoLogin(usuario)){
+				if (!usuarioLogado.tempoLogin()){
 					setVisible(false);
 					TelaLogin();
 				}
@@ -303,7 +304,7 @@ public class TelaPrincipal extends JFrame {
 		mnRelatorios.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if (!util.tempoLogin(usuario)){
+				if (!usuarioLogado.tempoLogin()){
 					setVisible(false);
 					TelaLogin();
 				}

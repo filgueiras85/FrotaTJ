@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import mb.MBUsuario;
-import util.Util;
+import util.UsuarioUtil;
 import dao.Usuario;
 import java.awt.Toolkit;
 
@@ -61,7 +61,7 @@ public class TelaLogin extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\7837_32x32.png"));
 		setTitle("Login");
 		final MBUsuario mbUsuario = MBUsuario.getInstance();
-		final Util util = Util.getInstance();
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 402, 257);
 		contentPane = new JPanel();
@@ -111,12 +111,11 @@ public class TelaLogin extends JFrame {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario usuario = mbUsuario.retornarUsuario(listaUsuario.get(cmbUsuario.getSelectedIndex()).getIdUsuario());
-				Date dataLogin = new Date();
 				String senha = new String(senhaUsuario.getPassword());
 				if ( senha.equals(usuario.getSenha())){
-					usuario.setDataLogin(dataLogin);
+					usuarioLogado.usuarioLogado(usuario);
 					setVisible(false);
-					TelaPrincipal(usuario);
+					TelaPrincipal();
 				}else{
 					JOptionPane.showMessageDialog(null, "Senha incorreta");
 				}
@@ -173,8 +172,8 @@ public class TelaLogin extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	public void TelaPrincipal(Usuario usuario){
-		TelaPrincipal telaPrincipal = new TelaPrincipal(usuario);
+	public void TelaPrincipal(){
+		TelaPrincipal telaPrincipal = new TelaPrincipal();
 		telaPrincipal.show();
 	}
 }
