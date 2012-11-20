@@ -27,6 +27,7 @@ import mb.MBVeiculo;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
+import java.awt.Toolkit;
 
 public class TelaDetalhesVeiculo extends JFrame {
 
@@ -41,6 +42,8 @@ public class TelaDetalhesVeiculo extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaDetalhesVeiculo(int idVeiculoSelecionado) {
+		setTitle("Informa\u00E7oes do Veiculo ");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\frotaTJ\\imagens\\1519_32x32.png"));
 
 		setVisible(true);
 		show();

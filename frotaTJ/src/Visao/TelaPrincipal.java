@@ -110,7 +110,7 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.add(mntmFornecedor);
 		
 		JMenuItem mntmMarca = new JMenuItem("Marca");
-		mntmMarca.setIcon(new ImageIcon(winDir+"3303_32x32.png"));
+		mntmMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		mnCadastrar.add(mntmMarca);
 		
 		// Adiciona PanelCadastroModelo() no menu
@@ -223,7 +223,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_1);
 		
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
-		menuItem_2.setIcon(new ImageIcon("imagens\\3303_32x32.png"));
+		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		mnListar.add(menuItem_2);
 		
 		JMenuItem menuItem_3 = new JMenuItem("Modelo");
