@@ -45,6 +45,7 @@ public class TelaPrincipal extends JFrame {
 
 	private String winDir= ("imagens\\");
 	private String unidadeSelecionada;
+	private JComboBox<String>  comboBoxUnidade;	
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
 
@@ -326,7 +327,7 @@ public class TelaPrincipal extends JFrame {
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
 		
 	//------------------------- ComboBoxPesquisaUnidade -------------------------\\
-		JComboBox<String> comboBoxUnidade = new JComboBox<String>();
+		comboBoxUnidade = new JComboBox<String>();
 		MBUnidade mbUnidade = MBUnidade.getInstance();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBoxUnidade.setMaximumRowCount(230);
@@ -371,6 +372,12 @@ public class TelaPrincipal extends JFrame {
 				}
 			}
 		});
+	}
+	
+	//----------------------- Método para checar a unidade selecionada no sistema -----------------\\ 
+	
+	public String retornarUnidadeSelecionada(){
+		return comboBoxUnidade.getSelectedItem()+"";
 	}
 	
 	//--------------------- Método para voltar para o Panel Inicial ----------------------\\

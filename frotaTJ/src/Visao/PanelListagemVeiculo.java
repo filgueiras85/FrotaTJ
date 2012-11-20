@@ -44,6 +44,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	private JComboBox<String> comboBoxUnidade;
 	private JComboBox<String> comboBoxSituacao;
 	private JComboBox<String> comboBoxMotorista;
+	private String unidade;	
 
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	final MBUnidade mbUnidade = MBUnidade.getInstance();
@@ -54,6 +55,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	 */
 	public PanelListagemVeiculo() {		
 	// ------------------- Lebel -----------------------\\
+		setarUnidade();		
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
 		lblListagemVeiculos.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -340,6 +342,16 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		}
 	}
 	
+	public void setarUnidade(){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent();
+			this.unidade = parent.retornarUnidadeSelecionada();
+		} catch (Exception e) {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			this.unidade = parent.retornarUnidadeSelecionada();
+		}
+	}
+	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
@@ -351,5 +363,23 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 		}
 	}
+	/*
+	 
+	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		for (int i=0;i<listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getUnidade().getNome().equals(this.unidade) || unidade.equals("Selecione uma Unidade")){
+				((DefaultTableModel)table.getModel()).addRow(new String[]{
+						listaVeiculo.get(i).getIdveiculo()+"", 
+						listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
+						listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
+						listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
+			}
+		}
+			
 	}
+	 
+	 */
+}
 

@@ -17,8 +17,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 
+import mb.MBTipoServicoVeiculo;
+import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
 import java.awt.Color;
@@ -29,8 +32,11 @@ public class TelaDetalhesVeiculo extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	private int idVeiculoSelecionado;
+	
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+	final MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+	final MBTipoServiçoModelo mbTipoServicoModelo = MBTipoServiçoModelo.getInstance();	
 	/**
 	 * Create the frame.
 	 */
@@ -154,10 +160,16 @@ public class TelaDetalhesVeiculo extends JFrame {
 	}
 	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+		try{
+			int odometro = mbVeiculo.retornarVeiculo(idVeiculoSelecionado).getOdometro();
+			mbTipoServicoModelo.ListarosTipoServicodoModelo(1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
-		for (int i=0;i<listaVeiculo.size();i++){
-			((DefaultTableModel)table.getModel()).addRow(new String[]{});
+		List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(idVeiculoSelecionado);
+		for (int i=0;i<listaTipoServicoVeiculo.size();i++){
+			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}
 	}
 }
