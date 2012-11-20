@@ -129,7 +129,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 				new Object[][] {
 				},
 				new String[] {
-						"Id", "Placa", "Hodômetro", "Data"
+						"Id", "Placa", "Data", "Hodômetro"
 				}
 				));
 		scrollPane.setViewportView(table);
