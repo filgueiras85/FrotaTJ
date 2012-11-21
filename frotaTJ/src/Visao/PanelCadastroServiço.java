@@ -220,7 +220,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 							String retorno = mbServico.inserir(s);
 							if (retorno.equals("ok")){
 								
-									AtualizarSituacao(s.getVeiculo(), AtualizarOdometro());
+									mbVeiculo.AtualizarSituacaoServico(s.getVeiculo(), mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
 								
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
 								PanelListagemServiço();
@@ -231,7 +231,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 							
 							String retorno =  mbServico.editar(s);
 							if (retorno.equals("ok")){
-								AtualizarSituacao(s.getVeiculo(), AtualizarOdometro());
+								mbVeiculo.AtualizarSituacaoServico(s.getVeiculo(), mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
 							}else{
@@ -427,18 +427,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	  }  
 	}
 	
-	public int AtualizarOdometro(){
-		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
-		int aux = Integer.parseInt(textFieldKm.getText());;
-		int odometro = veiculo.getOdometro();
-		
-			veiculo.setOdometro(aux);
-			 mbVeiculo.editar(veiculo);
-			 return odometro;
-		
-
-		
-		}
+	
 	
 	public void ComboboxTipoServico(Veiculo veiculo){
 		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
@@ -454,138 +443,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		comboBoxTipoServico_1.updateUI();
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	}
-	public void AtualizarSituacao(Veiculo v, int odometrodesatualizado){
-				
-		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
-		String ok = "OK";
-		String situacao="";
-		String aux = "";
-		List<TipoServicoVeiculo> lista = new ArrayList<>();
-		lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
-		System.out.println(lista.size());
-		for(int i = 0; i<lista.size();i++){
-			List<Servico> listaServico = mbServico.ListarosServicodoVeiculo(v.getIdveiculo(), lista.get(i).getTipoServico());
-			System.out.println(lista.size()+"lista");
-			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
-			if(listaServico.size()>0){
-			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-				
-				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-					lista.get(i).setSituacao("A Fazer");
-					System.out.println("atrasado3");
-					
-					situacao = "null";
-
-				}else{
-					lista.get(i).setSituacao("OK");
-					System.out.println("bom");
-				}
-				
-
-			}else{
-				if(v.getOdometro()>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-					lista.get(i).setSituacao("Atrasado");
-					System.out.println("atrasado1");
-				}else{
-					if(v.getOdometro()==listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
-						lista.get(i).setSituacao("A Fazer");
-						System.out.println("atrasado2");
-
-					}	
-				}
-				
-			}
-			}else{
-				List<Abastecimento> listaAbastecimento = new ArrayList<>();
-				listaAbastecimento.addAll(v.getAbastecimentos());
-				if(!listaAbastecimento.isEmpty()){
-					if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
-						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
-							lista.get(i).setSituacao("A Fazer");
-							System.out.println("atwrero2");
-
-						}else{
-							lista.get(i).setSituacao("OK");
-							System.out.println("e23232");
-
-						}
-
-					}else{
-						if(v.getOdometro()>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
-							lista.get(i).setSituacao("Atrasado");
-							System.out.println("atw22122o2"+(listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()));
-
-						}else{
-							lista.get(i).setSituacao("A Fazer");
-							System.out.println("a22222");
-
-
-						}
-					}
-				}else{
-					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
-						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
-							lista.get(i).setSituacao("A Fazer");
-							System.out.println("lol");
-
-						}else{
-							lista.get(i).setSituacao("OK");
-							System.out.println("at232323do2");
-
-
-						}
-
-					}else{
-						if(v.getOdometro()>odometrodesatualizado+listaTipoServico.get(i).getKm()){
-							lista.get(i).setSituacao("Atrasado");
-							System.out.println("1111");
-
-						}else{
-							lista.get(i).setSituacao("A Fazer");
-							System.out.println("atrasa23232");
-
-
-						}
-					}
-				}
-				
-				
-
-			}
-				
-			}
-		for(int i = 0; i<lista.size();i++){
-			situacao = situacao+lista.get(i).getSituacao();
-			aux = aux+ok;	
-			System.out.println(situacao+"si");
-			System.out.println(aux+"au");
-
-			}
-		System.out.println(situacao.contains("null")+"hh");
-		if(situacao.equalsIgnoreCase(aux)){
-			v.setSituacao("OK");
-			mbVeiculo.editar(v);
-			
-		}else{
-			if(situacao.contains("null")){
-				if(situacao.contains("Atrasado")){
-					v.setSituacao("Atrasado");
-					mbVeiculo.editar(v);
-				}
-				else{
-					v.setSituacao("A Fazer");
-					System.out.print(mbVeiculo.editar(v));
-
-				}
-			}
-			else{
-				v.setSituacao("Atrasado");
-				mbVeiculo.editar(v);
-			}
-		
-	}
-		System.out.println(v.getAbastecimentos());
-	}
+	
 	}
 	
 
