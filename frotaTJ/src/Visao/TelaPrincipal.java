@@ -349,7 +349,7 @@ public class TelaPrincipal extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		JLabel label = new JLabel("                               ");
+		JLabel label = new JLabel("     ");
 		menuBar.add(label);
 		
 		menuBar.add(comboBoxUnidade);
