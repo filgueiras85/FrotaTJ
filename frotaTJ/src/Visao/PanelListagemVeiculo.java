@@ -123,7 +123,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		});
 		
-		JButton btnDetalhes = new JButton("Detalhes");
+		final JButton btnDetalhes = new JButton("Detalhes");
 		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDetalhes.addActionListener(new ActionListener() {
@@ -286,6 +286,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
+		btnDetalhes.setVisible(false);
 		
 	//--------------------------------------Tabela ------------------------------\\
 		table = new JTable();
@@ -295,6 +296,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 				btnEditar.setVisible(true);
 				btnApagar.setVisible(true);
+				btnDetalhes.setVisible(true);
 			}
 		});
 		table.setModel(new DefaultTableModel(

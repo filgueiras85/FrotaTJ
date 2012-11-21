@@ -160,17 +160,28 @@ public class TelaDetalhesVeiculo extends JFrame {
 		));
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
+		try {
+			atualizarTabela(v.getIdveiculo());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void atualizarTabela() throws ClassNotFoundException, SQLException{
+	public void atualizarTabela(int idVeiculoSelecionado) throws ClassNotFoundException, SQLException{
 		try{
 			int odometro = mbVeiculo.retornarVeiculo(idVeiculoSelecionado).getOdometro();
-			mbTipoServicoModelo.ListarosTipoServicodoModelo(1);
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(idVeiculoSelecionado);
+		System.out.println(listaTipoServicoVeiculo);
+		System.out.println(idVeiculoSelecionado);
 		for (int i=0;i<listaTipoServicoVeiculo.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}

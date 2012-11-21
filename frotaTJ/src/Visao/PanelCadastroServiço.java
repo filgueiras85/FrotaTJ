@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.SwingConstants;
@@ -34,6 +35,7 @@ import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
+import dao.Abastecimento;
 import dao.Fornecedor;
 import dao.Modelo;
 import dao.Motorista;
@@ -59,7 +61,14 @@ public class PanelCadastroServiço extends PanelExemplo {
 	private	JComboBox<TipoServico> comboBoxTipoServico;
 	private JComboBox<TipoServico> comboBoxTipoServico_1;
 	private Veiculo  veiculoselecionado;
-
+	private MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
+	private MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+	private MBServico mbServico = MBServico.getInstance();
+	private MBTipoServico mbTipoServico = MBTipoServico.getInstance();
+	private MBMotorista mbMotorista = MBMotorista.getInstance();
+	private MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
+	private MBFornecedor mbFornecedor= MBFornecedor.getInstance();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -121,7 +130,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		textFieldDescrição.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldDescrição.setColumns(10);
 		
-		MBMotorista mbMotorista= MBMotorista.getInstance();
+		
 		comboBoxMotorista = new JComboBox<Motorista>();
 		DefaultComboBoxModel<Motorista> modeloComboBoxMotorista;
 		try {
@@ -131,7 +140,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 			// TODO: handle exception
 		}	
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		MBFornecedor mbFornecedor= MBFornecedor.getInstance();
 		comboBoxFornecedor = new JComboBox<Fornecedor>();
 		DefaultComboBoxModel<Fornecedor> modeloComboBoxFornecedor;
 		try {
@@ -142,7 +150,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 		}	
 		comboBoxFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		MBVeiculo mbVeiculo= MBVeiculo.getInstance();
 		comboBoxVeiculo = new JComboBox<Veiculo>();
 		
 		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
@@ -160,7 +167,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 			}
 		});
 		comboBoxVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		MBTipoServico mbTipoServico= MBTipoServico.getInstance();
 
 		comboBoxTipoServico = new JComboBox<TipoServico>();
 		
@@ -195,11 +201,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-				MBMotorista mbMotorista = MBMotorista.getInstance();
-				MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
-				MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-				MBServico mbServico = MBServico.getInstance();
+				
 
 				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
@@ -217,9 +219,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 							}
 							String retorno = mbServico.inserir(s);
 							if (retorno.equals("ok")){
-								if(AtualizarOdometro()){
-									AtualizarSituacao(s.getVeiculo());
-								}
+								
+									AtualizarSituacao(s.getVeiculo(), AtualizarOdometro());
+								
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
 								PanelListagemServiço();
 							}else{
@@ -229,9 +231,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 							
 							String retorno =  mbServico.editar(s);
 							if (retorno.equals("ok")){
-								if(AtualizarOdometro()){
-									AtualizarSituacao(s.getVeiculo());
-								}
+								AtualizarSituacao(s.getVeiculo(), AtualizarOdometro());
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
 							}else{
@@ -427,17 +427,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 	  }  
 	}
 	
-	public boolean AtualizarOdometro(){
-		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+	public int AtualizarOdometro(){
 		Veiculo veiculo = mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo());
 		int aux = Integer.parseInt(textFieldKm.getText());;
-		if(veiculo.getOdometro()<aux){
+		int odometro = veiculo.getOdometro();
+		
 			veiculo.setOdometro(aux);
 			 mbVeiculo.editar(veiculo);
-			 return true;
-		}else{
-			return false;
-		}
+			 return odometro;
+		
 
 		
 		}
@@ -456,10 +454,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 		comboBoxTipoServico_1.updateUI();
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	}
-	public void AtualizarSituacao(Veiculo v){
-		MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
-		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
-		MBServico mbServico = MBServico.getInstance();		
+	public void AtualizarSituacao(Veiculo v, int odometrodesatualizado){
+				
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
 		String ok = "OK";
 		String situacao="";
@@ -500,7 +496,60 @@ public class PanelCadastroServiço extends PanelExemplo {
 				
 			}
 			}else{
-				lista.get(i).setSituacao("OK");
+				List<Abastecimento> listaAbastecimento = new ArrayList<>();
+				listaAbastecimento.addAll(v.getAbastecimentos());
+				if(!listaAbastecimento.isEmpty()){
+					if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atwrero2");
+
+						}else{
+							lista.get(i).setSituacao("OK");
+							System.out.println("e23232");
+
+						}
+
+					}else{
+						if(v.getOdometro()>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("Atrasado");
+							System.out.println("atw22122o2"+(listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()));
+
+						}else{
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("a22222");
+
+
+						}
+					}
+				}else{
+					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
+						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("lol");
+
+						}else{
+							lista.get(i).setSituacao("OK");
+							System.out.println("at232323do2");
+
+
+						}
+
+					}else{
+						if(v.getOdometro()>odometrodesatualizado+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("Atrasado");
+							System.out.println("1111");
+
+						}else{
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atrasa23232");
+
+
+						}
+					}
+				}
+				
+				
 
 			}
 				
@@ -512,7 +561,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 			System.out.println(aux+"au");
 
 			}
-		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		System.out.println(situacao.contains("null")+"hh");
 		if(situacao.equalsIgnoreCase(aux)){
 			v.setSituacao("OK");
@@ -536,6 +584,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 			}
 		
 	}
+		System.out.println(v.getAbastecimentos());
 	}
 	}
 	

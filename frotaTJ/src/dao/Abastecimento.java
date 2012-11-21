@@ -101,7 +101,7 @@ public class Abastecimento implements java.io.Serializable {
 
 	public String toString()
 	{
-		return toString();
+		return getVeiculo().toString();
 	}
 
 }

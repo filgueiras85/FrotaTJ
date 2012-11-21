@@ -142,6 +142,8 @@ public class PanelInicial extends PanelExemplo {
 		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				TelaDetalhesVeiculo t = new TelaDetalhesVeiculo(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+""));
+				t.show();
 			}
 		});
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
