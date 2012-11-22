@@ -173,7 +173,7 @@ public class MBVeiculo {
 
 			
 				System.out.println("lol");
-				situacao = "null";
+				
 			}else{
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 				
@@ -279,14 +279,14 @@ public class MBVeiculo {
 			editar(v);
 			
 		}else{
-			if(situacao.contains("null")){
+			if(situacao.contains("A Fazer")){
 				if(situacao.contains("Atrasado")){
 					v.setSituacao("Atrasado");
 					editar(v);
 				}
 				else{
 					v.setSituacao("A Fazer");
-					System.out.print(editar(v));
+					editar(v);
 
 				}
 			}
