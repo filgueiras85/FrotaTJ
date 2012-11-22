@@ -116,6 +116,7 @@ public class MBVeiculo {
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
 			if (listaServico.isEmpty()){
 				lista.get(i).setSituacao("A Fazer");
+				System.out.println("lol");
 				situacao = "null";
 			}else{
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
@@ -128,7 +129,7 @@ public class MBVeiculo {
 
 				}else{
 					lista.get(i).setSituacao("OK");
-					System.out.println("bom");
+					System.out.println("bom1");
 				}
 				
 
@@ -239,7 +240,8 @@ public class MBVeiculo {
 			}
 		
 	}
-		
+		System.out.println("olamundo");
+
 	}
 	public void AtualizarSituacaoServico(Veiculo v, int odometrodesatualizado){
 		
@@ -265,7 +267,7 @@ public class MBVeiculo {
 
 				}else{
 					lista.get(i).setSituacao("OK");
-					System.out.println("bom");
+					System.out.println("bom2");
 				}
 				
 
@@ -285,8 +287,9 @@ public class MBVeiculo {
 			}else{
 				List<Abastecimento> listaAbastecimento = new ArrayList<>();
 				listaAbastecimento.addAll(v.getAbastecimentos());
-				if(!listaAbastecimento.isEmpty()){
-					if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+				if(listaAbastecimento.size()>0){
+					System.out.println(listaAbastecimento.get(0).getKmOdometro()+"OOOOII");
+						if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
 							lista.get(i).setSituacao("A Fazer");
 							System.out.println("atwrero2");
@@ -372,6 +375,7 @@ public class MBVeiculo {
 		
 	}
 		System.out.println(v.getAbastecimentos());
+		System.out.println("olamundo");
 	}
 public int AtualizarOdometro(int aux, Veiculo v){
 		
