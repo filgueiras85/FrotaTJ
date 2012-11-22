@@ -115,7 +115,63 @@ public class MBVeiculo {
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
 			if (listaServico.isEmpty()){
-				lista.get(i).setSituacao("A Fazer");
+				List<Abastecimento> listaAbastecimento = new ArrayList<>();
+				listaAbastecimento.addAll(v.getAbastecimentos());
+				if(listaAbastecimento.size()>0){
+					System.out.println(listaAbastecimento.get(0).getKmOdometro()+"OOOOII");
+						if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atwrero2");
+
+						}else{
+							lista.get(i).setSituacao("OK");
+							System.out.println("e23232");
+
+						}
+
+					}else{
+						if(v.getOdometro()>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("Atrasado");
+							System.out.println("atw22122o2"+(listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()));
+
+						}else{
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("a22222");
+
+
+						}
+					}
+				}else{
+					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
+						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("lol");
+
+						}else{
+							lista.get(i).setSituacao("OK");
+							System.out.println("at232323do2");
+
+
+						}
+
+					}else{
+						if(v.getOdometro()>odometrodesatualizado+listaTipoServico.get(i).getKm()){
+							lista.get(i).setSituacao("Atrasado");
+							System.out.println("1111");
+
+						}else{
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atrasa23232");
+
+
+						}
+					}
+				}
+				
+				
+
+			
 				System.out.println("lol");
 				situacao = "null";
 			}else{
