@@ -2,6 +2,7 @@ package Visao;
 
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
@@ -31,6 +33,7 @@ import mb.MBVeiculo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -82,7 +85,14 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		lblMotorista.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 	// ------------------------------ TextFields ---------------------------\\			
-		textFieldPlaca = new JTextField();
+		MaskFormatter placa = null;
+		try {
+			placa = new MaskFormatter("UUU-####");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		textFieldPlaca = new JFormattedTextField(placa);
 		textFieldPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldPlaca.setColumns(10);
 		

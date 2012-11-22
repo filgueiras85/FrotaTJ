@@ -20,6 +20,7 @@ import dao.Servico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -84,37 +85,37 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnNovo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar))
-						.addComponent(lblListagemAbastecimentos))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addComponent(btnNovo)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnEditar)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnApagar))
+										.addComponent(lblListagemAbastecimentos))
+										.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemAbastecimentos)
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnApagar)
-						.addComponent(btnEditar)
-						.addComponent(btnNovo))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addComponent(lblListagemAbastecimentos)
+						.addGap(18)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnApagar)
+								.addComponent(btnEditar)
+								.addComponent(btnNovo))
+								.addContainerGap())
+				);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
-		
+
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override

@@ -14,6 +14,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -43,6 +44,7 @@ import dao.TipoServicoVeiculoId;
 import dao.Unidade;
 import dao.Veiculo;
 import javax.swing.ImageIcon;
+import javax.swing.text.MaskFormatter;
 
 
 public class PanelCadastroAbastecimento extends PanelExemplo {
@@ -65,7 +67,15 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblData.setHorizontalAlignment(SwingConstants.LEFT);
 
-		textFieldData = new JTextField();
+		MaskFormatter data = null;
+		try {
+			data = new MaskFormatter("##/##/####");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		textFieldData = new JFormattedTextField(data);
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldData.setColumns(10);
 
