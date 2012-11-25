@@ -124,7 +124,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 		JLabel lblFornecedor = new JLabel("Fornecedor");
 		lblFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		textFieldValor = new JTextField();
+		MaskFormatter valor = null;
+		try {
+			valor = new MaskFormatter("######,##");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		textFieldValor = new JFormattedTextField(valor);
 		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldValor.setColumns(10);
 		
@@ -192,8 +200,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 				comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
+				MaskFormatter km = null;
+				try {
+					km = new MaskFormatter("######");
+				} catch (ParseException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 		
-		textFieldKm = new JTextField();
+		textFieldKm = new JFormattedTextField(km);
 		textFieldKm.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldKm.setColumns(10);
 		
