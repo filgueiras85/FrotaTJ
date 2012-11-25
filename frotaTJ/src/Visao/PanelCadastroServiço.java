@@ -1,5 +1,6 @@
 package Visao;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -46,6 +47,7 @@ import dao.TipoServicoModeloId;
 import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 import javax.swing.ImageIcon;
+import javax.swing.text.MaskFormatter;
 
 
 public class PanelCadastroServiço extends PanelExemplo {
@@ -83,7 +85,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblData.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		textFieldData = new JTextField();
+		MaskFormatter data = null;
+		try {
+			data = new MaskFormatter("##/##/####");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		textFieldData = new JFormattedTextField(data);
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldData.setColumns(10);
 		
