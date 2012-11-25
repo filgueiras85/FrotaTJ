@@ -85,10 +85,17 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		JLabel lblPlaca = new JLabel("Placa");
 		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		textFieldHodometro = new JTextField();
+		MaskFormatter hodometro = null;
+		try {
+			hodometro = new MaskFormatter("######");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		textFieldHodometro = new JFormattedTextField(hodometro);
 		textFieldHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldHodometro.setColumns(10);
-
 
 		MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 		comboBoxPlaca = new JComboBox<Veiculo>();
@@ -122,10 +129,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			    try{  
-			        int check = Integer.parseInt(textFieldHodometro.getText());  
-		    		        			    		        	
-			    		        
+			        
 			    			
 				java.sql.Timestamp data2 = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
@@ -165,10 +169,8 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 			}
 
-			    catch (NumberFormatException e) {  
-			    	JOptionPane.showMessageDialog(null,"Por favor, verifique o cadastro do Hodômetro.\n            Ele aceita apenas números inteiros. \n                  Não use virgula nem ponto.");
-			    }  
-			}
+			   
+			
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
