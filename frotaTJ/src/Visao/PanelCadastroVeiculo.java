@@ -92,11 +92,18 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		MaskFormatter hodometro = null;
+		try {
+			hodometro = new MaskFormatter("######");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		textFieldPlaca = new JFormattedTextField(placa);
 		textFieldPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldPlaca.setColumns(10);
 		
-		textFieldOdometro = new JTextField();
+		textFieldOdometro = new JFormattedTextField(hodometro);
 		textFieldOdometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldOdometro.setColumns(10);
 		
