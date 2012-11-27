@@ -29,8 +29,8 @@ public class UsuarioUtil extends Usuario{
 
 	public boolean tempoLogin(){
 		Date dataAtual = new Date();
-		long tempo = (dataAtual.getTime() - getDataLogin().getTime())/1000/60;
-		if (tempo > 10 ){
+		long tempo = (dataAtual.getTime() - getDataLogin().getTime())/1000;
+		if (tempo > 20 ){
 			JOptionPane.showMessageDialog(null, "Sessão EXPIRADA!");
 			return false;
 		}else{

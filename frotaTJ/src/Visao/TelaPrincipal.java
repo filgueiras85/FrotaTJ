@@ -22,6 +22,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Vector;
 
@@ -45,11 +46,11 @@ public class TelaPrincipal extends JFrame {
 
 	private String winDir= ("imagens\\");
 	private String unidadeSelecionada;
+	private JComboBox<String>  comboBoxUnidade;	
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
 
 
-	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 	public TelaPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
@@ -66,6 +67,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 		//-------------------------- Menu Inicio --------------------------\\
 		JMenu mnInicio = new JMenu(" Inicio");
@@ -82,7 +84,15 @@ public class TelaPrincipal extends JFrame {
 
 		//-------------------------- Menu Cadastrar --------------------------\\		
 		JMenu mnCadastrar = new JMenu("Cadastrar");
-
+		mnCadastrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (!usuarioLogado.tempoLogin()){
+					setVisible(false);
+					TelaLogin();
+				}
+			}
+		});
 		mnCadastrar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnCadastrar.setIcon(new ImageIcon(winDir+"6098_32x32.png"));
 		menuBar.add(mnCadastrar);
@@ -92,6 +102,7 @@ public class TelaPrincipal extends JFrame {
 		mntmAbastecimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCadastroAbastecimento(0);
+
 			}
 		});
 		mnCadastrar.add(mntmAbastecimento);
@@ -101,7 +112,7 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.add(mntmFornecedor);
 
 		JMenuItem mntmMarca = new JMenuItem("Marca");
-		mntmMarca.setIcon(new ImageIcon(winDir+"3303_32x32.png"));
+		mntmMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		mnCadastrar.add(mntmMarca);
 
 		// Adiciona PanelCadastroModelo() no menu
@@ -214,7 +225,7 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
-		menuItem_2.setIcon(new ImageIcon("imagens\\3303_32x32.png"));
+		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		mnListar.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("Modelo");
@@ -318,7 +329,7 @@ public class TelaPrincipal extends JFrame {
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
 
 		//------------------------- ComboBoxPesquisaUnidade -------------------------\\
-		JComboBox<String> comboBoxUnidade = new JComboBox<String>();
+		comboBoxUnidade = new JComboBox<String>();
 		MBUnidade mbUnidade = MBUnidade.getInstance();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBoxUnidade.setMaximumRowCount(230);
@@ -340,11 +351,12 @@ public class TelaPrincipal extends JFrame {
 			e1.printStackTrace();
 		}
 
-		JLabel label = new JLabel("                               ");
+		JLabel label = new JLabel("     ");
 		menuBar.add(label);
 
 		menuBar.add(comboBoxUnidade);
 		unidadeSelecionada = comboBoxUnidade.getSelectedItem()+"";
+
 
 		getContentPane().setLayout(new CardLayout(0, 0));
 		panelConteudo.add(panelInicial, "panelInicial");
@@ -364,6 +376,12 @@ public class TelaPrincipal extends JFrame {
 		});
 	}
 
+	//----------------------- Método para checar a unidade selecionada no sistema -----------------\\ 
+
+	public String retornarUnidadeSelecionada(){
+		return comboBoxUnidade.getSelectedItem()+"";
+	}
+
 	//--------------------- Método para voltar para o Panel Inicial ----------------------\\
 	public void PanelInicial(){
 		PanelInicial panelInicial = new PanelInicial();
@@ -381,222 +399,136 @@ public class TelaPrincipal extends JFrame {
 
 
 	public void PanelCadastroTipoServiçoModelo(int j, int i){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
-			panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
+		panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");
 	}
 
 	public void PanelCadastroModelo(int j){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
-			panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroModelo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
+		panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroModelo");
 	}
 
 	public void PanelCadastroServiço(int i){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
-			panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroServiço");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
+		panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroServiço");
 	}
 
 	public void PanelCadastroVeiculo(int id){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroVeiculo panelCadastroVeiculo = new PanelCadastroVeiculo(id);
-			panelConteudo.add(panelCadastroVeiculo, "panelCadastroVeiculo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroVeiculo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroVeiculo panelCadastroVeiculo = new PanelCadastroVeiculo(id);
+		panelConteudo.add(panelCadastroVeiculo, "panelCadastroVeiculo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelCadastroVeiculo");
 	}
 
 	public void PanelCadastroUnidade(int idUnidade){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroUnidade panelCadastroUnidade = new PanelCadastroUnidade(idUnidade);
-			panelConteudo.add(panelCadastroUnidade, "panelCadastroUnidade");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroUnidade");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroUnidade panelCadastroUnidade = new PanelCadastroUnidade(idUnidade);
+		panelConteudo.add(panelCadastroUnidade, "panelCadastroUnidade");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroUnidade");
 	}
 
 	public void PanelCadastroTipoServico(int idTipoServico){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroTipoServico panelCadastroTipoServico = new PanelCadastroTipoServico(idTipoServico);
-			panelConteudo.add(panelCadastroTipoServico, "panelCadastroTipoServico");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroTipoServico");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroTipoServico panelCadastroTipoServico = new PanelCadastroTipoServico(idTipoServico);
+		panelConteudo.add(panelCadastroTipoServico, "panelCadastroTipoServico");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroTipoServico");
 	}
 
+
 	public void PanelCadastroUsuario(int idUsuario){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
-			panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroUsuario");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+
+		PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
+		panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroUsuario");
 	}
 
 	public void PanelCadastroAbastecimento(int idAbastecimento){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento(idAbastecimento);
-			panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroAbastecimento");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento(idAbastecimento);
+		panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroAbastecimento");
 	}
 
 	public void PanelCadastroMotorista(int idMotorista){
-		if (usuarioLogado.tempoLogin()){
-			PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(idMotorista);
-			panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroMotorista");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(idMotorista);
+		panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelCadastroMotorista");
 	}
 
 
 	//--------------------- Métodos para troca de Panel de Listagem ---------------------\\	
 	public void PanelListagemModelo(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemModelo panelListagemModelo = new PanelListagemModelo();
-			panelConteudo.add(panelListagemModelo, "panelListagemModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemModelo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemModelo panelListagemModelo = new PanelListagemModelo();
+		panelConteudo.add(panelListagemModelo, "panelListagemModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemModelo");
 	}
 
 	public void PanelListagemTipoServiçoModelo(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemTipoServiçoModelo panelListagemTipoServiçoModelo = new PanelListagemTipoServiçoModelo();
-			panelConteudo.add(panelListagemTipoServiçoModelo, "panelListagemTipoServiçoModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemTipoServiçoModelo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemTipoServiçoModelo panelListagemTipoServiçoModelo = new PanelListagemTipoServiçoModelo();
+		panelConteudo.add(panelListagemTipoServiçoModelo, "panelListagemTipoServiçoModelo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemTipoServiçoModelo");
 	}
 
 	public void PanelListagemServiço(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemServiço panelListagemServiço = new PanelListagemServiço();
-			panelConteudo.add(panelListagemServiço, "panelListagemServiço");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemServiço");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemServiço panelListagemServiço = new PanelListagemServiço();
+		panelConteudo.add(panelListagemServiço, "panelListagemServiço");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemServiço");
 	}
 
 	public void PanelListagemUnidade(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemUnidade panelListagemUnidade = new PanelListagemUnidade();
-			panelConteudo.add(panelListagemUnidade, "panelListagemUnidade");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelListagemUnidade");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemUnidade panelListagemUnidade = new PanelListagemUnidade();
+		panelConteudo.add(panelListagemUnidade, "panelListagemUnidade");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelListagemUnidade");
 	}
 
 	public void PanelListagemTipoServico(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemTipoServico panelListagemTipoServico = new PanelListagemTipoServico();
-			panelConteudo.add(panelListagemTipoServico, "panelListagemTipoServico");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelListagemTipoServico");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemTipoServico panelListagemTipoServico = new PanelListagemTipoServico();
+		panelConteudo.add(panelListagemTipoServico, "panelListagemTipoServico");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelListagemTipoServico");
 	}
 
 	public void PanelListagemUsuario(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemUsuario panelListagemUsuario = new PanelListagemUsuario();
-			panelConteudo.add(panelListagemUsuario, "panelListagemUsuario");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelListagemUsuario");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemUsuario panelListagemUsuario = new PanelListagemUsuario();
+		panelConteudo.add(panelListagemUsuario, "panelListagemUsuario");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo,"panelListagemUsuario");
 	}
 
 	public void PanelListagemVeiculo(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemVeiculo panelListagemVeiculo = new PanelListagemVeiculo();
-			panelConteudo.add(panelListagemVeiculo, "panelListagemVeiculo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemVeiculo");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemVeiculo panelListagemVeiculo = new PanelListagemVeiculo();
+		panelConteudo.add(panelListagemVeiculo, "panelListagemVeiculo");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemVeiculo");
 	}
 
 	public void PanelListagemAbastecimento(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemAbastecimento panelListagemAbastecimento = new PanelListagemAbastecimento();
-			panelConteudo.add(panelListagemAbastecimento, "panelListagemAbastecimento");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemAbastecimento");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemAbastecimento panelListagemAbastecimento = new PanelListagemAbastecimento();
+		panelConteudo.add(panelListagemAbastecimento, "panelListagemAbastecimento");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemAbastecimento");
 	}
 
 	public void PanelListagemMotorista(){
-		if (usuarioLogado.tempoLogin()){
-			PanelListagemMotorista panelListagemMotorista = new PanelListagemMotorista();
-			panelConteudo.add(panelListagemMotorista, "panelListagemMotorista");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelListagemMotorista");
-		}else{
-			setVisible(false);
-			TelaLogin();
-		}
+		PanelListagemMotorista panelListagemMotorista = new PanelListagemMotorista();
+		panelConteudo.add(panelListagemMotorista, "panelListagemMotorista");
+		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+		cardLayout.show(panelConteudo, "panelListagemMotorista");
 	}
+
+
 }
 
 

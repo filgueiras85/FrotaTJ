@@ -130,7 +130,7 @@ public class PanelListagemUsuario extends PanelExemplo {
 		});
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Usuário selecionado?","", JOptionPane.YES_NO_OPTION);
+				int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Usuário selecionado?");
 				if (opcao ==JOptionPane.YES_OPTION ) {
 					Usuario usuario = new Usuario();
 					idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
@@ -155,7 +155,6 @@ public class PanelListagemUsuario extends PanelExemplo {
 		} catch (Exception e) {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelCadastroUsuario(idUsuario);
-			//parent.trocaPainel(this, "panelCadastroUsuario" );
 		}
 	}
 
