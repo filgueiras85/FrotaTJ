@@ -40,6 +40,10 @@ public class Marca implements java.io.Serializable {
 		this.nome = nome;
 		this.modelos = modelos;
 	}
+	
+	public Marca(String nome) {
+		this.nome = nome;
+	}
 
 	// Property accessors
 	@Id

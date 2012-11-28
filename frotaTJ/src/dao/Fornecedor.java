@@ -49,6 +49,15 @@ public class Fornecedor implements java.io.Serializable {
 		this.fone2 = fone2;
 		this.servicos = servicos;
 	}
+	
+	public Fornecedor(String nome, String cnpj, String fone1, String email,
+			String fone2) {
+		this.nome = nome;
+		this.cnpj = cnpj;
+		this.fone1 = fone1;
+		this.email = email;
+		this.fone2 = fone2;
+	}
 
 	// Property accessors
 	@Id

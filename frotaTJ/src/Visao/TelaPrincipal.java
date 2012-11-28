@@ -109,10 +109,20 @@ public class TelaPrincipal extends JFrame {
 
 		JMenuItem mntmFornecedor = new JMenuItem("Fornecedor");
 		mntmFornecedor.setIcon(new ImageIcon(winDir+"1003_32x32.png"));
+		mntmFornecedor.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroFornecedor(0);
+			}
+		});
 		mnCadastrar.add(mntmFornecedor);
 
 		JMenuItem mntmMarca = new JMenuItem("Marca");
 		mntmMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		mntmMarca.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+				PanelCadastroMarca(0);
+			}
+		});
 		mnCadastrar.add(mntmMarca);
 
 		// Adiciona PanelCadastroModelo() no menu
@@ -222,10 +232,20 @@ public class TelaPrincipal extends JFrame {
 
 		JMenuItem menuItem_1 = new JMenuItem("Fornecedor");
 		menuItem_1.setIcon(new ImageIcon("imagens\\1003_32x32.png"));
+		menuItem_1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+				PanelListagemFornecedor();
+			}
+		});
 		mnListar.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
 		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		menuItem_1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+				PanelListagemMarca();
+			}
+		});
 		mnListar.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("Modelo");
@@ -505,6 +525,31 @@ public class TelaPrincipal extends JFrame {
 			TelaLogin();
 		}
 	}
+	
+	public void PanelCadastroFornecedor(int id){
+		if (usuarioLogado.tempoLogin()){
+			PanelCadastroFornecedor panelCadastroFornecedor = new PanelCadastroFornecedor(id);
+			panelConteudo.add(panelCadastroFornecedor, "panelCadastroFornecedor");
+			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+			cardLayout.show(panelConteudo, "panelCadastroFornecedor");
+		}else{
+			setVisible(false);
+			TelaLogin();
+		}	
+			
+	}
+	
+	public void PanelCadastroMarca(int id){
+		if (usuarioLogado.tempoLogin()){
+			PanelCadastroMarca panelCadastroMarca = new PanelCadastroMarca(id);
+			panelConteudo.add(panelCadastroMarca, "panelCadastroMarca");
+			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+			cardLayout.show(panelConteudo, "panelCadastroMarca");
+		}else{
+			setVisible(false);
+			TelaLogin();
+		}	
+	}
 
 
 	//--------------------- Métodos para troca de Panel de Listagem ---------------------\\	
@@ -614,6 +659,30 @@ public class TelaPrincipal extends JFrame {
 			setVisible(false);
 			TelaLogin();
 		}
+	}
+	
+	public void PanelListagemFornecedor(){
+		if (usuarioLogado.tempoLogin()){
+			PanelListagemFornecedor panelListagemFornecedor = new PanelListagemFornecedor();
+			panelConteudo.add(panelListagemFornecedor, "panelListagemFornecedor");
+			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+			cardLayout.show(panelConteudo,"panelListagemFornecefor");
+		}else{
+			setVisible(false);
+			TelaLogin();
+		}	
+	}
+	
+	public void PanelListagemMarca(){
+		if (usuarioLogado.tempoLogin()){
+			PanelListagemMarca panelListagemMarca = new PanelListagemMarca();
+			panelConteudo.add(panelListagemMarca, "panelListagemMarca");
+			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+			cardLayout.show(panelConteudo,"panelListagemMarca");
+		}else{
+			setVisible(false);
+			TelaLogin();
+		}			
 	}
 }
 
