@@ -15,16 +15,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.SwingConstants;
 
 import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
+
+import util.JNumberFormatField;
 
 import com.sun.jmx.snmp.Timestamp;
 
@@ -47,6 +52,7 @@ import dao.TipoServicoModeloId;
 import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 import javax.swing.ImageIcon;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.MaskFormatter;
 
 
@@ -124,16 +130,24 @@ public class PanelCadastroServiço extends PanelExemplo {
 		JLabel lblFornecedor = new JLabel("Fornecedor");
 		lblFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
+/*private static final Locale LOCAL = new Locale ("pt", "BR");
+		
+		DecimalFormat df = new DecimalFormat("#,##0.00" , new DecimalFormatSymbols(LOCAL));
+		String s = df.format(valor)*/
+		
 		MaskFormatter valor = null;
 		try {
-			valor = new MaskFormatter("######,##");
+			valor = new MaskFormatter("####,##");
 		} catch (ParseException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
-		textFieldValor = new JFormattedTextField(valor);
+		
+		textFieldValor = new JNumberFormatField(new DecimalFormat("R$ 0.00"));
 		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textFieldValor.setComponentOrientation(java.awt.ComponentOrientation.RIGHT_TO_LEFT); 
+		textFieldValor.setLocale(new Locale ("pt", "BR"));
 		textFieldValor.setColumns(10);
 		
 		textFieldOrçamento = new JTextField();
