@@ -34,6 +34,8 @@ public class TelaLogin extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField senhaUsuario;
 
+	final MBUsuario mbUsuario = MBUsuario.getInstance();
+	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 	/**
 	 * Launch the application.
 	 */
@@ -60,8 +62,6 @@ public class TelaLogin extends JFrame {
 	public TelaLogin() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\7837_32x32.png"));
 		setTitle("Login");
-		final MBUsuario mbUsuario = MBUsuario.getInstance();
-		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 402, 257);
 		contentPane = new JPanel();
@@ -107,19 +107,21 @@ public class TelaLogin extends JFrame {
 				}
 			}
 		});
-		
+		senhaUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == e.VK_ENTER ){
+					Usuario usuario = mbUsuario.retornarUsuario(listaUsuario.get(cmbUsuario.getSelectedIndex()).getIdUsuario());
+					validaUsuario(usuario);
+				}
+			}
+		});
+
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario usuario = mbUsuario.retornarUsuario(listaUsuario.get(cmbUsuario.getSelectedIndex()).getIdUsuario());
-				String senha = new String(senhaUsuario.getPassword());
-				if ( senha.equals(usuario.getSenha())){
-					usuarioLogado.usuarioLogado(usuario);
-					setVisible(false);
-					TelaPrincipal();
-				}else{
-					JOptionPane.showMessageDialog(null, "Senha incorreta");
+				validaUsuario(usuario);
 				}
-			}
 		});
 
 		btnSair.addActionListener(new ActionListener() {
@@ -175,5 +177,15 @@ public class TelaLogin extends JFrame {
 	public void TelaPrincipal(){
 		TelaPrincipal telaPrincipal = new TelaPrincipal();
 		telaPrincipal.show();
+	}
+	public void validaUsuario(Usuario usuario){
+		String senha = new String(senhaUsuario.getPassword());
+		if ( senha.equals(usuario.getSenha())){
+			usuarioLogado.usuarioLogado(usuario);
+			setVisible(false);
+			TelaPrincipal();
+		}else{
+			JOptionPane.showMessageDialog(null, "Senha incorreta");
+		}
 	}
 }
