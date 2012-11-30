@@ -240,7 +240,12 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
-		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelListagemFornecedor();
+			}
+		});
+		menuItem_2.setIcon(new ImageIcon("imagens\\M.jpg"));
 		menuItem_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 				PanelListagemMarca();
@@ -666,7 +671,7 @@ public class TelaPrincipal extends JFrame {
 			PanelListagemFornecedor panelListagemFornecedor = new PanelListagemFornecedor();
 			panelConteudo.add(panelListagemFornecedor, "panelListagemFornecedor");
 			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelListagemFornecefor");
+			cardLayout.show(panelConteudo,"panelListagemFornecedor");
 		}else{
 			setVisible(false);
 			TelaLogin();

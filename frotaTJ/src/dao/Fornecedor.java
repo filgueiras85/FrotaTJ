@@ -50,8 +50,9 @@ public class Fornecedor implements java.io.Serializable {
 		this.servicos = servicos;
 	}
 	
-	public Fornecedor(String nome, String cnpj, String fone1, String email,
+	public Fornecedor(int id,String nome, String cnpj, String email, String fone1,
 			String fone2) {
+		this.idfornecedor = id;
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.fone1 = fone1;

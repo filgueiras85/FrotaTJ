@@ -40,7 +40,7 @@ public class PanelCadastroMarca extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 				MBMarca mbMarca = MBMarca.getInstance();
 
-				Marca m =  new Marca(textFieldNome.getText());
+				Marca m =  new Marca(idMarcaSelecionado, textFieldNome.getText());
 						
 
 					try {

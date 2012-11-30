@@ -41,7 +41,8 @@ public class Marca implements java.io.Serializable {
 		this.modelos = modelos;
 	}
 	
-	public Marca(String nome) {
+	public Marca(int Id,String nome) {
+		this.idmarca = Id;
 		this.nome = nome;
 	}
 

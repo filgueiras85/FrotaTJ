@@ -132,7 +132,7 @@ public class PanelListagemFornecedor extends PanelExemplo {
 			new Object[][] {
 			},
 			new String[] {
-				 "Id", "CNPJ", "Email", "Fone 2", "Fone 1"
+				 "Id", "Nome", "CNPJ","Email", "Fone 1", "Fone 2"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -172,7 +172,7 @@ public class PanelListagemFornecedor extends PanelExemplo {
 		List<Fornecedor> listaFornecedor = mbFornecedor.listarFornecedores();
 		for (int i=0;i<listaFornecedor.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					listaFornecedor.get(i).getIdfornecedor()+"", listaFornecedor.get(i).getNome()+"", listaFornecedor.get(i).getEmail()+"", listaFornecedor.get(i).getFone1()+"", listaFornecedor.get(i).getFone2()+""});
+					listaFornecedor.get(i).getIdfornecedor()+"", listaFornecedor.get(i).getNome()+"", listaFornecedor.get(i).getCnpj()+"", listaFornecedor.get(i).getEmail()+"", listaFornecedor.get(i).getFone1()+"", listaFornecedor.get(i).getFone2()+""});
 		}
 	}
 	

@@ -47,7 +47,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
 
-				Fornecedor f =  new Fornecedor(textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
+				Fornecedor f =  new Fornecedor(idFornecedorSelecionado,textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
 						textFieldFoneUm.getText(), textFieldFoneDois.getText());
 						
 
@@ -192,6 +192,10 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 			try {
 				Fornecedor f = mbFornecedor.retornarFornecedor(idFornecedorSelecionado);
 				textFieldNome.setText(f.getNome());
+				textFieldCNPJ.setText(f.getCnpj());
+				textFieldEmailUm.setText(f.getEmail());
+				textFieldFoneUm.setText(f.getFone1());
+				textFieldFoneDois.setText(f.getFone2());
 													
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null,"erro - "+e);
