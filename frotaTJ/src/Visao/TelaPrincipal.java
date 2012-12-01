@@ -242,7 +242,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem menuItem_2 = new JMenuItem("Marca");
 		menuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelListagemFornecedor();
+				PanelListagemMarca();
 			}
 		});
 		menuItem_2.setIcon(new ImageIcon("imagens\\M.jpg"));
