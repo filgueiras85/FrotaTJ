@@ -26,6 +26,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 	private JTable table;
@@ -35,7 +37,8 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemTipoServiçoModelo() {
-		
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 		JLabel lblListagemTipoServiçoModelo = new JLabel("Listagem Tipo Servi\u00E7o Modelo");
 		lblListagemTipoServiçoModelo.setIcon(new ImageIcon("imagens\\11988_32x32.png"));
 		lblListagemTipoServiçoModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -115,21 +118,31 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addContainerGap())
 		);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				MBModelo mbModelo = MBModelo.getInstance();
-				String auxiliar = table.getValueAt(table.getSelectedRow(), 0)+"";
-				String s[] = auxiliar.split("\\ ");  
-			       idModelo= Integer.parseInt(s[0]);  
-			       idTipoServiço = Integer.parseInt(s[1]);
 				
-				btnApagar.setVisible(true);
-				btnEditar.setVisible(true);
+				
+			       if(usuarioLogado.ehAdministrador()){
+			    	   MBModelo mbModelo = MBModelo.getInstance();
+						String auxiliar = table.getValueAt(table.getSelectedRow(), 0)+"";
+						String s[] = auxiliar.split("\\ ");  
+					       idModelo= Integer.parseInt(s[0]);  
+					       idTipoServiço = Integer.parseInt(s[1]);
+						btnEditar.setVisible(true);
+						btnApagar.setVisible(true);
+					}
 			}
 		});
 		

@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemModelo extends PanelExemplo {
 	private JTable table;
@@ -31,7 +33,8 @@ public class PanelListagemModelo extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemModelo() {
-		
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 		JLabel lblListagemModelos = new JLabel("Listagem Modelos");
 		lblListagemModelos.setIcon(new ImageIcon("imagens\\1517_32x32.png"));
 		lblListagemModelos.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -108,17 +111,28 @@ public class PanelListagemModelo extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addContainerGap())
 		);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				idModeloSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				
+				if(usuarioLogado.ehAdministrador()){
+					idModeloSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 		table.setModel(new DefaultTableModel(

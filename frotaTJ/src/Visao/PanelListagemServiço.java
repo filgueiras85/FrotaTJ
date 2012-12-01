@@ -21,6 +21,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemServiço extends PanelExemplo {
 	private JTable table;
@@ -30,7 +32,8 @@ public class PanelListagemServiço extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemServiço() {
-		
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 		JLabel lblListagemServios = new JLabel("Listagem Servi\u00E7os");
 		lblListagemServios.setIcon(new ImageIcon("imagens\\ico-recursos-integra.png"));
 		lblListagemServios.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -108,15 +111,24 @@ public class PanelListagemServiço extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addGap(16))
 		);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
