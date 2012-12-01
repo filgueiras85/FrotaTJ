@@ -312,6 +312,7 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				setVisible(false);
 				TelaLogin();
 			}
 		});
