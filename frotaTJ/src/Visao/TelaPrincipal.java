@@ -425,10 +425,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroTipoServiçoModelo(int j, int i){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
-			panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");
+			if(usuarioLogado.ehAdministrador()){			
+				PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
+				panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo, "panelCadastroTipoServiçoModelo");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -437,10 +441,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroModelo(int j){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
-			panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroModelo");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
+				panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo, "panelCadastroModelo");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -449,10 +457,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroServiço(int i){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
-			panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroServiço");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
+				panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo, "panelCadastroServiço");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -461,10 +473,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroVeiculo(int id){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroVeiculo panelCadastroVeiculo = new PanelCadastroVeiculo(id);
-			panelConteudo.add(panelCadastroVeiculo, "panelCadastroVeiculo");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo, "panelCadastroVeiculo");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroVeiculo panelCadastroVeiculo = new PanelCadastroVeiculo(id);
+				panelConteudo.add(panelCadastroVeiculo, "panelCadastroVeiculo");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo, "panelCadastroVeiculo");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -473,10 +489,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroUnidade(int idUnidade){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroUnidade panelCadastroUnidade = new PanelCadastroUnidade(idUnidade);
-			panelConteudo.add(panelCadastroUnidade, "panelCadastroUnidade");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroUnidade");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroUnidade panelCadastroUnidade = new PanelCadastroUnidade(idUnidade);
+				panelConteudo.add(panelCadastroUnidade, "panelCadastroUnidade");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelCadastroUnidade");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -485,10 +505,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroTipoServico(int idTipoServico){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroTipoServico panelCadastroTipoServico = new PanelCadastroTipoServico(idTipoServico);
-			panelConteudo.add(panelCadastroTipoServico, "panelCadastroTipoServico");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroTipoServico");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroTipoServico panelCadastroTipoServico = new PanelCadastroTipoServico(idTipoServico);
+				panelConteudo.add(panelCadastroTipoServico, "panelCadastroTipoServico");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelCadastroTipoServico");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -497,10 +521,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroUsuario(int idUsuario){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
-			panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroUsuario");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroUsuario panelCadastroUsuario = new PanelCadastroUsuario(idUsuario);
+				panelConteudo.add(panelCadastroUsuario, "panelCadastroUsuario");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelCadastroUsuario");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -509,10 +537,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroAbastecimento(int idAbastecimento){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento(idAbastecimento);
-			panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroAbastecimento");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroAbastecimento panelCadastroAbastecimento = new PanelCadastroAbastecimento(idAbastecimento);
+				panelConteudo.add(panelCadastroAbastecimento, "panelCadastroAbastecimento");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelCadastroAbastecimento");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -521,10 +553,14 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroMotorista(int idMotorista){
 		if (usuarioLogado.tempoLogin()){
-			PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(idMotorista);
-			panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelCadastroMotorista");
+			if(usuarioLogado.ehAdministrador()){
+				PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(idMotorista);
+				panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelCadastroMotorista");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();

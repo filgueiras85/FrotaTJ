@@ -15,10 +15,17 @@ public class UsuarioUtil extends Usuario{
 	public static UsuarioUtil getInstance(){
 		return usuarioUtil;		
 	}
+
+	public Date getDataLogin() {
+		return dataLogin;
+	}
+
+	public void setDataLogin(Date dataLogin) {
+		this.dataLogin = dataLogin;
+	}
 	
 	public void usuarioLogado(Usuario usuario){
 		Date data = new Date();
-		
 		setIdUsuario(usuario.getIdUsuario());
 		setNome(usuario.getNome());
 		setMatricula(usuario.getMatricula());
@@ -38,11 +45,8 @@ public class UsuarioUtil extends Usuario{
 			return true;
 		}
 	}
-	public Date getDataLogin() {
-		return dataLogin;
-	}
-
-	public void setDataLogin(Date dataLogin) {
-		this.dataLogin = dataLogin;
+	
+	public boolean ehAdministrador(){
+		return getAdministrador();
 	}
 }
