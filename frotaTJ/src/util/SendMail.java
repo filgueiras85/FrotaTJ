@@ -149,6 +149,9 @@ public class SendMail
 			props.put("mail.smtp.port", porta);
 //    		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 //    		props.put("mail.smtp.socketFactory.fallback", "false");
+			props.put("mail.smtp.socketFactory.port", "465");
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+            props.put("mail.smtp.auth", "true");
 			Authenticator aut = new SmtpAuthenticator(sUser, sPasswd);
 			Session session = Session.getInstance(props, aut);
 			
