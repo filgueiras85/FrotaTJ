@@ -12,15 +12,24 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
 import dao.Marca;
+import dao.Servico;
+import dao.Usuario;
 
 import mb.MBMarca;
+import mb.MBUsuario;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.ImageIcon;
 
 import util.SendMail;
@@ -47,6 +56,28 @@ public class PanelListagemMarca extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 				SendMail sendmail = SendMail.getInstance();
 				sendmail.EnviarEmail("manoelalbani@gmail.com", "test 2", "Test Mandar msg Sistema");
+				Set<Usuario> usuarios = new HashSet<Usuario>(0);
+				MBUsuario mbUsuario = MBUsuario.getInstance();
+				try {
+					List<Usuario> lista = mbUsuario.listarUsuarios();
+					
+					for(int i=0; i<lista.size();i++){
+						usuarios.add(lista.get(i));
+					}
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println(usuarios.size()+"usuarios");
+				
+
+				List<String> listaAnexo = new ArrayList<>();
+				listaAnexo.add("imagens\\8427_16x16.png");
+				sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, listaAnexo, "Test Anexo", "Test anexo, encaminhado via Sistema");
+				
 				PanelCadastroMarca();
 			}
 		});

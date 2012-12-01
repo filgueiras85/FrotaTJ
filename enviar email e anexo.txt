@@ -1,0 +1,23 @@
+SendMail sendmail = SendMail.getInstance();
+	sendmail.EnviarEmail("manoelalbani@gmail.com", "test 2", "Test Mandar msg Sistema");
+	Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	MBUsuario mbUsuario = MBUsuario.getInstance();
+	try {
+		List<Usuario> lista = mbUsuario.listarUsuarios();
+			
+		for(int i=0; i<lista.size();i++){
+		usuarios.add(lista.get(i));
+			}
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				}
+		System.out.println(usuarios.size()+"usuarios");
+				
+
+		List<String> listaAnexo = new ArrayList<>();
+		listaAnexo.add("imagens\\8427_16x16.png");
+		sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, listaAnexo, "Test Anexo", "Test anexo, encaminhado via Sistema");
