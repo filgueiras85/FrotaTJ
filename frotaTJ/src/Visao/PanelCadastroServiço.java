@@ -145,6 +145,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 		
 		
 		textFieldValor = new JNumberFormatField(new DecimalFormat("R$ 0.00"));
+		textFieldValor.setHorizontalAlignment(SwingConstants.LEFT);
 		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldValor.setComponentOrientation(java.awt.ComponentOrientation.RIGHT_TO_LEFT); 
 		textFieldValor.setLocale(new Locale ("pt", "BR"));
