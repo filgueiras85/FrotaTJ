@@ -234,8 +234,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
 						mbTipoServico.retornarTipoServico(comboBoxTipoServico_1.getItemAt(comboBoxTipoServico_1.getSelectedIndex()).getIdtipoServico()),
 						data, Double.parseDouble(valorString), textFieldOrçamento.getText(), 
-						Integer.parseInt(textFieldCupomFiscal.getText()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText()));
-					
+						Integer.parseInt(textFieldCupomFiscal.getText().trim()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText().trim()));
 					try {
 						if (idServicoSelecionado==0){
 							if (s.getIdServico()==0){

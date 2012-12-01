@@ -176,7 +176,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText()), null);
+				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null);
 				try {
 					if (idVeiculoSelecionado==0){
 						if (v.getIdveiculo()==0){
