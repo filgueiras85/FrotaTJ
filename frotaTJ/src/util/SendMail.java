@@ -25,11 +25,11 @@ public class SendMail
 	static private SendMail instance;       // A unica instancia
     static private int numclientes;
     private int mailErro=0;
-    private final String Origem = "sistema@mpb.eng.br";
-	private final String sMailHost = "smtp.sao.terra.com.br";
-	private final String sUser = "sistema@mpb.eng.br";
-	private final String sPasswd = "";
-	private final String porta = "587";
+    private final String Origem = "sistematjsc@gmail.com";
+	private final String sMailHost = "smtp.gmail.com";
+	private final String sUser = "sistematjsc@gmail.com";
+	private final String sPasswd = "s1i2s3t4e5m6a7";
+	private final String porta = "465";
 
     /**
      * Retorna uma unica instancia, criando uma se é a primeira vez

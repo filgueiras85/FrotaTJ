@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.ImageIcon;
 
+import util.SendMail;
+
 
 public class PanelListagemMarca extends PanelExemplo {
 	private JTable table;
@@ -43,6 +45,8 @@ public class PanelListagemMarca extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				SendMail sendmail = SendMail.getInstance();
+				sendmail.EnviarEmail("manoelalbani@gmail.com", "test 2", "Test Mandar msg Sistema");
 				PanelCadastroMarca();
 			}
 		});
