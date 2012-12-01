@@ -21,6 +21,8 @@ import mb.MBUnidade;
 import dao.Unidade;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 public class PanelListagemUnidade extends PanelExemplo {
 	private int idUnidadeSelecionada;
 	private JTable table;
@@ -28,6 +30,7 @@ public class PanelListagemUnidade extends PanelExemplo {
 	
 	
 	public PanelListagemUnidade() {
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 		JLabel lblListagemUsuario = new JLabel("Listagem das unidades");
 		lblListagemUsuario.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
@@ -46,8 +49,20 @@ public class PanelListagemUnidade extends PanelExemplo {
 		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		
+		
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
+
+		
+		
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
@@ -106,8 +121,10 @@ public class PanelListagemUnidade extends PanelExemplo {
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 

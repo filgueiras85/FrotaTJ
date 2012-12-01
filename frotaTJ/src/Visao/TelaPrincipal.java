@@ -84,15 +84,6 @@ public class TelaPrincipal extends JFrame {
 
 		//-------------------------- Menu Cadastrar --------------------------\\		
 		JMenu mnCadastrar = new JMenu("Cadastrar");
-		mnCadastrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (!usuarioLogado.tempoLogin()){
-					setVisible(false);
-					TelaLogin();
-				}
-			}
-		});
 		mnCadastrar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnCadastrar.setIcon(new ImageIcon(winDir+"6098_32x32.png"));
 		menuBar.add(mnCadastrar);
@@ -184,13 +175,7 @@ public class TelaPrincipal extends JFrame {
 		mntmUsuario.setIcon(new ImageIcon(winDir+"7818_32x32.png"));
 		mntmUsuario.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				if (usuarioLogado.tempoLogin()){
-					PanelCadastroUsuario(0);					
-				}else{
-					setVisible(false);
-					TelaLogin();
-				}
-
+				PanelCadastroUsuario(0);
 			}
 		});		
 		mnCadastrar.add(mntmUsuario);
@@ -208,15 +193,6 @@ public class TelaPrincipal extends JFrame {
 
 		//-------------------------- Menu Listar --------------------------\\	
 		JMenu mnListar = new JMenu("Listagem");
-		mnListar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (!usuarioLogado.tempoLogin()){
-					setVisible(false);
-					TelaLogin();
-				}
-			}
-		});
 		mnListar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnListar.setIcon(new ImageIcon("imagens\\7674_32x32.png"));
 		menuBar.add(mnListar);
@@ -328,15 +304,6 @@ public class TelaPrincipal extends JFrame {
 
 		//-------------------------- Menu Relatorios --------------------------\\		
 		JMenu mnRelatorios = new JMenu("Relatorios");
-		mnRelatorios.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (!usuarioLogado.tempoLogin()){
-					setVisible(false);
-					TelaLogin();
-				}
-			}
-		});
 		mnRelatorios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnRelatorios.setIcon(new ImageIcon(winDir+"1588_32x32.png"));
 		menuBar.add(mnRelatorios);

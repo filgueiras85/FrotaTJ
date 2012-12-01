@@ -22,6 +22,9 @@ import mb.MBUsuario;
 import dao.Usuario;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+import util.Util;
+
 
 
 public class PanelListagemUsuario extends PanelExemplo {
@@ -32,7 +35,8 @@ public class PanelListagemUsuario extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemUsuario() {
-
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+		
 		JLabel lblListagemUsuario = new JLabel("Listagem de Usuarios");
 		lblListagemUsuario.setIcon(new ImageIcon("imagens\\7837_32x32.png"));
 		lblListagemUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -51,8 +55,15 @@ public class PanelListagemUsuario extends PanelExemplo {
 		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 
 			 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -112,8 +123,10 @@ public class PanelListagemUsuario extends PanelExemplo {
 
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 
