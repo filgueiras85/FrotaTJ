@@ -108,7 +108,7 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.add(mntmFornecedor);
 
 		JMenuItem mntmMarca = new JMenuItem("Marca");
-		mntmMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		mntmMarca.setIcon(new ImageIcon(winDir+"M.jpg"));
 		mntmMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCadastroMarca(0);
