@@ -25,11 +25,11 @@ public class PanelCadastroMarca extends PanelExemplo {
 	public PanelCadastroMarca(final int idMarcaSelecionado) {
 		
 		JLabel lblCadastroMarca = new JLabel("Cadastro Marca");
-		lblCadastroMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		lblCadastroMarca.setIcon(new ImageIcon("imagens\\M.jpg"));
 		lblCadastroMarca.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7464_32x32.png"));
+		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -38,7 +38,7 @@ public class PanelCadastroMarca extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7484_16x16.png"));
+		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

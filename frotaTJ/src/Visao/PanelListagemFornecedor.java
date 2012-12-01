@@ -35,13 +35,13 @@ public class PanelListagemFornecedor extends PanelExemplo {
 	public PanelListagemFornecedor() {
 		
 		JLabel lblListagemFornecedor = new JLabel("Listagem Fornecedor");
-		lblListagemFornecedor.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\1003_32x32.png"));
+		lblListagemFornecedor.setIcon(new ImageIcon("imagens\\1003_32x32.png"));
 		lblListagemFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnNovo = new JButton("Novo");
-		btnNovo.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8391_16x16.png"));
+		btnNovo.setIcon(new ImageIcon("imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -49,18 +49,9 @@ public class PanelListagemFornecedor extends PanelExemplo {
 			}
 		});
 		
-		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8454_32x32.png"));
-		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		
 		
 		final JButton btnApagar = new JButton("Apagar");
-		btnApagar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7464_32x32.png"));
+		btnApagar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
@@ -82,7 +73,7 @@ public class PanelListagemFornecedor extends PanelExemplo {
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		final JButton btnEditar = new JButton("Editar");
-		btnEditar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8427_16x16.png"));
+		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -94,17 +85,15 @@ public class PanelListagemFornecedor extends PanelExemplo {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addComponent(lblListagemFornecedor, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVoltar))
-						.addComponent(lblListagemFornecedor, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnApagar)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -114,13 +103,12 @@ public class PanelListagemFornecedor extends PanelExemplo {
 					.addComponent(lblListagemFornecedor)
 					.addGap(18)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVoltar)
 						.addComponent(btnApagar)
 						.addComponent(btnNovo)
 						.addComponent(btnEditar))
-					.addContainerGap())
+					.addGap(16))
 		);
 		btnEditar.setVisible(false);
 		btnApagar.setVisible(false);
