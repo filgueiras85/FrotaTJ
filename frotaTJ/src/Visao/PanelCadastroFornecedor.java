@@ -17,6 +17,7 @@ import dao.Modelo;
 import mb.MBFornecedor;
 import mb.MBMarca;
 import mb.MBModelo;
+import javax.swing.ImageIcon;
 
 public class PanelCadastroFornecedor extends PanelExemplo {
 	private JTextField textFieldNome;
@@ -31,9 +32,11 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 	public PanelCadastroFornecedor(final int idFornecedorSelecionado) {
 		
 		JLabel lblCadastroFornecedor = new JLabel("Cadastro Fornecedor");
+		lblCadastroFornecedor.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\1003_32x32.png"));
 		lblCadastroFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -42,6 +45,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,42 +127,40 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCadastroFornecedor)
-							.addGap(281))
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblNome)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMarca)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(textFieldCNPJ, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblEmail)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(textFieldEmailUm, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(lblFone_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(lblFone, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(textFieldFoneDois, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
-								.addComponent(textFieldFoneUm, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))))
+								.addComponent(textFieldFoneUm, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)))
+						.addComponent(lblCadastroFornecedor))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(26)
+					.addContainerGap()
 					.addComponent(lblCadastroFornecedor)
-					.addGap(18)
+					.addGap(33)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNome)
 						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

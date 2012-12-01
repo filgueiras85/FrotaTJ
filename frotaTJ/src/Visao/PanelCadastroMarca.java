@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 
 import dao.Marca;
 import mb.MBMarca;
+import javax.swing.ImageIcon;
 
 public class PanelCadastroMarca extends PanelExemplo {
 	private JTextField textFieldNome;
@@ -24,9 +25,11 @@ public class PanelCadastroMarca extends PanelExemplo {
 	public PanelCadastroMarca(final int idMarcaSelecionado) {
 		
 		JLabel lblCadastroMarca = new JLabel("Cadastro Marca");
+		lblCadastroMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		lblCadastroMarca.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -35,6 +38,7 @@ public class PanelCadastroMarca extends PanelExemplo {
 		});
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -85,26 +89,25 @@ public class PanelCadastroMarca extends PanelExemplo {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCadastroMarca)
-							.addGap(281))
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblNome)
 							.addGap(6)
-							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCancelar)
+							.addGap(27))
+						.addComponent(lblCadastroMarca))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(26)
+					.addGap(23)
 					.addComponent(lblCadastroMarca)
-					.addGap(46)
+					.addGap(49)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNome)
 						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -112,7 +115,7 @@ public class PanelCadastroMarca extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addContainerGap(36, Short.MAX_VALUE))
+					.addContainerGap(33, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 		

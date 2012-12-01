@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 
 public class PanelListagemMarca extends PanelExemplo {
@@ -32,11 +33,13 @@ public class PanelListagemMarca extends PanelExemplo {
 	public PanelListagemMarca() {
 		
 		JLabel lblListagemMarca = new JLabel("Listagem Marca");
+		lblListagemMarca.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
 		lblListagemMarca.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JButton btnNovo = new JButton("Novo");
+		btnNovo.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -45,6 +48,7 @@ public class PanelListagemMarca extends PanelExemplo {
 		});
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8454_32x32.png"));
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -54,6 +58,7 @@ public class PanelListagemMarca extends PanelExemplo {
 		
 		
 		final JButton btnApagar = new JButton("Apagar");
+		btnApagar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\7464_32x32.png"));
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBMarca mbMarca = MBMarca.getInstance();
@@ -75,6 +80,7 @@ public class PanelListagemMarca extends PanelExemplo {
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		final JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
