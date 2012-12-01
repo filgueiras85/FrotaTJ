@@ -59,7 +59,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 	public PanelCadastroAbastecimento( final int idAbastecimentoSelecionado) {
 
-		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro Abastecimento\r\n");
+		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro de Abastecimento\r\n");
 		lblCadastroAbastecimento.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		lblCadastroAbastecimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
@@ -120,6 +120,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null,"Cadastro removido!");
 				PanelListagemAbastecimento();
 			}
 		});
@@ -134,7 +135,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				java.sql.Timestamp data2 = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 				MBVeiculo mbVeiculo = MBVeiculo.getInstance();
-				Abastecimento a =  new Abastecimento(new Integer(idAbastecimentoSelecionado), mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()), Integer.parseInt(textFieldHodometro.getText()), data2);
+				Abastecimento a =  new Abastecimento(new Integer(idAbastecimentoSelecionado), mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()), Integer.parseInt(textFieldHodometro.getText().trim()), data2);
 
 
 				try {
@@ -146,7 +147,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						if (retorno.equals("ok")){
 							mbVeiculo.AtualizarSituacaoAbastecimento(a.getVeiculo(), mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
 							
-							JOptionPane.showMessageDialog(null,"Abastecimento inserido!");
+							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 							PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
@@ -156,7 +157,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						String retorno =  mbAbastecimento.editar(a);
 						if (retorno.equals("ok")){
 							mbVeiculo.AtualizarSituacaoAbastecimento(a.getVeiculo(), mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
-							JOptionPane.showMessageDialog(null,"Abastecimento alterado!");
+							JOptionPane.showMessageDialog(null,"Cadastro alterado!");
 							PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
@@ -175,8 +176,8 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -184,18 +185,15 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 								.addComponent(lblData)
 								.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
 							.addGap(53)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(comboBoxPlaca, 0, 304, Short.MAX_VALUE)
-								.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-								.addComponent(textFieldHodometro, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(textFieldData, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBoxPlaca, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(textFieldHodometro, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+							.addGap(10)
+							.addComponent(btnCancelar))
 						.addComponent(lblCadastroAbastecimento))
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(227, Short.MAX_VALUE)
-					.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnCancelar)
-					.addGap(19))
+					.addGap(108))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -218,7 +216,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSalvar)
 						.addComponent(btnCancelar))
-					.addGap(284))
+					.addGap(36))
 		);
 		
 		

@@ -59,7 +59,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		final MBMotorista mbMotorista = MBMotorista.getInstance();
 		
 	// ------------------------------ Labels ---------------------------\\	
-		JLabel lblCadastroModelo = new JLabel("Cadastro Veiculo\r\n");
+		JLabel lblCadastroModelo = new JLabel("Cadastro de Veiculo\r\n");
 		lblCadastroModelo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
@@ -167,6 +167,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null,"Cadastro removido!");
 				PanelListagemVeiculo();
 			}
 		});
@@ -186,7 +187,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 						Situação(v, idVeiculoSelecionado);
 						if (retorno.equals("ok")){
 							
-							JOptionPane.showMessageDialog(null,"Veículo cadastrado com sucesso!");
+							JOptionPane.showMessageDialog(null,"Cadastro efetuado!");
 							PanelListagemVeiculo();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
@@ -196,7 +197,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 						v.setSituacao(v2.getSituacao());
 						String retorno =  mbVeiculo.editar(v);
 						if (retorno.equals("ok")){
-							JOptionPane.showMessageDialog(null,"Veículo alterado com sucesso!");
+							JOptionPane.showMessageDialog(null,"Cadastro Alterado!");
 							PanelListagemVeiculo();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
@@ -224,9 +225,8 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(comboBoxMotorista, 0, 518, Short.MAX_VALUE))
-						.addComponent(lblCadastroModelo)
-						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(comboBoxMotorista, 0, 340, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(lblOdometro, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,20 +237,21 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 								.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxModelo, Alignment.TRAILING, 0, 516, Short.MAX_VALUE)
-								.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-								.addComponent(textFieldRenavan, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-								.addComponent(textFieldChassi, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-								.addComponent(textFieldOdometro, GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-								.addComponent(comboBoxUnidade, Alignment.TRAILING, 0, 516, Short.MAX_VALUE))))
+								.addComponent(comboBoxModelo, Alignment.TRAILING, 0, 338, Short.MAX_VALUE)
+								.addComponent(textFieldRenavan, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+								.addComponent(textFieldChassi, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+								.addComponent(textFieldOdometro, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+								.addComponent(comboBoxUnidade, Alignment.TRAILING, 0, 338, Short.MAX_VALUE)
+								.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblCadastroModelo))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(22)
+					.addGap(29)
 					.addComponent(lblCadastroModelo)
-					.addGap(50)
+					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPlaca)
 						.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
