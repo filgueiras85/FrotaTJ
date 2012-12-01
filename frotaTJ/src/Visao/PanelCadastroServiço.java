@@ -2,7 +2,6 @@ package Visao;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -13,14 +12,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
@@ -30,6 +26,7 @@ import javax.swing.SwingConstants;
 import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
 
 import util.JNumberFormatField;
+import util.Util;
 
 import com.sun.jmx.snmp.Timestamp;
 
@@ -93,12 +90,12 @@ public class PanelCadastroServiço extends PanelExemplo {
 		
 		MaskFormatter data = null;
 		try {
-			data = new MaskFormatter("##/##/####");
+				data = new MaskFormatter("##/##/####");
 		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
 		}
-		
+				
 		textFieldData = new JFormattedTextField(data);
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldData.setColumns(10);
@@ -129,25 +126,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 		
 		JLabel lblFornecedor = new JLabel("Fornecedor");
 		lblFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-/*private static final Locale LOCAL = new Locale ("pt", "BR");
-		
-		DecimalFormat df = new DecimalFormat("#,##0.00" , new DecimalFormatSymbols(LOCAL));
-		String s = df.format(valor)*/
-		
-		MaskFormatter valor = null;
-		try {
-			valor = new MaskFormatter("####,##");
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
-		
+				
 		textFieldValor = new JNumberFormatField(new DecimalFormat("R$ 0.00"));
 		textFieldValor.setHorizontalAlignment(SwingConstants.LEFT);
 		textFieldValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldValor.setComponentOrientation(java.awt.ComponentOrientation.RIGHT_TO_LEFT); 
 		textFieldValor.setLocale(new Locale ("pt", "BR"));
 		textFieldValor.setColumns(10);
 		
@@ -244,12 +226,14 @@ public class PanelCadastroServiço extends PanelExemplo {
 				
 
 				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
+				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
+				valorString = valorString.replaceAll(",", "."); 
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
 						mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()),
 						mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
 						mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
 						mbTipoServico.retornarTipoServico(comboBoxTipoServico_1.getItemAt(comboBoxTipoServico_1.getSelectedIndex()).getIdtipoServico()),
-						data, Double.parseDouble(textFieldValor.getText()), textFieldOrçamento.getText(), 
+						data, Double.parseDouble(valorString), textFieldOrçamento.getText(), 
 						Integer.parseInt(textFieldCupomFiscal.getText()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText()));
 					
 					try {
