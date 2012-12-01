@@ -77,7 +77,7 @@ public class SendMail
 				props.put("mail.smtp.port", porta);
 //	    		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 //	    		props.put("mail.smtp.socketFactory.fallback", "false");
-				Authenticator aut = new SMTPAuthenticator(sUser, sPasswd);				
+				Authenticator aut = new SmtpAuthenticator(sUser, sPasswd);				
 				session = Session.getInstance(props, aut);
 					    
 			
@@ -126,7 +126,7 @@ public class SendMail
 
 	
 
-	public boolean EnviarEmailAnexoRelatorio(Set<Pessoa> oDestinatarios, Set<Pessoa> oDestinatariosEncaminhar, Set<Pessoa> oResponsaveis, List<String> anexos, String sAssunto, String sMsg)
+	public boolean EnviarEmailAnexoRelatorio(Set<Usuario> oDestinatarios, Set<Usuario> oDestinatariosEncaminhar, Set<Usuario> oResponsaveis, List<String> anexos, String sAssunto, String sMsg)
 	{
 		boolean bEnviado = false;
 		try
@@ -146,7 +146,7 @@ public class SendMail
 			props.put("mail.smtp.port", porta);
 //    		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 //    		props.put("mail.smtp.socketFactory.fallback", "false");
-			Authenticator aut = new SMTPAuthenticator(sUser, sPasswd);
+			Authenticator aut = new SmtpAuthenticator(sUser, sPasswd);
 			Session session = Session.getInstance(props, aut);
 			
 			Message message = new MimeMessage(session);
@@ -182,9 +182,9 @@ public class SendMail
 			InternetAddress[] destinatarios = new InternetAddress[tamanhoVetorDestinatarios];
 			if(oDestinatarios != null){
 			int i = 0;
-			    for ( Pessoa pessoa:oDestinatarios)
+			    for ( Usuario usuario:oDestinatarios)
 				{
-			    	destinatarios[i] = new InternetAddress(pessoa.getEmail()); 
+			    	destinatarios[i] = new InternetAddress(usuario.getEmail()); 
 			    	i++;
 				}
 			}
@@ -203,17 +203,17 @@ public class SendMail
 			if(oDestinatariosEncaminhar != null){
 		    
 		    int x = 0;
-			    for ( Pessoa pessoa:oDestinatariosEncaminhar)
+			    for ( Usuario usuario:oDestinatariosEncaminhar)
 			    {
-			    	destinatariosEncaminhar[x] = new InternetAddress(pessoa.getEmail()); 
+			    	destinatariosEncaminhar[x] = new InternetAddress(usuario.getEmail()); 
 			    	x++;
 			    }
 			    z = x;
 		    }
 		    if(oResponsaveis != null){
-			    for ( Pessoa pessoa:oResponsaveis)
+			    for ( Usuario usuario:oResponsaveis)
 			    {
-			    	destinatariosEncaminhar[z] = new InternetAddress(pessoa.getEmail()); 
+			    	destinatariosEncaminhar[z] = new InternetAddress(usuario.getEmail()); 
 			    	z++;
 			    }
 		    }
