@@ -145,7 +145,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						}
 						String retorno = mbAbastecimento.inserir(a);
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoAbastecimento(a.getVeiculo(), mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
+							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
 							
 							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 							PanelListagemAbastecimento();
@@ -156,7 +156,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 						String retorno =  mbAbastecimento.editar(a);
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoAbastecimento(a.getVeiculo(), mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
+							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
 							JOptionPane.showMessageDialog(null,"Cadastro alterado!");
 							PanelListagemAbastecimento();
 						}else{

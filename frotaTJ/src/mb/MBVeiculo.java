@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dao.Abastecimento;
@@ -100,8 +101,8 @@ public class MBVeiculo {
 		return null;
 		
 	}
-	public void AtualizarSituacaoAbastecimento(Veiculo v, int odometrodesatualizado){
-				
+	public void AtualizarSituacaoAbastecimento(Abastecimento a, int odometrodesatualizado){
+				Veiculo v = retornarVeiculo(a.getVeiculo().getIdveiculo());
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
 		String ok = "OK";
 		String situacao="";
@@ -142,6 +143,37 @@ public class MBVeiculo {
 
 						}
 					}
+						if(lista.get(i).getSituacao().contains("OK")){
+							System.out.println("----------------ENTROU");
+							Date datadoultimoabastecimento = new Date(listaAbastecimento.get((listaAbastecimento.size()-1)).getData2().getTime());
+							Date datadoPrimeiroAbastecimento = new Date(listaAbastecimento.get(0).getData2().getTime());
+							int data = getMonthsDifference(datadoPrimeiroAbastecimento, datadoultimoabastecimento);
+							System.out.println("Abastecimento-----------------------------"+data);
+							if(listaTipoServico.get(i).getTempo()>data){
+								
+								if(listaTipoServico.get(i).getTempo()<data+1||listaTipoServico.get(i).getTempo()==data+1){
+									lista.get(i).setSituacao("A Fazer");
+									System.out.println("atrasadotemopo3");
+									
+									situacao = "null";
+
+								}
+								
+
+							}else{
+								if(listaTipoServico.get(i).getTempo()<data){
+									lista.get(i).setSituacao("Atrasado");
+									System.out.println("atrasadotemoi1");
+								}else{
+									if(listaTipoServico.get(i).getTempo()==data){
+										lista.get(i).setSituacao("A Fazer");
+										System.out.println("atrasadotempo2");
+
+									}
+						}
+					}
+					
+				}	
 				}else{
 					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
@@ -172,7 +204,7 @@ public class MBVeiculo {
 				
 
 			
-				System.out.println("lol");
+				System.out.println("lol44");
 				
 			}else{
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
@@ -202,8 +234,41 @@ public class MBVeiculo {
 				}
 				
 			}
+			if(lista.get(i).getSituacao().contains("OK")){
+				Date datadoultimoservico = new Date(listaServico.get((listaServico.size()-1)).getData2().getTime());
+				Date datadoAbastecimento = new Date(a.getData2().getTime());
+				int data = getMonthsDifference(datadoultimoservico, datadoAbastecimento);
+				System.out.println("Servico-----------------------------"+data);
+
+				if(listaTipoServico.get(i).getTempo()>data){
+					
+					if(listaTipoServico.get(i).getTempo()<data+1||listaTipoServico.get(i).getTempo()==data+1){
+						lista.get(i).setSituacao("A Fazer");
+						System.out.println("atrasadotemopo3");
+						
+						situacao = "null";
+
+					}
+					
+
+				}else{
+					if(listaTipoServico.get(i).getTempo()<data){
+						lista.get(i).setSituacao("Atrasado");
+						System.out.println("atrasadotemoi1");
+					}else{
+						if(listaTipoServico.get(i).getTempo()==data){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atrasadotempo2");
+
+						}
+			}
+		}
+		
+	}
+			}
 			
-			}}else{if(listaTipoServico.get(i).getKm()<(v.getOdometro()+200)){
+			
+			}else{if(listaTipoServico.get(i).getKm()<(v.getOdometro()+200)){
 				lista.get(i).setSituacao("A Fazer");
 				situacao = "null";
 
@@ -264,8 +329,12 @@ public class MBVeiculo {
 
 			}
 			}
-			
+			try {
+				
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
+		}
 		for(int i = 0; i<lista.size();i++){
 			situacao = situacao+lista.get(i).getSituacao();
 			aux = aux+ok;	
@@ -299,8 +368,8 @@ public class MBVeiculo {
 		System.out.println("olamundo");
 
 	}
-	public void AtualizarSituacaoServico(Veiculo v, int odometrodesatualizado){
-		
+	public void AtualizarSituacaoServico(Servico s, int odometrodesatualizado){
+		Veiculo v = retornarVeiculo(s.getVeiculo().getIdveiculo());
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
 		String ok = "OK";
 		String situacao="";
@@ -313,6 +382,9 @@ public class MBVeiculo {
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
 			if(listaServico.size()>0){
+				Date datadoultimoservico = new Date(listaServico.get((listaServico.size()-1)).getData2().getTime());
+				Date datadoservico = new Date(s.getData2().getTime());
+				int data = getMonthsDifference(datadoultimoservico, datadoservico);
 			if(v.getOdometro()<listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
 				
 				if((v.getOdometro()+200)>listaServico.get((listaServico.size()-1)).getKm()+listaTipoServico.get(i).getKm()){
@@ -336,14 +408,38 @@ public class MBVeiculo {
 						lista.get(i).setSituacao("A Fazer");
 						System.out.println("atrasado2");
 
-					}	
-				}
-				
+					}}}
+			if(lista.get(i).getSituacao().equals("OK")){
+				if(listaTipoServico.get(i).getTempo()>data){
+					
+					if(listaTipoServico.get(i).getTempo()<data+1||listaTipoServico.get(i).getTempo()==data+1){
+						lista.get(i).setSituacao("A Fazer");
+						System.out.println("atrasadotemopo3");
+						
+						situacao = "null";
+
+					}
+					
+
+				}else{
+					if(listaTipoServico.get(i).getTempo()<data){
+						lista.get(i).setSituacao("Atrasado");
+						System.out.println("atrasadotemoi1");
+					}else{
+						if(listaTipoServico.get(i).getTempo()==data){
+							lista.get(i).setSituacao("A Fazer");
+							System.out.println("atrasadotempo2");
+
+						}
 			}
-			}else{
+		}
+		
+	}
+	}else{
 				List<Abastecimento> listaAbastecimento = new ArrayList<>();
 				listaAbastecimento.addAll(v.getAbastecimentos());
 				if(listaAbastecimento.size()>0){
+					
 					System.out.println(listaAbastecimento.get(0).getKmOdometro()+"OOOOII");
 						if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
@@ -361,14 +457,41 @@ public class MBVeiculo {
 							lista.get(i).setSituacao("Atrasado");
 							System.out.println("atw22122o2"+(listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()));
 
-						}else{
+						}else
 							lista.get(i).setSituacao("A Fazer");
 							System.out.println("a22222");
+						
+					} if(lista.get(i).getSituacao().equals("OK")){
+						Date datadoprimeiro = new Date(listaAbastecimento.get(0).getData2().getTime());
+						Date datadoservico = new Date(s.getData2().getTime());
+						int data = getMonthsDifference(datadoprimeiro, datadoservico);
+						if(listaTipoServico.get(i).getTempo()>data){
+							
+							if(listaTipoServico.get(i).getTempo()<data+1||listaTipoServico.get(i).getTempo()==data+1){
+								lista.get(i).setSituacao("A Fazer");
+								System.out.println("atrasadotemopo3");
+								
+								situacao = "null";
 
+							}
+							
 
-						}
+						}else{
+							if(listaTipoServico.get(i).getTempo()<data){
+								lista.get(i).setSituacao("Atrasado");
+								System.out.println("atrasadotemoi1");
+							}else{
+								if(listaTipoServico.get(i).getTempo()==data){
+									lista.get(i).setSituacao("A Fazer");
+									System.out.println("atrasadotempo2");
+
+								}
 					}
-				}else{
+				}
+				
+			}
+			}
+			else{
 					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
 							lista.get(i).setSituacao("A Fazer");
@@ -442,4 +565,9 @@ public int AtualizarOdometro(int aux, Veiculo v){
 			 return odometro;
 				
 		}
+public static final int getMonthsDifference(Date date1, Date date2) {
+    int m1 = date1.getYear() * 12 + date1.getMonth();
+    int m2 = date2.getYear() * 12 + date2.getMonth();
+    return m2 - m1 + 1;
+}
 }

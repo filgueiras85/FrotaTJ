@@ -243,7 +243,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 							String retorno = mbServico.inserir(s);
 							if (retorno.equals("ok")){
 								
-									mbVeiculo.AtualizarSituacaoServico(s.getVeiculo(), mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+									mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
 								
 								JOptionPane.showMessageDialog(null,"Serviço inserido!");
 								PanelListagemServiço();
@@ -254,7 +254,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 							
 							String retorno =  mbServico.editar(s);
 							if (retorno.equals("ok")){
-								mbVeiculo.AtualizarSituacaoServico(s.getVeiculo(), mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+								mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
 								JOptionPane.showMessageDialog(null,"Serviço alterado!");
 								PanelListagemServiço();
 							}else{

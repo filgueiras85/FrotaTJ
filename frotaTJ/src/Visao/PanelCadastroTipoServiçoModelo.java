@@ -182,7 +182,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 
 				MaskFormatter tempo = null;
 				try {
-					tempo = new MaskFormatter("########");
+					tempo = new MaskFormatter("##");
 				} catch (ParseException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
