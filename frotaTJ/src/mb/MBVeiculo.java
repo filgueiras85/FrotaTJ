@@ -21,7 +21,7 @@ public class MBVeiculo {
 	private MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 	private MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 	private MBServico mbServico = MBServico.getInstance();
-	
+	private MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 		
 	private MBVeiculo(){
 		
@@ -116,10 +116,17 @@ public class MBVeiculo {
 			System.out.println(lista.size()+"lista");
 			System.out.println(v.getOdometro()+listaTipoServico.get(i).getKm()+"exemplo");
 			if (listaServico.isEmpty()){
+				
 				List<Abastecimento> listaAbastecimento = new ArrayList<>();
-				listaAbastecimento.addAll(v.getAbastecimentos());
+				listaAbastecimento = mbAbastecimento.ListarosAbastecimentodoVeiculo(a.getVeiculo());
+				System.out.println("783482853459854-----------"+listaAbastecimento.size());
 				if(listaAbastecimento.size()>0){
 					System.out.println(listaAbastecimento.get(0).getKmOdometro()+"OOOOII");
+					Date datadoultimoabastecimento = new Date(a.getData2().getTime());
+					Date datadoPrimeiroAbastecimento = new Date(listaAbastecimento.get(0).getData2().getTime());
+					int data = getMonthsDifference(datadoPrimeiroAbastecimento, datadoultimoabastecimento);
+
+					System.out.println("-----------Aquiiiii----------------"+data);
 						if(v.getOdometro()<listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>listaAbastecimento.get(0).getKmOdometro()+listaTipoServico.get(i).getKm()){
 							lista.get(i).setSituacao("A Fazer");
@@ -143,12 +150,12 @@ public class MBVeiculo {
 
 						}
 					}
-						if(lista.get(i).getSituacao().contains("OK")){
-							System.out.println("----------------ENTROU");
-							Date datadoultimoabastecimento = new Date(listaAbastecimento.get((listaAbastecimento.size()-1)).getData2().getTime());
-							Date datadoPrimeiroAbastecimento = new Date(listaAbastecimento.get(0).getData2().getTime());
-							int data = getMonthsDifference(datadoPrimeiroAbastecimento, datadoultimoabastecimento);
-							System.out.println("Abastecimento-----------------------------"+data);
+						
+						if(lista.get(i).getSituacao().equalsIgnoreCase("OK")){
+							System.out.println("----------------ENTROU"+(listaTipoServico.get(i).getTempo()<data));
+							
+							System.out.println("Abastecimento-----------------------------|"+data);
+							System.out.println("tempo"+listaTipoServico.get(i).getTempo());
 							if(listaTipoServico.get(i).getTempo()>data){
 								
 								if(listaTipoServico.get(i).getTempo()<data+1||listaTipoServico.get(i).getTempo()==data+1){
@@ -173,7 +180,7 @@ public class MBVeiculo {
 						}
 					}
 					
-				}	
+				}		
 				}else{
 					if(v.getOdometro()<odometrodesatualizado+listaTipoServico.get(i).getKm()){
 						if(v.getOdometro()+200>odometrodesatualizado+listaTipoServico.get(i).getKm()){
@@ -237,7 +244,7 @@ public class MBVeiculo {
 			if(lista.get(i).getSituacao().contains("OK")){
 				Date datadoultimoservico = new Date(listaServico.get((listaServico.size()-1)).getData2().getTime());
 				Date datadoAbastecimento = new Date(a.getData2().getTime());
-				int data = getMonthsDifference(datadoultimoservico, datadoAbastecimento);
+				int data = getMonthsDifference(datadoultimoservico,datadoAbastecimento);
 				System.out.println("Servico-----------------------------"+data);
 
 				if(listaTipoServico.get(i).getTempo()>data){

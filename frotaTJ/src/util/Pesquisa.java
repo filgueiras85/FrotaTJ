@@ -1,5 +1,6 @@
 package util;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.persistence.Query;
@@ -17,11 +18,11 @@ public class Pesquisa<E> {
 
 
 	@SuppressWarnings("unchecked")
-	public List<Classe> findParametrizado(String param1, String param2, String param3, String param4) {
+	public List<E> findParametrizado(String param1, String param2, String param3, String param4) {
 		EntityManagerHelper.log("finding all Abastecimento instances",
 				Level.INFO, null);
 		try {
-			final String queryString = "select * from tabela ";
+			String queryString = "select * from tabela ";
 			boolean temWhere=false;
 			if (param1.length()>0){
 				queryString += "where param1="+param1;

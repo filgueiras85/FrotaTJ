@@ -1,10 +1,13 @@
 package mb;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.Abastecimento;
 import dao.AbastecimentoDAO;
+import dao.Modelo;
+import dao.Veiculo;
 
 public class MBAbastecimento {
 	private static MBAbastecimento abastecimentoMB = new MBAbastecimento();
@@ -63,6 +66,30 @@ public class MBAbastecimento {
 	public List<Abastecimento> listarAbastecimentos() throws ClassNotFoundException, SQLException{
 		AbastecimentoDAO abastecimentoDAO = AbastecimentoDAO.getInstance();
 		return abastecimentoDAO.findAll();
+	}
+	public List<Abastecimento> ListarosAbastecimentodoVeiculo(Veiculo v) {
+		List<Abastecimento> Lista1;
+		try {
+			Lista1 = listarAbastecimentos();
+			
+			List<Abastecimento> lista = new ArrayList<>();
+			
+			for (int i = 0; i < Lista1.size(); i++) {
+				if(Lista1.get(i).getVeiculo().getIdveiculo().equals(v.getIdveiculo())){
+					lista.add(Lista1.get(i));
+				}
+				
+			}
+			
+			System.out.println(lista.size()+"oi"+Lista1.size());
+			return lista;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 	}
 }
 
