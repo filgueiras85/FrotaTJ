@@ -143,7 +143,7 @@ public class PanelInicial extends PanelExemplo {
 		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JButton btnDetalhes = new JButton("Detalhes");
+		final JButton btnDetalhes = new JButton("Detalhes");
 		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -153,7 +153,7 @@ public class PanelInicial extends PanelExemplo {
 		});
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JButton btnRelatorioDePendencias = new JButton("Relat\u00F3rio de pend\u00EAncias");
+		final JButton btnRelatorioDePendencias = new JButton("Relat\u00F3rio de pend\u00EAncias");
 		btnRelatorioDePendencias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JasperPrint rel;
@@ -162,6 +162,8 @@ public class PanelInicial extends PanelExemplo {
 			}
 		});
 		btnRelatorioDePendencias.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnDetalhes.setVisible(false);
+		btnRelatorioDePendencias.setVisible(false);
 
 		
 
@@ -227,6 +229,8 @@ public class PanelInicial extends PanelExemplo {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				btnDetalhes.setVisible(true);
+				btnRelatorioDePendencias.setVisible(true);
 			}
 		});
 		table.setModel(new DefaultTableModel(
