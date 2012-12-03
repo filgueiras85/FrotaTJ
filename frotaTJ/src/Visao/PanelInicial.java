@@ -19,6 +19,10 @@ import dao.Veiculo;
 import mb.MBModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -147,6 +152,16 @@ public class PanelInicial extends PanelExemplo {
 			}
 		});
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JButton btnRelatorioDePendencias = new JButton("Relat\u00F3rio de pend\u00EAncias");
+		btnRelatorioDePendencias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JasperPrint rel;
+				rel = gerar();
+				JasperViewer.viewReport(rel, true);
+			}
+		});
+		btnRelatorioDePendencias.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		
 
@@ -163,18 +178,21 @@ public class PanelInicial extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblPlaca)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblUnidade)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxUnidade, 0, 34, Short.MAX_VALUE)
+							.addComponent(comboBoxUnidade, 0, 40, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(lblSitucao)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSituacao, 0, 33, Short.MAX_VALUE)
+							.addComponent(comboBoxSituacao, 0, 41, Short.MAX_VALUE)
 							.addGap(32)
 							.addComponent(btnPesquisar))
-						.addComponent(btnDetalhes, Alignment.TRAILING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnRelatorioDePendencias)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDetalhes))
 						.addComponent(lblTitulo))
 					.addContainerGap())
 		);
@@ -195,8 +213,10 @@ public class PanelInicial extends PanelExemplo {
 					.addGap(18)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(btnDetalhes)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnDetalhes)
+						.addComponent(btnRelatorioDePendencias))
+					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		
 		
@@ -238,6 +258,21 @@ public class PanelInicial extends PanelExemplo {
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaVeiculo.get(i).getIdveiculo()+"", listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getUnidade().getNome(), listaVeiculo.get(i).getMotorista().getNome(), listaVeiculo.get(i).getSituacao()});
 		}
+	}
+	
+	//----------------- Gerando o Relatório -------------------\\
+	
+	public JasperPrint gerar(){
+		JasperPrint rel = null;
+		try {
+			//Connection con = gConexao.getConexao();
+			HashMap map = new HashMap();
+			String arquivoJasper = "relatorio.jasper"; //Nome do relatorio
+			rel = JasperFillManager.fillReport(arquivoJasper, map);
+		} catch (JRException e) {
+			JOptionPane.showMessageDialog(null,e.getMessage());
+		}
+		return rel;
 	}
 }
 

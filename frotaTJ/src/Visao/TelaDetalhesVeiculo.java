@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
@@ -23,11 +24,19 @@ import dao.Veiculo;
 import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.awt.Toolkit;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaDetalhesVeiculo extends JFrame {
 
@@ -49,7 +58,7 @@ public class TelaDetalhesVeiculo extends JFrame {
 		show();
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 500, 600);
+		setBounds(100, 100, 500, 584);
 		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
@@ -58,6 +67,17 @@ public class TelaDetalhesVeiculo extends JFrame {
 		
 		JLabel lblPlacaDoVeculo = new JLabel("Informa\u00E7\u00F5es do ve\u00EDculo selecionado");
 		lblPlacaDoVeculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+	//----------------------- Botão Relatório -----------------------\\		
+		
+		JButton btnHistricoDoVeculo = new JButton("Hist\u00F3rico do Ve\u00EDculo");
+		btnHistricoDoVeculo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JasperPrint rel;
+				rel = gerar();
+				JasperViewer.viewReport(rel, true);
+			}
+		});
 		
 		
 	//----------------------- Labels de Informações -----------------------\\	
@@ -96,31 +116,39 @@ public class TelaDetalhesVeiculo extends JFrame {
 		lblSituacao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		
+
+		btnHistricoDoVeculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblPlacaDoVeculo)
-							.addContainerGap(162, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblOdometro, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblChassi, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblRenavan, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblPlaca, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED, 18, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblSituacao, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblModelo, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-								.addComponent(lblUnidade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblMotorista, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
-							.addGap(39))))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+								.addContainerGap())
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(lblPlacaDoVeculo)
+								.addContainerGap(212, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblOdometro, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+									.addComponent(lblChassi, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+									.addComponent(lblRenavan, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+									.addComponent(lblPlaca, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE))
+								.addPreferredGap(ComponentPlacement.RELATED, 18, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblSituacao, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblModelo, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+									.addComponent(lblUnidade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblMotorista, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+								.addGap(39)))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(btnHistricoDoVeculo)
+							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -145,8 +173,10 @@ public class TelaDetalhesVeiculo extends JFrame {
 							.addComponent(lblUnidade)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblMotorista)))
-					.addGap(89)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
+					.addGap(17)
+					.addComponent(btnHistricoDoVeculo)
 					.addContainerGap())
 		);
 		
@@ -188,4 +218,20 @@ public class TelaDetalhesVeiculo extends JFrame {
 			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}
 	}
+	
+	//----------------- Gerando o Relatório -------------------\\
+	
+	public JasperPrint gerar(){
+		JasperPrint rel = null;
+		try {
+			//Connection con = gConexao.getConexao();
+			HashMap map = new HashMap();
+			String arquivoJasper = "relatorio.jasper"; //Nome do relatorio
+			rel = JasperFillManager.fillReport(arquivoJasper, map);
+		} catch (JRException e) {
+			JOptionPane.showMessageDialog(null,e.getMessage());
+		}
+		return rel;
+	}
 }
+

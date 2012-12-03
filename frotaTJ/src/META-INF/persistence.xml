@@ -30,7 +30,7 @@
 			<property name="hibernate.connection.url"
 				value="jdbc:mysql://localhost:3306/frotatj" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.password" value="3222" />
 		</properties>
 	</persistence-unit>
 
