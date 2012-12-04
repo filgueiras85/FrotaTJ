@@ -61,7 +61,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		final MBMotorista mbMotorista = MBMotorista.getInstance();
 		
 	// ------------------------------ Labels ---------------------------\\	
-		JLabel lblCadastroModelo = new JLabel("Cadastro de Veiculo\r\n");
+		JLabel lblCadastroModelo = new JLabel("Cadastro de Veiculos\r\n");
 		lblCadastroModelo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

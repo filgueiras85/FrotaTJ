@@ -55,7 +55,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 	 */
 	public PanelCadastroTipoServiçoModelo(final int idModeloSelecionado, final int idTipoServiçoselecionado) {
 
-		JLabel lblCadastroTipoServicoModelo = new JLabel("  Cadastro Tipo Servi\u00E7o - Modelo");
+		JLabel lblCadastroTipoServicoModelo = new JLabel("  Cadastro de Tipos Servi\u00E7o por Modelo");
 		lblCadastroTipoServicoModelo.setIcon(new ImageIcon("imagens\\11988_32x32.png"));
 		lblCadastroTipoServicoModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

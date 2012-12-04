@@ -40,7 +40,7 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		
-		JLabel lblCadastroDeTipoServico = new JLabel("Cadastro de Tipo De Servico");
+		JLabel lblCadastroDeTipoServico = new JLabel("Cadastro de Tipos De Servico");
 		lblCadastroDeTipoServico.setIcon(new ImageIcon("imagens\\servicos-icone.png"));
 		lblCadastroDeTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

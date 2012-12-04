@@ -65,7 +65,7 @@ public class TelaDetalhesVeiculo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JLabel lblPlacaDoVeculo = new JLabel("Informa\u00E7\u00F5es do ve\u00EDculo selecionado");
+		JLabel lblPlacaDoVeculo = new JLabel("Informa\u00E7\u00F5es do Ve\u00EDculo Selecionado");
 		lblPlacaDoVeculo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblPlacaDoVeculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		

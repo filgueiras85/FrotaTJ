@@ -38,7 +38,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 	 */
 	public PanelCadastroFornecedor(final int idFornecedorSelecionado) {
 		
-		JLabel lblCadastroFornecedor = new JLabel("Cadastro Fornecedor");
+		JLabel lblCadastroFornecedor = new JLabel("Cadastro de Fornecedores");
 		lblCadastroFornecedor.setIcon(new ImageIcon("imagens\\1003_32x32.png"));
 		lblCadastroFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

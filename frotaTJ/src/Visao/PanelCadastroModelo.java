@@ -33,7 +33,7 @@ public class PanelCadastroModelo extends PanelExemplo {
 	 */
 	public PanelCadastroModelo(final int idModeloSelecionado) {
 		
-		JLabel lblCadastroModelo = new JLabel("  Cadastro Modelo");
+		JLabel lblCadastroModelo = new JLabel("  Cadastro de Modelos");
 		lblCadastroModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

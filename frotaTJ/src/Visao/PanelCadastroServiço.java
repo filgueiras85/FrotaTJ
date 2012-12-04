@@ -81,7 +81,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	
 	public PanelCadastroServiço( final int idServicoSelecionado) {
 		
-		JLabel lblCadastroServio = new JLabel("Cadastro Servi\u00E7o");
+		JLabel lblCadastroServio = new JLabel("Cadastro de Servi\u00E7os");
 		lblCadastroServio.setIcon(new ImageIcon("imagens\\ico-recursos-integra.png"));
 		lblCadastroServio.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

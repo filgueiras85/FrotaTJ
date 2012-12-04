@@ -18,11 +18,13 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import mb.MBMotorista;
 import mb.MBTipoServico;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import dao.Motorista;
 //import mb.MBUnidade;
 import dao.TipoServico;
 import javax.swing.ImageIcon;
@@ -41,7 +43,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 	public PanelListagemTipoServico() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemTipoServico = new JLabel("Listagem dos Tipo De Servico");
+		JLabel lblListagemTipoServico = new JLabel("Listagem dos Tipos De Servico");
 		lblListagemTipoServico.setIcon(new ImageIcon("imagens\\servicos-icone.png"));
 		lblListagemTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
@@ -53,6 +55,24 @@ public class PanelListagemTipoServico extends PanelExemplo {
 
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
+		btnApagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
+				try {
+					TipoServico t = mbTipoServico.retornarTipoServico(idTipoServicoSelecionado);
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Tipo de Serviço selecionado?");
+					if (op==JOptionPane.YES_OPTION ) {
+
+
+						JOptionPane.showMessageDialog(null,mbTipoServico.apagar(t));
+						atualizarTabela();
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"erro - "+e);
+					// TODO: handle exception
+				}
+			}
+		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnEditar = new JButton("Editar");

@@ -24,7 +24,7 @@ public class PanelCadastroMarca extends PanelExemplo {
 	 */
 	public PanelCadastroMarca(final int idMarcaSelecionado) {
 		
-		JLabel lblCadastroMarca = new JLabel("Cadastro Marca");
+		JLabel lblCadastroMarca = new JLabel("Cadastro de Marcas");
 		lblCadastroMarca.setIcon(new ImageIcon("imagens\\M.jpg"));
 		lblCadastroMarca.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

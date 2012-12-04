@@ -35,7 +35,7 @@ public class PanelCadastroUnidade extends PanelExemplo {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		
-		JLabel lblCadastroDeUnidade = new JLabel("Cadastro de Unidade");
+		JLabel lblCadastroDeUnidade = new JLabel("Cadastro de Unidades");
 		lblCadastroDeUnidade.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
 		lblCadastroDeUnidade.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

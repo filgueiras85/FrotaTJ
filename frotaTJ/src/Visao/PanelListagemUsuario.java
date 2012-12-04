@@ -140,8 +140,8 @@ public class PanelListagemUsuario extends PanelExemplo {
 		});
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Usuário selecionado?","", JOptionPane.YES_NO_OPTION);
-				if (opcao ==JOptionPane.YES_OPTION ) {
+				int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Usuario selecionado?");
+				if (op==JOptionPane.YES_OPTION ) {
 					Usuario usuario = new Usuario();
 					idUsuarioSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 					usuario = mbUsuario.retornarUsuario(idUsuarioSelecionado);

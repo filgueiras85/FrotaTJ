@@ -80,7 +80,7 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		});
 		txtEmail.setColumns(10);
 		
-		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
+		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuarios");
 		lblCadastroDeUsuario.setIcon(new ImageIcon("imagens\\7818_32x32.png"));
 		lblCadastroDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

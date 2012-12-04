@@ -49,7 +49,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 
 	public PanelCadastroMotorista( final int idMotoristaSelecionado) {
 
-		JLabel lblCadastroMotorista = new JLabel("Cadastro Motorista");
+		JLabel lblCadastroMotorista = new JLabel("Cadastro de Motoristas");
 		lblCadastroMotorista.setIcon(new ImageIcon("imagens\\7133_32x32.png"));
 		lblCadastroMotorista.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

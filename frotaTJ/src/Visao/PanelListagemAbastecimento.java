@@ -39,7 +39,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 	public PanelListagemAbastecimento() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemAbastecimentos = new JLabel("Listagem Abastecimentos");
+		JLabel lblListagemAbastecimentos = new JLabel("Listagem de Abastecimentos");
 		lblListagemAbastecimentos.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		lblListagemAbastecimentos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

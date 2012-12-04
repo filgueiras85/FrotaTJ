@@ -39,7 +39,7 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 	public PanelListagemTipoServiçoModelo() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemTipoServiçoModelo = new JLabel("Listagem Tipo Servi\u00E7o Modelo");
+		JLabel lblListagemTipoServiçoModelo = new JLabel("Listagem de Tipos Servi\u00E7o por Modelo");
 		lblListagemTipoServiçoModelo.setIcon(new ImageIcon("imagens\\11988_32x32.png"));
 		lblListagemTipoServiçoModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

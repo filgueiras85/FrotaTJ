@@ -37,7 +37,7 @@ public class PanelListagemFornecedor extends PanelExemplo {
 	public PanelListagemFornecedor() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemFornecedor = new JLabel("Listagem Fornecedor");
+		JLabel lblListagemFornecedor = new JLabel("Listagem de Fornecedores");
 		lblListagemFornecedor.setIcon(new ImageIcon("imagens\\1003_32x32.png"));
 		lblListagemFornecedor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

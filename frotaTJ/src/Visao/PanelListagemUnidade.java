@@ -32,7 +32,7 @@ public class PanelListagemUnidade extends PanelExemplo {
 	public PanelListagemUnidade() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemUsuario = new JLabel("Listagem das unidades");
+		JLabel lblListagemUsuario = new JLabel("Listagem de Unidades");
 		lblListagemUsuario.setIcon(new ImageIcon("imagens\\4049_32x32.png"));
 		lblListagemUsuario.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

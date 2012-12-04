@@ -38,7 +38,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 	public PanelListagemMotorista() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemMotoristas = new JLabel("Listagem Motoristas");
+		JLabel lblListagemMotoristas = new JLabel("Listagem de Motoristas");
 		lblListagemMotoristas.setIcon(new ImageIcon("imagens\\7133_32x32.png"));
 		lblListagemMotoristas.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

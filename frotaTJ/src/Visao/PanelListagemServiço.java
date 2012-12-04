@@ -34,7 +34,7 @@ public class PanelListagemServiço extends PanelExemplo {
 	public PanelListagemServiço() {
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-		JLabel lblListagemServios = new JLabel("Listagem Servi\u00E7os");
+		JLabel lblListagemServios = new JLabel("Listagem de Servi\u00E7os");
 		lblListagemServios.setIcon(new ImageIcon("imagens\\ico-recursos-integra.png"));
 		lblListagemServios.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

@@ -62,7 +62,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 
 	public PanelCadastroAbastecimento( final int idAbastecimentoSelecionado) {
 
-		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro de Abastecimento\r\n");
+		JLabel lblCadastroAbastecimento = new JLabel(" Cadastro de Abastecimentos\r\n");
 		lblCadastroAbastecimento.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
 		lblCadastroAbastecimento.setFont(new Font("Tahoma", Font.PLAIN, 20));
 

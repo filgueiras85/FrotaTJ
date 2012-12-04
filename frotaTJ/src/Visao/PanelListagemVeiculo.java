@@ -60,7 +60,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 
 	// ------------------- Lebel -----------------------\\
 		//setarUnidade();		
-		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
+		JLabel lblListagemVeiculos = new JLabel("Listagem de Veiculos\r\n");
 		lblListagemVeiculos.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblListagemVeiculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
