@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
+import util.IntegerDocument;
+
 
 public class PanelCadastroVeiculo extends PanelExemplo {
 	private JTextField textFieldPlaca;
@@ -92,18 +94,13 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		MaskFormatter hodometro = null;
-		try {
-			hodometro = new MaskFormatter("######");
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		textFieldPlaca = new JFormattedTextField(placa);
 		textFieldPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldPlaca.setColumns(10);
 		
-		textFieldOdometro = new JFormattedTextField(hodometro);
+		textFieldOdometro = new JTextField();
+		textFieldOdometro.setDocument(new IntegerDocument(6));
 		textFieldOdometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldOdometro.setColumns(10);
 		
