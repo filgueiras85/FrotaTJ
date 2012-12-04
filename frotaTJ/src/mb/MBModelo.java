@@ -24,7 +24,7 @@ public class MBModelo {
 	
 	public String inserir(Modelo modelo) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		try {
 			daoModelo.save(modelo);
@@ -35,7 +35,7 @@ public class MBModelo {
 	}
 	
 	public String editar(Modelo modelo) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		try {
 			daoModelo.update(modelo);
@@ -47,7 +47,7 @@ public class MBModelo {
 	
 
 	public String apagar(Modelo modelo) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		try {
 			daoModelo.delete(modelo);

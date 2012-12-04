@@ -24,7 +24,7 @@ public class MBMotorista {
 	
 	public String inserir(Motorista motorista) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		try {
 			daoMotorista.save(motorista);
@@ -35,7 +35,7 @@ public class MBMotorista {
 	}
 	
 	public String editar(Motorista motorista) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		try {
 			daoMotorista.update(motorista);
@@ -47,7 +47,7 @@ public class MBMotorista {
 	
 
 	public String apagar(Motorista motorista) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		try {
 			daoMotorista.delete(motorista);

@@ -23,7 +23,7 @@ public class MBAbastecimento {
 	
 	public String inserir(Abastecimento abastecimento) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro efetuado.";
 		AbastecimentoDAO daoAbastecimento = AbastecimentoDAO.getInstance();
 		try {
 			daoAbastecimento.save(abastecimento);
@@ -34,7 +34,7 @@ public class MBAbastecimento {
 	}
 	
 	public String editar(Abastecimento abastecimento) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		AbastecimentoDAO daoAbastecimento = AbastecimentoDAO.getInstance();
 		try {
 			daoAbastecimento.update(abastecimento);
@@ -47,7 +47,7 @@ public class MBAbastecimento {
 	
 
 	public String apagar(Abastecimento abastecimento) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		AbastecimentoDAO daoAbastecimento = AbastecimentoDAO.getInstance();
 		try {
 			daoAbastecimento.delete(abastecimento);

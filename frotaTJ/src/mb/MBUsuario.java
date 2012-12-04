@@ -18,7 +18,7 @@ public class MBUsuario {
 	
 	public String inserir(Usuario usuario) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 		try {
 			daoUsuario.save(usuario);
@@ -30,7 +30,7 @@ public class MBUsuario {
 	}
 	
 	public String editar(Usuario usuario) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 		try {
 			daoUsuario.update(usuario);
@@ -42,7 +42,7 @@ public class MBUsuario {
 	
 
 	public String apagar(Usuario usuario) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 		try {
 			daoUsuario.delete(usuario);

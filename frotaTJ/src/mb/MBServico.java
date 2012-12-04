@@ -27,7 +27,7 @@ public class MBServico {
 	
 	public String inserir(Servico servico) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		try {
 			daoServico.save(servico);
@@ -38,7 +38,7 @@ public class MBServico {
 	}
 	
 	public String editar(Servico servico) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		try {
 			daoServico.update(servico);
@@ -77,7 +77,7 @@ public class MBServico {
 	
 
 	public String apagar(Servico servico) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		try {
 			daoServico.delete(servico);

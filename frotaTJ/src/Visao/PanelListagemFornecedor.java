@@ -60,7 +60,7 @@ public class PanelListagemFornecedor extends PanelExemplo {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
 				try {
 					Fornecedor m = mbFornecedor.retornarFornecedor(idFornecedorSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Fornecedor selecionado ?");
+					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Fornecedor selecionado?");
 					if (op==JOptionPane.YES_OPTION ) {
 						
 						

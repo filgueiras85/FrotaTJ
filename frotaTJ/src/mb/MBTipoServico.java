@@ -24,7 +24,7 @@ public class MBTipoServico {
 	
 	public String inserir(TipoServico tipoServico) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		try {
 			daoTipoServico.save(tipoServico);
@@ -35,7 +35,7 @@ public class MBTipoServico {
 	}
 	
 	public String editar(TipoServico tipoServico) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		try {
 			daoTipoServico.update(tipoServico);
@@ -47,7 +47,7 @@ public class MBTipoServico {
 	
 
 	public String apagar(TipoServico tipoServico) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		try {
 			daoTipoServico.delete(tipoServico);

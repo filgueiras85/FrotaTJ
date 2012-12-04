@@ -23,7 +23,7 @@ public class MBUnidade {
 	
 	public String inserir(Unidade unidade) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		UnidadeDAO daoUnidade = UnidadeDAO.getInstance();
 		try {
 			daoUnidade.save(unidade);
@@ -34,7 +34,7 @@ public class MBUnidade {
 	}
 	
 	public String editar(Unidade unidade) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		UnidadeDAO daoUnidade = UnidadeDAO.getInstance();
 		try {
 			daoUnidade.update(unidade);
@@ -46,7 +46,7 @@ public class MBUnidade {
 	
 
 	public String apagar(Unidade unidade) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		UnidadeDAO daoUnidade = UnidadeDAO.getInstance();
 		try {
 			daoUnidade.delete(unidade);

@@ -21,7 +21,7 @@ public class MBMarca {
 	
 	public String inserir(Marca marca) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		try {
 			daoMarca.save(marca);
@@ -32,7 +32,7 @@ public class MBMarca {
 	}
 	
 	public String editar(Marca marca) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		try {
 			daoMarca.update(marca);
@@ -44,7 +44,7 @@ public class MBMarca {
 	
 
 	public String apagar(Marca marca) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		try {
 			daoMarca.delete(marca);

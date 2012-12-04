@@ -33,7 +33,7 @@ public class MBVeiculo {
 	
 	public String inserir(Veiculo veiculo) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		VeiculoDAO daoveiculo = VeiculoDAO.getInstance();
 		try {
 			daoveiculo.save(veiculo);
@@ -44,7 +44,7 @@ public class MBVeiculo {
 	}
 	
 	public String editar(Veiculo veiculo) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		try {
 			daoVeiculo.update(veiculo);
@@ -56,7 +56,7 @@ public class MBVeiculo {
 	
 
 	public String apagar(Veiculo veiculo) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		try {
 			daoVeiculo.delete(veiculo);
