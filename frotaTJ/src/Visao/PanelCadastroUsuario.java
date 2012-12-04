@@ -19,6 +19,8 @@ import java.awt.Font;
 import mb.MBUsuario;
 import dao.Usuario;
 import javax.swing.ImageIcon;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class PanelCadastroUsuario extends PanelExemplo {
@@ -37,6 +39,45 @@ public class PanelCadastroUsuario extends PanelExemplo {
 		txtMatricula.setColumns(10);
 
 		txtEmail = new JTextField();
+		txtEmail.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				 if ((txtEmail.getText().contains("@")) &&
+						 (txtEmail.getText().contains(".")) &&
+						 (!txtEmail.getText().contains(" "))) {
+						  
+						 String usuario = new String(txtEmail.getText().substring(0,
+						 txtEmail.getText().lastIndexOf('@')));
+						  
+						             String dominio = new String(txtEmail.getText().substring(txtEmail.getText().lastIndexOf
+						 ('@') + 1, txtEmail.getText().length()));
+						  
+						             if ((usuario.length() >=1) && (!usuario.contains("@")) &&
+						 (dominio.contains(".")) && (!dominio.contains("@")) && (dominio.indexOf(".") >=
+						 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) {
+						  
+						             
+						  
+						             } else {
+						  
+						                 txtEmail.setText("");
+						  
+						                 txtEmail.requestFocus();
+						  
+						             }
+						  
+						         } else {
+						  
+						             txtEmail.setText("");
+						  
+						             txtEmail.requestFocus();
+						  
+						         }
+
+
+			}
+		});
 		txtEmail.setColumns(10);
 		
 		JLabel lblCadastroDeUsuario = new JLabel("Cadastro de Usuario");
