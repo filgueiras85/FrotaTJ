@@ -76,12 +76,12 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					if (idMotoristaSelecionado==0){
 						if (m.getIdmotorista()==0){
 							m.setIdmotorista(null);
-							}
+						}
 						String retorno = mbMotorista.inserir(m);
 						if (retorno.equals("ok")){
 
 							JOptionPane.showMessageDialog(null,"Motorista inserido!");
-							PanelListagemMotorista();
+
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
@@ -90,7 +90,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 						String retorno =  mbMotorista.editar(m);
 						if (retorno.equals("ok")){
 							JOptionPane.showMessageDialog(null,"Motorista alterado!");
-							PanelListagemMotorista();
+
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
@@ -98,16 +98,9 @@ public class PanelCadastroMotorista extends PanelExemplo {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-
-
-
-
+				PanelListagemMotorista();
 			}
-
-		}
-
-
-				);
+		});
 
 		JLabel lblMatricula = new JLabel("Matr\u00EDcula");
 		lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -148,52 +141,52 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblMatricula)
-								.addComponent(lblNome))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-								.addComponent(textFieldMatricula, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnCancelar))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblUnidade)
-							.addGap(18)
-							.addComponent(comboBoxUnidade, 0, 360, Short.MAX_VALUE))
-						.addComponent(lblCadastroMotorista))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblMatricula)
+												.addComponent(lblNome))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+														.addComponent(textFieldMatricula, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)))
+														.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+																.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.UNRELATED)
+																.addComponent(btnCancelar))
+																.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+																		.addComponent(lblUnidade)
+																		.addGap(18)
+																		.addComponent(comboBoxUnidade, 0, 360, Short.MAX_VALUE))
+																		.addComponent(lblCadastroMotorista))
+																		.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblCadastroMotorista)
-					.addGap(61)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNome)
-						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMatricula)
-						.addComponent(textFieldMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUnidade))
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancelar)
-						.addComponent(btnSalvar))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addComponent(lblCadastroMotorista)
+						.addGap(61)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNome)
+								.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblMatricula)
+										.addComponent(textFieldMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblUnidade))
+												.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(btnCancelar)
+														.addComponent(btnSalvar))
+														.addContainerGap())
+				);
 		setLayout(groupLayout);
 		if (idMotoristaSelecionado>0){
 			MBMotorista mbMotorista = MBMotorista.getInstance();

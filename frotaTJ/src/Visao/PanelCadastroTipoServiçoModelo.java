@@ -92,7 +92,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 						if (retorno.equals("ok")){
 							AtualizarTipoServicosdosveiculos(t);
 							JOptionPane.showMessageDialog(null,"Inserido!");
-							PanelListagemTipoServiçoModelo();
+
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
@@ -101,24 +101,19 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 						String retorno =  mbTipoServiçoModelo.editar(t);
 						if (retorno.equals("ok")){
 							JOptionPane.showMessageDialog(null,"Alterado!");
-							PanelListagemTipoServiçoModelo();
+
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
-					}}
+					}
+				}
 				catch (Exception e) {
 					// TODO: handle exception
 				}
-
-
-
-
+				PanelListagemTipoServiçoModelo();
 			}
 
-		}
-
-
-				);
+		});
 
 		JLabel lblTipoServiço = new JLabel("Tipo Servi\u00E7o");
 		lblTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -170,108 +165,108 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 
 
 
-				textFieldKM.setColumns(10);
+		textFieldKM.setColumns(10);
 
-				JLabel labelData = new JLabel("Tempo");
-				labelData.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		JLabel labelData = new JLabel("Tempo");
+		labelData.setFont(new Font("Tahoma", Font.PLAIN, 17));
 
-				
-				
-				textFieldData = new JTextField();
-				textFieldData.setDocument(new IntegerDocument(3));
-				textFieldData.setColumns(10);
-				GroupLayout groupLayout = new GroupLayout(this);
-				groupLayout.setHorizontalGroup(
-					groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+
+
+		textFieldData = new JTextField();
+		textFieldData.setDocument(new IntegerDocument(3));
+		textFieldData.setColumns(10);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnCancelar))
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblTipoServiço)
-												.addComponent(lblModelo)
-												.addComponent(labelKm, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-											.addGap(18))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(labelData, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-											.addGap(55)))
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBoxModelo, 0, 429, Short.MAX_VALUE)
-										.addComponent(comboBoxTipoServiço, 0, 429, Short.MAX_VALUE)
-										.addComponent(textFieldKM, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-										.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)))
-								.addComponent(lblCadastroTipoServicoModelo))
-							.addContainerGap())
+										.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(btnCancelar))
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+														.addGroup(groupLayout.createSequentialGroup()
+																.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblTipoServiço)
+																		.addComponent(lblModelo)
+																		.addComponent(labelKm, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+																		.addGap(18))
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addComponent(labelData, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+																				.addGap(55)))
+																				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																						.addComponent(comboBoxModelo, 0, 429, Short.MAX_VALUE)
+																						.addComponent(comboBoxTipoServiço, 0, 429, Short.MAX_VALUE)
+																						.addComponent(textFieldKM, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+																						.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)))
+																						.addComponent(lblCadastroTipoServicoModelo))
+																						.addContainerGap())
 				);
-				groupLayout.setVerticalGroup(
-					groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblCadastroTipoServicoModelo)
-							.addGap(57)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+		groupLayout.setVerticalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(lblCadastroTipoServicoModelo)
+						.addGap(57)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblTipoServiço)
 								.addComponent(comboBoxTipoServiço, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboBoxModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblModelo))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(labelKm, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldKM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(labelData, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnSalvar)
-								.addComponent(btnCancelar))
-							.addContainerGap())
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(comboBoxModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblModelo))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(labelKm, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+												.addComponent(textFieldKM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(labelData, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+														.addComponent(textFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																.addComponent(btnSalvar)
+																.addComponent(btnCancelar))
+																.addContainerGap())
 				);
-				setLayout(groupLayout);
-				if (idModeloSelecionado>0 || idTipoServiçoselecionado>0){
-					MBTipoServiçoModelo mbt = MBTipoServiçoModelo.getInstance();
+		setLayout(groupLayout);
+		if (idModeloSelecionado>0 || idTipoServiçoselecionado>0){
+			MBTipoServiçoModelo mbt = MBTipoServiçoModelo.getInstance();
 
-					try {
-						TipoServicoModeloId id = new TipoServicoModeloId(new Integer(idTipoServiçoselecionado), new Integer(idModeloSelecionado));
-						TipoServicoModelo t = mbt.retornarTipoServicoModelo(id);
-						textFieldData.setText(t.getTempo().toString());
-						textFieldKM.setText(t.getKm().toString());
+			try {
+				TipoServicoModeloId id = new TipoServicoModeloId(new Integer(idTipoServiçoselecionado), new Integer(idModeloSelecionado));
+				TipoServicoModelo t = mbt.retornarTipoServicoModelo(id);
+				textFieldData.setText(t.getTempo().toString());
+				textFieldKM.setText(t.getKm().toString());
 
-						boolean aux = false ;
-						int  i=0; 
+				boolean aux = false ;
+				int  i=0; 
 
-						while(aux==false){
-							aux= mbModelo.listarModelos().get(i).getIdmodelo()==t.getModelo().getIdmodelo();
-							if (aux==true) break; 
-							i++;
-
-						}
-						comboBoxModelo.setSelectedIndex(i);
-						i=0;
-						aux = false;
-						while(aux==false){
-							aux= mbTipoServico.listarTipoServicos().get(i).equals(t.getTipoServico());
-							if (aux==true) break; 
-							i++;
-
-						}
-						comboBoxTipoServiço.setSelectedIndex(i);
-
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(null,"erro - "+e);
-						// TODO: handle exception
-					}
+				while(aux==false){
+					aux= mbModelo.listarModelos().get(i).getIdmodelo()==t.getModelo().getIdmodelo();
+					if (aux==true) break; 
+					i++;
 
 				}
+				comboBoxModelo.setSelectedIndex(i);
+				i=0;
+				aux = false;
+				while(aux==false){
+					aux= mbTipoServico.listarTipoServicos().get(i).equals(t.getTipoServico());
+					if (aux==true) break; 
+					i++;
+
+				}
+				comboBoxTipoServiço.setSelectedIndex(i);
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,"erro - "+e);
+				// TODO: handle exception
+			}
+
+		}
 
 	}
 

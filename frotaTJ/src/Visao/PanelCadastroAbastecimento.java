@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -81,7 +82,18 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		textFieldData = new JFormattedTextField(data);
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldData.setColumns(10);
-
+		
+		JFormattedTextField dztz = new JFormattedTextField(Calendar.getInstance());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendario = Calendar.getInstance();
+        try {
+			calendario.setTime(dateFormat.parse(textFieldData.getText()));
+			System.out.println(textFieldData);
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		JLabel lblHodometro = new JLabel("Hod\u00F4metro");
 		lblHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -153,7 +165,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
 							
 							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
-							PanelListagemAbastecimento();
+							//PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
@@ -163,7 +175,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						if (retorno.equals("ok")){
 							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
 							JOptionPane.showMessageDialog(null,"Cadastro alterado!");
-							PanelListagemAbastecimento();
+							//PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
@@ -172,7 +184,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 					// TODO: handle exception
 				}
 				
-
+				PanelListagemAbastecimento();
 			}
 
 			   

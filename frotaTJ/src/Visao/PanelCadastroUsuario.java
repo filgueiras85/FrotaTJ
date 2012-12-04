@@ -255,7 +255,7 @@ public class PanelCadastroUsuario extends PanelExemplo {
 					String retorno = mbUsuario.inserir(usuario);
 					if (retorno.equals("ok")){
 						JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
-						PanelListagemUsuario();
+						
 					}else{
 						JOptionPane.showMessageDialog(null,retorno);
 					}
@@ -268,11 +268,12 @@ public class PanelCadastroUsuario extends PanelExemplo {
 							JOptionPane.showMessageDialog(null, "A nova senha deverá ser utilizada a partir do próximo login" );
 						}
 						JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso");
-						PanelListagemUsuario();				
+						
 					}else{
 						JOptionPane.showMessageDialog(null,retorno);
 					}
 				}
+				PanelListagemUsuario();				
 			}
 		});
 		btnCancelar.addActionListener(new ActionListener() {
