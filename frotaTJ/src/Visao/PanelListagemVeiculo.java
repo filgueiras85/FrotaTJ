@@ -15,12 +15,14 @@ import javax.swing.JButton;
 
 import mb.MBMotorista;
 import mb.MBServico;
+import mb.MBTipoServicoVeiculo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 
 import dao.EntityManagerHelper;
 import dao.Motorista;
 import dao.Servico;
+import dao.TipoServicoVeiculo;
 import dao.Unidade;
 import dao.Veiculo;
 import dao.VeiculoDAO;
@@ -51,10 +53,12 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	private JComboBox<String> comboBoxSituacao;
 	private JComboBox<String> comboBoxMotorista;
 	private String unidade;	
+	String pendencia;
 
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	final MBUnidade mbUnidade = MBUnidade.getInstance();
 	final MBMotorista mbMotorista = MBMotorista.getInstance();
+	final MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 	
 	/**
 	 * Create the panel.
@@ -351,7 +355,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 	//--------------------------------Atualizando a Tabela ---------------------------\\	
 		try {
-			pintarTabela();
+			//pintarTabela();
+			//pendencias();
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -385,7 +390,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		}
 	}
 	
-	public void setarUnidade(){
+	/*public void setarUnidade(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent();
 			this.unidade = parent.retornarUnidadeSelecionada();
@@ -393,11 +398,28 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			this.unidade = parent.retornarUnidadeSelecionada();
 		}
+	}*/
+	
+	public void pendencias() throws ClassNotFoundException, SQLException{
+		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		for (int i=0;i<listaVeiculo.size();i++){
+			List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(Integer.parseInt(table.getValueAt(i, 0).toString()));
+			for (int j=0; j<listaTipoServicoVeiculo.size(); j++){
+				if (listaTipoServicoVeiculo.get(i).getSituacao().equals("A Fazer")){
+					pendencia = pendencia+listaTipoServicoVeiculo.get(i).getTipoServico().getNome()+", ";
+				}else if (listaTipoServicoVeiculo.get(i).getSituacao().equals("Atrasado")) {
+					pendencia = pendencia+listaTipoServicoVeiculo.get(i).getTipoServico().getNome()+", ";
+				}
+			}
+		}
 	}
 	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		
+
+
 		for (int i=0;i<listaVeiculo.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaVeiculo.get(i).getIdveiculo()+"", 
@@ -405,6 +427,16 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 		}
+
+		/*
+		 		((DefaultTableModel)table.getModel()).setRowCount(0);
+		List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(idVeiculoSelecionado);
+		System.out.println(listaTipoServicoVeiculo);
+		System.out.println(idVeiculoSelecionado);
+		for (int i=0;i<listaTipoServicoVeiculo.size();i++){
+			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
+		}
+		 */
 	}
 	
 	public void pintarTabela() throws ClassNotFoundException, SQLException{

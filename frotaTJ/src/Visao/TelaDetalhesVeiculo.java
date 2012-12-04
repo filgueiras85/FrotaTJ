@@ -185,10 +185,10 @@ public class TelaDetalhesVeiculo extends JFrame {
 		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
+				{null, null},
 			},
 			new String[] {
-				"Servi\u00E7o", "Situa\u00E7\u00E3o", "Tempo para o limite", "Km para o limite"
+				"Servi\u00E7o", "Situa\u00E7\u00E3o"
 			}
 		));
 		scrollPane.setViewportView(table);

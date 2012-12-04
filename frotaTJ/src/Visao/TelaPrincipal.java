@@ -46,7 +46,6 @@ public class TelaPrincipal extends JFrame {
 
 	private String winDir= ("imagens\\");
 	private String unidadeSelecionada;
-	private JComboBox<String>  comboBoxUnidade;	
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
@@ -302,12 +301,6 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_9);
 
-		//-------------------------- Menu Relatorios --------------------------\\		
-		JMenu mnRelatorios = new JMenu("Relatorios");
-		mnRelatorios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
-		mnRelatorios.setIcon(new ImageIcon(winDir+"1588_32x32.png"));
-		menuBar.add(mnRelatorios);
-
 		//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {
@@ -320,13 +313,7 @@ public class TelaPrincipal extends JFrame {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnNewMenu);
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
-
-		//------------------------- ComboBoxPesquisaUnidade -------------------------\\
-		comboBoxUnidade = new JComboBox<String>();
 		MBUnidade mbUnidade = MBUnidade.getInstance();
-		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		comboBoxUnidade.setMaximumRowCount(230);
-		comboBoxUnidade.addItem("Selecione uma Unidade");
 		Vector<Unidade> listaUnidade = new Vector<>();
 		Vector<String> listaNomeUnidade = new Vector<>();
 		try {
@@ -334,7 +321,7 @@ public class TelaPrincipal extends JFrame {
 
 			for (int i=0; i<listaUnidade.size(); i++){
 				listaNomeUnidade.add(listaUnidade.get(i).getNome());
-				comboBoxUnidade.addItem(listaUnidade.get(i).getNome());
+				//comboBoxUnidade.addItem(listaUnidade.get(i).getNome());
 			}
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -343,12 +330,6 @@ public class TelaPrincipal extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-		JLabel label = new JLabel("     ");
-		menuBar.add(label);
-
-		menuBar.add(comboBoxUnidade);
-		unidadeSelecionada = comboBoxUnidade.getSelectedItem()+"";
 
 
 		getContentPane().setLayout(new CardLayout(0, 0));
@@ -369,11 +350,11 @@ public class TelaPrincipal extends JFrame {
 		});
 	}
 
-	//----------------------- Método para checar a unidade selecionada no sistema -----------------\\ 
+	/*/----------------------- Método para checar a unidade selecionada no sistema -----------------\\ 
 
 	public String retornarUnidadeSelecionada(){
 		return comboBoxUnidade.getSelectedItem()+"";
-	}
+	}*/
 
 	//--------------------- Método para voltar para o Panel Inicial ----------------------\\
 	public void PanelInicial(){
