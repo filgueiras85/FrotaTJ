@@ -30,12 +30,12 @@ public class TableCellRenderer extends DefaultTableCellRenderer {
             column    
         );    
             
-        if (column == 2 && (Float.parseFloat(value.toString()) < 0)){  
+        if (column == 5 && (value.toString() .equals("OK"))){  
             result.setFont(new Font("arial", Font.PLAIN, 12));  
-            result.setForeground(Color.red);                
+            result.setForeground(Color.green);                
         }else{  
             result.setFont(new Font("arial", Font.PLAIN, 12));  
-            result.setForeground(Color.black);                
+            result.setForeground(Color.white);                
         }  
          
         return result;    

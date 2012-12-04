@@ -351,6 +351,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		
 	//--------------------------------Atualizando a Tabela ---------------------------\\	
 		try {
+			pintarTabela();
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -404,6 +405,13 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 		}
+	}
+	
+	public void pintarTabela() throws ClassNotFoundException, SQLException{
+		for (int i=0; i<table.getRowCount(); i++){
+			table.getCellRenderer(i, 5);
+		}
+		
 	}
 	
 	
