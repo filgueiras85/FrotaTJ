@@ -116,8 +116,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Cadastro removido!");
-				PanelListagemAbastecimento();
+			PanelListagemAbastecimento();
 			}
 		});
 
