@@ -55,7 +55,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
 
 				Fornecedor f =  new Fornecedor(idFornecedorSelecionado,textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
-						textFieldFoneUm.getText(), textFieldFoneDois.getText());
+						MBFornecedor.validarTelefone(textFieldFoneUm.getText()), MBFornecedor.validarTelefone(textFieldFoneDois.getText()));
 						
 
 					try {
