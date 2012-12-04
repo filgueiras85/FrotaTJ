@@ -632,10 +632,16 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelListagemUsuario(){
 		if (usuarioLogado.tempoLogin()){
-			PanelListagemUsuario panelListagemUsuario = new PanelListagemUsuario();
-			panelConteudo.add(panelListagemUsuario, "panelListagemUsuario");
-			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-			cardLayout.show(panelConteudo,"panelListagemUsuario");
+			if(usuarioLogado.ehAdministrador()){
+				PanelListagemUsuario panelListagemUsuario = new PanelListagemUsuario();
+				panelConteudo.add(panelListagemUsuario, "panelListagemUsuario");
+				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+				cardLayout.show(panelConteudo,"panelListagemUsuario");
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+
+			}
+			
 		}else{
 			setVisible(false);
 			TelaLogin();

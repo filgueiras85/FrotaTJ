@@ -36,6 +36,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemVeiculo extends PanelExemplo {
 	private JTable table;
@@ -53,7 +55,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	public PanelListagemVeiculo() {		
+	public PanelListagemVeiculo() {	
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 	// ------------------- Lebel -----------------------\\
 		//setarUnidade();		
 		JLabel lblListagemVeiculos = new JLabel("Listagem Veiculos\r\n");
@@ -284,19 +288,33 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					.addContainerGap())
 		);
 		
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
-		btnDetalhes.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+			btnDetalhes.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+			btnDetalhes.setVisible(false);
+		}
+	
 		
 	//--------------------------------------Tabela ------------------------------\\
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				
+				if(usuarioLogado.ehAdministrador()){
+					idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+
+				}
 				btnDetalhes.setVisible(true);
+
 			}
 		});
 		table.setModel(new DefaultTableModel(

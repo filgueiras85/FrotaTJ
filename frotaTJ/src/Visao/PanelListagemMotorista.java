@@ -25,6 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemMotorista extends PanelExemplo {
 	private JTable table;
@@ -34,6 +36,7 @@ public class PanelListagemMotorista extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemMotorista() {
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 		JLabel lblListagemMotoristas = new JLabel("Listagem Motoristas");
 		lblListagemMotoristas.setIcon(new ImageIcon("imagens\\7133_32x32.png"));
@@ -111,16 +114,26 @@ public class PanelListagemMotorista extends PanelExemplo {
 								.addComponent(btnEditar))
 								.addContainerGap())
 				);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				idMotoristaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					idMotoristaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 

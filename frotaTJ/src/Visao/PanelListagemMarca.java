@@ -33,6 +33,7 @@ import java.util.Set;
 import javax.swing.ImageIcon;
 
 import util.SendMail;
+import util.UsuarioUtil;
 
 
 public class PanelListagemMarca extends PanelExemplo {
@@ -42,7 +43,8 @@ public class PanelListagemMarca extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemMarca() {
-		
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 		JLabel lblListagemMarca = new JLabel("Listagem Marca");
 		lblListagemMarca.setIcon(new ImageIcon("imagens\\M.jpg"));
 		lblListagemMarca.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -120,16 +122,26 @@ public class PanelListagemMarca extends PanelExemplo {
 						.addComponent(btnEditar))
 					.addContainerGap())
 		);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				idMarcaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					idMarcaSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 		table.setModel(new DefaultTableModel(

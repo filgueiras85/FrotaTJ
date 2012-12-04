@@ -26,6 +26,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
+import util.UsuarioUtil;
+
 
 public class PanelListagemAbastecimento extends PanelExemplo {
 	private JTable table;
@@ -35,6 +37,7 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemAbastecimento() {
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 		JLabel lblListagemAbastecimentos = new JLabel("Listagem Abastecimentos");
 		lblListagemAbastecimentos.setIcon(new ImageIcon("imagens\\2895_32x32.png"));
@@ -113,16 +116,26 @@ public class PanelListagemAbastecimento extends PanelExemplo {
 								.addComponent(btnNovo))
 								.addContainerGap())
 				);
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}
 
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				idAbastecimentoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					idAbastecimentoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+				}
 			}
 		});
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));

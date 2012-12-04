@@ -26,6 +26,8 @@ import net.sf.jasperreports.view.JasperViewer;
 //import mb.MBUnidade;
 import dao.TipoServico;
 import javax.swing.ImageIcon;
+
+import util.UsuarioUtil;
 //import dao.Unidade;
 
 public class PanelListagemTipoServico extends PanelExemplo {
@@ -37,6 +39,8 @@ public class PanelListagemTipoServico extends PanelExemplo {
 	 * Create the panel.
 	 */
 	public PanelListagemTipoServico() {
+		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+
 		JLabel lblListagemTipoServico = new JLabel("Listagem dos Tipo De Servico");
 		lblListagemTipoServico.setIcon(new ImageIcon("imagens\\servicos-icone.png"));
 		lblListagemTipoServico.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -64,9 +68,17 @@ public class PanelListagemTipoServico extends PanelExemplo {
 			}
 		});
 		
-		btnEditar.setVisible(false);
-		btnApagar.setVisible(false);
-		btnRelatrioDeGastos.setVisible(false);
+		if (!usuarioLogado.ehAdministrador()){
+			btnNovo.setVisible(false);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+		}else{
+			btnNovo.setVisible(true);
+			btnEditar.setVisible(false);
+			btnApagar.setVisible(false);
+			btnRelatrioDeGastos.setVisible(false);
+
+		}
 		table = new JTable();
 		table.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		table.setModel(new DefaultTableModel(
@@ -131,9 +143,12 @@ public class PanelListagemTipoServico extends PanelExemplo {
 		
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				btnEditar.setVisible(true);
-				btnApagar.setVisible(true);
-				btnRelatrioDeGastos.setVisible(true);
+				if(usuarioLogado.ehAdministrador()){
+					btnEditar.setVisible(true);
+					btnApagar.setVisible(true);
+					btnRelatrioDeGastos.setVisible(true);
+				}
+				
 			}
 		});
 
