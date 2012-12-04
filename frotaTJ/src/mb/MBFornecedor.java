@@ -26,7 +26,7 @@ public class MBFornecedor {
 	
 	public String inserir(Fornecedor fornecedor) {
 		
-		String retorno = "ok";
+		String retorno = "Cadastro inserido.";
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		try {
 			daoFornecedor.save(fornecedor);
@@ -37,7 +37,7 @@ public class MBFornecedor {
 	}
 	
 	public String editar(Fornecedor fornecedor) {
-		String retorno = "ok";
+		String retorno = "Cadastro alterado.";
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		try {
 			daoFornecedor.update(fornecedor);
@@ -49,7 +49,7 @@ public class MBFornecedor {
 	
 
 	public String apagar(Fornecedor fornecedor) {
-		String retorno = "ok";
+		String retorno = "Cadastro removido.";
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		try {
 			daoFornecedor.delete(fornecedor);
