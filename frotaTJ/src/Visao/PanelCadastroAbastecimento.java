@@ -46,6 +46,7 @@ import dao.Veiculo;
 import javax.swing.ImageIcon;
 import javax.swing.text.MaskFormatter;
 
+import util.IntegerDocument;
 import util.Util;
 
 
@@ -88,6 +89,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		textFieldHodometro = new JTextField();
+		textFieldHodometro.setDocument(new IntegerDocument(6));
 		textFieldHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldHodometro.setColumns(10);
 
