@@ -94,7 +94,20 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		MaskFormatter Renavam = null;
+		try {
+			Renavam = new MaskFormatter("########-#");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		MaskFormatter chassi = null;
+		try {
+			chassi = new MaskFormatter(	"AAAAAAAAAAAAAAAAA");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		textFieldPlaca = new JFormattedTextField(placa);
 		textFieldPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldPlaca.setColumns(10);
@@ -104,11 +117,11 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		textFieldOdometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldOdometro.setColumns(10);
 		
-		textFieldChassi = new JTextField();
+		textFieldChassi = new JFormattedTextField(chassi);
 		textFieldChassi.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldChassi.setColumns(10);
 		
-		textFieldRenavan = new JTextField();
+		textFieldRenavan = new JFormattedTextField(Renavam);
 		textFieldRenavan.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldRenavan.setColumns(10);
 
