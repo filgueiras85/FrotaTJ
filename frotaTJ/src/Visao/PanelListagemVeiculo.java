@@ -97,7 +97,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					((DefaultTableModel)table.getModel()).removeRow(i);
 				}
 				
-				listaVeiculo = findParametrizado(textFieldPlaca.getText(), comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()), "2", "OK");
+				listaVeiculo = findParametrizado(textFieldPlaca.getText(), comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()), comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()), comboBoxSituacao.getItemAt(comboBoxSituacao.getSelectedIndex()));
 				
 				for (int i=0; i<listaVeiculo.size(); i++){
 					((DefaultTableModel)table.getModel()).addRow(new String[]{
@@ -216,9 +216,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		comboBoxSituacao = new JComboBox<String>();
 		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBoxSituacao.addItem("Selecionar");
-		comboBoxSituacao.addItem("ok");
-		comboBoxSituacao.addItem("a fazer");
-		comboBoxSituacao.addItem("atrasado");
+		comboBoxSituacao.addItem("OK");
+		comboBoxSituacao.addItem("A Fazer");
+		comboBoxSituacao.addItem("Atrasado");
 		
 			
 		comboBoxMotorista = new JComboBox<String>();
@@ -411,9 +411,11 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	
 	@SuppressWarnings("unchecked")
 	public List<Veiculo> findParametrizado(String param1, String param2, String param3, String param4) {
-		EntityManagerHelper.log("finding all Abastecimento instances",
+		EntityManagerHelper.log("finding all abastecimento instances",
 				Level.INFO, null);
-
+		System.out.println(param2);
+		System.out.println(param3);
+		System.out.println(param4);
 		if (param2.equals("Selecionar") ){
 			param2 = "";
 		}
@@ -428,30 +430,38 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			String queryString = "select * from veiculo ";
 			boolean temWhere=false;
 			if (param1.length()>0){
-				queryString += "where placa='"+param1+"',";
+				queryString += "where placa='"+param1+"'";
 				temWhere=true;
 			}
 			if (param2.length()>0){
-				if (!temWhere){
+				if (temWhere){
+					queryString+="and";
+				}else{
 					queryString += " where ";
 				}
-				queryString += " unidade_idunidade='"+param2+"',";
+				queryString += " unidade_idunidade='"+param2+"'";
 				temWhere=true;
 			}
 			if (param3.length()>0){
-				if (!temWhere){
+				if (temWhere){
+					queryString+="and";
+				}else{
 					queryString += " where ";
 				}
-				queryString += " motorista_idmotorista='"+param3+"',";
+				queryString += " motorista_idmotorista='"+param3+"'";
 				temWhere=true;
 			}
 			if (param4.length()>0){
-				if (!temWhere){
+				if (temWhere){
+					queryString+="and";
+				}else{
 					queryString += " where ";
 				}
 				queryString += " situacao='"+param4+"'";
 				temWhere=true;
-			}			
+			}	
+			queryString+=";";
+			System.out.println(queryString);
 			
 			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
 			return query.getResultList();
