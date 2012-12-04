@@ -57,6 +57,7 @@ public class PanelInicial extends PanelExemplo {
 		
 	// ----------------------- Lebel e txt ---------------------------\\
 		JLabel lblTitulo = new JLabel("Listagem geral de ve\u00EDculos");
+		lblTitulo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel lblUnidade = new JLabel("Unidade");

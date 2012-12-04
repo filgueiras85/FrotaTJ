@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -52,7 +53,6 @@ public class TelaDetalhesVeiculo extends JFrame {
 	 */
 	public TelaDetalhesVeiculo(int idVeiculoSelecionado) {
 		setTitle("Informa\u00E7oes do Veiculo ");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\frotaTJ\\imagens\\1519_32x32.png"));
 
 		setVisible(true);
 		show();
@@ -66,6 +66,7 @@ public class TelaDetalhesVeiculo extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblPlacaDoVeculo = new JLabel("Informa\u00E7\u00F5es do ve\u00EDculo selecionado");
+		lblPlacaDoVeculo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblPlacaDoVeculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 	//----------------------- Botão Relatório -----------------------\\		

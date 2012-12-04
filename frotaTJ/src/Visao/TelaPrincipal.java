@@ -221,7 +221,7 @@ public class TelaPrincipal extends JFrame {
 				PanelListagemMarca();
 			}
 		});
-		menuItem_2.setIcon(new ImageIcon("C:\\frotaTJ\\imagens\\M.jpg"));
+		menuItem_2.setIcon(new ImageIcon("imagens\\M.jpg"));
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelListagemMarca();
