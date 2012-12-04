@@ -1,4 +1,5 @@
 package Visao;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -7,10 +8,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 
 import dao.Fornecedor;
 import dao.Modelo;
@@ -63,7 +66,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 							String retorno = mbFornecedor.inserir(f);
 							if (retorno.equals("ok")){
 								
-								JOptionPane.showMessageDialog(null,"Fornecedor inserido!");
+								JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 								PanelListagemFornecedor();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
@@ -72,7 +75,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 							
 							String retorno =  mbFornecedor.editar(f);
 							if (retorno.equals("ok")){
-								JOptionPane.showMessageDialog(null,"Fornecedor alterado!");
+								JOptionPane.showMessageDialog(null,"Cadastro alterado!");
 								PanelListagemFornecedor();
 							}else{
 								JOptionPane.showMessageDialog(null,retorno);
@@ -102,7 +105,15 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 		JLabel lblMarca = new JLabel("CNPJ");
 		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
-		textFieldCNPJ = new JTextField();
+		MaskFormatter cnpj = null;
+		try {
+			cnpj = new MaskFormatter("##.###.###/####-##");
+		} catch (ParseException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		textFieldCNPJ = new JFormattedTextField(cnpj);
 		textFieldCNPJ.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
@@ -122,6 +133,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 		
 		textFieldFoneDois = new JTextField();
 		textFieldFoneDois.setColumns(10);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
