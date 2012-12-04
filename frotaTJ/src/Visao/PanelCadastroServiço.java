@@ -198,7 +198,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 				comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-				
+		
 				
 		textFieldKm = new JTextField();
 		textFieldKm.setDocument(new IntegerDocument(6));
