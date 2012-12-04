@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 
 import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
 
+import util.IntegerDocument;
 import util.JNumberFormatField;
 import util.Util;
 
@@ -197,15 +198,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 				comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-				MaskFormatter km = null;
-				try {
-					km = new MaskFormatter("######");
-				} catch (ParseException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				
 		
-		textFieldKm = new JFormattedTextField(km);
+		textFieldKm = new JTextField();
+		textFieldKm.setDocument(new IntegerDocument(6));
 		textFieldKm.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldKm.setColumns(10);
 		
