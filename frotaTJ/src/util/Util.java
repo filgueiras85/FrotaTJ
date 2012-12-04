@@ -1,5 +1,6 @@
 package util;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,30 +46,7 @@ public class Util extends JTextField{
 		return hodometro;
 	}
 	
-	public static Integer mascaraHodometro (Integer hodometro) throws ParseException{
-		String base6 = "nnnnnn";
-		String base5 = "nnnnn";
-		String base4 = "nnnn";
-		String base3 = "nnn";
-		String base2 = "nn";
-		String base1 = "n";
-		if (hodometro.equals(base6)){
-			return hodometro;
-		}else if (hodometro.equals(base5)){
-			return hodometro;
-		}else if (hodometro.equals(base4)){
-			return hodometro;
-		}else if (hodometro.equals(base3)){
-			return hodometro;
-		}else if (hodometro.equals(base2)){
-			return hodometro;
-		}else if (hodometro.equals(base1)){
-			return hodometro;
-			
-		}
-		return hodometro;
-	}
-
+	
 	
 	public JTextField mascaraData(){
 		JTextField txt;
@@ -85,6 +63,7 @@ public class Util extends JTextField{
 		return null;
 	}
 	
+		
 	public java.util.Date transformaData(String data)  
 	{  
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  

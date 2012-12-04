@@ -87,50 +87,6 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		JLabel lblPlaca = new JLabel("Placa");
 		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		/*MaskFormatter hodometro = null;
-		try {
-			MaskFormatter maskFormatter1 = new MaskFormatter("#");
-			hodometro = maskFormatter1;
-			try {
-				MaskFormatter maskFormatter2 = new MaskFormatter("##");
-				hodometro = maskFormatter2;
-				try {
-					MaskFormatter maskFormatter3 = new MaskFormatter("###");
-					hodometro = maskFormatter3;
-					try {
-						MaskFormatter maskFormatter4 = new MaskFormatter("####");
-						hodometro = maskFormatter4;
-						try {
-							MaskFormatter maskFormatter5 = new MaskFormatter("#####");
-							hodometro = maskFormatter5;
-							try {
-								MaskFormatter maskFormatter6 = new MaskFormatter("######");
-								hodometro = maskFormatter6;
-							} catch (ParseException e2) {
-								// TODO Auto-generated catch block
-								e2.printStackTrace();
-							}
-						} catch (ParseException e2) {
-							// TODO Auto-generated catch block
-							e2.printStackTrace();
-						}
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-				} catch (ParseException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-			} catch (ParseException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}*/
-		
 		textFieldHodometro = new JTextField();
 		textFieldHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldHodometro.setColumns(10);
