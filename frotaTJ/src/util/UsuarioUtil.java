@@ -49,8 +49,4 @@ public class UsuarioUtil extends Usuario{
 	public boolean ehAdministrador(){
 		return getAdministrador();
 	}
-	
-	public int usuario(){
-		return getIdUsuario();
-	}
 }

@@ -495,10 +495,8 @@ public class TelaPrincipal extends JFrame {
 				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 				cardLayout.show(panelConteudo,"panelCadastroUsuario");
 			}else{
-				PanelCadastroMotorista panelCadastroMotorista = new PanelCadastroMotorista(usuarioLogado.usuario());
-				panelConteudo.add(panelCadastroMotorista, "panelCadastroMotorista");
-				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-				cardLayout.show(panelConteudo,"panelCadastroMotorista");			}
+				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
+			}
 		}else{
 			setVisible(false);
 			TelaLogin();
