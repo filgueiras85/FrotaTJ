@@ -21,6 +21,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import util.IntegerDocument;
+
 import mb.MBMarca;
 import mb.MBModelo;
 import mb.MBTipoServico;
@@ -164,14 +166,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 		labelKm.setFont(new Font("Tahoma", Font.PLAIN, 17));
 
 		textFieldKM = new JTextField();
-		textFieldKM.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				int check = e.getKeyChar();
-				if (!Character.isDigit(check)) {
-					e.consume();
-				}
-			}
-		});
+		textFieldKM.setDocument(new IntegerDocument(6));
 
 
 
@@ -180,15 +175,10 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 				JLabel labelData = new JLabel("Tempo");
 				labelData.setFont(new Font("Tahoma", Font.PLAIN, 17));
 
-				MaskFormatter tempo = null;
-				try {
-					tempo = new MaskFormatter("##");
-				} catch (ParseException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
 				
-				textFieldData = new JFormattedTextField(tempo);
+				
+				textFieldData = new JTextField();
+				textFieldData.setDocument(new IntegerDocument(3));
 				textFieldData.setColumns(10);
 				GroupLayout groupLayout = new GroupLayout(this);
 				groupLayout.setHorizontalGroup(

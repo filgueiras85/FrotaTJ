@@ -22,6 +22,10 @@ import mb.MBMarca;
 import mb.MBModelo;
 import javax.swing.ImageIcon;
 
+import util.IntegerDocument;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 public class PanelCadastroFornecedor extends PanelExemplo {
 	private JTextField textFieldNome;
 	private JTextField textFieldCNPJ;
@@ -55,7 +59,7 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
 
 				Fornecedor f =  new Fornecedor(idFornecedorSelecionado,textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
-						MBFornecedor.validarTelefone(textFieldFoneUm.getText()), MBFornecedor.validarTelefone(textFieldFoneDois.getText()));
+						textFieldFoneUm.getText(), textFieldFoneDois.getText());
 						
 
 					try {
@@ -126,12 +130,50 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 		lblFone_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 		textFieldEmailUm = new JTextField();
+		textFieldEmailUm.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				 if ((textFieldEmailUm.getText().contains("@")) &&
+						 (textFieldEmailUm.getText().contains(".")) &&
+						 (!textFieldEmailUm.getText().contains(" "))) {
+						  
+						 String usuario = new String(textFieldEmailUm.getText().substring(0,
+						 textFieldEmailUm.getText().lastIndexOf('@')));
+						  
+						             String dominio = new String(textFieldEmailUm.getText().substring(textFieldEmailUm.getText().lastIndexOf
+						 ('@') + 1, textFieldEmailUm.getText().length()));
+						  
+						             if ((usuario.length() >=1) && (!usuario.contains("@")) &&
+						 (dominio.contains(".")) && (!dominio.contains("@")) && (dominio.indexOf(".") >=
+						 1) && (dominio.lastIndexOf(".") < dominio.length() - 1)) {
+						  
+						             
+						  
+						             } else {
+						  
+						                 textFieldEmailUm.setText("");
+						  
+						                 textFieldEmailUm.requestFocus();
+						  
+						             }
+						  
+						         } else {
+						  
+						             textFieldEmailUm.setText("");
+						  
+						             textFieldEmailUm.requestFocus();
+						  
+						         }
+			}
+		});
 		textFieldEmailUm.setColumns(10);
 		
 		textFieldFoneUm = new JTextField();
+		textFieldFoneUm.setDocument(new IntegerDocument(12));
 		textFieldFoneUm.setColumns(10);
 		
 		textFieldFoneDois = new JTextField();
+		textFieldFoneDois.setDocument(new IntegerDocument(12));
 		textFieldFoneDois.setColumns(10);
 		
 		GroupLayout groupLayout = new GroupLayout(this);

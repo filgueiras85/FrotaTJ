@@ -70,21 +70,7 @@ public class MBFornecedor {
 	}
 
 	
-	public static  String validarTelefone(String tel) {  
-		  
-	      String formato = "\\([0-9]{2}?\\)[0-9]{4}?\\-[0-9]{4}";
-	      String formato2 = "\\([0-9]{2}?\\)[0-9]{5}?\\-[0-9]{4}";
-	      String formato3 = "\\([0-9]{2}?\\)[0-9]{4}?\\-[0-9]{5}";
-	      String validar = "ok";  
-	      if(tel == null || tel.matches(formato3) || tel.matches(formato2) || tel.matches(formato)){  
-	    	  return validar;  
-	      } else {  
-	    	  JOptionPane.showMessageDialog(null,"Cadastro de número telefônico incorreto! /n O formato do número deve ser (DDD) 1111-1111.");
-		    
-		 
-	      }
-		return null;
-	   }  
+	
 	
 	  
 	
