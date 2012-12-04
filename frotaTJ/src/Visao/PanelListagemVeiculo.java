@@ -1,4 +1,5 @@
 package Visao;
+import javax.persistence.Query;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import mb.MBServico;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 
+import dao.EntityManagerHelper;
 import dao.Motorista;
 import dao.Servico;
 import dao.Unidade;
@@ -31,11 +33,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 
+import util.Pesquisa;
 import util.UsuarioUtil;
 
 
@@ -87,6 +91,24 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
+				List<Veiculo> listaVeiculo = new ArrayList<Veiculo>();
+				
+				for (int i=0; i<table.getRowCount(); i++){
+					((DefaultTableModel)table.getModel()).removeRow(i);
+				}
+				
+				listaVeiculo = findParametrizado(textFieldPlaca.getText(), comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()), "2", "OK");
+				
+				for (int i=0; i<listaVeiculo.size(); i++){
+					((DefaultTableModel)table.getModel()).addRow(new String[]{
+							listaVeiculo.get(i).getIdveiculo()+"", 
+							listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
+							listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
+							listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
+					
+				}
+				
+				/*((DefaultTableModel)table.getModel()).setRowCount(0);				
 				ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
 				
 				for (int i=0; i<table.getRowCount(); i++){
@@ -113,7 +135,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 			}
 		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));		
@@ -381,6 +403,61 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
 					listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 					listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
+		}
+	}
+	
+	
+	//---------------------------PESQUISA PARAMETRIZADA ----------------------\\
+	
+	@SuppressWarnings("unchecked")
+	public List<Veiculo> findParametrizado(String param1, String param2, String param3, String param4) {
+		EntityManagerHelper.log("finding all Abastecimento instances",
+				Level.INFO, null);
+
+		if (param2.equals("Selecionar") ){
+			param2 = "";
+		}
+		if (param3.equals("Selecionar") ){
+			param3 = "";
+		}
+		if (param4.equals("Selecionar") ){
+			param4 = "";
+		}
+		
+		try {
+			String queryString = "select * from veiculo ";
+			boolean temWhere=false;
+			if (param1.length()>0){
+				queryString += "where placa='"+param1+"',";
+				temWhere=true;
+			}
+			if (param2.length()>0){
+				if (!temWhere){
+					queryString += " where ";
+				}
+				queryString += " unidade_idunidade='"+param2+"',";
+				temWhere=true;
+			}
+			if (param3.length()>0){
+				if (!temWhere){
+					queryString += " where ";
+				}
+				queryString += " motorista_idmotorista='"+param3+"',";
+				temWhere=true;
+			}
+			if (param4.length()>0){
+				if (!temWhere){
+					queryString += " where ";
+				}
+				queryString += " situacao='"+param4+"'";
+				temWhere=true;
+			}			
+			
+			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find all failed", Level.SEVERE, re);
+			throw re;
 		}
 	}
 	/*
