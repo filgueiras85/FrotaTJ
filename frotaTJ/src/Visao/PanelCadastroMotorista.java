@@ -162,7 +162,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 								.addComponent(textFieldMatricula, GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnCancelar))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblUnidade)
@@ -192,7 +192,7 @@ public class PanelCadastroMotorista extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addGap(27))
+					.addContainerGap())
 		);
 		setLayout(groupLayout);
 		if (idMotoristaSelecionado>0){

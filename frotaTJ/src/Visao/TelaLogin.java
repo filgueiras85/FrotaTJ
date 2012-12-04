@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
@@ -78,9 +79,11 @@ public class TelaLogin extends JFrame {
 		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		JButton btnSair = new JButton("Sair");
+		btnSair.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		
@@ -135,24 +138,22 @@ public class TelaLogin extends JFrame {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSenha)
-						.addComponent(lblUsurio))
-					.addGap(25)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(27)
 							.addComponent(btnEntrar)
 							.addGap(32)
-							.addComponent(btnSair, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(btnSair))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblSenha)
+								.addComponent(lblUsurio))
+							.addGap(25)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(senhaUsuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-								.addComponent(cmbUsuario, 0, 231, Short.MAX_VALUE))
-							.addGap(70))))
+								.addComponent(senhaUsuario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+								.addComponent(cmbUsuario, 0, 223, Short.MAX_VALUE))))
+					.addGap(70))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -169,7 +170,7 @@ public class TelaLogin extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSair)
 						.addComponent(btnEntrar))
-					.addContainerGap(63, Short.MAX_VALUE))
+					.addContainerGap(51, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

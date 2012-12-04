@@ -214,12 +214,12 @@ public class PanelInicial extends PanelExemplo {
 						.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnPesquisar))
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnDetalhes)
 						.addComponent(btnRelatorioDePendencias))
-					.addContainerGap(27, Short.MAX_VALUE))
+					.addGap(0))
 		);
 		
 		

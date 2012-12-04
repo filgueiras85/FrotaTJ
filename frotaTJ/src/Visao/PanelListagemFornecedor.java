@@ -90,13 +90,13 @@ public class PanelListagemFornecedor extends PanelExemplo {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addComponent(lblListagemFornecedor, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnNovo)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar)))
+							.addComponent(btnApagar))
+						.addComponent(lblListagemFornecedor))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(

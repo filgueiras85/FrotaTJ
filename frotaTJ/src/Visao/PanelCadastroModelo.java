@@ -131,15 +131,15 @@ public class PanelCadastroModelo extends PanelExemplo {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblNome)
 							.addGap(18)
-							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+							.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnCancelar))
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMarca)
 							.addGap(18)
-							.addComponent(comboBoxMarca, 0, 616, Short.MAX_VALUE))
+							.addComponent(comboBoxMarca, 0, 367, Short.MAX_VALUE))
 						.addComponent(lblCadastroModelo))
 					.addContainerGap())
 		);
@@ -156,11 +156,11 @@ public class PanelCadastroModelo extends PanelExemplo {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboBoxMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMarca))
-					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancelar)
 						.addComponent(btnSalvar))
-					.addGap(27))
+					.addContainerGap())
 		);
 		setLayout(groupLayout);
 		if (idModeloSelecionado>0){

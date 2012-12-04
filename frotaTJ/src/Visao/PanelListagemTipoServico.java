@@ -114,25 +114,25 @@ public class PanelListagemTipoServico extends PanelExemplo {
 		btnRelatrioDeGastos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
 					.addGap(10))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(179, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(256, Short.MAX_VALUE)
 					.addComponent(btnRelatrioDeGastos)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnNovo)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnApagar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnEditar)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnApagar)
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblListagemTipoServico)
-					.addContainerGap(387, Short.MAX_VALUE))
+					.addContainerGap(378, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
