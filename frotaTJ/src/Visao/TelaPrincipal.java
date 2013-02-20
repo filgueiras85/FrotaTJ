@@ -40,6 +40,8 @@ import dao.Unidade;
 import dao.Usuario;
 
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class TelaPrincipal extends JFrame {
@@ -64,6 +66,23 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelConteudo);
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+			}
+		});
+		//-------------------------- Ícone TJSC --------------------------\\	
+		
+		JMenu mnTjsc = new JMenu();
+		mnTjsc.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				PanelInicial();
+			}
+		});
+		mnTjsc.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
+		mnTjsc.setIcon(new ImageIcon(winDir+"tjsclog1.png"));
+		menuBar.add(mnTjsc);
 		setJMenuBar(menuBar);
 
 

@@ -37,6 +37,7 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 
 public class PanelInicial extends PanelExemplo {
