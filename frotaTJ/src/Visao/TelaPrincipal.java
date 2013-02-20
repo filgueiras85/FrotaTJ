@@ -42,6 +42,7 @@ import dao.Usuario;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.IOException;
 
 
 public class TelaPrincipal extends JFrame {
@@ -76,10 +77,16 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnTjsc = new JMenu();
 		mnTjsc.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				PanelInicial();
-			}
-		});
+			public void mouseClicked(MouseEvent arg0){
+		        try
+		        {
+		        Process p=Runtime.getRuntime().exec("cmd /c start http://www.tj.sc.gov.br/");
+		        }
+		        catch(IOException e1) {System.out.println(e1);{
+		        }
+		        }
+		}
+	});
 		mnTjsc.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnTjsc.setIcon(new ImageIcon(winDir+"tjsclog1.png"));
 		menuBar.add(mnTjsc);
