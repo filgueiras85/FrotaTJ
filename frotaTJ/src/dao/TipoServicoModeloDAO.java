@@ -208,5 +208,19 @@ public class TipoServicoModeloDAO implements ITipoServicoModeloDAO {
 			throw re;
 		}
 	}
+	public List<TipoServicoModelo> findTipoServicoByModelo(Modelo modelo) {
+		List<TipoServicoModelo> tipoServicoModelo = null;
+		try {
+			Query query = getEntityManager().createNamedQuery("TipoServicoModelo.findByIdModelo");
+			query.setParameter("modelo", modelo);			
+			if(query.getResultList() != null){
+				tipoServicoModelo = (List<TipoServicoModelo>) query.getResultList();
+			}
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			throw re;
+		}
+	}
 
 }

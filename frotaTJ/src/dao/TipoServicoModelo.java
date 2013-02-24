@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Date;
+
 
 import dao.Modelo;
 
@@ -18,6 +20,12 @@ import dao.Modelo;
  */
 @Entity
 @Table(name = "tipo_servico_modelo", catalog = "frotatj")
+@javax.persistence.NamedQueries({
+    @javax.persistence.NamedQuery(
+		name="TipoServicoModelo.findByIdModelo",
+		query="SELECT tsm FROM TipoServicoModelo tsm WHERE tsm.modelo = :modelo ORDER BY Modelo"
+    )
+})
 public class TipoServicoModelo implements java.io.Serializable {
 
 	// Fields
@@ -27,6 +35,8 @@ public class TipoServicoModelo implements java.io.Serializable {
 	private TipoServico tipoServico;
 	private Integer km;
 	private Integer tempo;
+	private Date dataProximoServico;
+	private String situacao;
 
 	// Constructors
 
@@ -102,5 +112,21 @@ public class TipoServicoModelo implements java.io.Serializable {
 	public void setTempo(Integer tempo) {
 		this.tempo = tempo;
 	}
+	@Column(name = "data_proximo_servico")
+	public Date getDataProximoServico() {
+		return this.dataProximoServico;
+	}
 
+	public void setDataProximoServico(Date dataProximoServico) {
+		this.dataProximoServico = dataProximoServico;
+	}
+	
+	@Column(name = "situacao")
+	public String getSituacao() {
+		return this.situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 }

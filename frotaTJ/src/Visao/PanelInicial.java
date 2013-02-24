@@ -5,18 +5,25 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
 import dao.Modelo;
+import dao.TipoServicoModelo;
 import dao.Unidade;
 import dao.Veiculo;
 
 import mb.MBModelo;
+import mb.MBServico;
+import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
 import net.sf.jasperreports.engine.JRException;
@@ -29,6 +36,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +54,8 @@ public class PanelInicial extends PanelExemplo {
 	private JTextField textFieldPlaca;
 	private JComboBox<String> comboBoxSituacao;
 	private JComboBox<String> comboBoxUnidade;
+	final MBServico servicoMB = MBServico.getInstance();
+	final MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
 	
 	
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
@@ -237,22 +247,15 @@ public class PanelInicial extends PanelExemplo {
 		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"ID", "Placa", "Unidade", "Motorista", "Situa\u00E7\u00E3o", "Pend\u00EAncias"
+				"ID", "Placa", "Odometro", "Km Pr\u00F3ximo Servi\u00E7o", "Data Pr\u00F3ximo Servi\u00E7o", "Tipo Servi\u00E7o", "Situa\u00E7\u00E3o"
 			}
 		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
 		scrollPane.setViewportView(table);
-		try {
-			atualizarTabela();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		atualizaTabela2();
 		setLayout(groupLayout);
 
 	}
@@ -265,6 +268,82 @@ public class PanelInicial extends PanelExemplo {
 					listaVeiculo.get(i).getIdveiculo()+"", listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getUnidade().getNome(), listaVeiculo.get(i).getMotorista().getNome(), listaVeiculo.get(i).getSituacao()});
 		}
 	}
+	public  void atualizaTabela2() {
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+	
+
+		//Servico s1 = new Servico();
+		/* Ordem para por na tabela:
+		 * id veiculo
+		 * placa
+		 * odometro veiculo
+		 * serviço a fazer
+		 * km próximo servico (a fazer)
+		 * data próximo serviço (a fazer)
+		 * situação (verde, amarelo, vemelho)
+		 */
+
+		try {
+			List<Veiculo> veiculoTestado = mbVeiculo.statusTodosVeiculos();
+			String dataBR = "";
+			for (int i1=0;i1<veiculoTestado.size();i1++){
+				if(veiculoTestado.get(i1).getSituacao() != "verde"){
+					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.findTipoServicoByModelo(veiculoTestado.get(i1));
+					for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
+						if (tiposServicosModeloVeiculo.get(i).getSituacao() != "verde"){							
+							SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");  				  
+							dataBR = out.format( tiposServicosModeloVeiculo.get(i).getDataProximoServico().getTime() );							
+							((DefaultTableModel)table.getModel()).addRow(new String[] {
+									veiculoTestado.get(i1).getIdveiculo()+"",
+									veiculoTestado.get(i1).getPlaca(),								
+									veiculoTestado.get(i1).getOdometro()+"",
+									tiposServicosModeloVeiculo.get(i).getKm()+"", // km do proximo servico
+									dataBR, // data proximo servico
+									tiposServicosModeloVeiculo.get(i).getTipoServico().getNome(), // servico a fazer
+									veiculoTestado.get(i1).getSituacao(),
+									tiposServicosModeloVeiculo.get(i).getSituacao() //situacao do serviço
+							});							
+						}						
+					}				
+				}
+			}
+			
+			table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {  
+				public Component getTableCellRendererComponent(JTable table, Object value,  
+						boolean isSelected, boolean hasFocus, int row, int column) {  
+					super.getTableCellRendererComponent(table, value, isSelected,  
+							hasFocus, row, column);  
+					// para definir cores para a linha da tabela de acordo com a situacao do servico
+					
+						if (table.getValueAt(row, 6) =="vermelho") {  
+							setBackground(Color.RED);
+							setForeground(Color.WHITE);
+						} 
+						else if (table.getValueAt(row, 6) =="amarelo") {  
+							setBackground(Color.YELLOW);
+							setForeground(Color.BLACK);
+						} 
+						else {  
+							setBackground(null);
+							setForeground(null);
+						}	
+										
+											
+					return this;  
+				}  
+			});
+			table.getTableHeader().getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
+			table.getTableHeader().getColumnModel().getColumn( 0 ).setMinWidth( 0 ); 
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	
 	//----------------- Gerando o Relatório -------------------\\
 	

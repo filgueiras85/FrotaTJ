@@ -53,6 +53,8 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	private JComboBox<String> comboBoxModelo;
 	private JComboBox<String> comboBoxUnidade;
 	private JComboBox<Motorista> comboBoxMotorista;
+	private Date dataCadastro;
+	private int kmcadastro;
 
 	/**
 	 * Create the panel.
@@ -194,7 +196,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 					Date hoje = new Date(System.currentTimeMillis());
 					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null,Integer.parseInt(textFieldOdometro.getText().trim()), hoje );
 				}else{
-					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null);
+					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null, kmcadastro, dataCadastro);
 
 				}
 				try {
@@ -319,6 +321,8 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 				textFieldChassi.setText(v.getChassi());
 				textFieldOdometro.setText(v.getOdometro().toString());
 				comboBoxModelo.setSelectedItem(1);
+				kmcadastro = v.getKmCadastro();
+				dataCadastro =v.getDataCadastro();
 
 				//-------------Seleciona os ComboBoxs-------------\\
 				boolean aux = false ;
