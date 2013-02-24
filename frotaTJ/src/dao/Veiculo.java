@@ -2,6 +2,7 @@ package dao;
 // default package
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Calendar;
+
 
 import dao.Abastecimento;
 import dao.Modelo;
@@ -41,6 +44,8 @@ public class Veiculo implements java.io.Serializable {
 	private String chassi;
 	private Integer odometro;
 	private String situacao;
+	private Integer kmCadastro;
+	private Date dataCadastro; 
 	private Set<Abastecimento> abastecimentos = new HashSet<Abastecimento>(0);
 	private Set<Servico> servicos = new HashSet<Servico>(0);
 	private Set<TipoServicoVeiculo> tipoServicoVeiculos = new HashSet<TipoServicoVeiculo>(
@@ -53,6 +58,20 @@ public class Veiculo implements java.io.Serializable {
 	}
 	/**constructor de cadastro */
 	public Veiculo(Integer idVeiculo, Modelo modelo, Motorista motorista, Unidade unidade,
+			String placa, String renavan, String chassi, Integer odometro, String situacao, Integer kmCadastro, Date dataCadastro){
+		this.idveiculo = idVeiculo;
+		this.modelo = modelo;
+		this.motorista = motorista;
+		this.unidade = unidade;
+		this.placa = placa;
+		this.renavan = renavan;
+		this.chassi = chassi;
+		this.odometro = odometro;		
+		this.situacao = situacao;
+		this.kmCadastro = kmCadastro;
+		this.dataCadastro = dataCadastro;
+	}
+	public Veiculo(Integer idVeiculo, Modelo modelo, Motorista motorista, Unidade unidade,
 			String placa, String renavan, String chassi, Integer odometro, String situacao){
 		this.idveiculo = idVeiculo;
 		this.modelo = modelo;
@@ -63,6 +82,7 @@ public class Veiculo implements java.io.Serializable {
 		this.chassi = chassi;
 		this.odometro = odometro;		
 		this.situacao = situacao;
+		
 	}
 
 	/** minimal constructor */
@@ -206,6 +226,24 @@ public class Veiculo implements java.io.Serializable {
 		this.tipoServicoVeiculos = tipoServicoVeiculos;
 	}
 
+	
+	@Column(name = "km_cadastro")
+	public Integer getKmCadastro() {
+		return this.kmCadastro;
+	}
+
+	public void setKmCadastro(Integer kmCadastro) {
+		this.kmCadastro = kmCadastro;
+	}
+	
+	@Column(name = "data_cadastro")
+	public Date getDataCadastro() {
+		return this.dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 	public String toString()
 	{
 		return this.getPlaca();

@@ -34,7 +34,10 @@ import mb.MBVeiculo;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.ImageIcon;
@@ -186,7 +189,14 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Veiculo v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null);
+				Veiculo v = new Veiculo();
+				if(idVeiculoSelecionado==0){
+					Date hoje = new Date(System.currentTimeMillis());
+					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null,Integer.parseInt(textFieldOdometro.getText().trim()), hoje );
+				}else{
+					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null);
+
+				}
 				try {
 					if (idVeiculoSelecionado==0){
 						if (v.getIdveiculo()==0){
@@ -361,12 +371,12 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 			MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 			List<TipoServico> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicoModelo(v.getModelo().getIdmodelo());
-			String ok = "OK";
+			String ok = "verde";
 			String situacao=null;
 			String aux = null;
 			for(int i = 0;i<listaTipoServico.size();i++){
 				TipoServicoVeiculoId tipoServicoVeiculoId = new TipoServicoVeiculoId(v.getIdveiculo(), listaTipoServico.get(i).getIdtipoServico());
-				TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, v, listaTipoServico.get(i), "OK");
+				TipoServicoVeiculo tipoServicoVeiculo = new TipoServicoVeiculo(tipoServicoVeiculoId, v, listaTipoServico.get(i), "verde");
 				mbTipoServicoVeiculo.inserir(tipoServicoVeiculo);
 			}
 			List<TipoServicoVeiculo> lista = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(v.getIdveiculo());
@@ -377,7 +387,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			}
 			MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 			if(situacao.equalsIgnoreCase(aux)){
-				v.setSituacao("OK");
+				v.setSituacao("verde");
 				mbVeiculo.editar(v);
 
 			}

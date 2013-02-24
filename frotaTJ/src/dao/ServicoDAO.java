@@ -148,6 +148,23 @@ public class ServicoDAO implements IServicoDAO {
 			throw re;
 		}
 	}
+	public Servico findUltimoServico(Veiculo veiculo, TipoServico tipoServico) {
+
+		Servico servico = null;		
+		try {
+			Query query = getEntityManager().createNamedQuery("Servico.UltimoServico");
+			query.setParameter("veiculo", veiculo);
+			query.setParameter("tipoServico", tipoServico);
+			if(query.getSingleResult() != null){
+				servico = (Servico) query.getSingleResult();
+			}
+			return servico;
+		} catch (RuntimeException re) {
+			return null;
+			//EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			//throw re;
+		}
+	}
 
 	/**
 	 * Find all Servico entities with a specific property value.

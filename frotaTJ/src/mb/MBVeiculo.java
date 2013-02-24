@@ -7,14 +7,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
+
 
 import dao.Abastecimento;
 import dao.Modelo;
 import dao.Servico;
+import dao.ServicoDAO;
 import dao.TipoServicoModelo;
+import dao.TipoServicoModeloDAO;
 import dao.TipoServicoVeiculo;
 import dao.Veiculo;
-import dao.VeiculoDAO;;
+import dao.VeiculoDAO;
 
 public class MBVeiculo {
 	private static MBVeiculo veiculoMB = new MBVeiculo();
@@ -566,6 +570,92 @@ public class MBVeiculo {
 		editar(v);
 		return odometro;
 
+	}
+public List<Veiculo> statusTodosVeiculos () throws ClassNotFoundException, SQLException{
+		
+		List<Veiculo> veiculo = listarVeiculos();
+		List<TipoServicoModelo> tiposServicosModeloVeiculo = null;
+		String retorno = "";
+		TipoServicoModeloDAO tiposervicomodeloDAO = TipoServicoModeloDAO.getInstance();
+		ServicoDAO servicoDAO = ServicoDAO.getInstance();
+		Calendar hoje = Calendar.getInstance();
+
+		for (int i1=0;i1<veiculo.size();i1++){
+			
+			tiposServicosModeloVeiculo = (List<TipoServicoModelo>) mbTipoServiçoModelo.ListarosTipoServicodoModelo(veiculo.get(i1).getModelo().getIdmodelo());
+			
+			for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
+				// para cada tipo de servico busca o ultimo servico feito
+				// terminar o teste para cada servico quando != null
+
+				Servico ultimoServico = servicoDAO.findUltimoServico(veiculo.get(i1), tiposServicosModeloVeiculo.get(i).getTipoServico());
+
+				if ( ultimoServico != null ){
+					Calendar dataUltimoServicoPercent = Calendar.getInstance();  
+					dataUltimoServicoPercent.setTime(ultimoServico.getData2());
+					dataUltimoServicoPercent.add(Calendar.MONTH, ((tiposServicosModeloVeiculo.get(i).getTempo()-1)));  // adicionar 5 meses  
+
+					Calendar dataUltimoServico = Calendar.getInstance();   
+					dataUltimoServico.setTime(ultimoServico.getData2());
+					dataUltimoServico.add(Calendar.MONTH, (tiposServicosModeloVeiculo.get(i).getTempo()));  // adicionar 6 meses
+
+					if ( (veiculo.get(i1).getOdometro() > (ultimoServico.getKm() + (tiposServicosModeloVeiculo.get(i).getKm()*0.8)))  
+							|| ( hoje.after(dataUltimoServicoPercent) ) ) {					
+						if ( ( (veiculo.get(i1).getOdometro() > ( ultimoServico.getKm() + (tiposServicosModeloVeiculo.get(i).getKm()*0.8)) 
+								&& veiculo.get(i1).getOdometro() < ( ultimoServico.getKm() + (tiposServicosModeloVeiculo.get(i).getKm())) ) ) 
+								|| ( hoje.after(dataUltimoServicoPercent) && hoje.before(dataUltimoServico) ) ){
+							if( hoje.after(dataUltimoServico)){
+								retorno = "vermelho";
+							}						
+							else{
+								retorno = "amarelo";
+							}
+						}
+						else{
+							retorno = "vermelho";
+						}
+					}
+					else{
+						retorno = "verde";
+					}					
+				}
+				else{
+
+					Calendar dataCadastroPercent = Calendar.getInstance();  
+					dataCadastroPercent.setTime(veiculo.get(i1).getDataCadastro());
+					dataCadastroPercent.add(Calendar.MONTH, ((tiposServicosModeloVeiculo.get(i).getTempo()-1)));  // adicionar n-1 meses  
+
+					Calendar dataCadastro = Calendar.getInstance();   
+					dataCadastro.setTime(veiculo.get(i1).getDataCadastro());
+					dataCadastro.add(Calendar.MONTH, (tiposServicosModeloVeiculo.get(i).getTempo()));  // adicionar n meses
+
+					if ( (veiculo.get(i1).getOdometro() > (veiculo.get(i1).getKmCadastro() + (tiposServicosModeloVeiculo.get(i).getKm()*0.8)))  
+							|| ( hoje.after(dataCadastroPercent) ) ) {					
+						if ( ( (veiculo.get(i1).getOdometro() < ( veiculo.get(i1).getKmCadastro() + (tiposServicosModeloVeiculo.get(i).getKm())) 
+								&& veiculo.get(i1).getOdometro() < ( veiculo.get(i1).getKmCadastro() + (tiposServicosModeloVeiculo.get(i).getKm())) ) ) 
+								|| ( hoje.after(dataCadastroPercent) && hoje.before(dataCadastro) ) ){
+							if( hoje.after(dataCadastro) ){
+								retorno = "vermelho";
+							}
+							else{
+								retorno = "amarelo";
+							}						
+						}
+						else{
+							retorno = "vermelho";
+						}
+					}
+					else{
+						retorno = "verde";
+					}
+				}
+				
+							
+			}
+			veiculo.get(i1).setSituacao(retorno);
+			editar(veiculo.get(i1));								
+		}
+		return veiculo;
 	}
 	public static final int getMonthsDifference(Date date1, Date date2) {
 		int m1 = date1.getYear() * 12 + date1.getMonth();

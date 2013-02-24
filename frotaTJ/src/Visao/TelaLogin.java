@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import mb.MBUsuario;
+import mb.MBVeiculo;
 import util.UsuarioUtil;
 import dao.Usuario;
 import java.awt.Toolkit;
@@ -36,6 +37,7 @@ public class TelaLogin extends JFrame {
 
 	final MBUsuario mbUsuario = MBUsuario.getInstance();
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
+	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +45,7 @@ public class TelaLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					TelaLogin frame = new TelaLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -92,6 +95,7 @@ public class TelaLogin extends JFrame {
 		final Vector<Usuario> listaUsuario = new Vector<>();
 		Vector<String> listaNomeUsuario = new Vector<>();
 		try{
+			mbVeiculo.statusTodosVeiculos();
 			listaUsuario.addAll(mbUsuario.listarUsuarios());
 			for (int i=0;i<listaUsuario.size();i++){
 				listaNomeUsuario.add(listaUsuario.get(i).getNome());
