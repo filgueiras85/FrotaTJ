@@ -95,14 +95,15 @@ public class TelaLogin extends JFrame {
 		final Vector<Usuario> listaUsuario = new Vector<>();
 		Vector<String> listaNomeUsuario = new Vector<>();
 		try{
-			mbVeiculo.statusTodosVeiculos();
+
 			listaUsuario.addAll(mbUsuario.listarUsuarios());
 			for (int i=0;i<listaUsuario.size();i++){
 				listaNomeUsuario.add(listaUsuario.get(i).getNome());
 			}
 			DefaultComboBoxModel<String> modelCmbUsuario = new DefaultComboBoxModel<String>(listaNomeUsuario);
 			cmbUsuario.setModel(modelCmbUsuario);
-			
+			mbVeiculo.statusTodosVeiculos();
+
 		}catch (Exception e){
 			
 		}
