@@ -249,13 +249,13 @@ public class PanelInicial extends PanelExemplo {
 			}
 		});
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-						{null, null, null, null, null, null, null},
-				},
-				new String[] {
-						"ID", "Placa", "Odometro", "Km Pr\u00F3ximo Servi\u00E7o", "Data Pr\u00F3ximo Servi\u00E7o", "Tipo Servi\u00E7o", "Situa\u00E7\u00E3o"
-				}
-				));
+			new Object[][] {
+				{null, null, null, null},
+			},
+			new String[] {
+				"ID", "Placa", "Odometro", "Situa\u00E7\u00E3o"
+			}
+		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(37);
 		table.getColumnModel().getColumn(0).setMinWidth(30);
 		scrollPane.setViewportView(table);
@@ -292,7 +292,7 @@ public class PanelInicial extends PanelExemplo {
 		try {
 			List<Veiculo> veiculos = mbVeiculo.listarVeiculos();
 			String dataBR = "";
-			for (int i1=0;i1<veiculos.size();i1++){
+			/*for (int i1=0;i1<veiculos.size();i1++){
 				if(veiculos.get(i1).getSituacao() != "verde"){
 					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.atualizaStatusTodosVeiculos(veiculos.get(i1));
 					for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
@@ -313,7 +313,26 @@ public class PanelInicial extends PanelExemplo {
 						}						
 					}				
 				}
-			}
+			}*/
+			
+			for (int i1=0;i1<veiculos.size();i1++){
+				int i = veiculos.get(i1).getSituacao().compareToIgnoreCase("verde");
+				System.out.println(i);
+				if(i!=0){
+					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.atualizaStatusTodosVeiculos(veiculos.get(i1));
+
+							((DefaultTableModel)table.getModel()).addRow(new String[] {
+									veiculos.get(i1).getIdveiculo()+"",
+									veiculos.get(i1).getPlaca(),								
+									veiculos.get(i1).getOdometro()+"",
+									veiculos.get(i1).getSituacao()
+								
+							});							
+						}	
+				}
+									
+				
+			
 			
 			
 		/* aqui é pra listar somente os veiculos, sem os serviços... nao sei pq mas NAO FUNCIONA DE JEITO NENHUM!!!	
@@ -348,15 +367,19 @@ public class PanelInicial extends PanelExemplo {
 							hasFocus, row, column);  
 					// para definir cores para a linha da tabela de acordo com a situacao do servico
 
-					if (table.getValueAt(row, 6) =="vermelho") {  
+					if (table.getValueAt(row, 3) =="vermelho") {  
 						setBackground(Color.RED);
 						setForeground(Color.WHITE);
 					} 
-					else if (table.getValueAt(row, 6) =="amarelo") {  
+					else if (table.getValueAt(row, 3) =="amarelo") {  
 						setBackground(Color.YELLOW);
 						setForeground(Color.BLACK);
 					} 
-					else {  
+					else if (table.getValueAt(row, 2) =="verde") {  
+						setBackground(Color.GREEN);
+						setForeground(Color.BLACK);
+					}  else
+					{  
 						setBackground(null);
 						setForeground(null);
 					}	
