@@ -314,10 +314,11 @@ public class PanelInicial extends PanelExemplo {
 					}				
 				}
 			}*/
-			
+		System.out.println("verde".compareToIgnoreCase("vermelho"));
+		System.out.println("verde".compareToIgnoreCase("amarelo"));
+
 			for (int i1=0;i1<veiculos.size();i1++){
 				int i = veiculos.get(i1).getSituacao().compareToIgnoreCase("verde");
-				System.out.println(i);
 				if(i!=0){
 					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.atualizaStatusTodosVeiculos(veiculos.get(i1));
 
@@ -366,19 +367,17 @@ public class PanelInicial extends PanelExemplo {
 					super.getTableCellRendererComponent(table, value, isSelected,  
 							hasFocus, row, column);  
 					// para definir cores para a linha da tabela de acordo com a situacao do servico
-
-					if (table.getValueAt(row, 3) =="vermelho") {  
+					String cor =  table.getValueAt(row, 3).toString();
+					int ama = "verde".compareToIgnoreCase(cor);
+					if (ama ==-9) {  
 						setBackground(Color.RED);
 						setForeground(Color.WHITE);
 					} 
-					else if (table.getValueAt(row, 3) =="amarelo") {  
+					else if (ama ==21) {  
 						setBackground(Color.YELLOW);
 						setForeground(Color.BLACK);
 					} 
-					else if (table.getValueAt(row, 2) =="verde") {  
-						setBackground(Color.GREEN);
-						setForeground(Color.BLACK);
-					}  else
+					else
 					{  
 						setBackground(null);
 						setForeground(null);
