@@ -24,6 +24,7 @@ import javax.swing.JButton;
 
 import mb.MBUsuario;
 import mb.MBVeiculo;
+import util.ThreadAtualizaStatusVeiculos;
 import util.UsuarioUtil;
 import dao.Usuario;
 import java.awt.Toolkit;
@@ -37,7 +38,6 @@ public class TelaLogin extends JFrame {
 
 	final MBUsuario mbUsuario = MBUsuario.getInstance();
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
-	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +63,10 @@ public class TelaLogin extends JFrame {
      *  telaPrincipal, trocar usuario faz o logof e fica tela login
 	 */
 	public TelaLogin() {
+		
+		Thread thread = new Thread(new ThreadAtualizaStatusVeiculos());
+		thread.start();
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\7837_32x32.png"));
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +106,7 @@ public class TelaLogin extends JFrame {
 			}
 			DefaultComboBoxModel<String> modelCmbUsuario = new DefaultComboBoxModel<String>(listaNomeUsuario);
 			cmbUsuario.setModel(modelCmbUsuario);
-			mbVeiculo.statusTodosVeiculos();
+			
 
 		}catch (Exception e){
 			
