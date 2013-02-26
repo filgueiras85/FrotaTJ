@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
 import dao.Modelo;
@@ -38,6 +40,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -253,12 +256,25 @@ public class PanelInicial extends PanelExemplo {
 				"ID", "Placa", "Odometro", "Km Pr\u00F3ximo Servi\u00E7o", "Data Pr\u00F3ximo Servi\u00E7o", "Tipo Servi\u00E7o", "Situa\u00E7\u00E3o"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(0).setPreferredWidth(37);
+		table.getColumnModel().getColumn(0).setMinWidth(30);
 		scrollPane.setViewportView(table);
 		atualizaTabela2();
 		setLayout(groupLayout);
-
+		TableRowSorter<TableModel> sorter  = new TableRowSorter<TableModel>();	
+		Comparator<String> comparator = new Comparator<String>() {
+			public int compare(String s1, String s2) {
+				String[] strings1 = s1.split("\\s");
+				String[] strings2 = s2.split("\\s");
+				return strings1[strings1.length - 1]
+						.compareTo(strings2[strings2.length - 1]);
+			}
+		};
+		table.setRowSorter(sorter);
+		table.setAutoCreateRowSorter(true);
 	}
+	
+
 	//------------------------------- Métodos -------------------------\\
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
