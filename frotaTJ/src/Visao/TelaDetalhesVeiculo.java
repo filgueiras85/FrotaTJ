@@ -196,10 +196,20 @@ public class TelaDetalhesVeiculo extends JFrame {
 			new String[] {
 				"Servi\u00E7o", "Situa\u00E7\u00E3o", "Km Pr\u00F3ximo servi\u00E7o", "Data Pr\u00F3ximo Servi\u00E7o"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(129);
+		table.getColumnModel().getColumn(0).setMinWidth(75);
+		table.getColumnModel().getColumn(1).setPreferredWidth(56);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
-		atualizaTabela2();
+		atualizaTabela2(idVeiculoSelecionado);
 	}
 	
 	public void atualizarTabela(int idVeiculoSelecionado) throws ClassNotFoundException, SQLException{
@@ -217,7 +227,7 @@ public class TelaDetalhesVeiculo extends JFrame {
 			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}
 	}
-	public  void atualizaTabela2() {
+	public  void atualizaTabela2(int idVeiculo) {
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 	
 
@@ -233,21 +243,18 @@ public class TelaDetalhesVeiculo extends JFrame {
 		 */
 
 			String dataBR = "";
-					Veiculo v = mbVeiculo.retornarVeiculo(idVeiculoSelecionado);
+					Veiculo v = mbVeiculo.retornarVeiculo(idVeiculo);
 					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.findTipoServicoByModelo(v);
 					for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
 												
 							SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");  				  
 							dataBR = out.format( tiposServicosModeloVeiculo.get(i).getDataProximoServico().getTime() );							
 							((DefaultTableModel)table.getModel()).addRow(new String[] {
-									v.getIdveiculo()+"",
-									v.getPlaca(),								
-									v.getOdometro()+"",
+									tiposServicosModeloVeiculo.get(i).getTipoServico().getNome(), // servico a fazer
+									tiposServicosModeloVeiculo.get(i).getSituacao(), //situacao do serviço
+
 									tiposServicosModeloVeiculo.get(i).getKm()+"", // km do proximo servico
 									dataBR, // data proximo servico
-									tiposServicosModeloVeiculo.get(i).getTipoServico().getNome(), // servico a fazer
-									v.getSituacao(),
-									tiposServicosModeloVeiculo.get(i).getSituacao() //situacao do serviço
 							});							
 						}						
 								
@@ -261,15 +268,19 @@ public class TelaDetalhesVeiculo extends JFrame {
 							hasFocus, row, column);  
 					// para definir cores para a linha da tabela de acordo com a situacao do servico
 					
-						if (table.getValueAt(row, 6) =="vermelho") {  
+						if (table.getValueAt(row, 1) =="vermelho") {  
 							setBackground(Color.RED);
 							setForeground(Color.WHITE);
 						} 
-						else if (table.getValueAt(row, 6) =="amarelo") {  
+						else if (table.getValueAt(row, 1) =="amarelo") {  
 							setBackground(Color.YELLOW);
 							setForeground(Color.BLACK);
 						} 
-						else {  
+						else if(table.getValueAt(row, 1)=="verde") {  
+							setBackground(Color.GREEN);
+							setForeground(Color.BLACK);
+							}
+							else{  
 							setBackground(null);
 							setForeground(null);
 						}	
