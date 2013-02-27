@@ -123,6 +123,7 @@ public class MBTipoServiçoModelo {
 	}
 	
 	public List<TipoServicoModelo> atualizaStatusVeiculo (Veiculo veiculo){
+		System.out.println("Aqui ohh");
 		TipoServicoModeloDAO daoTiposervicomodelo = TipoServicoModeloDAO.getInstance();
 		ServicoDAO servicoDAO = ServicoDAO.getInstance();
 		MBVeiculo veiculoMB = MBVeiculo.getInstance();
@@ -215,19 +216,21 @@ public class MBTipoServiçoModelo {
 			}								
 		}
 		
-		if (veiculo.getSituacao() == "verde" && retorno == "amarelo"){
+		int i = veiculo.getSituacao().compareToIgnoreCase("verde");
+
+		if (i == 0 && retorno == "amarelo"){
 			veiculo.setSituacao("amarelo");
 		}
-		if (veiculo.getSituacao() == "verde" && retorno == "vermelho"){
+		if (i == 0 && retorno == "vermelho"){
 			veiculo.setSituacao("vermelho");
 		}
-		if (veiculo.getSituacao() == "amarelo" && retorno == "verde"){
+		if (i == -21 && retorno == "verde"){
 			veiculo.setSituacao("amarelo");
 		}
-		if (veiculo.getSituacao() == "amarelo" && retorno == "vermelho"){
+		if (i==-21 && retorno == "vermelho"){
 			veiculo.setSituacao("vermelho");
 		}				
-		if (veiculo.getSituacao() == "vermelho" && retorno != "vermelho"){
+		if (i == 9 && retorno != "vermelho"){
 			veiculo.setSituacao("vermelho");
 		}		
 		veiculoMB.editar(veiculo);
