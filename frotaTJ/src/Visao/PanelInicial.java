@@ -318,9 +318,10 @@ public class PanelInicial extends PanelExemplo {
 		System.out.println("verde".compareToIgnoreCase("amarelo"));
 
 			for (int i1=0;i1<veiculos.size();i1++){
+				List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.atualizaStatusTodosVeiculos(veiculos.get(i1));
+
 				int i = veiculos.get(i1).getSituacao().compareToIgnoreCase("verde");
 				if(i!=0){
-					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.atualizaStatusTodosVeiculos(veiculos.get(i1));
 
 							((DefaultTableModel)table.getModel()).addRow(new String[] {
 									veiculos.get(i1).getIdveiculo()+"",
