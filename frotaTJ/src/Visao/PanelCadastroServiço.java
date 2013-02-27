@@ -74,6 +74,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	private MBMotorista mbMotorista = MBMotorista.getInstance();
 	private MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 	private MBFornecedor mbFornecedor= MBFornecedor.getInstance();
+	
 
 	/**
 	 * Create the panel.
@@ -237,9 +238,11 @@ public class PanelCadastroServiço extends PanelExemplo {
 							s.setIdServico(null);
 						}
 						String retorno = mbServico.inserir(s);
+						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
 
-							mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+							
 
 							JOptionPane.showMessageDialog(null,"Serviço inserido!");
 
@@ -249,8 +252,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 					}else{
 
 						String retorno =  mbServico.editar(s);
+						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+							
 							JOptionPane.showMessageDialog(null,"Serviço alterado!");
 
 						}else{

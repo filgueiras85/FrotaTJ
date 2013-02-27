@@ -55,6 +55,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 	private JTextField textFieldData;
 	private JTextField textFieldHodometro;
 	private JComboBox<Veiculo> comboBoxPlaca;
+	private MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 
 
 	/**
@@ -83,16 +84,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textFieldData.setColumns(10);
 		
-		JFormattedTextField dztz = new JFormattedTextField(Calendar.getInstance());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendario = Calendar.getInstance();
-        try {
-			calendario.setTime(dateFormat.parse(textFieldData.getText()));
-			System.out.println(textFieldData);
-		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		
 		
 		JLabel lblHodometro = new JLabel("Hod\u00F4metro");
 		lblHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -161,9 +153,10 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 							a.setIdabastecimento(null);
 						}
 						String retorno = mbAbastecimento.inserir(a);
+						mbVeiculo.AtualizarOdometro(Integer.parseInt(textFieldHodometro.getText()), comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()));
+						
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
-							
 							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 							//PanelListagemAbastecimento();
 						}else{
@@ -172,9 +165,10 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 					}else{
 
 						String retorno =  mbAbastecimento.editar(a);
+						mbVeiculo.AtualizarOdometro(Integer.parseInt(textFieldHodometro.getText()), comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()));
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoAbastecimento(a, mbVeiculo.AtualizarOdometro(a.getKmOdometro(), a.getVeiculo()));
-							JOptionPane.showMessageDialog(null,"Cadastro alterado!");
+							
 							//PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);

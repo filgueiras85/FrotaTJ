@@ -562,12 +562,13 @@ public class MBVeiculo {
 		System.out.println(v.getAbastecimentos());
 		System.out.println("olamundo");
 	}
-	public int AtualizarOdometro(int aux, Veiculo v){
+	public int AtualizarOdometro(int aux, int v){
+		Veiculo v2 = retornarVeiculo(v);
+		int odometro = v2.getOdometro();
 
-		int odometro = v.getOdometro();
-
-		v.setOdometro(aux);
-		editar(v);
+		v2.setOdometro(aux);
+		editar(v2);
+		System.out.println("entrou");
 		return odometro;
 
 	}
