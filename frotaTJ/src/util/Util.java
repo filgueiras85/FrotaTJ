@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -22,6 +23,7 @@ public class Util extends JTextField{
 		return util;		
 	}
 	
+
 	public static String mascaraHodometro (String hodometro) throws ParseException{
 		String base6 = "nnnnnn";
 		String base5 = "nnnnn";

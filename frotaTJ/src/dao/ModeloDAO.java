@@ -2,6 +2,7 @@ package dao;
 // default package
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -24,10 +25,10 @@ import dao.EntityManagerHelper;
 public class ModeloDAO implements IModeloDAO {
 	// property constants
 	public static final String NOME = "nome";
-	
+
 	private static ModeloDAO instance = new ModeloDAO();
 	private ModeloDAO(){
-		
+
 	}
 	public static ModeloDAO getInstance(){ return instance;}
 
@@ -195,5 +196,44 @@ public class ModeloDAO implements IModeloDAO {
 			throw re;
 		}
 	}
+	public List<Modelo> ModeloServicoUnidade(final Object idUnidade, final Object idTipoServico, final Object idMarca) {
+		EntityManagerHelper.log("finding Servico instance with property: ", Level.INFO, null);
+		try {
+			String queryString;
+			if (idTipoServico.equals(0)) {
+				queryString = "select modelo.nome from servico, veiculo, modelo " +
+						"where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.modelo_idmodelo = modelo.idmodelo " +
+						"and veiculo.unidade_idunidade =" + idUnidade+ " and modelo.marca_idmarca =" +idMarca+ " group by modelo.nome";
+			}else{
+				queryString = "select modelo.nome from servico, veiculo, modelo " +
+						"where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.modelo_idmodelo = modelo.idmodelo " +
+						"and veiculo.unidade_idunidade ="+ idUnidade +" and servico.tipo_servico_idtipo_servico =" + idTipoServico;
+
+			}
+
+			Query query = getEntityManager().createNativeQuery(queryString);
+
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
+	}	
+	public List<Modelo> ModeloMarca(Object marca) {
+
+		List<Modelo> modelo = new ArrayList<>();		
+		try {
+			Query query = getEntityManager().createNamedQuery("ModeloMarca");
+			query.setParameter("marca", marca);
+			return modelo = query.getResultList();
+		} catch (RuntimeException re) {
+			
+			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			return null;
+			//throw re;
+		}
+	}
+	
 
 }

@@ -24,6 +24,7 @@ import dao.EntityManagerHelper;
 public class TipoServicoDAO implements ITipoServicoDAO {
 	// property constants
 	public static final String NOME = "nome";
+	public static final String ID = "idtipo_servico";
 	
 	private static TipoServicoDAO instance = new TipoServicoDAO();
 	private TipoServicoDAO(){}
@@ -159,8 +160,7 @@ public class TipoServicoDAO implements ITipoServicoDAO {
 	 * @return List<TipoServico> found by query
 	 */
 	@SuppressWarnings("unchecked")
-	public List<TipoServico> findByProperty(String propertyName,
-			final Object value) {
+	public List<TipoServico> findByProperty(String propertyName, final Object value) {
 		EntityManagerHelper.log("finding TipoServico instance with property: "
 				+ propertyName + ", value: " + value, Level.INFO, null);
 		try {
@@ -176,6 +176,25 @@ public class TipoServicoDAO implements ITipoServicoDAO {
 		}
 	}
 
+
+	@SuppressWarnings("unchecked")
+	public List<TipoServico> findById(String propertyName, final Object value) {
+		EntityManagerHelper.log("finding TipoServico instance with property: "
+				+ propertyName + ", value: " + value, Level.INFO, null);
+		try {
+			final String queryString = "select model from TipoServico model where model."
+					+ propertyName + "= :propertyValue";
+			Query query = getEntityManager().createQuery(queryString);
+			query.setParameter("propertyValue", value);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
+	}
+	
+	
 	public List<TipoServico> findByNome(Object nome) {
 		return findByProperty(NOME, nome);
 	}
@@ -198,5 +217,6 @@ public class TipoServicoDAO implements ITipoServicoDAO {
 			throw re;
 		}
 	}
+	
 
 }

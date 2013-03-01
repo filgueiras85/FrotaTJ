@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import dao.Fornecedor;
 import dao.FornecedorDAO;
+import dao.Servico;
 
 public class MBFornecedor {
 	private static MBFornecedor fornecedorMB = new MBFornecedor();
@@ -69,11 +70,6 @@ public class MBFornecedor {
 		}
 	}
 
-	
-	
-	
-	  
-	
 	public Fornecedor retornarFornecedor(int id) {
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		return daoFornecedor.findById(id);
@@ -84,6 +80,23 @@ public class MBFornecedor {
 		FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
 		return daoFornecedor.findAll();
 	}
+	public List<Fornecedor> FornecedorServico(List<Servico> listaServicos) throws ClassNotFoundException, SQLException{
+		List<Fornecedor> listaFornecedor = listarFornecedores();
+		List<Fornecedor> fornecedor = new ArrayList<>();
+		for(int i=0;i<listaFornecedor.size();i++){
+			for(int j=0;j<listaServicos.size();j++){
+				if(listaFornecedor.get(i).getIdfornecedor() == listaServicos.get(j).getFornecedor().getIdfornecedor()){
+					Fornecedor f = retornarFornecedor(listaFornecedor.get(i).getIdfornecedor());
+					if(!fornecedor.contains(f)){
+						fornecedor.add(f);
+					}
+				}
+			}
+		}
+		return fornecedor;
+			
+	}
+		
 }
 
 
@@ -94,3 +107,4 @@ public class MBFornecedor {
 
 
 
+ 

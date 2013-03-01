@@ -13,6 +13,7 @@ import dao.Modelo;
 import dao.Servico;
 import dao.TipoServicoModelo;
 import dao.TipoServicoVeiculo;
+import dao.Unidade;
 import dao.Veiculo;
 import dao.VeiculoDAO;;
 
@@ -76,6 +77,66 @@ public class MBVeiculo {
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		return daoVeiculo.findAll();
 	}
+	
+	public List<Veiculo> VeiculosUnidade(Unidade unidade) throws ClassNotFoundException, SQLException{
+		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
+		List<Veiculo> veiculo = daoVeiculo.VeiculoUnidade(unidade);
+		for(int i=0;i<veiculo.size();i++){
+			Veiculo v = retornarVeiculo(veiculo.get(i).getIdveiculo());
+			if(!veiculo.contains(v)){
+				//veiculo.add(veiculo.get(i));
+			}
+		}
+		return veiculo;
+	}
+	
+	public List<Veiculo> VeiculoPlaca(List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
+			if(!veiculo.contains(v)){
+				veiculo.add(v);
+			}
+		}
+		return veiculo;
+	}
+	
+	public List<Veiculo> VeiculoTipoServico(List<Veiculo> listaVeiculos, List<Servico> tipoServico) throws ClassNotFoundException, SQLException{
+		
+		List<Veiculo> veiculo = new ArrayList<>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			for(int j=0;j<tipoServico.size();j++){
+				if(listaVeiculos.get(i).getIdveiculo() == tipoServico.get(j).getVeiculo().getIdveiculo()){
+					
+					Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+		
+	
+	
+	public List<Veiculo> VeiculoModelo(List<Veiculo> listaVeiculos, List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			for(int j=0;j<listaModelo.size();j++){
+				if(listaVeiculos.get(i).getModelo().getIdmodelo() == listaModelo.get(j).getIdmodelo()){
+					Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+	
+	
+	
 	public List<Veiculo> ListarosVeiculodoModelo(Modelo modelo) {
 		List<Veiculo> Lista1;
 		try {
@@ -563,7 +624,7 @@ public class MBVeiculo {
 		System.out.println(v.getAbastecimentos());
 		System.out.println("olamundo");
 	}
-public int AtualizarOdometro(int aux, Veiculo v){
+	public int AtualizarOdometro(int aux, Veiculo v){
 		
 		int odometro = v.getOdometro();
 		
@@ -572,7 +633,7 @@ public int AtualizarOdometro(int aux, Veiculo v){
 			 return odometro;
 				
 		}
-public static final int getMonthsDifference(Date date1, Date date2) {
+	public static final int getMonthsDifference(Date date1, Date date2) {
     int m1 = date1.getYear() * 12 + date1.getMonth();
     int m2 = date2.getYear() * 12 + date2.getMonth();
     return m2 - m1 + 1;

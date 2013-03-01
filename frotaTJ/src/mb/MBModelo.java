@@ -7,23 +7,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.Marca;
 import dao.Modelo;
 import dao.ModeloDAO;
+import dao.TipoServico;
+import dao.Veiculo;
 
 public class MBModelo {
 	private static MBModelo modeloMB = new MBModelo();
-	
+
 	private MBModelo(){
-		
+
 	}
-	
+
 	public static MBModelo getInstance(){
 		return modeloMB;
-		
+
 	}
-	
+
 	public String inserir(Modelo modelo) {
-		
+
 		String retorno = "Cadastro inserido.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		try {
@@ -33,7 +36,7 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 	public String editar(Modelo modelo) {
 		String retorno = "Cadastro alterado.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
@@ -44,7 +47,7 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 
 	public String apagar(Modelo modelo) {
 		String retorno = "Cadastro removido.";
@@ -56,17 +59,39 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 	public Modelo retornarModelo(int id) {
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.findById(id);
-		
+
 	}
 
 	public List<Modelo> listarModelos() throws ClassNotFoundException, SQLException{
 		ModeloDAO daoModelo= ModeloDAO.getInstance();
 		return daoModelo.findAll();
 	}
+
+	public List<Modelo> listaModeloServicoUnidade(int idUnidade, int idTipoServico, int idMarca) throws ClassNotFoundException, SQLException{
+		ModeloDAO daoModelo = ModeloDAO.getInstance();
+		return daoModelo.ModeloServicoUnidade(idUnidade, idTipoServico, idMarca);
+	}
+	public List<Modelo> ModeloVeiculo(List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
+		List<Modelo> modelo = new ArrayList();
+		for(int i=0;i<listaVeiculos.size();i++){
+			Modelo m = retornarModelo(listaVeiculos.get(i).getModelo().getIdmodelo());
+			if(!modelo.contains(m)){
+		//		modelo.add(m);
+			}
+		}
+
+		return modelo;		
+	}
+
+	public List<Modelo> ModeloMarca(Marca marca){
+		ModeloDAO daoModelo = ModeloDAO.getInstance();
+		return daoModelo.ModeloMarca(marca);
+	}
+
 }
 
 

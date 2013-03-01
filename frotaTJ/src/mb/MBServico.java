@@ -6,12 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import dao.Servico;
 import dao.ServicoDAO;
 import dao.TipoServico;
 import dao.TipoServicoModelo;
 import dao.TipoServicoVeiculo;
+import dao.Veiculo;
 
 public class MBServico {
 	private static MBServico servicoMB = new MBServico();
@@ -97,6 +99,45 @@ public class MBServico {
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		return daoServico.findAll();
 	}
+	public List<Servico> ServicoPorVeiculo (List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = listarServicos();
+		List<Servico> servico = new ArrayList();
+		for(int i=0;i<listaServico.size();i++){
+			for(int j=0;j<listaVeiculos.size();j++){
+				if(listaServico.get(i).getVeiculo().getIdveiculo() == listaVeiculos.get(j).getIdveiculo()){
+					Servico s = retornarServico(listaServico.get(i).getIdServico());
+					if(!servico.contains(s)){
+						servico.add(s);
+					}
+				}
+			}
+		}
+		return servico;
+	}
+	
+	
+	public List<Servico> listaServicoPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		return daoServico.findServicoByUnidade(idUnidade);
+	}
+	public List<Servico> listarTipoServicoUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
+
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		return daoServico.TipoServicoUnidade(idUnidade);
+	}
+	public List<Servico> listaMotoristaTipoServicoUnidade(int idUnidade, int tipoServico) throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		return daoServico.MotoristaTipoServicoUnidade(idUnidade, tipoServico);
+	}
+	public List<Servico> listaServicoPlacaVeiculo() throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		return daoServico.ServicoPlacaVeiculo();
+	}
+	public List<Servico> ServicoTipoServico(TipoServico tipoServico) throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		return daoServico.ServicoTipoServico(tipoServico);
+	}
+	
 }
 
 

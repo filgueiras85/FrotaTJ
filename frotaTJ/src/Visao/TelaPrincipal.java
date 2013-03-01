@@ -301,6 +301,15 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_9);
 
+		JMenuItem menuItem_10 = new JMenuItem("Total Gasto");
+		menuItem_10.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
+		menuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelRelatorioTotalGasto();
+			}
+		});
+		mnListar.add(menuItem_10);
+		
 		//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {
@@ -687,6 +696,17 @@ public class TelaPrincipal extends JFrame {
 			setVisible(false);
 			TelaLogin();
 		}			
+	}
+	public void PanelRelatorioTotalGasto(){
+		if (usuarioLogado.tempoLogin()){
+			PanelRelatorioTotalGasto panelRelatorio = new PanelRelatorioTotalGasto();
+			panelConteudo.add(panelRelatorio, "panelRelatorio");
+			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
+			cardLayout.show(panelConteudo,"panelRelatorio");
+		}else{
+			setVisible(false);
+			TelaLogin();
+		}	
 	}
 }
 

@@ -8,14 +8,21 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import mb.MBUsuario;
@@ -105,7 +112,10 @@ public class PanelListagemUsuario extends PanelExemplo {
 				new String[] {
 						"Id", "Nome", "Matricula", "Email", "Tipo Usuario"
 				}
+				
 				));
+       
+		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 		setLayout(groupLayout);
 
@@ -125,6 +135,9 @@ public class PanelListagemUsuario extends PanelExemplo {
 				}
 			}
 		});
+
+
+
 
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
