@@ -41,7 +41,8 @@ public class Unidade implements java.io.Serializable {
 		this.idunidade = idunidade;
 		this.nome = nome;
 	}
-	
+
+
 	/** full constructor */
 	public Unidade(String nome, Set<Motorista> motoristas,
 			Set<Veiculo> veiculos, Set<Veiculo> veiculos_1) {

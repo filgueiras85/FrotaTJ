@@ -162,8 +162,13 @@ public class PanelListagemUsuario extends PanelExemplo {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroUsuario(idUsuario);
 		} catch (Exception e) {
-			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroUsuario(idUsuario);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroUsuario(idUsuario);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroUsuario(idUsuario);
+			}
 			//parent.trocaPainel(this, "panelCadastroUsuario" );
 		}
 	}

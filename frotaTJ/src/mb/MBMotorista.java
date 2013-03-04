@@ -67,6 +67,12 @@ public class MBMotorista {
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		return daoMotorista.findAll();
 	}
+
+	public List<Motorista> listarMotoristasPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
+		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
+		return daoMotorista.findByUnidade(MBUnidade.getInstance().retornarUnidade(idUnidade));
+	}
+
 }
 
 

@@ -59,6 +59,10 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
+	
+	public PanelCadastroVeiculo() {
+		new PanelCadastroVeiculo(0);
+	}
 	public PanelCadastroVeiculo(final int idVeiculoSelecionado) {
 		final MBVeiculo mbVeiculo= MBVeiculo.getInstance();
 		final MBModelo mbModelo = MBModelo.getInstance();
@@ -366,8 +370,13 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemVeiculo();
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemVeiculo();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemVeiculo();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemVeiculo();
+			}
 		}
 	}
 	public void Situação(Veiculo v, int idVeiculoSelecionado){

@@ -263,12 +263,19 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}
 	}
 	public void PanelListagemAbastecimento(){
+		
+		
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemAbastecimento();
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemAbastecimento();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemAbastecimento();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemAbastecimento();
+			}
 		}
 
 	}
