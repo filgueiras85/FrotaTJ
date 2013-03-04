@@ -392,6 +392,10 @@ public class TelaPrincipal extends JFrame {
 		modeloComboBox = new DefaultComboBoxModel<Unidade>(vetorUnidades);
 		comboBoxUnidade.setModel(modeloComboBox);
 		
+		// se nenhum filtro tiver sido aplicado eu seleciono a primeira unidade da lista
+		if (Filtros.getIdUnidadeSelecionada()==null)
+			Filtros.setIdUnidadeSelecionada(comboBoxUnidade.getItemAt(0).getIdunidade());
+		
 		
 		
 		JPanel panelFiltro = new JPanel(new FlowLayout(FlowLayout.RIGHT));
