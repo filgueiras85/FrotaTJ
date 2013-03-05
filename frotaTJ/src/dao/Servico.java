@@ -28,6 +28,16 @@ import dao.Veiculo;
  */
 @Entity
 @Table(name = "servico", catalog = "frotatj")
+@javax.persistence.NamedQueries({
+    @javax.persistence.NamedQuery(
+		name="Servico.UltimoServico",
+		query="SELECT s FROM Servico s WHERE s.veiculo = :veiculo and s.tipoServico = :tipoServico " +
+				"and data2 = (select max(s.data2) from Servico s  WHERE s.veiculo = :veiculo and s.tipoServico = :tipoServico))"
+    ),
+    @javax.persistence.NamedQuery(
+    		name="Servico.ContaServicos",
+    		query="SELECT s FROM Servico s WHERE s.veiculo = :veiculo and s.tipoServico = :tipoServico ")
+})
 public class Servico implements java.io.Serializable {
 
 	// Fields
