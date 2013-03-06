@@ -69,6 +69,11 @@ public class MBVeiculo {
 		}
 		return retorno;
 	}
+	
+	public List<Veiculo> listarVeiculosPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
+		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
+		return daoVeiculo.findByUnidade(MBUnidade.getInstance().retornarUnidade(idUnidade));
+	}
 
 	public Veiculo retornarVeiculo(int id) {
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();

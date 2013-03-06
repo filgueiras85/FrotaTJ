@@ -28,6 +28,7 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public static final String CHASSI = "chassi";
 	public static final String ODOMETRO = "odometro";
 	public static final String SITUACAO = "situacao";
+	public static final String UNIDADE = "unidade";
 	
 	private static VeiculoDAO instance = new VeiculoDAO();
 	private VeiculoDAO(){}
@@ -213,5 +214,8 @@ public class VeiculoDAO implements IVeiculoDAO {
 			throw re;
 		}
 	}
-
+	
+	public List<Veiculo> findByUnidade(Object unidade) {
+		return findByProperty(UNIDADE, unidade);
+	}
 }

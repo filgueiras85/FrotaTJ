@@ -102,6 +102,8 @@ public interface IVeiculoDAO {
 	public List<Veiculo> findByOdometro(Object odometro);
 
 	public List<Veiculo> findBySituacao(Object situacao);
+	
+	public List<Veiculo> findByUnidade(Object unidade);
 
 	/**
 	 * Find all Veiculo entities.

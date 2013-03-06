@@ -45,6 +45,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 
+import util.Filtros;
 import util.Pesquisa;
 import util.UsuarioUtil;
 
@@ -411,6 +412,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	
 	public void pendencias() throws ClassNotFoundException, SQLException{
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
 		for (int i=0;i<listaVeiculo.size();i++){
 			List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(Integer.parseInt(table.getValueAt(i, 0).toString()));
 			for (int j=0; j<listaTipoServicoVeiculo.size(); j++){
@@ -425,7 +427,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
 		
 
 
