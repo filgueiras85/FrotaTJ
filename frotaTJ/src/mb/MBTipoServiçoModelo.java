@@ -354,6 +354,7 @@ public class MBTipoServiçoModelo {
 			List<TipoServicoModelo> tsmResultado = daoTiposervicomodelo.findTipoServicoByModelo(veiculo.getModelo());
 			List<TipoServicoModelo> tsm = daoTiposervicomodelo.findTipoServicoByModelo(veiculo.getModelo());		
 			tsmResultado.clear();
+			String auxiliarStatus = "";
 
 			Calendar hoje = Calendar.getInstance();
 			Calendar dataProximoServicoPercent = Calendar.getInstance();  
@@ -438,22 +439,21 @@ public class MBTipoServiçoModelo {
 					tsmTemp.setSituacao(retorno);
 					tsmResultado.add(i, tsmTemp);			
 				}								
+				auxiliarStatus = auxiliarStatus+retorno;
 			}
-			if (veiculo.getSituacao() == "verde" && retorno == "amarelo"){
-				veiculo.setSituacao("amarelo");
-			}
-			if (veiculo.getSituacao() == "verde" && retorno == "vermelho"){
+			
+			if (auxiliarStatus.contains("vermelho")){
 				veiculo.setSituacao("vermelho");
+			}else{
+				if (auxiliarStatus.contains("amarelo")){
+					veiculo.setSituacao("amarelo");
+				}else{
+					veiculo.setSituacao("verde");
+
+				}
 			}
-			if (veiculo.getSituacao() == "amarelo" && retorno == "verde"){
-				veiculo.setSituacao("amarelo");
-			}
-			if (veiculo.getSituacao() == "amarelo" && retorno == "vermelho"){
-				veiculo.setSituacao("vermelho");
-			}				
-			if (veiculo.getSituacao() == "vermelho" && retorno != "vermelho"){
-				veiculo.setSituacao("vermelho");
-			}		
+			
+				
 			return tsmResultado;
 		}
 }
