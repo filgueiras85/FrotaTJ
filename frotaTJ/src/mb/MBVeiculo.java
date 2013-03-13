@@ -570,9 +570,11 @@ public class MBVeiculo {
 	public int AtualizarOdometro(int aux, int v){
 		Veiculo v2 = retornarVeiculo(v);
 		int odometro = v2.getOdometro();
-
-		v2.setOdometro(aux);
-		editar(v2);
+		if (odometro<aux){
+			v2.setOdometro(aux);
+			editar(v2);
+		}
+		
 		System.out.println("entrou");
 		return odometro;
 
