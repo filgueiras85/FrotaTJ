@@ -71,7 +71,7 @@ public class JCalendar extends JComboBox {
     super.setEditable(true);
   }
 
-  private String getTime() {
+  public static String getTime() {
     return new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
   }
 
