@@ -29,7 +29,7 @@ public class ServicoDAO implements IServicoDAO {
 	public static final String NF_TICKET = "nfTicket";
 	public static final String DESCRICAO = "descricao";
 	public static final String KM = "km";
-	
+
 	private static ServicoDAO instance = new ServicoDAO();
 	private ServicoDAO(){}
 	public static ServicoDAO getInstance(){ return instance;}
@@ -164,7 +164,7 @@ public class ServicoDAO implements IServicoDAO {
 	public List<Servico> findByProperty(String propertyName, final Object value) {
 		EntityManagerHelper.log("finding Servico instance with property: "
 				+ propertyName + ", value: " + value, Level.INFO, null);
-				
+
 		try {
 			final String queryString = "select model from Servico model from where model."
 					+ propertyName + "= :propertyValue";
@@ -177,59 +177,59 @@ public class ServicoDAO implements IServicoDAO {
 			throw re;
 		}
 	}
-	
+
 
 	public List<Servico> findServicoByUnidade(final Object idUnidade) {
-	EntityManagerHelper.log("buscando servico da unidade : " + idUnidade
-		, Level.INFO, null);
+		EntityManagerHelper.log("buscando servico da unidade : " + idUnidade
+				, Level.INFO, null);
 		String queryString = "select servico.* from servico, veiculo where servico.veiculo_idveiculo = veiculo.idveiculo " +
 				"and veiculo.unidade_idunidade = " + idUnidade;
-	try {
+		try {
 
-		//Query query = getEntityManager().createNativeQuery("select servico.idservico, servico.usuario_idusuario, servico.motorista_idmotorista," +
-		//		"servico.tipo_servico_idtipo_servico, servico.veiculo_idveiculo, servico.fornecedor_idfornecedor, servicofrom servico, " +
-		//		"veiculo where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.unidade_idunidade =" + idUnidade);
-		Query query = getEntityManager().createNativeQuery(queryString);
-		return query.getResultList();
-	} catch (RuntimeException re) {
-		EntityManagerHelper.log("find by property name failed",
-				Level.SEVERE, re);
-		throw re;
+			//Query query = getEntityManager().createNativeQuery("select servico.idservico, servico.usuario_idusuario, servico.motorista_idmotorista," +
+			//		"servico.tipo_servico_idtipo_servico, servico.veiculo_idveiculo, servico.fornecedor_idfornecedor, servicofrom servico, " +
+			//		"veiculo where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.unidade_idunidade =" + idUnidade);
+			Query query = getEntityManager().createNativeQuery(queryString);
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
 	}
-	}
-	
+
 	public List<Servico> TipoServicoUnidade(final Object idUnidade) {
-	EntityManagerHelper.log("finding Servico instance with property: "
-		, Level.INFO, null);
-	try {
+		EntityManagerHelper.log("finding Servico instance with property: "
+				, Level.INFO, null);
+		try {
 
-		Query query = getEntityManager().createNativeQuery("select servico.tipo_servico_idtipo_servico from servico, " +
-				"veiculo where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.unidade_idunidade =" + idUnidade);
+			Query query = getEntityManager().createNativeQuery("select servico.tipo_servico_idtipo_servico from servico, " +
+					"veiculo where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.unidade_idunidade =" + idUnidade);
 
-		return query.getResultList();
-	} catch (RuntimeException re) {
-		EntityManagerHelper.log("find by property name failed",
-				Level.SEVERE, re);
-		throw re;
-	}
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
 	}
 	public List<Servico> MotoristaTipoServicoUnidade(final Object idUnidade, final Object tipoServico) {
-	EntityManagerHelper.log("finding Servico instance with property: "
-		, Level.INFO, null);
-	try {
+		EntityManagerHelper.log("finding Servico instance with property: "
+				, Level.INFO, null);
+		try {
 
-		Query query = getEntityManager().createNativeQuery("select motorista.nome from servico, motorista, veiculo " +
-				"where servico.motorista_idmotorista = motorista.idmotorista " +
-				"and veiculo.unidade_idunidade = "+idUnidade+" and servico.tipo_servico_idtipo_servico =" +tipoServico+" group by motorista.nome");
+			Query query = getEntityManager().createNativeQuery("select motorista.nome from servico, motorista, veiculo " +
+					"where servico.motorista_idmotorista = motorista.idmotorista " +
+					"and veiculo.unidade_idunidade = "+idUnidade+" and servico.tipo_servico_idtipo_servico =" +tipoServico+" group by motorista.nome");
 
-		return query.getResultList();
-	} catch (RuntimeException re) {
-		EntityManagerHelper.log("find by property name failed",
-				Level.SEVERE, re);
-		throw re;
-	}
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}
 	}	
-	
+
 	public List FornecedorServico(){
 		EntityManagerHelper.log("Procurando por fornecedores em servico e retorna nome", Level.INFO, null);
 		try{
@@ -244,22 +244,22 @@ public class ServicoDAO implements IServicoDAO {
 			throw re;			
 		}
 	}
-	
+
 	public List<Servico> ServicoPlacaVeiculo(){
 		EntityManagerHelper.log("finding Servico instance with property: "
 				, Level.INFO, null);
-			try {
+		try {
 
-				Query query = getEntityManager().createNativeQuery("select veiculo.placa from servico, veiculo " +
-						"group by veiculo.placa	");
-				return query.getResultList();
-			} catch (RuntimeException re) {
-				EntityManagerHelper.log("find by property name failed",
-						Level.SEVERE, re);
-				throw re;
-			}		
+			Query query = getEntityManager().createNativeQuery("select veiculo.placa from servico, veiculo " +
+					"group by veiculo.placa	");
+			return query.getResultList();
+		} catch (RuntimeException re) {
+			EntityManagerHelper.log("find by property name failed",
+					Level.SEVERE, re);
+			throw re;
+		}		
 	}
-	
+
 	public List<Servico> findByValor(Object valor) {
 		return findByProperty(VALOR, valor);
 	}
@@ -308,7 +308,7 @@ public class ServicoDAO implements IServicoDAO {
 			query.setParameter("veiculo", veiculo);
 			return servico = query.getResultList();
 		} catch (RuntimeException re) {
-			
+
 			EntityManagerHelper.log("find failed", Level.SEVERE, re);
 			return null;
 			//throw re;
@@ -320,17 +320,18 @@ public class ServicoDAO implements IServicoDAO {
 		try {
 			Query query = getEntityManager().createNamedQuery("ServicoTipoServico");
 			query.setParameter("tipoServico", tipoServico);
+		
 			return servico = query.getResultList();
 		} catch (RuntimeException re) {
-			
+
 			EntityManagerHelper.log("find failed", Level.SEVERE, re);
 			return null;
 			//throw re;
 		}
 	}
-		
-	
-	
+
+
+
 	public List<Servico> sServicos(int idUnidade) {
 
 		List<Servico> servico = null;		
@@ -348,5 +349,29 @@ public class ServicoDAO implements IServicoDAO {
 			//throw re;
 		}
 	}
+	public List<Servico> ServicoPorData(Object dataInicio, Object dataFinal){
 
+		EntityManagerHelper.log("finding Servico instance with data_2: "
+				+ dataInicio + ", data_2: " + dataFinal, Level.INFO, null);
+		try{
+			
+			Query query = getEntityManager().createNativeQuery("select * from servico " +
+					"where data_2 >= " + dataInicio + " data_2 <= "+dataFinal );
+			return query.getResultList();
+
+		/*	Query query = getEntityManager().createNamedQuery("ServicoPorData");
+			query.setParameter("data2", dataInicio);
+			query.setParameter("data2", dataFinal);
+			System.out.println(query.getParameters());	
+							
+			return  query.getResultList();*/
+
+		}catch (RuntimeException re){
+			return null;			
+		}
+
+	}
+	
+	
+	
 }

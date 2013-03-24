@@ -61,7 +61,8 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public void save(Veiculo entity) {
 		EntityManagerHelper.log("saving Veiculo instance", Level.INFO, null);
 		try {
-			EntityManagerHelper.beginTransaction();getEntityManager().persist(entity);EntityManagerHelper.commit();
+			EntityManagerHelper.beginTransaction();getEntityManager().persist(entity);
+			EntityManagerHelper.commit();
 			EntityManagerHelper.log("save successful", Level.INFO, null);
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("save failed", Level.SEVERE, re);

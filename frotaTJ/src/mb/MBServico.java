@@ -1,18 +1,22 @@
 package mb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import util.JCalendar;
+import util.Util;
+
+import dao.Fornecedor;
+import dao.Motorista;
 import dao.Servico;
 import dao.ServicoDAO;
 import dao.TipoServico;
-import dao.TipoServicoModelo;
-import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 
 public class MBServico {
@@ -99,9 +103,72 @@ public class MBServico {
 		ServicoDAO daoServico = ServicoDAO.getInstance();
 		return daoServico.findAll();
 	}
+
+	
+	public void Busca(JCalendar dataInicio, JCalendar dataFinal){
+
+			
+		}	
+	public List<Servico> ServicoPorData(Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = listarServicos();
+		List<Servico> servico = new ArrayList<Servico>();
+		Util util = Util.getInstance();
+		if (dataInicio.before(dataFinal) || dataInicio.equals(dataFinal)){
+			for(int i=0;i<listaServico.size();i++){
+				Date d = util.RetornaData(listaServico.get(i).getData2());
+				System.out.println(d);
+				System.out.println(dataInicio);
+				System.out.println(dataFinal);
+				if(d.equals(dataInicio) || d.equals(dataFinal) || d.after(dataInicio) && d.before(dataFinal)){
+					Servico s = retornarServico(listaServico.get(i).getIdServico());
+					if(!servico.contains(s)){
+						servico.add(s);
+					}
+				}
+			}
+			return servico;
+		}else{
+			return null;
+		}	
+	}
+
+	public List<Servico> findAllServicoPorData(Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = listarServicos();
+		List<Servico> servico = new ArrayList<Servico>();
+		Util util = Util.getInstance();
+		if (dataInicio.before(dataFinal) || dataInicio.equals(dataFinal)){
+			for(int i=0;i<listaServico.size();i++){
+				Date d = util.RetornaData(listaServico.get(i).getData2());
+				if(d.equals(dataInicio) || d.equals(dataFinal) || d.after(dataInicio) && d.before(dataFinal)){
+					Servico s = retornarServico(listaServico.get(i).getIdServico());
+					servico.add(s);
+
+				}
+			}
+			return servico;
+		}else{
+			return null;
+		}	
+	}
 	public List<Servico> ServicoPorVeiculo (List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
 		List<Servico> listaServico = listarServicos();
-		List<Servico> servico = new ArrayList();
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			for(int j=0;j<listaVeiculos.size();j++){
+				if(listaServico.get(i).getVeiculo().getIdveiculo() == listaVeiculos.get(j).getIdveiculo()){
+					Servico s = retornarServico(listaServico.get(i).getIdServico());
+					if(!servico.contains(s)){
+						servico.add(s);
+					}
+				}
+			}
+		}
+		return servico;
+	}
+
+	public List<Servico> ServicoPorVeiculos (List<Veiculo> listaVeiculos, Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = ServicoPorData(dataInicio, dataFinal);
+		List<Servico> servico = new ArrayList<Servico>();
 		for(int i=0;i<listaServico.size();i++){
 			for(int j=0;j<listaVeiculos.size();j++){
 				if(listaServico.get(i).getVeiculo().getIdveiculo() == listaVeiculos.get(j).getIdveiculo()){
@@ -115,6 +182,71 @@ public class MBServico {
 		return servico;
 	}
 	
+	public List<Servico> ServicoPorVeiculos (List<Veiculo> listaVeiculos, List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			for(int j=0;j<listaServico.size();j++){
+				if(listaServico.get(j).getVeiculo().getIdveiculo() == listaVeiculos.get(i).getIdveiculo()){
+					Servico s = retornarServico(listaServico.get(j).getIdServico());
+					if(!servico.contains(s)){
+						servico.add(s);
+					}
+				}
+			}
+		}
+		return servico;
+	}
+	
+	public List<Servico> ServicosPorFornecedor(Fornecedor fornecedor, Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = ServicoPorData(dataInicio, dataFinal);
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			if(listaServico.get(i).getFornecedor().getIdfornecedor() == fornecedor.getIdfornecedor()){
+				Servico s = retornarServico(listaServico.get(i).getIdServico());
+				if(!servico.contains(s))
+					servico.add(s);
+			}
+		}
+		return servico;
+	}
+	
+	public List<Servico> ServicosPorFornecedor(Fornecedor fornecedor, List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			if(listaServico.get(i).getFornecedor().getIdfornecedor() == fornecedor.getIdfornecedor()){
+				Servico s = retornarServico(listaServico.get(i).getIdServico());
+				//if(!servico.contains(s))
+					servico.add(s);
+			}
+		}
+		return servico;
+	}
+	
+	
+	public List<Servico> ServicosPorMotorista(Motorista motorista, Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		List<Servico> listaServico = ServicoPorData(dataInicio, dataFinal);
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			if(listaServico.get(i).getMotorista().getIdmotorista()== motorista.getIdmotorista()){
+				Servico s = retornarServico(listaServico.get(i).getIdServico());
+				if(!servico.contains(s))
+					servico.add(s);
+			}
+		}
+		return servico;		
+	}
+
+	public List<Servico> ServicosPorMotorista(Motorista motorista, List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			if(listaServico.get(i).getMotorista().getIdmotorista()== motorista.getIdmotorista()){
+				Servico s = retornarServico(listaServico.get(i).getIdServico());
+				if(!servico.contains(s))
+					servico.add(s);
+			}
+		}
+		return servico;		
+	}
 	
 	public List<Servico> listaServicoPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
 		ServicoDAO daoServico = ServicoDAO.getInstance();
@@ -138,6 +270,43 @@ public class MBServico {
 		return daoServico.ServicoTipoServico(tipoServico);
 	}
 	
+	public List<Servico> ServicosTipoServico(TipoServico tipoServico, Date dataInicio, Date dataFinal) throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		//Util util = Util.getInstance();
+		List<Servico> listaServico = daoServico.ServicoTipoServico(tipoServico);
+		List<Servico> listaServicoData = ServicoPorData(dataInicio, dataFinal);
+		
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaServico.size();i++){
+			for(int j=0;j<listaServicoData.size();j++){
+				if(listaServico.get(i) == listaServicoData.get(j)){
+					Servico s = retornarServico(listaServico.get(i).getIdServico());
+					servico.add(s);		
+				}
+			/* Date d = util.RetornaData(listaServico.get(i).getData2());
+			if(d.after(dataInicio) || d.equals(dataInicio) && d.before(dataFinal) || d.equals(dataFinal)){
+				Servico s = retornarServico(listaServico.get(i).getIdServico());
+				servico.add(s);
+			}*/		
+		}
+		}
+		return servico;
+	}
+
+	public List<Servico> ServicosTipoServico(TipoServico tipoServico, List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+		ServicoDAO daoServico = ServicoDAO.getInstance();
+		List<Servico> listaTipoServico = daoServico.ServicoTipoServico(tipoServico);
+		List<Servico> servico = new ArrayList<Servico>();
+		for(int i=0;i<listaTipoServico.size();i++){
+			for(int j=0;j<listaServico.size();j++){
+				if(listaTipoServico.get(i) == listaServico.get(j)){
+					Servico s = retornarServico(listaTipoServico.get(i).getIdServico());
+					servico.add(s);		
+				}
+			}
+		}
+		return servico;
+	}
 }
 
 

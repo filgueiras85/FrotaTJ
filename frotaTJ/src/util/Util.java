@@ -1,28 +1,57 @@
 package util;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import sun.net.www.content.image.png;
+
+import Visao.PanelRelatorioTotalGasto;
+
 
 import dao.Usuario;
 
-public class Util extends JTextField{
+public class Util {
 	private static Util util = new Util();
 	private MaskFormatter data;
-
+	private Date RTGDataInicio = new Date();
+	private Date RTGDataFinal = new Date();
 	
+
 	public static Util getInstance(){
 		return util;		
 	}
 	
+	public void setRTGDataInicio(Date data){
+		this.RTGDataInicio = RetornaData(data);
+	}
+	public Date getRTGDataInicio(){
+		return this.RTGDataInicio;
+	}
+	
+	public void setRTGDataFinal(Date data){
+		this.RTGDataFinal = RetornaData(data);
+	}
+	public Date getRTGDataFinal(){
+		return this.RTGDataFinal;
+	}
+	
+	public void setRTGData(Date dataInicio, Date datFinal){
+		this.setRTGDataInicio(dataInicio);
+		this.setRTGDataFinal(datFinal);
+	}
+
 
 	public static String mascaraHodometro (String hodometro) throws ParseException{
 		String base6 = "nnnnnn";
@@ -79,7 +108,67 @@ public class Util extends JTextField{
 		}
 		return null;  
 	}
-
 	
+	public Date RetornaData(Date data){
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date d = new Date();
+        d.setTime(data.getTime());
+        
+      	try {
+			d = sd.parse(sd.format(d));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return d;
+	}
+	public Date RetornarData(String sData){
+        int d = Integer.parseInt(sData.substring(0,2));
+        int m = Integer.parseInt(sData.substring(3,5))-1;
+        int y = Integer.parseInt(sData.substring(6));
+
+        
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.set(Calendar.DAY_OF_MONTH, d);
+        gc.set(Calendar.MONTH, m);
+        gc.set(Calendar.YEAR, y);
+        
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        Date dt = gc.getTime();
+        
+        
+        try{
+        	dt = sd.parse(sd.format(dt));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return dt;
+	}	
+
+	public String dataBanco(Date data){
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");  
+		return sd.format(data);
+	}
+    public Date formataData(String data) {   
+        if (data == null || data.equals(""))  
+            return null;  
+          
+        Date date = null;  
+  
+        	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+            try {
+				date = (java.util.Date)(formatter.parse(data));
+		        return date;
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+            	e.printStackTrace();
+            	return null;
+            }    
+    }
+    
+
 }
 

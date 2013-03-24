@@ -87,16 +87,28 @@ public class MBMarca {
 		}
 		return marca;
 	}
-	public List<Marca> MarcaModelo(List<Servico> listaServico, TipoServico tipoServico)  throws ClassNotFoundException, SQLException{
+	
+	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
+		List<Marca> listaMarca = listarMarcas();
+		List<Marca> marca = new ArrayList<Marca>();
+		for(int i=0;i<listaMarca.size();i++){
+			Marca m = retornarMarca(modelo.getMarca().getIdmarca());
+			if(!marca.contains(m))
+				marca.add(m);
+		}
 
+		return marca;
+	}
+	
+	public List<Marca> MarcaModelo(List<Servico> listaServico, TipoServico tipoServico)  throws ClassNotFoundException, SQLException{
 		List<Marca> marca = new ArrayList<>();
 		for(int i=0;i<listaServico.size();i++){
-			if(listaServico.get(i).getTipoServico().getIdtipoServico() == tipoServico.getIdtipoServico()){
+			//if(listaServico.get(i).getTipoServico().getIdtipoServico() == tipoServico.getIdtipoServico()){
 				Marca m = retornarMarca(listaServico.get(i).getVeiculo().getModelo().getMarca().getIdmarca());
 				if(!marca.contains(m)){
 					marca.add(m);	
 				}
-			}
+			//}
 		}
 		return marca;
 	}

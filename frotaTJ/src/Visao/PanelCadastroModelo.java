@@ -52,9 +52,10 @@ public class PanelCadastroModelo extends PanelExemplo {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBMarca mbMarca= MBMarca.getInstance();
-
+				
+				Marca marca = mbMarca.retornarMarca(comboBoxMarca.getItemAt(comboBoxMarca.getSelectedIndex()).getIdmarca());
 				MBModelo mbModelo = MBModelo.getInstance();
-				Modelo m =  new Modelo(new Integer(idModeloSelecionado),mbMarca.retornarMarca(comboBoxMarca.getItemAt(comboBoxMarca.getSelectedIndex()).getIdmarca()), textFieldNome.getText());
+				Modelo m =  new Modelo(new Integer(idModeloSelecionado), marca, textFieldNome.getText());
 
 				try {
 					if (idModeloSelecionado==0){

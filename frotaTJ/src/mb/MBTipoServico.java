@@ -1,9 +1,6 @@
 package mb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +10,18 @@ import dao.TipoServicoDAO;
 
 public class MBTipoServico {
 	private static MBTipoServico tipoServicoMB = new MBTipoServico();
-	
+
 	private MBTipoServico(){
-		
+
 	}
-	
+
 	public static MBTipoServico getInstance(){
 		return tipoServicoMB;
-		
+
 	}
-	
+
 	public String inserir(TipoServico tipoServico) {
-		
+
 		String retorno = "Cadastro inserido.";
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		try {
@@ -34,7 +31,7 @@ public class MBTipoServico {
 		}
 		return retorno;
 	}
-	
+
 	public String editar(TipoServico tipoServico) {
 		String retorno = "Cadastro alterado.";
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
@@ -45,7 +42,7 @@ public class MBTipoServico {
 		}
 		return retorno;
 	}
-	
+
 
 	public String apagar(TipoServico tipoServico) {
 		String retorno = "Cadastro removido.";
@@ -57,23 +54,23 @@ public class MBTipoServico {
 		}
 		return retorno;
 	}
-	
+
 	public TipoServico retornarTipoServico(int id) {
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		return daoTipoServico.findById(id);
-		
+
 	}
 
 	public List<TipoServico> listarTipoServicos() throws ClassNotFoundException, SQLException{
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		return daoTipoServico.findAll();
 	}
-	
-	public List<TipoServico> listarTipoServicoUnidade(List<Servico> listaServico){
+
+	public List<TipoServico> listarTipoServicoUnidad(List<Servico> listaServico){
 		List<TipoServico> listaTipo;
 		try {
 			listaTipo = listarTipoServicos();
-			List<TipoServico> tipoServico = new ArrayList<>();
+			List<TipoServico> tipoServico = new ArrayList<TipoServico>();
 			for(int i=0;i<listaTipo.size();i++){
 				for(int j=0;j<listaServico.size();j++){
 					if(listaTipo.get(i).getIdtipoServico() == listaServico.get(j).getTipoServico().getIdtipoServico()){
@@ -90,8 +87,14 @@ public class MBTipoServico {
 			return null;
 		}
 	}
-	
-	
-	
-		
+	public List<TipoServico> TipoServicoPorServico(List<Servico> listaServico){
+		List<TipoServico> tipoServico = new ArrayList<TipoServico>();
+		for(int i=0;i<listaServico.size();i++){
+			TipoServico t = retornarTipoServico(listaServico.get(i).getTipoServico().getIdtipoServico());
+			if(!tipoServico.contains(t))
+				tipoServico.add(t);
+		}
+		return tipoServico;
+	}
+
 }

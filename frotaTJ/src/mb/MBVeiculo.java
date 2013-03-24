@@ -77,7 +77,8 @@ public class MBVeiculo {
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		return daoVeiculo.findAll();
 	}
-	
+
+
 	public List<Veiculo> VeiculosUnidade(Unidade unidade) throws ClassNotFoundException, SQLException{
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		List<Veiculo> veiculo = daoVeiculo.VeiculoUnidade(unidade);
@@ -90,20 +91,21 @@ public class MBVeiculo {
 		return veiculo;
 	}
 	
-	public List<Veiculo> VeiculoPlaca(List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
-		List<Veiculo> veiculo = new ArrayList<>();
-		for(int i=0;i<listaVeiculos.size();i++){
-			Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
-			if(!veiculo.contains(v)){
-				veiculo.add(v);
+	public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getPlaca().equals(placa)){
+				veiculo.add(listaVeiculo.get(i));
 			}
 		}
 		return veiculo;
 	}
 	
+	
 	public List<Veiculo> VeiculoTipoServico(List<Veiculo> listaVeiculos, List<Servico> tipoServico) throws ClassNotFoundException, SQLException{
 		
-		List<Veiculo> veiculo = new ArrayList<>();
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
 		for(int i=0;i<listaVeiculos.size();i++){
 			for(int j=0;j<tipoServico.size();j++){
 				if(listaVeiculos.get(i).getIdveiculo() == tipoServico.get(j).getVeiculo().getIdveiculo()){
@@ -117,11 +119,22 @@ public class MBVeiculo {
 		}
 		return veiculo;
 	}
+
+	public List<Veiculo> VeiculoPorServico(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
 		
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaServico.size();i++){
+			Veiculo v = retornarVeiculo(listaServico.get(i).getVeiculo().getIdveiculo());
+			if(!veiculo.contains(v)){
+				veiculo.add(v);
+			}
+		}
+		return veiculo;
+	}
 	
 	
 	public List<Veiculo> VeiculoModelo(List<Veiculo> listaVeiculos, List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
-		List<Veiculo> veiculo = new ArrayList<>();
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
 		for(int i=0;i<listaVeiculos.size();i++){
 			for(int j=0;j<listaModelo.size();j++){
 				if(listaVeiculos.get(i).getModelo().getIdmodelo() == listaModelo.get(j).getIdmodelo()){
@@ -135,24 +148,34 @@ public class MBVeiculo {
 		return veiculo;
 	}
 	
+	public List<Veiculo> VeiculoPorModelo(List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		for(int i=0;i<listaModelo.size();i++){
+			for(int j=0;j<listaVeiculo.size();j++){
+				if(listaModelo.get(i).getIdmodelo() == listaVeiculo.get(j).getModelo().getIdmodelo()){
+					Veiculo v = retornarVeiculo(listaVeiculo.get(j).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+		
 	
 	
 	public List<Veiculo> ListarosVeiculodoModelo(Modelo modelo) {
 		List<Veiculo> Lista1;
 		try {
 			Lista1 = listarVeiculos();
-			
-			List<Veiculo> lista = new ArrayList<>();
-			
+			List<Veiculo> lista = new ArrayList<Veiculo>();
 			for (int i = 0; i < Lista1.size(); i++) {
-				System.out.println(Lista1.get(i).getModelo().getIdmodelo().equals(modelo.getIdmodelo()));
 				if(Lista1.get(i).getModelo().getIdmodelo().equals(modelo.getIdmodelo())){
 					lista.add(Lista1.get(i));
 				}
-				
 			}
-			
-			System.out.println(lista.size()+"oi"+Lista1.size());
 			return lista;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

@@ -68,9 +68,10 @@ public class PanelCadastroMotorista extends PanelExemplo {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBUnidade mbUnidade= MBUnidade.getInstance();
+				Unidade unidade = mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade());
 
 				MBMotorista mbMotorista = MBMotorista.getInstance();
-				Motorista m =  new Motorista(new Integer(idMotoristaSelecionado), mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade()), textFieldMatricula.getText(), textFieldNome.getText());
+				Motorista m =  new Motorista(new Integer(idMotoristaSelecionado), unidade , textFieldMatricula.getText(), textFieldNome.getText());
 
 				try {
 					if (idMotoristaSelecionado==0){

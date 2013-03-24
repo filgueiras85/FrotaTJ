@@ -2,6 +2,7 @@ package dao;
 // default package
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,11 @@ import dao.Veiculo;
     @javax.persistence.NamedQuery(
     		name="ServicoTipoServico",
     	    query="SELECT s FROM Servico s WHERE tipoServico = :tipoServico"
-    	    		)
+    		),
+    @javax.persistence.NamedQuery(
+    	    name="ServicoPorData",
+    	    query="SELECT s FROM Servico s WHERE data_2 BETWEEN :data2 AND :data2"
+    	    )
 })
 
 

@@ -10,7 +10,9 @@ import java.util.List;
 import dao.Marca;
 import dao.Modelo;
 import dao.ModeloDAO;
+import dao.Servico;
 import dao.TipoServico;
+import dao.TipoServicoModelo;
 import dao.Veiculo;
 
 public class MBModelo {
@@ -75,22 +77,36 @@ public class MBModelo {
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.ModeloServicoUnidade(idUnidade, idTipoServico, idMarca);
 	}
-	public List<Modelo> ModeloVeiculo(List<Veiculo> listaVeiculos) throws ClassNotFoundException, SQLException{
-		List<Modelo> modelo = new ArrayList();
-		for(int i=0;i<listaVeiculos.size();i++){
-			Modelo m = retornarModelo(listaVeiculos.get(i).getModelo().getIdmodelo());
+
+	public List<Modelo> ModeloVeiculo(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+
+		List<Modelo> modelo = new ArrayList<>();
+		for(int i=0;i<listaServico.size();i++){
+				Modelo m = retornarModelo(listaServico.get(i).getVeiculo().getModelo().getIdmodelo());
+				if(!modelo.contains(m))
+					modelo.add(m);
+				
+			}
+		return modelo;
+	}
+	public List<Modelo> ModeloPorVeiculo(List<Veiculo> listaVeiculo) throws ClassNotFoundException, SQLException{
+	
+		List<Modelo> modelo = new ArrayList<Modelo>();
+		for(int i=0;i<listaVeiculo.size();i++){
+			Modelo m = retornarModelo(listaVeiculo.get(i).getModelo().getIdmodelo());
+			System.out.println(listaVeiculo.get(i).getModelo().getIdmodelo());
 			if(!modelo.contains(m)){
-		//		modelo.add(m);
+				modelo.add(m);
 			}
 		}
+		return modelo;
+}
 
-		return modelo;		
-	}
 
-	public List<Modelo> ModeloMarca(Marca marca){
-		ModeloDAO daoModelo = ModeloDAO.getInstance();
-		return daoModelo.ModeloMarca(marca);
-	}
+public List<Modelo> ModeloMarca(Marca marca){
+	ModeloDAO daoModelo = ModeloDAO.getInstance();
+	return daoModelo.ModeloMarca(marca);
+}
 
 }
 
