@@ -1,12 +1,11 @@
 package util;
 
-import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -77,7 +76,39 @@ public class Util extends JTextField{
 		}
 		return null;  
 	}
-
+	
+    public Date formataData(String data) {   
+        if (data == null || data.equals(""))  
+            return null;  
+          
+        Date date = null;  
+  
+        	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+            try {
+				date = (java.util.Date)(formatter.parse(data));
+		        return date;
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+            	e.printStackTrace();
+            	return null;
+            }    
+    }
+	
+	public Date RetornaData(Date data){
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date d = new Date();
+        d.setTime(data.getTime());
+        
+      	try {
+			d = sd.parse(sd.format(d));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return d;
+	}
 	
 }
 

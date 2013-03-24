@@ -3,6 +3,7 @@ package dao;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.persistence.EntityManager;
@@ -228,6 +229,21 @@ public class ServicoDAO implements IServicoDAO {
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("find all failed", Level.SEVERE, re);
 			throw re;
+		}
+	}
+	public List<Servico> ServicoTipoServico(Object tipoServico) {
+
+		List<Servico> servico = new ArrayList<>();		
+		try {
+			Query query = getEntityManager().createNamedQuery("ServicoTipoServico");
+			query.setParameter("tipoServico", tipoServico);
+		
+			return servico = query.getResultList();
+		} catch (RuntimeException re) {
+
+			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			return null;
+			//throw re;
 		}
 	}
 

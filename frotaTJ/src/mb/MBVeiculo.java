@@ -17,6 +17,7 @@ import dao.ServicoDAO;
 import dao.TipoServicoModelo;
 import dao.TipoServicoModeloDAO;
 import dao.TipoServicoVeiculo;
+import dao.Unidade;
 import dao.Veiculo;
 import dao.VeiculoDAO;
 
@@ -110,6 +111,53 @@ public class MBVeiculo {
 		return null;
 
 	}
+	
+	public List<Veiculo> VeiculoPorModelo(List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		for(int i=0;i<listaModelo.size();i++){
+			for(int j=0;j<listaVeiculo.size();j++){
+				if(listaModelo.get(i).getIdmodelo() == listaVeiculo.get(j).getModelo().getIdmodelo()){
+					Veiculo v = retornarVeiculo(listaVeiculo.get(j).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+	
+	public List<Veiculo> VeiculosUnidade(Unidade unidade) throws ClassNotFoundException, SQLException{
+		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
+		List<Veiculo> veiculo = daoVeiculo.VeiculoUnidade(unidade);
+		return veiculo;
+	}
+	
+	public List<Veiculo> VeiculoPorServico(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+		
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaServico.size();i++){
+			Veiculo v = retornarVeiculo(listaServico.get(i).getVeiculo().getIdveiculo());
+			if(!veiculo.contains(v)){
+				veiculo.add(v);
+			}
+		}
+		return veiculo;
+	}
+	
+	public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getPlaca().equals(placa)){
+				veiculo.add(listaVeiculo.get(i));
+			}
+		}
+		return veiculo;
+	}
+	
+	
 	public void AtualizarSituacaoAbastecimento(Abastecimento a, int odometrodesatualizado){
 		Veiculo v = retornarVeiculo(a.getVeiculo().getIdveiculo());
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());

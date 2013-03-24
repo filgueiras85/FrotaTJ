@@ -2,6 +2,7 @@ package dao;
 // default package
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -195,5 +196,18 @@ public class ModeloDAO implements IModeloDAO {
 			throw re;
 		}
 	}
+	public List<Modelo> ModeloMarca(Object marca) {
 
+		List<Modelo> modelo = new ArrayList<>();		
+		try {
+			Query query = getEntityManager().createNamedQuery("ModeloMarca");
+			query.setParameter("marca", marca);
+			return modelo = query.getResultList();
+		} catch (RuntimeException re) {
+			
+			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			return null;
+			//throw re;
+		}
+	}
 }

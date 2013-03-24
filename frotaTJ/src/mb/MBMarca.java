@@ -2,10 +2,14 @@ package mb;
 
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.Marca;
 import dao.MarcaDAO;
+import dao.Modelo;
+import dao.Servico;
+import dao.TipoServico;
 
 public class MBMarca {
 	private static MBMarca marcaMB = new MBMarca();
@@ -64,7 +68,46 @@ public class MBMarca {
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findAll();
 	}
+	public List<Marca> MarcaModelo(List<Modelo> listaModelos)  throws ClassNotFoundException, SQLException{
+		List<Marca> listaMarca = listarMarcas();
+		List<Marca> marca = new ArrayList<>();
+		for(int i=0;i<listaMarca.size();i++){
+			for(int j=0;j<listaModelos.size();j++){
+				if(listaMarca.get(i).getIdmarca() == listaModelos.get(j).getMarca().getIdmarca()){
+					Marca m = retornarMarca(listaMarca.get(i).getIdmarca());
+					if(!marca.contains(m)){
+						marca.add(m);	
+					}
+				}
+			}
+		}
+		return marca;
+	}
+
+	public List<Marca> MarcaPorServico(List<Servico> listaServico)  throws ClassNotFoundException, SQLException{
+		List<Marca> marca = new ArrayList<>();
+		for(int i=0;i<listaServico.size();i++){
+			//if(listaServico.get(i).getTipoServico().getIdtipoServico() == tipoServico.getIdtipoServico()){
+				Marca m = retornarMarca(listaServico.get(i).getVeiculo().getModelo().getMarca().getIdmarca());
+				if(!marca.contains(m)){
+					marca.add(m);	
+				}
+			//}
+		}
+		return marca;
+	}
+	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
+		List<Marca> listaMarca = listarMarcas();
+		List<Marca> marca = new ArrayList<Marca>();
+		for(int i=0;i<listaMarca.size();i++){
+			Marca m = retornarMarca(modelo.getMarca().getIdmarca());
+			if(!marca.contains(m))
+				marca.add(m);
+		}
+		return marca;
+	}
 }
+
 
 
 

@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.NamedQuery;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,6 +33,10 @@ import dao.Unidade;
  */
 @Entity
 @Table(name = "veiculo", catalog = "frotatj")
+@NamedQuery(
+		name="VeiculoUnidade",
+		query="SELECT v FROM Veiculo v WHERE unidade_idunidade = :unidade"
+    	)
 public class Veiculo implements java.io.Serializable {
 
 	// Fields

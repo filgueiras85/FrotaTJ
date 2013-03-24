@@ -36,7 +36,12 @@ import dao.Veiculo;
     ),
     @javax.persistence.NamedQuery(
     		name="Servico.ContaServicos",
-    		query="SELECT s FROM Servico s WHERE s.veiculo = :veiculo and s.tipoServico = :tipoServico ")
+    		query="SELECT s FROM Servico s WHERE s.veiculo = :veiculo and s.tipoServico = :tipoServico "
+    ),
+    @javax.persistence.NamedQuery(
+    		name="ServicoTipoServico",
+    	    query="SELECT s FROM Servico s WHERE tipoServico = :tipoServico"
+    		)
 })
 public class Servico implements java.io.Serializable {
 

@@ -218,4 +218,22 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public List<Veiculo> findByUnidade(Object unidade) {
 		return findByProperty(UNIDADE, unidade);
 	}
+	public List<Veiculo> VeiculoUnidade(Unidade unidade) {
+		EntityManagerHelper.log("finding all veiculo by unidade", Level.INFO,
+				null);
+		List<Veiculo> veiculo = null;		
+
+		try {
+			Query query = getEntityManager().createNamedQuery("VeiculoUnidade");
+			query.setParameter("unidade", unidade);
+
+			return veiculo = query.getResultList();
+		} catch (RuntimeException re) {
+
+			
+			EntityManagerHelper.log("find failed", Level.SEVERE, re);
+			return null;
+			//throw re;
+		}
+	}	
 }

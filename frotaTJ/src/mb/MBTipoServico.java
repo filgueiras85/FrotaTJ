@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.Servico;
 import dao.TipoServico;
 import dao.TipoServicoDAO;
 
@@ -66,5 +67,14 @@ public class MBTipoServico {
 	public List<TipoServico> listarTipoServicos() throws ClassNotFoundException, SQLException{
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		return daoTipoServico.findAll();
+	}
+	public List<TipoServico> TipoServicoPorServico(List<Servico> listaServico){
+		List<TipoServico> tipoServico = new ArrayList<TipoServico>();
+		for(int i=0;i<listaServico.size();i++){
+			TipoServico t = retornarTipoServico(listaServico.get(i).getTipoServico().getIdtipoServico());
+			if(!tipoServico.contains(t))
+				tipoServico.add(t);
+		}
+		return tipoServico;
 	}
 }

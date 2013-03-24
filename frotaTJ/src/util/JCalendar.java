@@ -1,687 +1,564 @@
-
 package util;
 
+//////////////////////////////////////////////////////////////  
+// DateComboBox.java  
+//////////////////////////////////////////////////////////////  
+// package packageName;  
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.event.*;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import javax.swing.*;
-import javax.swing.plaf.ComboBoxUI;
-import javax.swing.plaf.basic.BasicComboBoxEditor;
-import javax.swing.plaf.basic.BasicComboPopup;
-import javax.swing.plaf.basic.ComboPopup;
-import javax.swing.plaf.metal.MetalComboBoxUI;
-import javax.swing.plaf.synth.SynthComboBoxUI;
-import javax.swing.text.MaskFormatter;
+import java.awt.*;  
+import java.awt.event.*;  
+import java.util.Calendar;  
+import java.text.SimpleDateFormat;  
 
-import com.sun.java.swing.plaf.motif.MotifComboBoxUI;
-import com.sun.java.swing.plaf.windows.WindowsComboBoxUI;
+import javax.swing.*;  
+import javax.swing.event.PopupMenuListener;  
+import javax.swing.event.PopupMenuEvent;  
+import javax.swing.plaf.ComboBoxUI;  
+import javax.swing.plaf.basic.ComboPopup;  
+import javax.swing.plaf.metal.MetalComboBoxUI;  
+import javax.swing.border.Border;  
+import javax.swing.border.EtchedBorder;  
+import javax.swing.border.EmptyBorder;  
+
+import com.sun.java.swing.plaf.motif.MotifComboBoxUI;  
+import com.sun.java.swing.plaf.windows.WindowsComboBoxUI;  
+
+/** 
+ * @version 1.0 11/02/2000 
+ */  
+
+//////////////////////////////////////////////////////////////  
 
 public class JCalendar extends JComboBox {
 
-  private boolean showActualDate;
-  private DatePopup datePopup;
-  private JFormattedTextField formattedTextField;
-
-  public JCalendar() {
-    this(true);
-  }
-
-  public JCalendar(boolean showActualDate) {
-    /*
-     * 'showActualDate': indica que, quando a caixa de texto for
-     * (re)inicializada, o campo deve ou nao exibir a data atual.
-     */
-    super();
-    this.showActualDate = showActualDate;
-    MaskFormatter formatter = null;
-    try {
-      formatter = new MaskFormatter("##/##/####");
-      formatter.setPlaceholderCharacter('_');
-    } catch (ParseException e) {
-    }
-
-    formattedTextField = new JFormattedTextField(formatter);
-    formattedTextField.setBorder(((JComponent) getEditor().getEditorComponent()).getBorder());
-    if (showActualDate) {
-      formattedTextField.setValue(getTime());
-    } else {
-      formattedTextField.setValue("");
-    }
-
-    formattedTextField.addFocusListener(new FocusAdapter() {
-      @Override
-      public void focusLost(FocusEvent evt) {
-        setValue();
-      }
-    });
-
-    setEditor(new BasicComboBoxEditor() {
-      @Override
-      public Component getEditorComponent() {
-        return formattedTextField;
-      }
-    });
-    super.setEditable(true);
-  }
-
-  public static String getTime() {
-    return new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-  }
-
-  private boolean isValidDate(String source) {
-    try {
-      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-      sdf.setLenient(false);
-      sdf.parse(source);
-      return true;
-    } catch (ParseException e) {
-      return false;
-    }
-  }
-
-  private class MetalDateComboBoxUI extends MetalComboBoxUI {
-
-    @Override
-    protected ComboPopup createPopup() {
-      datePopup = new DatePopup();
-      return datePopup;
-    }
-  }
-
-  private class WindowsDateComboBoxUI extends WindowsComboBoxUI {
-
-    @Override
-    protected ComboPopup createPopup() {
-      datePopup = new DatePopup();
-      return datePopup;
-    }
-  }
-
-  private class MotifDateComboBoxUI extends MotifComboBoxUI {
-
-    @Override
-    protected ComboPopup createPopup() {
-      datePopup = new DatePopup();
-      return datePopup;
-    }
-  }
-
-  private class SynthDateComboBoxUI extends SynthComboBoxUI {
-
-    @Override
-    protected ComboPopup createPopup() {
-      datePopup = new DatePopup();
-      return datePopup;
-    }
-  }
-
-  private class DatePopup extends BasicComboPopup {
-
-    private DatePanel datePanel;
-
-    public DatePopup() {
-      super(JCalendar.this);
-      removeAll();
-    }
-
-    public void constructDatePopup() {
-      removeAll();
-      setPreferredSize(new java.awt.Dimension(193, 142));
-      setBorder(BorderFactory.createLineBorder(Color.BLACK));
-      setLayout(new GridLayout(1, 1));
-      datePanel = new DatePanel();
-      if (hasValidDate()) {
-        datePanel.prepareDate();
-      } else {
-        datePanel.prepare(false, false, false, false);
-      }
-      add(datePanel);
-    }
-
-    @Override
-    public void show(Component invoker, int x, int y) {
-      constructDatePopup();
-      super.show(JCalendar.this, JCalendar.this.getWidth() - 194, JCalendar.this.getHeight());
-    }
-
-    @Override
-    public void setVisible(boolean b) {
-      if (b == false) {
-        setValue();
-        datePanel.stopTimer();
-        datePanel = null;
-      }
-
-      super.setVisible(b);
-    }
-  }
-
-  private class DatePanel extends javax.swing.JPanel {
-
-    private GregorianCalendar gc;
-    private Timer timer;
-    private JLabel[] day;
-    private String[] month;
-    private JLabel selectedLabel;
-    private int timerFlag = 0;
-    private int dayOfMonth = 0;
-    private int selectedDay = 0;
-    private boolean pressed = false;
-    private static final int TIME_FROZEN = 3;
-
-    public DatePanel() {
-      initComponents();
-      gc = new GregorianCalendar();
-
-      nextYear.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-          nextYear.setBorder(BorderFactory.createLoweredBevelBorder());
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            initTimer(true, false, true, false);
-          }
-        }
-
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-          nextYear.setBorder(BorderFactory.createRaisedBevelBorder());
-
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            terminateTimer();
-            if (timerFlag <= TIME_FROZEN) {
-              prepare(true, false, true, false);
-            }
-            timerFlag = 0;
-          }
-        }
-      });
-
-      nextMonth.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-          nextMonth.setBorder(BorderFactory.createLoweredBevelBorder());
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            initTimer(false, true, true, false);
-          }
-        }
-
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-          nextMonth.setBorder(BorderFactory.createRaisedBevelBorder());
-
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            terminateTimer();
-            if (timerFlag <= TIME_FROZEN) {
-              prepare(false, true, true, false);
-            }
-            timerFlag = 0;
-          }
-        }
-      });
-
-      previousMonth.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-          previousMonth.setBorder(BorderFactory.createLoweredBevelBorder());
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            initTimer(false, true, false, false);
-          }
-        }
-
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-          previousMonth.setBorder(BorderFactory.createRaisedBevelBorder());
-
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            terminateTimer();
-            if (timerFlag <= TIME_FROZEN) {
-              prepare(false, true, false, false);
-            }
-            timerFlag = 0;
-          }
-        }
-      });
-
-      previousYear.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-          previousYear.setBorder(BorderFactory.createLoweredBevelBorder());
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            initTimer(true, false, false, false);
-          }
-        }
-
-        @Override
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
-          previousYear.setBorder(BorderFactory.createRaisedBevelBorder());
-
-          if (SwingUtilities.isLeftMouseButton(evt)) {
-            terminateTimer();
-            if (timerFlag <= TIME_FROZEN) {
-              prepare(true, false, false, false);
-            }
-            timerFlag = 0;
-          }
-        }
-      });
-
-      month = new String[]{"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-      day = new JLabel[42];
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    // <editor-fold defaultstate="collapsed" desc=" Generated Code ">                          
-    private void initComponents() {
-      navegatePanel = new javax.swing.JPanel();
-      previousYear = new javax.swing.JLabel();
-      previousMonth = new javax.swing.JLabel();
-      dateLabel = new javax.swing.JLabel();
-      nextMonth = new javax.swing.JLabel();
-      nextYear = new javax.swing.JLabel();
-      weekAndDaysPanel = new javax.swing.JPanel();
-      weekPanel = new javax.swing.JPanel();
-      sundayLabel = new javax.swing.JLabel();
-      mondayLabel = new javax.swing.JLabel();
-      tuesdayLabel = new javax.swing.JLabel();
-      wednesdayLabel = new javax.swing.JLabel();
-      thursdayLabel = new javax.swing.JLabel();
-      fridayLabel = new javax.swing.JLabel();
-      saturdayLabel = new javax.swing.JLabel();
-      daysPanel = new javax.swing.JPanel();
-
-      setLayout(new java.awt.BorderLayout());
-
-      navegatePanel.setLayout(null);
-
-      navegatePanel.setPreferredSize(new java.awt.Dimension(20, 20));
-      previousYear.setFont(new java.awt.Font("Arial", 0, 9));
-      previousYear.setText("<<");
-      previousYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      previousYear.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
-
-      navegatePanel.add(previousYear);
-      previousYear.setBounds(0, 0, 20, 20);
-
-      previousMonth.setFont(new java.awt.Font("Arial", 0, 9));
-      previousMonth.setText("<");
-      previousMonth.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      previousMonth.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
-
-      navegatePanel.add(previousMonth);
-      previousMonth.setBounds(20, 0, 20, 20);
-
-      dateLabel.setFont(new java.awt.Font("Tahoma", 1, 11));
-      dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      dateLabel.setText("Abril, 2006");
-      navegatePanel.add(dateLabel);
-      dateLabel.setBounds(44, 3, 105, 14);
-
-      nextMonth.setFont(new java.awt.Font("Arial", 0, 9));
-      nextMonth.setText(">");
-      nextMonth.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      nextMonth.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
-
-      navegatePanel.add(nextMonth);
-      nextMonth.setBounds(151, 0, 20, 20);
-
-      nextYear.setFont(new java.awt.Font("Arial", 0, 9));
-      nextYear.setText(">>");
-      nextYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      nextYear.setBorder(javax.swing.BorderFactory.createRaisedBevelBorder());
-
-      navegatePanel.add(nextYear);
-      nextYear.setBounds(171, 0, 20, 20);
-
-      add(navegatePanel, java.awt.BorderLayout.NORTH);
-
-      weekAndDaysPanel.setLayout(new java.awt.BorderLayout());
-
-      weekAndDaysPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-      weekPanel.setLayout(new java.awt.GridLayout(1, 7));
-
-      weekPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-      weekPanel.setPreferredSize(new java.awt.Dimension(20, 20));
-      sundayLabel.setForeground(new java.awt.Color(255, 0, 0));
-      sundayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      sundayLabel.setText("D");
-      weekPanel.add(sundayLabel);
-
-      mondayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      mondayLabel.setText("S");
-      weekPanel.add(mondayLabel);
-
-      tuesdayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      tuesdayLabel.setText("T");
-      weekPanel.add(tuesdayLabel);
-
-      wednesdayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      wednesdayLabel.setText("Q");
-      weekPanel.add(wednesdayLabel);
-
-      thursdayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      thursdayLabel.setText("Q");
-      weekPanel.add(thursdayLabel);
-
-      fridayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      fridayLabel.setText("S");
-      weekPanel.add(fridayLabel);
-
-      saturdayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      saturdayLabel.setText("S");
-      weekPanel.add(saturdayLabel);
-
-      weekAndDaysPanel.add(weekPanel, java.awt.BorderLayout.NORTH);
-
-      daysPanel.setLayout(new java.awt.GridLayout(6, 7));
-
-      daysPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-      daysPanel.setPreferredSize(new java.awt.Dimension(95, 95));
-      weekAndDaysPanel.add(daysPanel, java.awt.BorderLayout.CENTER);
-
-      add(weekAndDaysPanel, java.awt.BorderLayout.CENTER);
-
-    }// </editor-fold>                        
-
-    private void initTimer(final boolean b1, final boolean b2, final boolean b3, final boolean b4) {
-      timer = new Timer(100, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-          if (timerFlag > TIME_FROZEN) {
-            prepare(b1, b2, b3, b4);
-          } else {
-            timerFlag++;
-          }
-        }
-      });
-
-      timer.start();
-    }
-
-    private void terminateTimer() {
-      timer.stop();
-      timer = null;
-    }
-
-    private void initArrayOfDays() {
-      for (int i = 0; i < 42; i++) {
-        day[i] = new JLabel();
-        day[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        day[i].setOpaque(true);
-        day[i].setBackground(Color.WHITE);
-      }
-    }
-
-    private void fillDaysPanel(int firstDayOfMonth, int maximumDayOfMonth) {
-      int index = 1;
-      daysPanel.removeAll();
-      initArrayOfDays();
-
-      for (int i = 0; i < 42; i++) {
-        if (i + 1 >= firstDayOfMonth && index <= maximumDayOfMonth) {
-          day[i].setText(String.valueOf(index));
-          day[i].setBorder(BorderFactory.createEmptyBorder());
-
-          if (index == selectedDay || index == dayOfMonth) {
-            day[i].setBorder(BorderFactory.createLoweredBevelBorder());
-
-            if (index == selectedDay) {
-              day[i].setBackground(Color.GRAY);
-              day[i].setForeground(Color.WHITE);
-              selectedLabel = day[i];
-            } else {
-              if (i % 7 != 0) {
-                day[i].setForeground(UIManager.getDefaults().getColor("label.foreground"));
-              } else {
-                day[i].setForeground(Color.RED);
-              }
-            }
-          } else {
-            if (day[i].getText().equals(String.valueOf(selectedDay))) {
-              day[i].setBackground(Color.GRAY);
-              day[i].setForeground(Color.WHITE);
-              selectedLabel = day[i];
-            }
-
-            if (day[i] != selectedLabel) {
-              if (i % 7 != 0) {
-                day[i].setForeground(UIManager.getDefaults().getColor("label.foreground"));
-              } else {
-                day[i].setForeground(Color.RED);
-              }
-            }
-          }
-
-          final int finalI = i;
-          index++;
-
-          day[i].addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent evt) {
-              if (SwingUtilities.isLeftMouseButton(evt)) {
-                configureDayLabels(day[finalI]);
-                pressed = true;
-              }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent evt) {
-              if (SwingUtilities.isLeftMouseButton(evt) && pressed) {
-                configureDayLabels(day[finalI]);
-              }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent evt) {
-              if (SwingUtilities.isLeftMouseButton(evt)) {
-                if (getMousePosition() != null) {
-                  datePopup.hide();
-                  DecimalFormat df = new DecimalFormat("00");
-                  String dayText = df.format(selectedDay);
-                  String monthText = df.format(gc.get(Calendar.MONTH) + 1);
-                  String yearText = String.valueOf(gc.get(Calendar.YEAR));
-                  formattedTextField.setValue(dayText + "/" + monthText + "/" + yearText);
-                }
-
-                pressed = false;
-              }
-            }
-          });
-        }
-
-        daysPanel.add(day[i]);
-      }
-    }
-
-    private void setDaysAndFill() {
-      gc.set(Calendar.DAY_OF_MONTH, 1);
-      int firstDayOfMonth = gc.get(Calendar.DAY_OF_WEEK);
-      int maximumDayOfMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
-      gc.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-      String monthText = month[gc.get(Calendar.MONTH)];
-      dateLabel.setText(String.valueOf(monthText + ", " + gc.get(Calendar.YEAR)));
-      fillDaysPanel(firstDayOfMonth, maximumDayOfMonth);
-    }
-
-    private void configureDayLabels(JLabel day) {
-      if (!selectedLabel.getText().equals(String.valueOf(dayOfMonth))) {
-        selectedLabel.setBorder(BorderFactory.createEmptyBorder());
-      }
-
-      selectedLabel.setBackground(Color.WHITE);
-
-      gc.set(Calendar.DAY_OF_MONTH, Integer.parseInt(selectedLabel.getText()));
-      if (gc.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-        selectedLabel.setForeground(UIManager.getDefaults().getColor("label.foreground"));
-      } else {
-        selectedLabel.setForeground(Color.RED);
-      }
-      gc.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-      day.setBorder(BorderFactory.createLoweredBevelBorder());
-      day.setBackground(Color.GRAY);
-      day.setForeground(Color.WHITE);
-      selectedLabel = day;
-      selectedDay = Integer.parseInt(selectedLabel.getText());
-    }
-
-    public void prepare(boolean rollYear, boolean rollMonth, boolean up, boolean instantiateGc) {
-      if (instantiateGc) {
-        gc = new GregorianCalendar();
-      }
-      dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
-      if (selectedDay == 0 || instantiateGc) {
-        selectedDay = dayOfMonth;
-      }
-      if (rollYear) {
-        gc.roll(Calendar.YEAR, up);
-      }
-
-      if (rollMonth) {
-        if ((up && gc.get(Calendar.MONTH) == Calendar.DECEMBER) || (!up && gc.get(Calendar.MONTH) == Calendar.JANUARY)) {
-          gc.roll(Calendar.YEAR, up);
-        }
-        gc.roll(Calendar.MONTH, up);
-      }
-
-      setDaysAndFill();
-    }
-
-    public void prepareDate() {
-      if (hasValidDate()) {
-        int d = Integer.parseInt(formattedTextField.getValue().toString().substring(0, 2));
-        int m = Integer.parseInt(formattedTextField.getValue().toString().substring(3, 5)) - 1;
-        int y = Integer.parseInt(formattedTextField.getValue().toString().substring(6));
-        dayOfMonth = gc.get(Calendar.DAY_OF_MONTH);
-        selectedDay = d;
-        gc.set(Calendar.MONTH, m);
-        gc.set(Calendar.YEAR, y);
-        setDaysAndFill();
-      } else {
-        prepare(false, false, false, true);
-      }
-    }
-
-    public void stopTimer() {
-      if (timer != null) {
-        timer.stop();
-      }
-    }
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JPanel daysPanel;
-    private javax.swing.JLabel fridayLabel;
-    private javax.swing.JLabel mondayLabel;
-    private javax.swing.JPanel navegatePanel;
-    private javax.swing.JLabel nextMonth;
-    private javax.swing.JLabel nextYear;
-    private javax.swing.JLabel previousMonth;
-    private javax.swing.JLabel previousYear;
-    private javax.swing.JLabel saturdayLabel;
-    private javax.swing.JLabel sundayLabel;
-    private javax.swing.JLabel thursdayLabel;
-    private javax.swing.JLabel tuesdayLabel;
-    private javax.swing.JLabel wednesdayLabel;
-    private javax.swing.JPanel weekAndDaysPanel;
-    private javax.swing.JPanel weekPanel;
-  }
-
-  private void setValue() {
-    if (isValidDate(formattedTextField.getText())) {
-      formattedTextField.setValue(formattedTextField.getText());
-    } else {
-      formattedTextField.setText(formattedTextField.getValue().toString());
-    }
-  }
-
-  @Override
-  public void updateUI() {
-    ComboBoxUI comboBoxUI = (ComboBoxUI) UIManager.getUI(JCalendar.this);
-    if (comboBoxUI instanceof MetalComboBoxUI) {
-      comboBoxUI = new MetalDateComboBoxUI();
-    } else if (comboBoxUI instanceof MotifComboBoxUI) {
-      comboBoxUI = new MotifDateComboBoxUI();
-    } else if (comboBoxUI instanceof WindowsComboBoxUI) {
-      comboBoxUI = new WindowsDateComboBoxUI();
-    } else if (comboBoxUI instanceof SynthComboBoxUI) {
-      comboBoxUI = new SynthDateComboBoxUI();
-    }
-
-    setUI(comboBoxUI);
-  }
-
-  @Override
-  public boolean selectWithKeyChar(char keyChar) {
-    return false;
-  }
-
-  @Override
-  public void setEditable(boolean aFlag) {
-    if (!aFlag) {
-      throw new IllegalArgumentException("no sense in setting editable mode to false");
-    }
-  }
-
-  @Override
-  public Object getSelectedItem() {
-    if (!formattedTextField.getValue().toString().contains("_")) {
-      try {
-        super.setSelectedItem(null);
-        int d = Integer.parseInt(formattedTextField.getValue().toString().substring(0, 2));
-        int m = Integer.parseInt(formattedTextField.getValue().toString().substring(3, 5)) - 1;
-        int y = Integer.parseInt(formattedTextField.getValue().toString().substring(6));
-        GregorianCalendar gc = new GregorianCalendar();
-        gc.set(Calendar.DAY_OF_MONTH, d);
-        gc.set(Calendar.MONTH, m);
-        gc.set(Calendar.YEAR, y);
-        return gc;
-      } catch (StringIndexOutOfBoundsException ex) {
-        return null;
-      }
-    } else {
-      setSelectedItem(null);
-      return null;
-    }
-  }
-
-  @Override
-  public void setSelectedItem(Object anObject) {
-    if (anObject != null) {
-      if (anObject instanceof GregorianCalendar) {
-        String dayText = String.valueOf(((GregorianCalendar) anObject).get(Calendar.DAY_OF_MONTH));
-        String monthText = String.valueOf(((GregorianCalendar) anObject).get(Calendar.MONTH));
-        String yearText = String.valueOf(((GregorianCalendar) anObject).get(Calendar.YEAR));
-        formattedTextField.setValue(dayText + "/" + monthText + "/" + yearText);
-      } else {
-        super.setSelectedItem(null);
-        throw new IllegalArgumentException("invalid date");
-      }
-    } else {
-      if (showActualDate) {
-        formattedTextField.setValue(getTime());
-      } else {
-        formattedTextField.setValue("");
-      }
-    }
-
-    super.setSelectedItem(null);
-  }
-
-  public boolean hasValidDate() {
-    return isValidDate(formattedTextField.getValue().toString());
-  }
-
-  public String getText() {
-    return !formattedTextField.getText().equals("__/__/____") ? formattedTextField.getText() : "";
-  }
+	private String strData;  
+
+	public JCalendar() {  
+
+
+	/*	this.addMouseListener(new MouseListener() {  
+
+			public void mousePressed(MouseEvent e) {  
+			}  
+			public void mouseReleased(MouseEvent e) {  
+				JOptionPane.showMessageDialog(  
+						null,  
+						"Botão esquerdo pressionado!");  
+			}  
+			// something else registered for MousePressed  
+			public void mouseClicked(MouseEvent e) {  
+
+				//if ( !SwingUtilities.isLeftMouseButton(e) ){  
+				JOptionPane.showMessageDialog(  
+						null,  
+						"Botão esquerdo pressionado!");  
+				// return;  
+				//}  
+				/*if ( !comboBox.isEnabled() ) 
+            return; 
+            if ( comboBox.isEditable() ) { 
+                comboBox.getEditor().getEditorComponent().requestFocus(); 
+            } else { 
+            comboBox.requestFocus(); 
+            } 
+            togglePopup();  
+				//JOptionPane.showMessageDialog(null, "1");  
+				//System.out.println("ewwerewwwerwqer");  
+
+			}  
+
+			public void mouseEntered(MouseEvent e) {  
+				//JOptionPane.showMessageDialog(null,"Botão esquerdo pressionado!");  
+
+			}  
+			public void mouseExited(MouseEvent e) {  
+				//JOptionPane.showMessageDialog(null,"Botão esquerdo pressionado!");  
+
+			}  
+
+		}); */   
+	}   
+
+	protected SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+
+	public void setDateFormat(SimpleDateFormat dateFormat) {  
+		this.dateFormat = dateFormat;  
+	}  
+
+	public void setData(String strDt) {  
+		this.strData = strDt;  
+	}  
+
+	/* public void setData(java.sql.Date dt){ 
+    }*/  
+
+	public void SetData(java.util.Date dt) {  
+	}  
+
+	public void setSelectedItem(Object item) {  
+		// Could put extra logic here or in renderer when item is instanceof Date, Calendar, or String  
+		// Dont keep a list ... just the currently selected item  
+		removeAllItems(); // hides the popup if visible  
+		addItem(item);  
+		super.setSelectedItem(item);  
+	}  
+
+
+
+	public void updateUI() {  
+		ComboBoxUI cui = (ComboBoxUI) UIManager.getUI(this);  
+		if (cui instanceof MetalComboBoxUI) {  
+			cui = new MetalDateComboBoxUI();  
+		} else if (cui instanceof MotifComboBoxUI) {  
+			cui = new MotifDateComboBoxUI();  
+		} else if (cui instanceof WindowsComboBoxUI) {  
+			cui = new WindowsDateComboBoxUI();  
+		}  
+		setUI(cui);  
+	}  
+
+	// Inner classes are used purely to keep DateComboBox component in one file  
+	//////////////////////////////////////////////////////////////  
+	// UI Inner classes -- one for each supported Look and Feel  
+	//////////////////////////////////////////////////////////////  
+
+	class MetalDateComboBoxUI extends MetalComboBoxUI {  
+		protected ComboPopup createPopup() {  
+			return new DatePopup(comboBox);  
+		}  
+	}  
+
+	class WindowsDateComboBoxUI extends WindowsComboBoxUI {  
+		protected ComboPopup createPopup() {  
+			return new DatePopup(comboBox);  
+		}  
+	}  
+
+	class MotifDateComboBoxUI extends MotifComboBoxUI {  
+		protected ComboPopup createPopup() {  
+			return new DatePopup(comboBox);  
+		}  
+	}  
+
+	//////////////////////////////////////////////////////////////  
+	// DatePopup inner class  
+	//////////////////////////////////////////////////////////////  
+
+	class DatePopup  
+	implements  
+	ComboPopup,  
+	MouseMotionListener,  
+	MouseListener,  
+	KeyListener,  
+	PopupMenuListener {  
+
+		protected JComboBox comboBox;  
+		protected Calendar calendar;  
+		protected JPopupMenu popup;  
+		protected JLabel monthLabel;  
+		protected JPanel days = null;  
+		protected SimpleDateFormat monthFormat =  
+				new SimpleDateFormat("MMM yyyy");  
+
+		protected Color selectedBackground;  
+		protected Color selectedForeground;  
+		protected Color background;  
+		protected Color foreground;  
+
+		protected Calendar cld = Calendar.getInstance();  
+
+		protected int mesAtual = cld.get(Calendar.MONTH);  
+
+		protected String strData;  
+
+		public DatePopup(JComboBox comboBox) {  
+			this.comboBox = comboBox;  
+			calendar = Calendar.getInstance();  
+			// check Look and Feel  
+			background = UIManager.getColor("ComboBox.background");  
+			foreground = UIManager.getColor("ComboBox.foreground");  
+			selectedBackground =  
+					UIManager.getColor("ComboBox.selectionBackground");  
+			selectedForeground =  
+					UIManager.getColor("ComboBox.selectionForeground");  
+
+			initializePopup();  
+		}  
+
+		/*public DatePopup(JComboBox comboBox, String strData) { 
+      this.comboBox = comboBox; 
+      calendar = Calendar.getInstance(); 
+      // check Look and Feel 
+      background = UIManager.getColor("ComboBox.background"); 
+         foreground = UIManager.getColor("ComboBox.foreground"); 
+      selectedBackground =  
+              UIManager.getColor("ComboBox.selectionBackground"); 
+      selectedForeground =  
+              UIManager.getColor("ComboBox.selectionForeground"); 
+
+             // setData(strData); 
+      initializePopup(); 
+      }*/  
+
+		/*public DatePopup(String strData) { 
+          JComboBox jcb = new JComboBox(); 
+
+
+
+      }*/  
+
+		//========================================  
+		// begin ComboPopup method implementations  
+		//  
+		public void show() {  
+			try {  
+				// if setSelectedItem() was called with a valid date, adjust the calendar  
+				calendar.setTime(  
+						dateFormat.parse(comboBox.getSelectedItem().toString()));  
+
+			} catch (Exception e) {  
+			}  
+
+			updatePopup();  
+			popup.show(comboBox, 0, comboBox.getHeight());  
+		}  
+
+		public void hide() {  
+			popup.setVisible(false);  
+		}  
+
+		protected JList list = new JList();  
+		public JList getList() {  
+			return list;  
+		}  
+
+		public MouseListener getMouseListener() {  
+			return this;  
+		}  
+
+		public MouseMotionListener getMouseMotionListener() {  
+			return this;  
+		}  
+
+		public KeyListener getKeyListener() {  
+			return this;  
+		}  
+
+		public boolean isVisible() {  
+			return popup.isVisible();  
+		}  
+
+		public void uninstallingUI() {  
+			popup.removePopupMenuListener(this);  
+		}  
+
+		//  
+		// end ComboPopup method implementations  
+		//======================================  
+
+		//===================================================================  
+		// begin Event Listeners  
+		//  
+
+		// MouseListener  
+
+		public void mousePressed(MouseEvent e) {  
+		}  
+		public void mouseReleased(MouseEvent e) {  
+		}  
+		// something else registered for MousePressed  
+		public void mouseClicked(MouseEvent e) {  
+
+			if (!SwingUtilities.isLeftMouseButton(e)) {  
+				//JOptionPane.showMessageDialog(null,"Botão esquerdo pressionado!");  
+				return;  
+			}  
+			if (!comboBox.isEnabled())  
+				return;  
+			if (comboBox.isEditable()) {  
+				comboBox.getEditor().getEditorComponent().requestFocus();  
+			} else {  
+				comboBox.requestFocus();  
+			}  
+			togglePopup();  
+
+		}  
+
+		protected boolean mouseInside = false;  
+		public void mouseEntered(MouseEvent e) {  
+			mouseInside = true;  
+			//JOptionPane.showMessageDialog(null, "Dentro !");  
+		}  
+		public void mouseExited(MouseEvent e) {  
+			mouseInside = false;  
+			//JOptionPane.showMessageDialog(null, "Dentro Fora!");  
+		}  
+
+		// MouseMotionListener  
+		public void mouseDragged(MouseEvent e) {  
+		}  
+		public void mouseMoved(MouseEvent e) {  
+		}  
+
+		// KeyListener  
+		public void keyPressed(KeyEvent e) {  
+		}  
+		public void keyTyped(KeyEvent e) {  
+		}  
+		public void keyReleased(KeyEvent e) {  
+			if (e.getKeyCode() == KeyEvent.VK_SPACE  
+					|| e.getKeyCode() == KeyEvent.VK_ENTER) {  
+				togglePopup();  
+			}  
+		}  
+
+		/** 
+		 * Variables hideNext and mouseInside are used to  
+		 * hide the popupMenu by clicking the mouse in the JComboBox 
+		 */  
+		public void popupMenuCanceled(PopupMenuEvent e) {  
+		}  
+		protected boolean hideNext = false;  
+		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {  
+			hideNext = mouseInside;  
+		}  
+		public void popupMenuWillBecomeVisible(PopupMenuEvent e) {  
+		}  
+
+		//  
+		// end Event Listeners  
+		//=================================================================  
+
+		//===================================================================  
+		// begin Utility methods  
+		//  
+
+		protected void togglePopup() {  
+			if (isVisible() || hideNext) {  
+				hide();  
+			} else {  
+				show();  
+			}  
+			hideNext = false;  
+		}  
+
+		//  
+		// end Utility methods  
+		//=================================================================  
+
+		// Note *** did not use JButton because Popup closes when pressed  
+		protected JLabel createUpdateButton(  
+				final int field,  
+				final int amount) {  
+			final JLabel label = new JLabel();  
+			final Border selectedBorder = new EtchedBorder();  
+			final Border unselectedBorder =  
+					new EmptyBorder(selectedBorder.getBorderInsets(new JLabel()));  
+			label.setBorder(unselectedBorder);  
+			label.setForeground(foreground);  
+			label.addMouseListener(new MouseAdapter() {  
+				public void mouseReleased(MouseEvent e) {  
+					calendar.add(field, amount);  
+					updatePopup();  
+				}  
+				public void mouseEntered(MouseEvent e) {  
+					label.setBorder(selectedBorder);  
+				}  
+				public void mouseExited(MouseEvent e) {  
+					label.setBorder(unselectedBorder);  
+				}  
+			});  
+
+			return label;  
+		}  
+
+		protected void initializePopup() {  
+			JPanel header = new JPanel(); // used Box, but it wasn't Opaque  
+			header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));  
+			header.setBackground(new Color(15,124,183));  
+			header.setOpaque(true);  
+
+			JLabel label;  
+			label = createUpdateButton(Calendar.YEAR, -1);  
+			label.setText("<<");  
+			//label.setIcon(new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\back24.gif"));  
+			label.setToolTipText("Ano Anterior");  
+
+			header.add(Box.createHorizontalStrut(5));  
+			header.add(label);  
+			header.add(Box.createHorizontalStrut(5));  
+
+			label = createUpdateButton(Calendar.MONTH, -1);  
+			label.setText("< ");  
+			//label.setIcon(new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\back16.gif"));  
+			label.setToolTipText("Mês Anterior");  
+			header.add(label);  
+
+			monthLabel = new JLabel("", JLabel.CENTER);  
+			monthLabel.setForeground(foreground);  
+			header.add(Box.createHorizontalGlue());  
+			header.add(monthLabel);  
+			header.add(Box.createHorizontalGlue());  
+
+			label = createUpdateButton(Calendar.MONTH, 1);  
+			label.setText(" >");  
+			//label.setIcon( new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\Forward16.gif"));  
+			label.setToolTipText("Próximo Mês");  
+			header.add(label);  
+
+			label = createUpdateButton(Calendar.YEAR, 1);  
+			//label.setIcon( new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\Forward24.gif"));  
+			label.setText(">>");
+			//label.setFont(new Font("Tahoma", Font.PLAIN, 5));
+			label.setToolTipText("Próximo Ano");  
+
+			header.add(Box.createHorizontalStrut(5));  
+			header.add(label);  
+			header.add(Box.createHorizontalStrut(5));  
+
+			popup = new JPopupMenu();  
+			popup.setBorder(BorderFactory.createLineBorder(Color.black));  
+			popup.setLayout(new BorderLayout());  
+			popup.setBackground(background);  
+			popup.addPopupMenuListener(this);  
+			popup.add(BorderLayout.NORTH, header);  
+		}  
+
+		// update the Popup when either the month or the year of the calendar has been changed  
+		protected void updatePopup() {  
+			monthLabel.setText(monthFormat.format(calendar.getTime()));  
+
+			monthLabel.setFont(new Font("Arial", 1, 16));  
+			monthLabel.setForeground(new Color(255, 255, 255));  
+			if (days != null) {  
+				popup.remove(days);  
+			}  
+			days = new JPanel(new GridLayout(0, 7));  
+			//days = new JPanel();  
+			days.setBackground(background);  
+			days.setOpaque(true);  
+
+			Calendar setupCalendar = (Calendar) calendar.clone();  
+			setupCalendar.set(  
+					Calendar.DAY_OF_WEEK,  
+					setupCalendar.getFirstDayOfWeek());  
+			for (int i = 0; i < 7; i++) {  
+				int dayInt = setupCalendar.get(Calendar.DAY_OF_WEEK) - 1;  
+				JLabel label = new JLabel();  
+				label.setHorizontalAlignment(JLabel.CENTER);  
+				label.setForeground(foreground);  
+				//label.setForeground(Color.red);  
+				//JOptionPane.showMessageDialog(null, " " + dayInt + " ");  
+				if (dayInt == Calendar.SUNDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + dayInt + " ");  
+					label.setText("Dom");  
+				} else if (dayInt == Calendar.MONDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + dayInt + " ");  
+					label.setText("Seg");  
+				} else if (dayInt == Calendar.TUESDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + Calendar.T + " ");  
+					label.setText("Ter");  
+				} else if (dayInt == Calendar.WEDNESDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + Calendar.WEDNESDAY + " ");  
+					label.setText("Qua");  
+				} else if (dayInt == Calendar.THURSDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + Calendar.THURSDAY + " ");  
+					label.setText("Qui");  
+				} else if (dayInt == Calendar.FRIDAY) {  
+					//JOptionPane.showMessageDialog(null, " " + Calendar.FRIDAY + " ");  
+					label.setText("Sex");  
+				} else /* if (dayInt == Calendar.SATURDAY)*/ {  
+					//JOptionPane.showMessageDialog(null, " " + Calendar.SATURDAY + " ");  
+					label.setText("Sáb");  
+				}  
+
+				label.setForeground(new Color(55, 63, 130));  
+
+				days.add(label);  
+				setupCalendar.roll(Calendar.DAY_OF_WEEK, true);  
+			}  
+
+			setupCalendar = (Calendar) calendar.clone();  
+			setupCalendar.set(Calendar.DAY_OF_MONTH, 1);  
+			int first = setupCalendar.get(Calendar.DAY_OF_WEEK);  
+			for (int i = 0; i < (first - 1); i++) {  
+				days.add(new JLabel(""));  
+			}  
+			for (int i = 1;  
+					i <= setupCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);  
+					i++) {  
+				final int day = i;  
+				final JLabel label = new JLabel(String.valueOf(day));  
+				label.setHorizontalAlignment(JLabel.CENTER);  
+
+				Calendar cldr = Calendar.getInstance();  
+
+				int diaAtual = cldr.get(Calendar.DAY_OF_MONTH);  
+
+				int mes = setupCalendar.get(Calendar.MONTH);  
+
+				//JOptionPane.showMessageDialog(null, "Mes é " + mesAtual);  
+
+				if ((day == diaAtual) && (mes == mesAtual)) {  
+					label.setForeground(Color.red);  
+					//Font f = new Font("Arial", 10, 14);  
+					// label.setFont(f.);  
+				} else {  
+					label.setForeground(foreground);  
+				}  
+
+				label.addMouseListener(new MouseListener() {  
+					public void mousePressed(MouseEvent e) {  
+					}  
+					public void mouseClicked(MouseEvent e) {  
+						popup.setVisible(false);  
+						//JOptionPane.showMessageDialog(null, "Clique!");  
+					}  
+					public void mouseReleased(MouseEvent e) {  
+						label.setOpaque(false);  
+						label.setBackground(background);  
+						label.setForeground(foreground);  
+
+						calendar.set(Calendar.DAY_OF_MONTH, day);  
+						comboBox.setSelectedItem(  
+								dateFormat.format(calendar.getTime()));  
+						// hide();  
+						// hide is called with setSelectedItem() ... removeAll()  
+						comboBox.requestFocus();  
+					}  
+					public void mouseEntered(MouseEvent e) {  
+						label.setOpaque(true);  
+						label.setBackground(selectedBackground);  
+						label.setForeground(selectedForeground);  
+					}  
+					public void mouseExited(MouseEvent e) {  
+						label.setOpaque(false);  
+						label.setBackground(background);  
+
+						Calendar cldr = Calendar.getInstance();  
+
+						int diaAtual = cldr.get(Calendar.DAY_OF_MONTH);  
+
+						Calendar setupCalendar = (Calendar) calendar.clone();  
+
+						int mes = setupCalendar.get(Calendar.MONTH);  
+
+						if ((day == diaAtual) && (mes == mesAtual)) {  
+							label.setForeground(Color.red);  
+						} else {  
+							label.setForeground(foreground);  
+						}  
+					}  
+				});  
+
+				days.add(label);  
+			}  
+
+			popup.add(BorderLayout.CENTER, days);  
+			popup.pack();  
+		}  
+	}  
 }
+
+
+
