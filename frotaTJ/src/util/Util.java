@@ -1,10 +1,12 @@
 package util;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -44,6 +46,11 @@ public class Util extends JTextField{
 		}
 		return hodometro;
 	}
+	
+	public Date getCMBData(JComboBox combo){
+		return formataData(combo.getSelectedItem().toString());
+	}
+
 	
 	
 	
@@ -94,7 +101,7 @@ public class Util extends JTextField{
             }    
     }
 	
-	public Date RetornaData(Date data){
+	public Date retornaData(Date data){
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
         
         Date d = new Date();
@@ -108,6 +115,15 @@ public class Util extends JTextField{
 		}
         
         return d;
+	}
+	
+	public String retornaMoeda(Double valor){
+		//String valorStr = "R$ 00,000";
+		
+		NumberFormat formato = NumberFormat.getCurrencyInstance();
+		return formato.format(valor);
+		
+		
 	}
 	
 }

@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
 
 import util.IntegerDocument;
+import util.JCalendar;
 import util.JNumberFormatField;
 import util.Util;
 
@@ -55,7 +56,6 @@ import javax.swing.text.MaskFormatter;
 
 
 public class PanelCadastroServiço extends PanelExemplo {
-	private JTextField textFieldData;
 	private JTextField textFieldValor;
 	private JTextField textFieldOrçamento;
 	private JTextField textFieldCupomFiscal;
@@ -74,7 +74,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 	private MBMotorista mbMotorista = MBMotorista.getInstance();
 	private MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 	private MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-	
+	Util util = Util.getInstance();	
 
 	/**
 	 * Create the panel.
@@ -97,10 +97,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		
 
-		textFieldData = new JFormattedTextField(data);
-		textFieldData.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textFieldData.setColumns(10);
+		final JCalendar cmbData = new JCalendar();
 
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -222,7 +221,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 
 
-				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
+				// java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
+				
+				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
 				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
 				valorString = valorString.replaceAll(",", "."); 
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
@@ -273,95 +274,94 @@ public class PanelCadastroServiço extends PanelExemplo {
 		JLabel lblTipoServiço = new JLabel("Tipo Servi\u00E7o");
 		lblTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblKm)
-												.addComponent(lblDescrio)
-												.addComponent(lblCupomFiscal)
-												.addComponent(lblOramento)
-												.addComponent(lblValor)
-												.addComponent(lblData)
-												.addComponent(lblFornecedor)
-												.addComponent(lblVeiculo, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblTipoServiço)
-												.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(comboBoxMotorista, 0, 544, Short.MAX_VALUE)
-														.addComponent(comboBoxTipoServico_1, 0, 544, Short.MAX_VALUE)
-														.addComponent(comboBoxVeiculo, 0, 544, Short.MAX_VALUE)
-														.addComponent(comboBoxFornecedor, 0, 544, Short.MAX_VALUE)
-														.addComponent(textFieldOrçamento, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-														.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-														.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-														.addComponent(textFieldData, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-														.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-														.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)))
-														.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-																.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(btnCancelar))
-																.addComponent(lblCadastroServio))
-																.addContainerGap())
-				);
-		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblCadastroServio)
-						.addGap(28)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblKm)
+								.addComponent(lblDescrio)
+								.addComponent(lblCupomFiscal)
+								.addComponent(lblOramento)
+								.addComponent(lblValor)
 								.addComponent(lblData)
-								.addComponent(textFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblValor)
-										.addComponent(textFieldValor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblOramento)
-												.addComponent(textFieldOrçamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(lblCupomFiscal)
-														.addComponent(textFieldCupomFiscal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.UNRELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblDescrio)
-																.addComponent(textFieldDescrição, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																.addPreferredGap(ComponentPlacement.UNRELATED)
-																.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																		.addComponent(lblKm)
-																		.addComponent(textFieldKm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																		.addPreferredGap(ComponentPlacement.UNRELATED)
-																		.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																				.addComponent(lblVeiculo)
-																				.addComponent(comboBoxVeiculo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																				.addGap(17)
-																				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																						.addComponent(lblTipoServiço)
-																						.addComponent(comboBoxTipoServico_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-																						.addPreferredGap(ComponentPlacement.UNRELATED)
-																						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																								.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-																								.addComponent(comboBoxMotorista, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																								.addPreferredGap(ComponentPlacement.UNRELATED)
-																								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																										.addComponent(lblFornecedor)
-																										.addComponent(comboBoxFornecedor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																										.addGap(43)
-																										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																												.addComponent(btnCancelar)
-																												.addComponent(btnSalvar))
-																												.addContainerGap())
-				);
+								.addComponent(lblFornecedor)
+								.addComponent(lblVeiculo, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTipoServiço)
+								.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(comboBoxMotorista, 0, 310, Short.MAX_VALUE)
+								.addComponent(comboBoxTipoServico_1, 0, 310, Short.MAX_VALUE)
+								.addComponent(comboBoxVeiculo, 0, 310, Short.MAX_VALUE)
+								.addComponent(comboBoxFornecedor, 0, 310, Short.MAX_VALUE)
+								.addComponent(textFieldOrçamento, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCancelar))
+						.addComponent(lblCadastroServio))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblCadastroServio)
+					.addGap(28)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblData)
+						.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblValor)
+						.addComponent(textFieldValor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblOramento)
+						.addComponent(textFieldOrçamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCupomFiscal)
+						.addComponent(textFieldCupomFiscal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDescrio)
+						.addComponent(textFieldDescrição, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblKm)
+						.addComponent(textFieldKm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVeiculo)
+						.addComponent(comboBoxVeiculo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(17)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTipoServiço)
+						.addComponent(comboBoxTipoServico_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxMotorista, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFornecedor)
+						.addComponent(comboBoxFornecedor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(43)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancelar)
+						.addComponent(btnSalvar))
+					.addContainerGap())
+		);
 		setLayout(groupLayout);
 		if (idServicoSelecionado>0){
 			MBServico mbServico = MBServico.getInstance();
@@ -369,12 +369,12 @@ public class PanelCadastroServiço extends PanelExemplo {
 			try {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
 				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
-
+				cmbData.setData(b);
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescrição.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
 				textFieldValor.setText(s.getValor().toString());
-				textFieldData.setText(b);
+				//textFieldData.setText(b);
 				textFieldOrçamento.setText(s.getNroOrcamento());
 				// selecionar combobox fornecedor	
 				boolean aux = false ;
@@ -473,7 +473,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 		comboBoxTipoServico_1.updateUI();
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	}
-
 }
 
 

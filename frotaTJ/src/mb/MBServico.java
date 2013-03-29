@@ -1,10 +1,7 @@
 package mb;
 
-import java.sql.Connection;
 import java.util.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +12,6 @@ import dao.Motorista;
 import dao.Servico;
 import dao.ServicoDAO;
 import dao.TipoServico;
-import dao.TipoServicoModelo;
-import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 
 public class MBServico {
@@ -109,7 +104,7 @@ public class MBServico {
 		Util util = Util.getInstance();
 		if (dataInicio.before(dataFinal) || dataInicio.equals(dataFinal)){
 			for(int i=0;i<listaServico.size();i++){
-				Date d = util.RetornaData(listaServico.get(i).getData2());
+				Date d = util.retornaData(listaServico.get(i).getData2());
 				if(d.equals(dataInicio) || d.equals(dataFinal) || d.after(dataInicio) && d.before(dataFinal)){
 					Servico s = retornarServico(listaServico.get(i).getIdServico());
 					servico.add(s);
@@ -127,7 +122,7 @@ public class MBServico {
 		Util util = Util.getInstance();
 		if (dataInicio.before(dataFinal) || dataInicio.equals(dataFinal)){
 			for(int i=0;i<listaServico.size();i++){
-				Date d = util.RetornaData(listaServico.get(i).getData2());
+				Date d = util.retornaData(listaServico.get(i).getData2());
 				if(d.equals(dataInicio) || d.equals(dataFinal) || d.after(dataInicio) && d.before(dataFinal)){
 					Servico s = retornarServico(listaServico.get(i).getIdServico());
 					if(!servico.contains(s)){
