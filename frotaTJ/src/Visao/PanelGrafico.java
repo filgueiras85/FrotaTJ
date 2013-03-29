@@ -5,7 +5,6 @@ import java.awt.GradientPaint;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ import org.jfree.util.Rotation;
 
 import com.sun.org.apache.xml.internal.utils.CharKey;
 
-import util.Util;
+import util.JCalendar;
 
 public class PanelGrafico extends PanelExemplo{
 	public PanelGrafico() {
@@ -40,65 +39,57 @@ public class PanelGrafico extends PanelExemplo{
 
 	@SuppressWarnings("null")
 	private static void PanelGrafico() throws FileNotFoundException, IOException {
-		String Nome = null;
-		int dia = 0, mes = 0, ano = 0;
+		String Nome = null, dia = null, mes = null, ano = null;
 		DefaultPieDataset pieDataSet = new DefaultPieDataset();
 
-		/*pieDataSet.setValue("Atualizadas", new Integer(17));
+    	/*pieDataSet.setValue("Atualizadas", new Integer(17));
 	    pieDataSet.setValue("Pendentes", new Integer(105));
 		pieDataSet.setValue("Precisam de Atenção", new Integer(7));
-
+		
 
 		JFreeChart chart = ChartFactory.createPieChart3D("Situação das Manutenções",
 				pieDataSet, true, false, false);*/
-
-		JFreeChart chart = ChartFactory.createPieChart3D("Situação das Manutenções",pieDataSet,true,true,false);                
-		PiePlot ConfigurarCores = (PiePlot)chart.getPlot();
-
-		ConfigurarCores.setSectionPaint("Atualizadas", Color.GREEN);
-		pieDataSet.setValue("Atualizadas", new Integer(300));
-
-		ConfigurarCores.setSectionPaint("Pendentes", Color.red);
-		pieDataSet.setValue("Pendentes", new Integer(105));
-
-		ConfigurarCores.setSectionPaint("Precisam de Atenção", Color.YELLOW);
-		pieDataSet.setValue("Precisam de Atenção", new Integer(80));
-
+		
+	    JFreeChart chart = ChartFactory.createPieChart3D("Situação das Manutenções",pieDataSet,true,true,false);                
+	        PiePlot ConfigurarCores = (PiePlot)chart.getPlot();
+			 
+			ConfigurarCores.setSectionPaint("Atualizadas", Color.GREEN);
+			pieDataSet.setValue("Atualizadas", new Integer(300));
+			
+			ConfigurarCores.setSectionPaint("Pendentes", Color.red);
+			pieDataSet.setValue("Pendentes", new Integer(105));
+			
+			ConfigurarCores.setSectionPaint("Precisam de Atenção", Color.YELLOW);
+			pieDataSet.setValue("Precisam de Atenção", new Integer(80));
+			
 
 		PiePlot parametrizacaoGrafico = (PiePlot) chart.getPlot();   
 
 		chart.getPlot().setForegroundAlpha(0.8f);  
 
-
-		Date data = new Date();
-
-		Util util = Util.getInstance();
-		//Nome = util.transformaData(data()).to;
-
-		try {
-			dia = data.getDay();
-			mes = data.getMonth();
-			ano = data.getYear();
-			/*dia = Nome.substring(0,2);
+		
+			Nome = util.JCalendar.getTime();
+		
+	        try {
+			dia = Nome.substring(0,2);
 			mes = Nome.substring(3,5);
 			ano = Nome.substring(6,10); 
-		*/
+			
 			System.out.println(dia);
 			System.out.println(mes);
 			System.out.println(ano);
-			String mesOut = null;
-			System.out.println(dia + mes + ano +mesOut);
+			
 			switch(mes) {
-		    case 01:
-		    	mesOut = "-Janeiro-";
+		    case "01":
+		        mes = "-Janeiro-";
 		        break;
-		    case 02:
-		    	mesOut = "-Fevereiro-";
+		    case "02":
+		    	mes = "-Fevereiro-";
 		        break;
-		    case 03:
-		    	mesOut = "-Março-";
+		    case "03":
+		    	mes = "-Março-";
 		        break;
-		    /*case "04":
+		    case "04":
 		    	mes = "-Abril-";
 		        break;
 		    case "05":
@@ -125,50 +116,49 @@ public class PanelGrafico extends PanelExemplo{
 		    case "12":
 		    	mes = "-Dezembro-";
 		        break;
-			*/}
+			}
 			StringBuffer strNome = new StringBuffer();
 	        strNome.append("imagens\\"); 
 	        strNome.append(dia);
-	        strNome.append(mesOut);
+	        strNome.append(mes);
 	        strNome.append(ano);
 	        strNome.append(".png");
-
+	        
 	        Nome = strNome.toString();
 	        System.out.println(Nome);
-
-			
-
+		
+	        
 		} catch (Exception e) {
 				}
-
-
+		
+	  		
+			
 		// Gera o gráfico própriamente  
 		ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 1000, 400, null, false, 0);  
 		System.out.println(Nome);
-
-			//p.showForegroundAlpha(TOP_ALIGNMENT);
-			ChartFrame frame = new ChartFrame("Situação das Manutenções", chart);
-			frame.setVisible(true);
-			frame.setSize(450, 500);
-
-
-			// Cor do fundo do label  
-			parametrizacaoGrafico.setLabelBackgroundPaint(Color.white);  
-
-			// Cor do fundo do gráfico  
-			parametrizacaoGrafico.setBackgroundPaint(Color.white);        
-
-			// Cor da borda do gráfico  
-			parametrizacaoGrafico.setBaseSectionOutlinePaint(Color.BLACK);  
-
-			// Rotação da pizza no sentido anti-horário  
-			parametrizacaoGrafico.setDirection(Rotation.ANTICLOCKWISE);  
-
-			parametrizacaoGrafico.setLabelShadowPaint(Color.BLACK);  
+		//p.showForegroundAlpha(TOP_ALIGNMENT);
+		ChartFrame frame = new ChartFrame("Situação das Manutenções", chart);
+		frame.setVisible(true);
+		frame.setSize(450, 500);
 
 
+		// Cor do fundo do label  
+		parametrizacaoGrafico.setLabelBackgroundPaint(Color.white);  
 
-		}
+		// Cor do fundo do gráfico  
+		parametrizacaoGrafico.setBackgroundPaint(Color.white);        
+
+		// Cor da borda do gráfico  
+		parametrizacaoGrafico.setBaseSectionOutlinePaint(Color.BLACK);  
+
+		// Rotação da pizza no sentido anti-horário  
+		parametrizacaoGrafico.setDirection(Rotation.ANTICLOCKWISE);  
+
+		parametrizacaoGrafico.setLabelShadowPaint(Color.BLACK);  
+
+		
+	 
 	}
+}
 
 
