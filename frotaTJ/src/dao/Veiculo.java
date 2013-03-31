@@ -37,10 +37,6 @@ import dao.Unidade;
 		name="VeiculoUnidade",
 		query="SELECT v FROM Veiculo v WHERE unidade_idunidade = :unidade"
     	)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 public class Veiculo implements java.io.Serializable {
 
 	// Fields

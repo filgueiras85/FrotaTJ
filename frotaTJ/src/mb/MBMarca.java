@@ -9,7 +9,6 @@ import dao.Marca;
 import dao.MarcaDAO;
 import dao.Modelo;
 import dao.Servico;
-import dao.TipoServico;
 
 public class MBMarca {
 	private static MBMarca marcaMB = new MBMarca();
@@ -68,13 +67,10 @@ public class MBMarca {
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findAll();
 	}
-<<<<<<< HEAD
 	public List<Marca> listaMarcaModeloServicoUnidade(int idUnidade, int idTipoServico, int idModelo) throws ClassNotFoundException, SQLException{
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.MarcaModeloServicoUnidade(idUnidade, idTipoServico, idModelo);
 	}
-=======
->>>>>>> origin/master
 	public List<Marca> MarcaModelo(List<Modelo> listaModelos)  throws ClassNotFoundException, SQLException{
 		List<Marca> listaMarca = listarMarcas();
 		List<Marca> marca = new ArrayList<>();
@@ -90,7 +86,6 @@ public class MBMarca {
 		}
 		return marca;
 	}
-<<<<<<< HEAD
 	
 	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
 		List<Marca> listaMarca = listarMarcas();
@@ -103,12 +98,8 @@ public class MBMarca {
 
 		return marca;
 	}
-	
-	public List<Marca> MarcaModelo(List<Servico> listaServico, TipoServico tipoServico)  throws ClassNotFoundException, SQLException{
-=======
 
 	public List<Marca> MarcaPorServico(List<Servico> listaServico)  throws ClassNotFoundException, SQLException{
->>>>>>> origin/master
 		List<Marca> marca = new ArrayList<>();
 		for(int i=0;i<listaServico.size();i++){
 			//if(listaServico.get(i).getTipoServico().getIdtipoServico() == tipoServico.getIdtipoServico()){
@@ -120,19 +111,6 @@ public class MBMarca {
 		}
 		return marca;
 	}
-<<<<<<< HEAD
-=======
-	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
-		List<Marca> listaMarca = listarMarcas();
-		List<Marca> marca = new ArrayList<Marca>();
-		for(int i=0;i<listaMarca.size();i++){
-			Marca m = retornarMarca(modelo.getMarca().getIdmarca());
-			if(!marca.contains(m))
-				marca.add(m);
-		}
-		return marca;
-	}
->>>>>>> origin/master
 }
 
 

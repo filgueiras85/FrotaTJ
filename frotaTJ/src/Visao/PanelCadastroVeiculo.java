@@ -1,10 +1,8 @@
 package Visao;
 
-import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -29,15 +27,10 @@ import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
-import mb.MBVeiculo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -51,22 +44,16 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	private JTextField textFieldOdometro;
 	private JTextField textFieldChassi;
 	private JTextField textFieldRenavan;
-<<<<<<< HEAD
-	private JComboBox<Modelo> comboBoxModelo = new JComboBox<Modelo>();
-	private JComboBox<Unidade> comboBoxUnidade = new JComboBox<Unidade>();
-	private JComboBox<Motorista> comboBoxMotorista = new JComboBox<Motorista>();
-=======
 	private JComboBox<String> comboBoxModelo;
 	private JComboBox<String> comboBoxUnidade;
 	private JComboBox<Motorista> comboBoxMotorista;
 	private Date dataCadastro;
 	private int kmcadastro;
->>>>>>> origin/master
 
 	/**
 	 * Create the panel.
 	 */
-	
+
 	public PanelCadastroVeiculo() {
 		new PanelCadastroVeiculo(0);
 	}
@@ -142,20 +129,13 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		textFieldRenavan.setColumns(10);
 
 		// ------------------------------ ComboBoxs ---------------------------\\		
-
-
+		comboBoxModelo = new JComboBox<String>();
 		comboBoxModelo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+		DefaultComboBoxModel<String> modelComboBoxModelo;
+		final Vector<Modelo> listaModelo = new Vector<>();
+		final Vector<String> listaNomeModelo = new Vector<>();
 		try {
-<<<<<<< HEAD
-			List<Modelo> listaModelo = mbModelo.listarModelos();
-			Vector<Modelo> modelo = new Vector<Modelo>(listaModelo);
-			comboBoxModelo.setModel(new DefaultComboBoxModel<Modelo>(modelo));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-=======
-			
+
 			listaModelo.addAll(mbModelo.listarModelos());
 			System.out.println(mbModelo.listarModelos());
 			System.out.println("---- lista Modelo ----- ");
@@ -167,23 +147,32 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 			comboBoxModelo.setModel(modelComboBoxModelo);
 		} catch (Exception e) {
 			// TODO: handle exception
->>>>>>> origin/master
 		}	
+
+		comboBoxUnidade = new JComboBox<String>();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		DefaultComboBoxModel<String> modelComboBoxUnidade;
+		final Vector<Unidade> listaUnidade = new Vector<>();
+		final Vector<String> listaNomeUnidade = new Vector<>();
+
 		try {
-			List<Unidade> listaUnidade = mbUnidade.listarUnidades();
-			Vector<Unidade> unidade = new Vector<Unidade>(listaUnidade);
-			comboBoxUnidade.setModel(new DefaultComboBoxModel<Unidade>(unidade));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			listaUnidade.addAll(mbUnidade.listarUnidades());
+
+			for (int i = 0; i<listaUnidade.size();i++){
+				listaNomeUnidade.add(listaUnidade.get(i).getNome());
+			}
+			modelComboBoxUnidade = new DefaultComboBoxModel<String>(listaNomeUnidade);
+			comboBoxUnidade.setModel(modelComboBoxUnidade);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
+		comboBoxMotorista = new JComboBox<Motorista>();
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		DefaultComboBoxModel<Motorista> modelComboBoxMotorista;
 		try {
-			List<Motorista> listaMotorista= mbMotorista.listarMotoristas();
-			Vector<Motorista> motorista = new Vector<Motorista>(listaMotorista);
-			comboBoxMotorista.setModel(new DefaultComboBoxModel<Motorista>(motorista));
+			modelComboBoxMotorista = new DefaultComboBoxModel<Motorista>(new Vector(mbMotorista.listarMotoristas()));
+			comboBoxMotorista.setModel(modelComboBoxMotorista);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -203,18 +192,6 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
-				 comboBoxModelo.getSelectedIndex();
-				 comboBoxUnidade.getSelectedIndex();
-				comboBoxMotorista.getSelectedIndex();
-				
-				Modelo modelo = mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo());
-				Motorista motorista = mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista());
-				Unidade unidade = mbUnidade.retornarUnidade(comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()).getIdunidade());
-				
-				Veiculo v = new Veiculo(idVeiculoSelecionado, modelo, motorista, unidade, textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null);
-
-=======
 				Veiculo v = new Veiculo();
 				if(idVeiculoSelecionado==0){
 					Date hoje = new Date(System.currentTimeMillis());
@@ -223,15 +200,12 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 					v = new Veiculo(idVeiculoSelecionado, listaModelo.get(comboBoxModelo.getSelectedIndex()), mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()), listaUnidade.get(comboBoxUnidade.getSelectedIndex()), textFieldPlaca.getText(), textFieldRenavan.getText(), textFieldChassi.getText(), Integer.parseInt(textFieldOdometro.getText().trim()), null, kmcadastro, dataCadastro);
 
 				}
->>>>>>> origin/master
 				try {
 					if (idVeiculoSelecionado==0){
-						
 						if (v.getIdveiculo()==0){
 							v.setIdveiculo(null);
 						}
 						String retorno = mbVeiculo.inserir(v);
-		
 						Situação(v, idVeiculoSelecionado);
 						if (retorno.equals("ok")){
 
@@ -368,7 +342,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 					if (aux==true) break; 
 					i++;
 				}
-				//comboBoxUnidade.setSelectedIndex(i);
+				comboBoxUnidade.setSelectedIndex(i);
 
 				i=0;
 				aux = false;
@@ -433,4 +407,3 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 
 	}
 }
-

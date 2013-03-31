@@ -352,14 +352,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_10);
 
-		JMenuItem menuItem_10 = new JMenuItem("Total Gasto");
-		menuItem_10.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
-		menuItem_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PanelRelatorioTotalGasto();
-			}
-		});
-		mnListar.add(menuItem_10);
+
 		
 		//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");

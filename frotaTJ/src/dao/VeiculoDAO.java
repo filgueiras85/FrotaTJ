@@ -28,16 +28,12 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public static final String CHASSI = "chassi";
 	public static final String ODOMETRO = "odometro";
 	public static final String SITUACAO = "situacao";
-<<<<<<< HEAD
-	public static final String IDUNIDADE ="unidade_idunidade";
-=======
 	public static final String UNIDADE = "unidade";
->>>>>>> origin/master
-	
+
 	private static VeiculoDAO instance = new VeiculoDAO();
 	private VeiculoDAO(){}
 	public static VeiculoDAO getInstance(){ return instance;}
-	
+
 	private EntityManager getEntityManager() {
 		return EntityManagerHelper.getEntityManager();
 	}
@@ -65,8 +61,7 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public void save(Veiculo entity) {
 		EntityManagerHelper.log("saving Veiculo instance", Level.INFO, null);
 		try {
-			EntityManagerHelper.beginTransaction();getEntityManager().persist(entity);
-			EntityManagerHelper.commit();
+			EntityManagerHelper.beginTransaction();getEntityManager().persist(entity);EntityManagerHelper.commit();
 			EntityManagerHelper.log("save successful", Level.INFO, null);
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("save failed", Level.SEVERE, re);
@@ -172,7 +167,7 @@ public class VeiculoDAO implements IVeiculoDAO {
 			final String queryString = "select model from Veiculo model where model."
 					+ propertyName + "= :propertyValue";
 			Query query = getEntityManager().createQuery(queryString);
-			//query.setParameter("propertyValue", value);
+			query.setParameter("propertyValue", value);
 			return query.getResultList();
 		} catch (RuntimeException re) {
 			EntityManagerHelper.log("find by property name failed",
@@ -200,10 +195,11 @@ public class VeiculoDAO implements IVeiculoDAO {
 	public List<Veiculo> findBySituacao(Object situacao) {
 		return findByProperty(SITUACAO, situacao);
 	}
-	public List<Veiculo> findByUnidade(Object unidade){
-		return findByProperty(IDUNIDADE, unidade);
-	}
 
+	public List<Veiculo> findByUnidade(Object unidade) {
+		return findByProperty(UNIDADE, unidade);
+	}
+	
 	/**
 	 * Find all Veiculo entities.
 	 * 
@@ -222,13 +218,7 @@ public class VeiculoDAO implements IVeiculoDAO {
 			throw re;
 		}
 	}
-	
-<<<<<<< HEAD
-=======
-	public List<Veiculo> findByUnidade(Object unidade) {
-		return findByProperty(UNIDADE, unidade);
-	}
->>>>>>> origin/master
+
 	public List<Veiculo> VeiculoUnidade(Unidade unidade) {
 		EntityManagerHelper.log("finding all veiculo by unidade", Level.INFO,
 				null);
@@ -237,24 +227,11 @@ public class VeiculoDAO implements IVeiculoDAO {
 		try {
 			Query query = getEntityManager().createNamedQuery("VeiculoUnidade");
 			query.setParameter("unidade", unidade);
-<<<<<<< HEAD
 
 			return veiculo = query.getResultList();
 		} catch (RuntimeException re) {
 
-			
-			EntityManagerHelper.log("find failed", Level.SEVERE, re);
-			return null;
-			//throw re;
-		}
-	}
-=======
->>>>>>> origin/master
 
-			return veiculo = query.getResultList();
-		} catch (RuntimeException re) {
-
-			
 			EntityManagerHelper.log("find failed", Level.SEVERE, re);
 			return null;
 			//throw re;

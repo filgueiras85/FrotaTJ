@@ -21,7 +21,7 @@ import mb.MBFornecedor;
 import mb.MBMarca;
 import mb.MBModelo;
 import javax.swing.ImageIcon;
-
+import util.ValidaCNPJ;
 import util.IntegerDocument;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -58,36 +58,40 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 				MBFornecedor mbFornecedor = MBFornecedor.getInstance();
 
-				Fornecedor f =  new Fornecedor(idFornecedorSelecionado,textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
-						textFieldFoneUm.getText(), textFieldFoneDois.getText());
+				if (!util.ValidaCNPJ.isCNPJ(textFieldCNPJ.getText())){
+					JOptionPane.showMessageDialog(null, "CNPJ invalido!");
+				}else{
 
+					Fornecedor f =  new Fornecedor(idFornecedorSelecionado,textFieldNome.getText(), textFieldCNPJ.getText(), textFieldEmailUm.getText(),
+							textFieldFoneUm.getText(), textFieldFoneDois.getText());
+					try {
 
-				try {
-					if (idFornecedorSelecionado==0){
-						if (f.getIdfornecedor()==0){
-							f.setIdfornecedor(null);
-						}
-						String retorno = mbFornecedor.inserir(f);
-						if (retorno.equals("ok")){
+						if (idFornecedorSelecionado==0){
+							if (f.getIdfornecedor()==0){
+								f.setIdfornecedor(null);
+							}
+							String retorno = mbFornecedor.inserir(f);
+							if (retorno.equals("ok")){
 
-							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
+								JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
 						}else{
-							JOptionPane.showMessageDialog(null,retorno);
-						}
-					}else{
 
-						String retorno =  mbFornecedor.editar(f);
-						if (retorno.equals("ok")){
-							JOptionPane.showMessageDialog(null,"Cadastro alterado!");
-						}else{
-							JOptionPane.showMessageDialog(null,retorno);
+							String retorno =  mbFornecedor.editar(f);
+							if (retorno.equals("ok")){
+								JOptionPane.showMessageDialog(null,"Cadastro alterado!");
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
 						}
+					} catch (Exception e) {
+						// TODO: handle exception
 					}
-				} catch (Exception e) {
-					// TODO: handle exception
+					PanelListagemFornecedor();
 				}
-				PanelListagemFornecedor();
 			}
 
 		});

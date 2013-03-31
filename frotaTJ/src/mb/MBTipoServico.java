@@ -65,7 +65,6 @@ public class MBTipoServico {
 		TipoServicoDAO daoTipoServico = TipoServicoDAO.getInstance();
 		return daoTipoServico.findAll();
 	}
-<<<<<<< HEAD
 
 	public List<TipoServico> listarTipoServicoUnidad(List<Servico> listaServico){
 		List<TipoServico> listaTipo;
@@ -88,8 +87,6 @@ public class MBTipoServico {
 			return null;
 		}
 	}
-=======
->>>>>>> origin/master
 	public List<TipoServico> TipoServicoPorServico(List<Servico> listaServico){
 		List<TipoServico> tipoServico = new ArrayList<TipoServico>();
 		for(int i=0;i<listaServico.size();i++){
@@ -99,8 +96,4 @@ public class MBTipoServico {
 		}
 		return tipoServico;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 }

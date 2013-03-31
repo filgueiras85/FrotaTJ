@@ -195,8 +195,9 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 		MBTipoServiçoModelo mbTipoServiçoModelo= MBTipoServiçoModelo.getInstance();
 		List<TipoServicoModelo> listaTipoServicoModelos= mbTipoServiçoModelo.listarTipoServicosModelos();
 		for (int i=0;i<listaTipoServicoModelos.size();i++){
-			((DefaultTableModel)table.getModel()).addRow(new String[]{ listaTipoServicoModelos.get(i).getId().getModeloIdmodelo()+" "+
-						listaTipoServicoModelos.get(i).getId().getTipoServicoIdtipoServico(), listaTipoServicoModelos.get(i).getModelo()+"",listaTipoServicoModelos.get(i).getTipoServico()+"", 
+			((DefaultTableModel)table.getModel()).addRow(new String[]{
+					" "+listaTipoServicoModelos.get(i).getId().getTipoServicoIdtipoServico(), listaTipoServicoModelos.get(i).getModelo()+""
+					,listaTipoServicoModelos.get(i).getTipoServico()+"", 
 					listaTipoServicoModelos.get(i).getKm()+"", listaTipoServicoModelos.get(i).getTempo()+""});
 		}
 	}

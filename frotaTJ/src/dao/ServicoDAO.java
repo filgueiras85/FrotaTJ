@@ -317,9 +317,6 @@ public class ServicoDAO implements IServicoDAO {
 			throw re;
 		}
 	}
-<<<<<<< HEAD
-	public List<Servico> findByVeiculo(Object veiculo) {
-=======
 	public List<Servico> ServicoTipoServico(Object tipoServico) {
 
 		List<Servico> servico = new ArrayList<>();		
@@ -335,7 +332,7 @@ public class ServicoDAO implements IServicoDAO {
 			//throw re;
 		}
 	}
->>>>>>> origin/master
+	public List<Servico> findByVeiculo(Object veiculo) {
 
 		List<Servico> servico = new ArrayList<>();		
 		try {
@@ -349,23 +346,6 @@ public class ServicoDAO implements IServicoDAO {
 			//throw re;
 		}
 	}
-	public List<Servico> ServicoTipoServico(Object tipoServico) {
-
-		List<Servico> servico = new ArrayList<>();		
-		try {
-			Query query = getEntityManager().createNamedQuery("ServicoTipoServico");
-			query.setParameter("tipoServico", tipoServico);
-		
-			return servico = query.getResultList();
-		} catch (RuntimeException re) {
-
-			EntityManagerHelper.log("find failed", Level.SEVERE, re);
-			return null;
-			//throw re;
-		}
-	}
-
-
 
 	public List<Servico> sServicos(int idUnidade) {
 

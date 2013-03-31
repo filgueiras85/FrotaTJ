@@ -196,7 +196,6 @@ public class ModeloDAO implements IModeloDAO {
 			throw re;
 		}
 	}
-<<<<<<< HEAD
 	public List<Modelo> ModeloServicoUnidade(final Object idUnidade, final Object idTipoServico, final Object idMarca) {
 		EntityManagerHelper.log("finding Servico instance with property: ", Level.INFO, null);
 		try {
@@ -236,20 +235,4 @@ public class ModeloDAO implements IModeloDAO {
 		}
 	}
 	
-=======
-	public List<Modelo> ModeloMarca(Object marca) {
->>>>>>> origin/master
-
-		List<Modelo> modelo = new ArrayList<>();		
-		try {
-			Query query = getEntityManager().createNamedQuery("ModeloMarca");
-			query.setParameter("marca", marca);
-			return modelo = query.getResultList();
-		} catch (RuntimeException re) {
-			
-			EntityManagerHelper.log("find failed", Level.SEVERE, re);
-			return null;
-			//throw re;
-		}
-	}
 }

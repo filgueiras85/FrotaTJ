@@ -1,6 +1,5 @@
 package Visao;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,26 +13,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.SwingConstants;
 
-import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
 
 import util.IntegerDocument;
 import util.JCalendar;
 import util.JNumberFormatField;
 import util.Util;
 
-import com.sun.jmx.snmp.Timestamp;
 
 import mb.MBFornecedor;
 import mb.MBMotorista;
@@ -43,18 +35,12 @@ import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
-import dao.Abastecimento;
 import dao.Fornecedor;
-import dao.Modelo;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
-import dao.TipoServicoModelo;
-import dao.TipoServicoModeloId;
-import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 import javax.swing.ImageIcon;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.MaskFormatter;
 
 
@@ -77,12 +63,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 	private MBMotorista mbMotorista = MBMotorista.getInstance();
 	private MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 	private MBFornecedor mbFornecedor= MBFornecedor.getInstance();
-<<<<<<< HEAD
-	private Util util = Util.getInstance();
-=======
 	Util util = Util.getInstance();	
 
->>>>>>> origin/master
 	/**
 	 * Create the panel.
 	 */
@@ -104,13 +86,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
 
-<<<<<<< HEAD
-=======
+
 		final JCalendar cmbData = new JCalendar();
 
->>>>>>> origin/master
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -158,23 +137,19 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 
 		comboBoxMotorista = new JComboBox<Motorista>();
-		
-		try{
-			List<Motorista> listaMotorista = mbMotorista.listarMotoristas();
-			Vector<Motorista> motorista = new Vector<Motorista>(listaMotorista);
-			comboBoxMotorista.setModel(new DefaultComboBoxModel<Motorista>(motorista));
+		DefaultComboBoxModel<Motorista> modeloComboBoxMotorista;
+		try {
+			modeloComboBoxMotorista = new DefaultComboBoxModel<Motorista>(new Vector(mbMotorista.listarMotoristas()));
+			comboBoxMotorista.setModel(modeloComboBoxMotorista);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBoxFornecedor = new JComboBox<Fornecedor>();
-		
+		DefaultComboBoxModel<Fornecedor> modeloComboBoxFornecedor;
 		try {
-
-			List<Fornecedor> listaFornecedor = mbFornecedor.listarFornecedores();
-			Vector<Fornecedor> fornecedor = new Vector<Fornecedor>(listaFornecedor);
-			comboBoxFornecedor.setModel(new DefaultComboBoxModel<Fornecedor>(fornecedor));
-
+			modeloComboBoxFornecedor = new DefaultComboBoxModel<Fornecedor>(new Vector(mbFornecedor.listarFornecedores()));
+			comboBoxFornecedor.setModel(modeloComboBoxFornecedor);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
@@ -182,19 +157,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 		comboBoxVeiculo = new JComboBox<Veiculo>();
 
-
+		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
 		try {
-
-			List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
-			Vector<Veiculo> veiculo = new Vector<Veiculo>(listaVeiculo);
-			comboBoxVeiculo.setModel(new DefaultComboBoxModel<Veiculo>(veiculo));
-			
+			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
+			comboBoxVeiculo.setModel(modeloComboBoxVeiculo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
-		
-		
-		
 		comboBoxVeiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				veiculoselecionado = (Veiculo) comboBoxVeiculo.getSelectedItem();
@@ -203,25 +172,22 @@ public class PanelCadastroServiço extends PanelExemplo {
 			}
 		});
 		comboBoxVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		comboBoxTipoServico = new JComboBox<TipoServico>();
-		
-		
 
 		MBTipoServico mbTipoServico1= MBTipoServico.getInstance();
 		comboBoxTipoServico_1 = new JComboBox<TipoServico>();
+		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
 		try {
-			List<TipoServico> listaTipoServico = mbTipoServico.listarTipoServicos();
-			Vector<TipoServico> tipoServico = new Vector<TipoServico>(listaTipoServico);
-			comboBoxTipoServico_1.setModel(new DefaultComboBoxModel<TipoServico>(tipoServico));
-
+			modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServico1.listarTipoServicos()));
+			comboBoxTipoServico_1.setModel(modeloComboBoxTipoServico);
 		} catch (Exception e) {
-			// TODO: handle exceptio
+			// TODO: handle exception
 		}		
 
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		final JCalendar cmbData = new JCalendar();
-		
+
+
 
 		textFieldKm = new JTextField();
 		textFieldKm.setDocument(new IntegerDocument(6));
@@ -242,29 +208,20 @@ public class PanelCadastroServiço extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
-				String dataServico = cmbData.getSelectedItem().toString();
-				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(dataServico+" 00:00:00").getTime());
-=======
 
 
 				// java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
-				
+
 				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
-				
->>>>>>> origin/master
+
 				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
 				valorString = valorString.replaceAll(",", "."); 
-				
-
-				Motorista motorista = mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista());
-				Veiculo veiculo = comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex());
-				Fornecedor fornecedor = mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor()));
-				TipoServico tipoServico = mbTipoServico.retornarTipoServico(comboBoxTipoServico_1.getItemAt(comboBoxTipoServico_1.getSelectedIndex()).getIdtipoServico());
-				
-				
-				Servico s =  new Servico(new Integer(idServicoSelecionado), motorista, veiculo,	fornecedor,	tipoServico,	data, 
-						Double.parseDouble(valorString), textFieldOrçamento.getText(), 
+				Servico s =  new Servico(new Integer(idServicoSelecionado), 
+						mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()),
+						mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
+						mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
+						mbTipoServico.retornarTipoServico(comboBoxTipoServico_1.getItemAt(comboBoxTipoServico_1.getSelectedIndex()).getIdtipoServico()),
+						data, Double.parseDouble(valorString), textFieldOrçamento.getText(), 
 						Integer.parseInt(textFieldCupomFiscal.getText().trim()), textFieldDescrição.getText(), Integer.parseInt(textFieldKm.getText().trim()));
 				try {
 					if (idServicoSelecionado==0){
@@ -272,15 +229,11 @@ public class PanelCadastroServiço extends PanelExemplo {
 							s.setIdServico(null);
 						}
 						String retorno = mbServico.inserir(s);
-<<<<<<< HEAD
-						//String retorno = "Ok";
-=======
 						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
 						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
->>>>>>> origin/master
 						if (retorno.equals("ok")){
 
-							
+
 
 							JOptionPane.showMessageDialog(null,"Serviço inserido!");
 
@@ -293,7 +246,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
 						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
-							
+
 							JOptionPane.showMessageDialog(null,"Serviço alterado!");
 
 						}else{
@@ -310,7 +263,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 		JLabel lblTipoServiço = new JLabel("Tipo Servi\u00E7o");
 		lblTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -341,11 +293,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 								.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
 								.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
 								.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-<<<<<<< HEAD
-								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)))
-=======
 								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
->>>>>>> origin/master
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -410,32 +358,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 			try {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
-<<<<<<< HEAD
-				String dataServico = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
-				Date d = null;     
-				try {
-					d = new SimpleDateFormat("dd/MM/yyyy").parse(dataServico);
-
-					cmbData.setSelectedItem(d); 
-					
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}    
-=======
 				String d = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
 				cmbData.setSelectedItem(d);
->>>>>>> origin/master
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescrição.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
 				textFieldValor.setText(s.getValor().toString());
-<<<<<<< HEAD
-				
-				
-=======
 				//textFieldData.setText(b);
->>>>>>> origin/master
 				textFieldOrçamento.setText(s.getNroOrcamento());
 				// selecionar combobox fornecedor	
 				boolean aux = false ;
@@ -474,13 +403,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 				i=0;
 				aux = false;
 				System.out.println(mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculoselecionado.getModelo().getIdmodelo()).size());
-			/*	while(aux==false){
+				while(aux==false){
 					aux= mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculoselecionado.getModelo().getIdmodelo()).get(i).equals(s.getTipoServico());
 					if (aux==true) break; 
 					i++;
 				}
 				comboBoxTipoServico_1.setSelectedIndex(i);
-			*/
+
 			} catch (ClassNotFoundException | SQLException e) {
 
 
@@ -523,12 +452,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 	public void ComboboxTipoServico(Veiculo veiculo){
 		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 
+		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
 		try {
-
-			List<TipoServico> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculo.getModelo().getIdmodelo());
-			Vector<TipoServico> tipoServico = new Vector<TipoServico>(listaTipoServico);
-			comboBoxTipoServico_1.setModel(new DefaultComboBoxModel<TipoServico>(tipoServico));
-	
+			modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculo.getModelo().getIdmodelo())));
+			comboBoxTipoServico_1.setModel(modeloComboBoxTipoServico);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -537,5 +464,3 @@ public class PanelCadastroServiço extends PanelExemplo {
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	}
 }
-
-

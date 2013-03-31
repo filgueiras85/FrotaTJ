@@ -26,18 +26,11 @@ import dao.Veiculo;
  */
 @Entity
 @Table(name = "modelo", catalog = "frotatj")
-<<<<<<< HEAD
 //@javax.persistence.NamedQueries({
-=======
->>>>>>> origin/master
 @javax.persistence.NamedQuery(
 		name="ModeloMarca",
 		query="SELECT m FROM Modelo m WHERE marca = :marca"
 		)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 public class Modelo implements java.io.Serializable {
 
 	// Fields

@@ -1,9 +1,6 @@
 package mb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +8,6 @@ import dao.Marca;
 import dao.Modelo;
 import dao.ModeloDAO;
 import dao.Servico;
-<<<<<<< HEAD
-import dao.TipoServico;
-import dao.TipoServicoModelo;
-=======
->>>>>>> origin/master
 import dao.Veiculo;
 
 public class MBModelo {
@@ -75,16 +67,14 @@ public class MBModelo {
 		ModeloDAO daoModelo= ModeloDAO.getInstance();
 		return daoModelo.findAll();
 	}
-<<<<<<< HEAD
 
 	public List<Modelo> listaModeloServicoUnidade(int idUnidade, int idTipoServico, int idMarca) throws ClassNotFoundException, SQLException{
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.ModeloServicoUnidade(idUnidade, idTipoServico, idMarca);
 	}
 
-=======
 	public List<Modelo> ModeloPorVeiculo(List<Veiculo> listaVeiculo) throws ClassNotFoundException, SQLException{
-		
+
 		List<Modelo> modelo = new ArrayList<Modelo>();
 		for(int i=0;i<listaVeiculo.size();i++){
 			Modelo m = retornarModelo(listaVeiculo.get(i).getModelo().getIdmodelo());
@@ -95,44 +85,23 @@ public class MBModelo {
 		}
 		return modelo;
 	}
->>>>>>> origin/master
+
 	public List<Modelo> ModeloVeiculo(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
 
 		List<Modelo> modelo = new ArrayList<>();
 		for(int i=0;i<listaServico.size();i++){
-				Modelo m = retornarModelo(listaServico.get(i).getVeiculo().getModelo().getIdmodelo());
-				if(!modelo.contains(m))
-					modelo.add(m);
-				
-			}
-		return modelo;
-	}
-<<<<<<< HEAD
-	public List<Modelo> ModeloPorVeiculo(List<Veiculo> listaVeiculo) throws ClassNotFoundException, SQLException{
-	
-		List<Modelo> modelo = new ArrayList<Modelo>();
-		for(int i=0;i<listaVeiculo.size();i++){
-			Modelo m = retornarModelo(listaVeiculo.get(i).getModelo().getIdmodelo());
-			System.out.println(listaVeiculo.get(i).getModelo().getIdmodelo());
-			if(!modelo.contains(m)){
+			Modelo m = retornarModelo(listaServico.get(i).getVeiculo().getModelo().getIdmodelo());
+			if(!modelo.contains(m))
 				modelo.add(m);
-			}
+
 		}
 		return modelo;
-}
+	}
 
-
-public List<Modelo> ModeloMarca(Marca marca){
-	ModeloDAO daoModelo = ModeloDAO.getInstance();
-	return daoModelo.ModeloMarca(marca);
-}
-
-=======
 	public List<Modelo> ModeloMarca(Marca marca){
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.ModeloMarca(marca);
 	}
->>>>>>> origin/master
 }
 
 
