@@ -6,7 +6,6 @@ import java.util.List;
 
 import dao.Abastecimento;
 import dao.AbastecimentoDAO;
-import dao.Modelo;
 import dao.Veiculo;
 
 public class MBAbastecimento {

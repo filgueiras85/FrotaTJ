@@ -1,6 +1,5 @@
 package Visao;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;

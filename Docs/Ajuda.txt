@@ -1,0 +1,765 @@
+Frota TJ
+
+1. Veiculo
+Tags: Starting
+
+1.1 TELAS
+
+1.1.1 Tela Cadastro
+Tags: Starting, Priority 1
+
+1.1.1.1 Placa
+
+1.1.1.2 Renavan
+
+1.1.1.3 Chassi
+
+1.1.1.4 Odometro
+
+1.1.1.5 Situacao
+
+1.1.1.6 Modelo
+
+1.1.1.7 Unidade
+
+1.1.1.8 Motorista
+
+1.1.2 Tela de Apresentacao
+Tags: Starting, Priority 1
+
+1.1.2.1 Renavan
+
+1.1.2.2 Chassi
+
+1.1.2.3 Odometro
+
+1.1.2.4 Placa
+
+1.1.2.5 Situacao
+
+1.1.2.6 Modelo
+
+1.1.2.7 Unidade
+
+1.1.2.8 Motorista
+
+1.1.2.9 Id
+
+1.2 DATABASE
+
+1.2.1 IDVEICULO
+
+1.2.2 MOTORISTA_IDMOTORISTA
+
+1.2.3 UNIDADE_IDUNIDADE
+
+1.2.4 MODELO_IDMODELO
+
+1.2.5 PLACA
+
+1.2.6 RENAVAN
+
+1.2.7 CHASSI
+
+1.2.8 ODOMETRO
+
+1.2.9 SITUACAO
+
+1.3 CLASSES
+
+1.3.1 MBVEICULO
+Tags: Priority 1, Starting
+
+1.3.1.1 Metodos
+
+1.3.1.1.1 cadastrarVeiculo
+
+1.3.1.1.2 editarVeiculo
+
+1.3.1.1.3 apagarVeiculo
+
+1.3.1.1.4 retornarVeiculo
+
+1.3.1.1.5 listarVeiculo
+
+1.3.2 DAOVEICULO
+Tags: Priority 1, Starting
+
+1.3.2.1 Metodos
+
+1.3.2.1.1 cadastrarVeiculo
+
+1.3.2.1.2 editarVeiculo
+
+1.3.2.1.3 apagarVeiculo
+
+1.3.2.1.4 retornarVeiculo
+
+1.3.2.1.5 listarVeiculo
+
+2. Modelo
+
+2.1 TELA
+Tags: Priority 1, Starting
+
+2.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+2.1.1.1 Nome
+
+2.1.1.2 Marca
+
+2.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+2.1.2.1 Nome
+
+2.1.2.2 Marca
+
+2.2 DATABASE
+
+2.2.1 IDMODELO
+
+2.2.2 MARCA_IDMARCA
+
+2.2.3 NOME
+
+2.3 CLASSES
+
+2.3.1 MBMODELO
+Tags: Priority 1, Starting
+
+2.3.1.1 Metodos
+
+2.3.1.1.1 cadastrarModelo
+
+2.3.1.1.2 editarModelo
+
+2.3.1.1.3 apagarModelo
+
+2.3.1.1.4 retornarModelo
+
+2.3.1.1.5 listarModelo
+
+2.3.2 DAOMODELO
+Tags: Priority 1, Starting
+
+2.3.2.1 Metodos
+
+2.3.2.1.1 cadastrarModelo
+
+2.3.2.1.2 editarModelo
+
+2.3.2.1.3 apagarModelo
+
+2.3.2.1.4 retornarModelo
+
+2.3.2.1.5 listarModelo
+
+3. Unidade
+Tags: Starting
+
+3.1 Tela
+Tags: Priority 1, Starting
+
+3.1.1 Tela Cadastro
+Tags: Priority 1, Starting
+
+3.1.1.1 Cidade
+
+3.1.2 Tela Apresentaçao
+Tags: Priority 1, Starting
+
+3.1.2.1 Cidade
+
+3.1.2.2 ID
+
+3.2 DATABASE
+
+3.2.1 IDUNIDADE
+
+3.2.2 NOME
+
+3.3 CLASSES
+
+3.3.1 MBUNIDAE
+Tags: Priority 1, Starting
+
+3.3.1.1 Metodos
+
+3.3.1.1.1 cadastrarUnidade
+
+3.3.1.1.2 editarUnidade
+
+3.3.1.1.3 apagarUnidade
+
+3.3.1.1.4 retornarUnidade
+
+3.3.1.1.5 listarUnidade
+
+3.3.2 DAOUNIDAE
+Tags: Priority 1, Starting
+
+3.3.2.1 Metodos
+
+3.3.2.1.1 cadastrarUnidade
+
+3.3.2.1.2 editarUnidade
+
+3.3.2.1.3 apagarUnidade
+
+3.3.2.1.4 retornarUnidade
+
+3.3.2.1.5 listarUnidade
+
+4. Motorista
+Tags: Starting
+
+4.1 Tela
+Tags: Priority 1, Starting
+
+4.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+4.1.1.1 Nome
+
+4.1.1.2 Matricula
+
+4.1.1.3 Unidade
+
+4.1.1.4 Id
+
+4.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+4.1.2.1 Nome
+
+4.1.2.2 Matricula
+
+4.1.2.3 Unidade
+
+4.2 CLASSES
+
+4.2.1 MBMOTORISTA
+Tags: Priority 1, Starting
+
+4.2.1.1 Metodos
+
+4.2.1.1.1 cadastrarMotorista
+
+4.2.1.1.2 editarMotorista
+
+4.2.1.1.3 apagarMotorista
+
+4.2.1.1.4 retornarMotorista
+
+4.2.1.1.5 listarMotorista
+
+4.2.2 DAOMOTORISTA
+Tags: Priority 1, Starting
+
+4.2.2.1 Metodos
+
+4.2.2.1.1 cadastrarMotorista
+
+4.2.2.1.2 editarMotorista
+
+4.2.2.1.3 apagarMotorista
+
+4.2.2.1.4 retornarMotorista
+
+4.2.2.1.5 listarMotorista
+
+4.3 DATABASE
+
+4.3.1 IDMOTORISTA
+
+4.3.2 UNIDADE_IDUNIDADE
+
+4.3.3 MATRICULA
+
+4.3.4 NOME
+
+5. Marca
+Tags: Starting
+
+5.1 Tela
+Tags: Priority 1, Starting
+
+5.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+5.1.1.1 Nome
+
+5.1.1.2 Id
+
+5.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+5.1.2.1 Nome
+
+5.2 CLASSES
+
+5.2.1 MBMARCA
+Tags: Priority 1, Starting
+
+5.2.1.1 Metodos
+
+5.2.1.1.1 cadastrarMarca
+
+5.2.1.1.2 editarMarca
+
+5.2.1.1.3 apagarMarca
+
+5.2.1.1.4 retornarMarca
+
+5.2.1.1.5 listarMarca
+
+5.2.2 DAOMARCA
+Tags: Priority 1, Starting
+
+5.2.2.1 Metodos
+
+5.2.2.1.1 cadastrarMarca
+
+5.2.2.1.2 editarMarca
+
+5.2.2.1.3 apagarMarca
+
+5.2.2.1.4 retornarMarca
+
+5.2.2.1.5 listarMarca
+
+5.3 DATABASE
+
+5.3.1 IDMARCA
+
+5.3.2 NOME
+
+6. Abastecimento
+Tags: Starting
+
+6.1 Tela
+Tags: Priority 1, Starting
+
+6.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+6.1.1.1 Veiculo
+
+6.1.1.2 Id
+
+6.1.1.3 Km odometro
+
+6.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+6.1.2.1 Veiculo
+
+6.1.2.2 Km odometro
+
+6.1.2.3 Data
+
+6.2 DATABASE
+
+6.2.1 IDABASTECIMENTO
+
+6.2.2 VEICULO_IDVEICULO
+
+6.2.3 KM_ODOMETRO
+
+6.2.4 DATA_2
+
+6.3 CLASSES
+
+6.3.1 MBABASTECIMENTO
+Tags: Priority 1, Starting
+
+6.3.1.1 Metodos
+
+6.3.1.1.1 cadastrarModelo
+
+6.3.1.1.2 editarModelo
+
+6.3.1.1.3 apagarModelo
+
+6.3.1.1.4 retornarModelo
+
+6.3.1.1.5 listarModelo
+
+6.3.2 DAOABASTECIMENTO
+Tags: Priority 1, Starting
+
+6.3.2.1 Metodos
+
+6.3.2.1.1 cadastrarAbastecimento
+
+6.3.2.1.2 editarAbastecimento
+
+6.3.2.1.3 apagarAbastecimento
+
+6.3.2.1.4 retornarAbastecimento
+
+6.3.2.1.5 listarAbastecimento
+
+7. Usuário
+Tags: Starting
+
+7.1 Tela
+Tags: Priority 1, Starting
+
+7.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+7.1.1.1 Nome
+
+7.1.1.2 Id
+
+7.1.1.3 Matricula
+
+7.1.1.4 Email
+
+7.1.1.5 Permissao
+
+7.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+7.1.2.1 Nome
+
+7.1.2.2 Matricula
+
+7.1.2.3 Senha
+
+7.1.2.4 Email
+
+7.1.2.5 Acesso
+
+7.2 DATABASE
+
+7.2.1 IDUSUARIO
+
+7.2.2 NOME
+
+7.2.3 MATRICULA
+
+7.2.4 SENHA
+
+7.2.5 EMAIL
+
+7.2.6 ADMINISTRADOR
+
+7.3 CLASSES
+
+7.3.1 MBUSUARIO
+Tags: Priority 1, Starting
+
+7.3.1.1 Metodos
+
+7.3.1.1.1 cadastrarUsuario
+
+7.3.1.1.2 editarUsuario
+
+7.3.1.1.3 apagarUsuario
+
+7.3.1.1.4 retornarUsuario
+
+7.3.1.1.5 listarUsuario
+
+7.3.2 DAOUSUARIO
+Tags: Priority 1, Starting
+
+7.3.2.1 Metodos
+
+7.3.2.1.1 cadastrarUsuario
+
+7.3.2.1.2 editarUsuario
+
+7.3.2.1.3 apagarUsuario
+
+7.3.2.1.4 retornarUsuario
+
+7.3.2.1.5 listarUsuario
+
+8. Fornecedor
+Tags: Starting
+
+8.1 Tela
+Tags: Priority 1, Starting
+
+8.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+8.1.1.1 Nome
+
+8.1.1.2 Id
+
+8.1.1.3 CNPJ
+
+8.1.1.4 Email
+
+8.1.1.5 Telefone 1
+
+8.1.1.6 Telefone 2
+
+8.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+8.1.2.1 Nome
+
+8.1.2.2 CNPJ
+
+8.1.2.3 Email
+
+8.1.2.4 Telefone 1
+
+8.1.2.5 Telefone 2
+
+8.2 DATABASE
+
+8.2.1 IDFORNECEDOR
+
+8.2.2 NOME
+
+8.2.3 CNPJ
+
+8.2.4 FONE1
+
+8.2.5 EMAIL
+
+8.2.6 FONE2
+
+8.3 CLASSES
+
+8.3.1 MBFORNECEDOR
+Tags: Priority 1, Starting
+
+8.3.1.1 Metodos
+
+8.3.1.1.1 cadastrarFornecedor
+
+8.3.1.1.2 editarFornecedor
+
+8.3.1.1.3 apagarFornecedore
+
+8.3.1.1.4 retornarFornecedor
+
+8.3.1.1.5 listarFornecedor
+
+8.3.2 DAOFORNECEDOR
+Tags: Priority 1, Starting
+
+8.3.2.1 Metodos
+
+8.3.2.1.1 cadastrarFornecedor
+
+8.3.2.1.2 editarFornecedor
+
+8.3.2.1.3 apagarFornecedore
+
+8.3.2.1.4 retornarFornecedor
+
+8.3.2.1.5 listarFornecedor
+
+9. JAVA
+
+9.1 Definir Versao
+
+10. Tela Principal
+
+10.1 Tela
+
+10.1.1 Pesquisa
+
+10.1.1.1 Placa
+
+10.1.1.2 Situacao 
+
+10.1.1.3 Unidade
+
+10.1.2 Tela Apresentacao
+
+Definir Regras de Negocio
+
+
+10.1.2.1 Placa
+
+10.1.2.2 Situacao
+
+10.1.2.3 Unidade
+
+10.1.2.4 Motorista
+
+11. Servico
+Tags: Starting
+
+11.1 Tela
+Tags: Priority 1, Starting
+
+11.1.1 Tela Apresentacao
+Tags: Priority 1, Starting
+
+11.1.1.1 Data
+
+11.1.1.2 ID
+
+11.1.1.3 Valor
+
+11.1.1.4 Orçamento
+
+11.1.1.5 Nota Fiscal - Ticket
+
+11.1.1.6 Descrição
+
+11.1.1.7 Km
+
+11.1.1.8 Motorista
+
+11.1.1.9 Tipo de Serviço
+
+11.1.1.10 Veiculo
+
+11.1.1.11 Fornecedor
+
+11.1.2 Tela Cadastro
+Tags: Priority 1, Starting
+
+11.1.2.1 Data
+
+11.1.2.2 Valor
+
+11.1.2.3 Orçamento
+
+11.1.2.4 Nota Fiscal - Ticket
+
+11.1.2.5 Descrição
+
+11.1.2.6 Km
+
+11.1.2.7 Motorista
+
+11.1.2.8 Tipo de Serviço
+
+11.1.2.9 Veiculo
+
+11.1.2.10 Fornecedor
+
+11.2 CLASSES
+
+11.2.1 MBSERVICO
+Tags: Priority 1, Starting
+
+11.2.1.1 Metodos
+
+11.2.1.1.1 cadastrarServico
+
+11.2.1.1.2 editarServico
+
+11.2.1.1.3 apagarServico
+
+11.2.1.1.4 retornarServico
+
+11.2.1.1.5 listarServico
+
+11.2.2 DAOSERVICO
+Tags: Priority 1, Starting
+
+11.2.2.1 Metodos
+
+11.2.2.1.1 cadastrarServico
+
+11.2.2.1.2 editarServico
+
+11.2.2.1.3 apagarServico
+
+11.2.2.1.4 retornarServico
+
+11.2.2.1.5 listarServico
+
+11.3 DATABASE
+
+11.3.1 IDSERVICO
+
+11.3.2 USUARIO_IDUSUARIO
+
+11.3.3 MOTORISTA_IDMOTORISTA
+
+11.3.4 TIPO_SERVICO_IDTIPO_SERVICO
+
+11.3.5 VEICULO_IDVEICULO
+
+11.3.6 FORNECEDOR_IDFORNECEDOR
+
+11.3.7 DATA_2
+
+11.3.8 VALOR
+
+11.3.9 NRO_ORCAMENTO
+
+11.3.10 NF_TICKET
+
+11.3.11 DESCRICAO
+
+11.3.12 KM
+
+12. Tipo de Servico
+
+Troca de Oleo
+
+
+12.1 Tela
+
+12.1.1 Tela Apresentacao
+
+12.1.1.1 Id
+
+12.1.1.2 Nome
+
+12.1.2 Tela Cadastro
+
+12.1.2.1 Nome
+
+12.2 DATABASE
+
+12.2.1 IDTIPO_SERVICO
+
+12.2.2 NOME
+
+13. Servico Veiculo
+
+13.1 DATABASE
+
+13.1.1 VEICULO_IDVEICULO
+
+13.1.2 TIPO_SERVICO_IDTIPO_SERVICO
+
+13.1.3 SITUCAO
+
+14. Servico Modelo
+
+14.1 DATABASE
+
+14.1.1 TIPO_SERVICO_IDTIPO_SERVICO
+
+14.1.2 MODELO_IDMODELO
+
+14.1.3 KM
+
+14.1.4 TEMPO
+
+14.2 TELAS
+
+14.2.1 Tela Apresentacao
+
+14.2.1.1 Veiculo
+
+14.2.1.2 Placa 
+
+14.2.1.3 Servico
+
+14.2.1.4 Situacao
+
+14.2.2 Tela Cadastro
+
+14.2.2.1 Veiculo
+
+14.2.2.2 Servico

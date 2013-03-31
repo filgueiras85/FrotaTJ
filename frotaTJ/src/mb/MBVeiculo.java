@@ -70,7 +70,7 @@ public class MBVeiculo {
 		}
 		return retorno;
 	}
-	
+
 	public List<Veiculo> listarVeiculosPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		return daoVeiculo.findByUnidade(MBUnidade.getInstance().retornarUnidade(idUnidade));
@@ -86,32 +86,103 @@ public class MBVeiculo {
 		VeiculoDAO daoVeiculo = VeiculoDAO.getInstance();
 		return daoVeiculo.findAll();
 	}
+
+
+
+	public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getPlaca().equals(placa)){
+				veiculo.add(listaVeiculo.get(i));
+			}
+		}
+		return veiculo;
+	}
+
+
+	public List<Veiculo> VeiculoTipoServico(List<Veiculo> listaVeiculos, List<Servico> tipoServico) throws ClassNotFoundException, SQLException{
+
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			for(int j=0;j<tipoServico.size();j++){
+				if(listaVeiculos.get(i).getIdveiculo() == tipoServico.get(j).getVeiculo().getIdveiculo()){
+
+					Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+
+	public List<Veiculo> VeiculoPorServico(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
+
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaServico.size();i++){
+			Veiculo v = retornarVeiculo(listaServico.get(i).getVeiculo().getIdveiculo());
+			if(!veiculo.contains(v)){
+				veiculo.add(v);
+			}
+		}
+		return veiculo;
+	}
+
+
+	public List<Veiculo> VeiculoModelo(List<Veiculo> listaVeiculos, List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		for(int i=0;i<listaVeiculos.size();i++){
+			for(int j=0;j<listaModelo.size();j++){
+				if(listaVeiculos.get(i).getModelo().getIdmodelo() == listaModelo.get(j).getIdmodelo()){
+					Veiculo v = retornarVeiculo(listaVeiculos.get(i).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+
+	public List<Veiculo> VeiculoPorModelo(List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
+		List<Veiculo> veiculo = new ArrayList<Veiculo>();
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		for(int i=0;i<listaModelo.size();i++){
+			for(int j=0;j<listaVeiculo.size();j++){
+				if(listaModelo.get(i).getIdmodelo() == listaVeiculo.get(j).getModelo().getIdmodelo()){
+					Veiculo v = retornarVeiculo(listaVeiculo.get(j).getIdveiculo());
+					if(!veiculo.contains(v)){
+						veiculo.add(v);
+					}
+				}
+			}
+		}
+		return veiculo;
+	}
+
+
+
 	public List<Veiculo> ListarosVeiculodoModelo(Modelo modelo) {
 		List<Veiculo> Lista1;
 		try {
 			Lista1 = listarVeiculos();
-
-			List<Veiculo> lista = new ArrayList<>();
-
+			List<Veiculo> lista = new ArrayList<Veiculo>();
 			for (int i = 0; i < Lista1.size(); i++) {
-				System.out.println(Lista1.get(i).getModelo().getIdmodelo().equals(modelo.getIdmodelo()));
 				if(Lista1.get(i).getModelo().getIdmodelo().equals(modelo.getIdmodelo())){
 					lista.add(Lista1.get(i));
 				}
-
 			}
-
 			System.out.println(lista.size()+"oi"+Lista1.size());
 			return lista;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return null;
-
 	}
-	
+
 	public List<Veiculo> VeiculoPorModelos(List<Modelo> listaModelo) throws ClassNotFoundException, SQLException{
 		List<Veiculo> veiculo = new ArrayList<Veiculo>();
 		List<Veiculo> listaVeiculo = listarVeiculos();
@@ -146,31 +217,9 @@ public class MBVeiculo {
 		List<Veiculo> veiculo = daoVeiculo.VeiculoUnidade(unidade);
 		return veiculo;
 	}
-	
-	public List<Veiculo> VeiculoPorServico(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
-		
-		List<Veiculo> veiculo = new ArrayList<Veiculo>();
-		for(int i=0;i<listaServico.size();i++){
-			Veiculo v = retornarVeiculo(listaServico.get(i).getVeiculo().getIdveiculo());
-			if(!veiculo.contains(v)){
-				veiculo.add(v);
-			}
-		}
-		return veiculo;
-	}
-	
-	public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
-		List<Veiculo> listaVeiculo = listarVeiculos();
-		List<Veiculo> veiculo = new ArrayList<Veiculo>();
-		for(int i=0;i<listaVeiculo.size();i++){
-			if(listaVeiculo.get(i).getPlaca().equals(placa)){
-				veiculo.add(listaVeiculo.get(i));
-			}
-		}
-		return veiculo;
-	}
-	
-	
+
+
+
 	public void AtualizarSituacaoAbastecimento(Abastecimento a, int odometrodesatualizado){
 		Veiculo v = retornarVeiculo(a.getVeiculo().getIdveiculo());
 		List<TipoServicoModelo> listaTipoServico = mbTipoServiçoModelo.ListarosTipoServicodoModelo(v.getModelo().getIdmodelo());
@@ -635,13 +684,13 @@ public class MBVeiculo {
 			v2.setOdometro(aux);
 			editar(v2);
 		}
-		
+
 		System.out.println("entrou");
 		return odometro;
 
 	}
-public List<Veiculo> statusTodosVeiculos () throws ClassNotFoundException, SQLException{
-		
+	public List<Veiculo> statusTodosVeiculos () throws ClassNotFoundException, SQLException{
+
 		List<Veiculo> veiculo = listarVeiculos();
 		List<TipoServicoModelo> tiposServicosModeloVeiculo = null;
 		String retorno = "";
@@ -650,9 +699,9 @@ public List<Veiculo> statusTodosVeiculos () throws ClassNotFoundException, SQLEx
 		Calendar hoje = Calendar.getInstance();
 
 		for (int i1=0;i1<veiculo.size();i1++){
-			
+
 			tiposServicosModeloVeiculo = (List<TipoServicoModelo>) mbTipoServiçoModelo.ListarosTipoServicodoModelo(veiculo.get(i1).getModelo().getIdmodelo());
-			
+
 			for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
 				// para cada tipo de servico busca o ultimo servico feito
 				// terminar o teste para cada servico quando != null
@@ -718,17 +767,18 @@ public List<Veiculo> statusTodosVeiculos () throws ClassNotFoundException, SQLEx
 						retorno = "verde";
 					}
 				}
-				
-							
+
+
 			}
 			veiculo.get(i1).setSituacao(retorno);
 			editar(veiculo.get(i1));								
 		}
 		return veiculo;
 	}
-	public static final int getMonthsDifference(Date date1, Date date2) {
-		int m1 = date1.getYear() * 12 + date1.getMonth();
-		int m2 = date2.getYear() * 12 + date2.getMonth();
-		return m2 - m1 + 1;
-	}
+
+public static final int getMonthsDifference(Date date1, Date date2) {
+	int m1 = date1.getYear() * 12 + date1.getMonth();
+	int m2 = date2.getYear() * 12 + date2.getMonth();
+	return m2 - m1 + 1;
+}
 }

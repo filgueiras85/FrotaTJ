@@ -74,11 +74,17 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-				TipoServicoModeloId tipoServicoModeloId = new TipoServicoModeloId(new Integer(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico()), 
-						new Integer(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()));
 				MBModelo mbModelo = MBModelo.getInstance();
+				
+				TipoServicoModeloId tipoServicoModeloId = new TipoServicoModeloId(
+						new Integer(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico()), 
+						new Integer(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()));
+				
 				MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
-				TipoServicoModelo t = new TipoServicoModelo(tipoServicoModeloId, mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo()), mbTipoServico.retornarTipoServico(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico()), Integer.parseInt(textFieldKM.getText()), Integer.parseInt(textFieldData.getText()));
+				
+				Modelo modelo = mbModelo.retornarModelo(comboBoxModelo.getItemAt(comboBoxModelo.getSelectedIndex()).getIdmodelo());
+				TipoServico tipoServico =  mbTipoServico.retornarTipoServico(comboBoxTipoServiço.getItemAt(comboBoxTipoServiço.getSelectedIndex()).getIdtipoServico());
+				TipoServicoModelo t = new TipoServicoModelo(tipoServicoModeloId, modelo , tipoServico, Integer.parseInt(textFieldKM.getText()), Integer.parseInt(textFieldData.getText()));
 
 				try {
 					if (idModeloSelecionado==0 && idTipoServiçoselecionado == 0){
@@ -88,7 +94,7 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 						}
 
 						String retorno = mbTipoServiçoModelo.inserir(t);
-
+						//String retorno = "ok";
 						if (retorno.equals("ok")){
 							AtualizarTipoServicosdosveiculos(t);
 							JOptionPane.showMessageDialog(null,"Inserido!");
@@ -123,11 +129,12 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 
 		MBModelo mbModelo = MBModelo.getInstance();
 		comboBoxModelo = new JComboBox<Modelo>();
-		DefaultComboBoxModel<Modelo> modeloComboBox;
 
 		try {
-			modeloComboBox = new DefaultComboBoxModel<Modelo>(new Vector(mbModelo.listarModelos()));
-			comboBoxModelo.setModel(modeloComboBox);
+			List<Modelo> listaModelo = mbModelo.listarModelos();
+			Vector<Modelo> modelo = new Vector<Modelo>(listaModelo);
+			comboBoxModelo.setModel(new DefaultComboBoxModel<Modelo>(modelo));
+
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -143,11 +150,12 @@ public class PanelCadastroTipoServiçoModelo extends PanelExemplo {
 
 		MBTipoServico mbTipoServico = MBTipoServico.getInstance();
 		comboBoxTipoServiço = new JComboBox<TipoServico>();
-		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServiço;
 
 		try {
-			modeloComboBoxTipoServiço = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServico.listarTipoServicos()));
-			comboBoxTipoServiço.setModel(modeloComboBoxTipoServiço);
+			List<TipoServico> listaTipoServico = mbTipoServico.listarTipoServicos();
+			Vector<TipoServico> tipoServico = new Vector<TipoServico>(listaTipoServico);
+			comboBoxTipoServiço.setModel(new DefaultComboBoxModel<TipoServico>(tipoServico));
+			
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

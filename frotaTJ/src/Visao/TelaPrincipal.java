@@ -352,6 +352,8 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnListar.add(menuItem_10);
 
+
+		
 		//-------------------------- Menu Trocar Usuário --------------------------\\	
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {

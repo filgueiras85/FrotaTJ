@@ -1,10 +1,8 @@
 package Visao;
 
-import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -29,14 +27,10 @@ import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
-import mb.MBVeiculo;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -59,7 +53,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	
+
 	public PanelCadastroVeiculo() {
 		new PanelCadastroVeiculo(0);
 	}
@@ -141,7 +135,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		final Vector<Modelo> listaModelo = new Vector<>();
 		final Vector<String> listaNomeModelo = new Vector<>();
 		try {
-			
+
 			listaModelo.addAll(mbModelo.listarModelos());
 			System.out.println(mbModelo.listarModelos());
 			System.out.println("---- lista Modelo ----- ");
@@ -413,4 +407,3 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 
 	}
 }
-

@@ -26,6 +26,7 @@ import dao.Veiculo;
  */
 @Entity
 @Table(name = "modelo", catalog = "frotatj")
+//@javax.persistence.NamedQueries({
 @javax.persistence.NamedQuery(
 		name="ModeloMarca",
 		query="SELECT m FROM Modelo m WHERE marca = :marca"

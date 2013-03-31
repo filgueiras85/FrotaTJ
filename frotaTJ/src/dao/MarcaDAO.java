@@ -190,5 +190,20 @@ public class MarcaDAO implements IMarcaDAO {
 			throw re;
 		}
 	}
+	public List<Marca> MarcaModeloServicoUnidade (final Object idUnidade, final Object idTipoServico, final Object idModelo) {
+	EntityManagerHelper.log("finding Servico instance with property: "
+		, Level.INFO, null);
+	try {
+		Query query = getEntityManager().createNativeQuery("select marca.nome from servico, veiculo, modelo, marca " +
+				"where servico.veiculo_idveiculo = veiculo.idveiculo and veiculo.modelo_idmodelo = modelo.idmodelo " +
+				"and modelo.marca_idmarca = marca.idmarca and veiculo.unidade_idunidade ="+ idUnidade +" " +
+				"and servico.tipo_servico_idtipo_servico =" + idTipoServico );
 
+		return query.getResultList();
+	} catch (RuntimeException re) {
+		EntityManagerHelper.log("find by property name failed",
+				Level.SEVERE, re);
+		throw re;
+	}
+	}
 }

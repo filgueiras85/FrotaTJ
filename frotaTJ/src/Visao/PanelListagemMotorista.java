@@ -178,8 +178,13 @@ public class PanelListagemMotorista extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroMotorista(idMotoristaSelecionado);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroMotorista(idMotoristaSelecionado);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMotorista(idMotoristaSelecionado);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMotorista(idMotoristaSelecionado);
+			}
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{

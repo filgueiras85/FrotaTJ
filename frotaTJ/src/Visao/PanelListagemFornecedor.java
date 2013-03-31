@@ -1,6 +1,6 @@
 package Visao;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -174,8 +174,13 @@ public class PanelListagemFornecedor extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroFornecedor(idFornecedorSelecionado);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroFornecedor(idFornecedorSelecionado);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroFornecedor(idFornecedorSelecionado);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroFornecedor(idFornecedorSelecionado);
+			}
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{

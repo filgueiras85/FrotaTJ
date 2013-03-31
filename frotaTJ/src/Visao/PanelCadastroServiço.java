@@ -1,6 +1,5 @@
 package Visao;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,23 +13,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.SwingConstants;
 
-import org.hibernate.ejb.criteria.expression.function.CurrentDateFunction;
 
 import util.IntegerDocument;
 import util.JCalendar;
 import util.JNumberFormatField;
 import util.Util;
 
-import com.sun.jmx.snmp.Timestamp;
 
 import mb.MBFornecedor;
 import mb.MBMotorista;
@@ -40,18 +35,12 @@ import mb.MBTipoServicoVeiculo;
 import mb.MBTipoServiçoModelo;
 import mb.MBVeiculo;
 
-import dao.Abastecimento;
 import dao.Fornecedor;
-import dao.Modelo;
 import dao.Motorista;
 import dao.Servico;
 import dao.TipoServico;
-import dao.TipoServicoModelo;
-import dao.TipoServicoModeloId;
-import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 import javax.swing.ImageIcon;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.MaskFormatter;
 
 
@@ -97,7 +86,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
+
 
 		final JCalendar cmbData = new JCalendar();
 
@@ -222,9 +211,9 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 
 				// java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
-				
+
 				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
-				
+
 				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
 				valorString = valorString.replaceAll(",", "."); 
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
@@ -244,7 +233,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
 
-							
+
 
 							JOptionPane.showMessageDialog(null,"Serviço inserido!");
 
@@ -257,7 +246,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
 						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
-							
+
 							JOptionPane.showMessageDialog(null,"Serviço alterado!");
 
 						}else{
@@ -475,5 +464,3 @@ public class PanelCadastroServiço extends PanelExemplo {
 		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 	}
 }
-
-

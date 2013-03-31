@@ -9,22 +9,21 @@ import dao.Marca;
 import dao.MarcaDAO;
 import dao.Modelo;
 import dao.Servico;
-import dao.TipoServico;
 
 public class MBMarca {
 	private static MBMarca marcaMB = new MBMarca();
-	
+
 	private MBMarca(){
-		
+
 	}
-	
+
 	public static MBMarca getInstance(){
 		return marcaMB;
-		
+
 	}
-	
+
 	public String inserir(Marca marca) {
-		
+
 		String retorno = "Cadastro inserido.";
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		try {
@@ -34,7 +33,7 @@ public class MBMarca {
 		}
 		return retorno;
 	}
-	
+
 	public String editar(Marca marca) {
 		String retorno = "Cadastro alterado.";
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
@@ -45,7 +44,7 @@ public class MBMarca {
 		}
 		return retorno;
 	}
-	
+
 
 	public String apagar(Marca marca) {
 		String retorno = "Cadastro removido.";
@@ -57,16 +56,20 @@ public class MBMarca {
 		}
 		return retorno;
 	}
-	
+
 	public Marca retornarMarca(int id) {
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findById(id);
-		
+
 	}
 
 	public List<Marca> listarMarcas() throws ClassNotFoundException, SQLException{
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findAll();
+	}
+	public List<Marca> listaMarcaModeloServicoUnidade(int idUnidade, int idTipoServico, int idModelo) throws ClassNotFoundException, SQLException{
+		MarcaDAO daoMarca = MarcaDAO.getInstance();
+		return daoMarca.MarcaModeloServicoUnidade(idUnidade, idTipoServico, idModelo);
 	}
 	public List<Marca> MarcaModelo(List<Modelo> listaModelos)  throws ClassNotFoundException, SQLException{
 		List<Marca> listaMarca = listarMarcas();
@@ -83,6 +86,18 @@ public class MBMarca {
 		}
 		return marca;
 	}
+	
+	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
+		List<Marca> listaMarca = listarMarcas();
+		List<Marca> marca = new ArrayList<Marca>();
+		for(int i=0;i<listaMarca.size();i++){
+			Marca m = retornarMarca(modelo.getMarca().getIdmarca());
+			if(!marca.contains(m))
+				marca.add(m);
+		}
+
+		return marca;
+	}
 
 	public List<Marca> MarcaPorServico(List<Servico> listaServico)  throws ClassNotFoundException, SQLException{
 		List<Marca> marca = new ArrayList<>();
@@ -93,16 +108,6 @@ public class MBMarca {
 					marca.add(m);	
 				}
 			//}
-		}
-		return marca;
-	}
-	public List<Marca> MarcaPorModelo(Modelo modelo) throws ClassNotFoundException, SQLException{
-		List<Marca> listaMarca = listarMarcas();
-		List<Marca> marca = new ArrayList<Marca>();
-		for(int i=0;i<listaMarca.size();i++){
-			Marca m = retornarMarca(modelo.getMarca().getIdmarca());
-			if(!marca.contains(m))
-				marca.add(m);
 		}
 		return marca;
 	}

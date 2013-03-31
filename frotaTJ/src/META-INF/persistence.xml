@@ -24,13 +24,14 @@
 		<properties>
             <property name="hibernate.dialect"
                 value="org.hibernate.dialect.MySQLDialect" />
-		<!--     Banco local    
+		<!--     Banco local   
 			<property name="hibernate.connection.driver_class"
 				value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url"
 				value="jdbc:mysql://localhost:3306/frotatj" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="root" /> -->
+			<property name="hibernate.connection.password" value="root" />  
+	   -->
 			
           <!--  Banco Pedro -->
           <property name="hibernate.connection.url"

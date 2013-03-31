@@ -1,9 +1,6 @@
 package mb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,11 +65,13 @@ public class MBMotorista {
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		return daoMotorista.findAll();
 	}
+	
 
 	public List<Motorista> listarMotoristasPorUnidade(int idUnidade) throws ClassNotFoundException, SQLException{
 		MotoristaDAO daoMotorista = MotoristaDAO.getInstance();
 		return daoMotorista.findByUnidade(MBUnidade.getInstance().retornarUnidade(idUnidade));
 	}
+
 	public List<Motorista> MotoristaServico(List<Servico> listaServicos) throws ClassNotFoundException, SQLException{
 		List<Motorista> listaMotorista = listarMotoristas();
 		List<Motorista> motorista = new ArrayList<>();

@@ -19,13 +19,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-
 
 import dao.Fornecedor;
 import dao.Marca;
@@ -218,7 +216,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 				try {
 					if ( cmbDataInicio.getSelectedIndex() < 0 || cmbDataFinal.getSelectedIndex() < 0){
 						JOptionPane.showMessageDialog(null, "Favor preecher o campo data");
-						
+
 					}else{
 						gerarConsulta();
 					}
@@ -358,83 +356,83 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 
 	private void gerarConsulta() throws ClassNotFoundException, SQLException{
-		
+
 		Unidade unidade;
 		TipoServico tipoServico;
 		Fornecedor fornecedor;
 		Motorista motorista;
 		Marca marca;
 		Modelo modelo;
-		
+
 		String placa = cmbPlaca.getSelectedItem().toString();
 
 		List<Veiculo> veiculos;
 		List<Servico> listaServico = lstServicoData;
 		List<Modelo> listaModelo = mbModelo.listarModelos();	
-		
+
 		if ( cmbUnidade.getSelectedIndex() > 0 ){
-		
+
 			unidade = cmbUnidade.getItemAt(cmbUnidade.getSelectedIndex());
 			veiculos = mbVeiculo.VeiculosUnidade(unidade);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
 
 		}
-		
+
 //		Mantem a lista se comboBox estiver selecionado TODOS
 		if ( cmbTipoServico.getSelectedIndex() > 0 ){
-			
+
 			tipoServico = cmbTipoServico.getItemAt(cmbTipoServico.getSelectedIndex());
 			listaServico = mbServico.ServicosTipoServico(tipoServico, listaServico);
 
 		}
-		
+
 		if ( cmbFornecedor.getSelectedIndex() > 0 ){
 
 			fornecedor = cmbFornecedor.getItemAt(cmbFornecedor.getSelectedIndex());
 			listaServico = mbServico.ServicosPorFornecedor(fornecedor, listaServico);
-			
+
 		}
-		
+
 		if ( cmbMotorista.getSelectedIndex() > 0 ){
 
 			motorista = cmbMotorista.getItemAt(cmbMotorista.getSelectedIndex());
 			listaServico = mbServico.ServicosPorMotorista(motorista, listaServico);
-			
+
 		}
-		
+
 		if ( cmbMarca.getSelectedIndex() > 0 ){
 
 			marca = cmbMarca.getItemAt(cmbMarca.getSelectedIndex());
 			listaModelo = mbModelo.ModeloMarca(marca);
 			veiculos = mbVeiculo.VeiculoPorModelos(listaModelo);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);			
-		
+
 		}
-				
+
 		if ( cmbModelo.getSelectedIndex() > 0 ){
 
 			modelo = cmbModelo.getItemAt(cmbModelo.getSelectedIndex());
 			veiculos = mbVeiculo.VeiculoPorModelo(modelo);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
-		
+
 		}
-		
+
 		//if ( placa.toString() != "TODOS" ){
 		if ( cmbPlaca.getSelectedIndex() > 0 ){
 			veiculos = mbVeiculo.VeiculoPorPlaca(placa);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
 		}
-		
+
 		atualizarTabela(listaServico);
 	}
-	
-	
+
+
 	private void atualizarTabela(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
-		
+
 		Double valor = 0.0;
 		Double total = 0.0;
 		List<TipoServico> tipoServico = mbTipoServico.listarTipoServicos();
-		
+
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		for(int j=0;j<tipoServico.size();j++){
 			for(int k=0;k<listaServico.size();k++){ 
@@ -442,7 +440,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 					valor = (Double) (listaServico.get(k).getValor() + valor);
 				}
 			}
-			
+
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					""+tipoServico.get(j).getIdtipoServico() ,tipoServico.get(j).getNome()+"",
 					"" + util.retornaMoeda(valor)
@@ -475,7 +473,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 			lstServicoData = mbServico.ServicoPorData( util.getCMBData(cmbDataInicio), util.getCMBData(cmbDataFinal));
 
 			if ( lstServicoData != null ){
-				
+
 				List<Veiculo> lstVeiculo = new ArrayList<>();
 				cmbPlaca.removeAllItems();
 				for(int i=0;i<lstServicoData.size();i++){
@@ -524,9 +522,9 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void AtualizaComboPlaca(){
-		
+
 		List<Veiculo> listaVeiculos;
 		try {
 			listaVeiculos = mbVeiculo.VeiculoPorServico(lstServicoData);

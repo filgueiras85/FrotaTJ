@@ -1,9 +1,6 @@
 package mb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +12,18 @@ import dao.Veiculo;
 
 public class MBModelo {
 	private static MBModelo modeloMB = new MBModelo();
-	
+
 	private MBModelo(){
-		
+
 	}
-	
+
 	public static MBModelo getInstance(){
 		return modeloMB;
-		
+
 	}
-	
+
 	public String inserir(Modelo modelo) {
-		
+
 		String retorno = "Cadastro inserido.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		try {
@@ -36,7 +33,7 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 	public String editar(Modelo modelo) {
 		String retorno = "Cadastro alterado.";
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
@@ -47,7 +44,7 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 
 	public String apagar(Modelo modelo) {
 		String retorno = "Cadastro removido.";
@@ -59,19 +56,25 @@ public class MBModelo {
 		}
 		return retorno;
 	}
-	
+
 	public Modelo retornarModelo(int id) {
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.findById(id);
-		
+
 	}
 
 	public List<Modelo> listarModelos() throws ClassNotFoundException, SQLException{
 		ModeloDAO daoModelo= ModeloDAO.getInstance();
 		return daoModelo.findAll();
 	}
+
+	public List<Modelo> listaModeloServicoUnidade(int idUnidade, int idTipoServico, int idMarca) throws ClassNotFoundException, SQLException{
+		ModeloDAO daoModelo = ModeloDAO.getInstance();
+		return daoModelo.ModeloServicoUnidade(idUnidade, idTipoServico, idMarca);
+	}
+
 	public List<Modelo> ModeloPorVeiculo(List<Veiculo> listaVeiculo) throws ClassNotFoundException, SQLException{
-		
+
 		List<Modelo> modelo = new ArrayList<Modelo>();
 		for(int i=0;i<listaVeiculo.size();i++){
 			Modelo m = retornarModelo(listaVeiculo.get(i).getModelo().getIdmodelo());
@@ -82,17 +85,19 @@ public class MBModelo {
 		}
 		return modelo;
 	}
+
 	public List<Modelo> ModeloVeiculo(List<Servico> listaServico) throws ClassNotFoundException, SQLException{
 
 		List<Modelo> modelo = new ArrayList<>();
 		for(int i=0;i<listaServico.size();i++){
-				Modelo m = retornarModelo(listaServico.get(i).getVeiculo().getModelo().getIdmodelo());
-				if(!modelo.contains(m))
-					modelo.add(m);
-				
-			}
+			Modelo m = retornarModelo(listaServico.get(i).getVeiculo().getModelo().getIdmodelo());
+			if(!modelo.contains(m))
+				modelo.add(m);
+
+		}
 		return modelo;
 	}
+
 	public List<Modelo> ModeloMarca(Marca marca){
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.ModeloMarca(marca);
