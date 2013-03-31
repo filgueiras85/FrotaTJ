@@ -263,8 +263,13 @@ public class PanelCadastroFornecedor extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemFornecedor();
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemFornecedor();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemFornecedor();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemFornecedor();
+			}
 		}
 	}
 }

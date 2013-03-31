@@ -92,6 +92,7 @@ public class Abastecimento implements java.io.Serializable {
 	//@Temporal(TemporalType.TIMESTAMP)
 		@Column(name = "data_2", length = 19)
 		public Timestamp getData2() {
+			
 			return this.data2;
 		}
 
@@ -103,5 +104,5 @@ public class Abastecimento implements java.io.Serializable {
 	{
 		return getVeiculo().toString();
 	}
-
+	
 }

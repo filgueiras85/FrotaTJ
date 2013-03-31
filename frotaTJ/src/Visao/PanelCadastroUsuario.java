@@ -288,8 +288,13 @@ public class PanelCadastroUsuario extends PanelExemplo {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemUsuario();
 		} catch (Exception e) {
-			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemUsuario();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemUsuario();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemUsuario();
+			}
 		}
 	}
 }

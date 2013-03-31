@@ -1,6 +1,7 @@
 package Visao;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,8 +18,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import dao.TipoServicoModelo;
 import dao.TipoServicoVeiculo;
 import dao.Veiculo;
 
@@ -32,6 +35,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.awt.Toolkit;
@@ -48,6 +52,8 @@ public class TelaDetalhesVeiculo extends JFrame {
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	final MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 	final MBTipoServiçoModelo mbTipoServicoModelo = MBTipoServiçoModelo.getInstance();	
+	final MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
+
 	/**
 	 * Create the frame.
 	 */
@@ -185,23 +191,25 @@ public class TelaDetalhesVeiculo extends JFrame {
 		table.setBackground(Color.WHITE);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null},
+				{null, null, null, null},
 			},
 			new String[] {
-				"Servi\u00E7o", "Situa\u00E7\u00E3o"
+				"Servi\u00E7o", "Situa\u00E7\u00E3o", "Km Pr\u00F3ximo servi\u00E7o", "Data Pr\u00F3ximo Servi\u00E7o"
 			}
-		));
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(129);
+		table.getColumnModel().getColumn(0).setMinWidth(75);
+		table.getColumnModel().getColumn(1).setPreferredWidth(56);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
-		try {
-			atualizarTabela(v.getIdveiculo());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		atualizaTabela2(idVeiculoSelecionado);
 	}
 	
 	public void atualizarTabela(int idVeiculoSelecionado) throws ClassNotFoundException, SQLException{
@@ -218,6 +226,73 @@ public class TelaDetalhesVeiculo extends JFrame {
 		for (int i=0;i<listaTipoServicoVeiculo.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}
+	}
+	public  void atualizaTabela2(int idVeiculo) {
+		((DefaultTableModel)table.getModel()).setRowCount(0);
+	
+
+		//Servico s1 = new Servico();
+		/* Ordem para por na tabela:
+		 * id veiculo
+		 * placa
+		 * odometro veiculo
+		 * serviço a fazer
+		 * km próximo servico (a fazer)
+		 * data próximo serviço (a fazer)
+		 * situação (verde, amarelo, vemelho)
+		 */
+
+			String dataBR = "";
+					Veiculo v = mbVeiculo.retornarVeiculo(idVeiculo);
+					List<TipoServicoModelo> tiposServicosModeloVeiculo = (List<TipoServicoModelo>) tipoServicoModeloMB.findTipoServicoByModelo(v);
+					for (int i=0;i<tiposServicosModeloVeiculo.size();i++){
+												
+							SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");  				  
+							dataBR = out.format( tiposServicosModeloVeiculo.get(i).getDataProximoServico().getTime() );							
+							((DefaultTableModel)table.getModel()).addRow(new String[] {
+									tiposServicosModeloVeiculo.get(i).getTipoServico().getNome(), // servico a fazer
+									tiposServicosModeloVeiculo.get(i).getSituacao(), //situacao do serviço
+
+									tiposServicosModeloVeiculo.get(i).getKm()+"", // km do proximo servico
+									dataBR, // data proximo servico
+							});							
+						}						
+								
+				
+			
+			
+			table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {  
+				public Component getTableCellRendererComponent(JTable table, Object value,  
+						boolean isSelected, boolean hasFocus, int row, int column) {  
+					super.getTableCellRendererComponent(table, value, isSelected,  
+							hasFocus, row, column);  
+					// para definir cores para a linha da tabela de acordo com a situacao do servico
+					
+						if (table.getValueAt(row, 1) =="vermelho") {  
+							setBackground(Color.RED);
+							setForeground(Color.WHITE);
+						} 
+						else if (table.getValueAt(row, 1) =="amarelo") {  
+							setBackground(Color.YELLOW);
+							setForeground(Color.BLACK);
+						} 
+						else if(table.getValueAt(row, 1)=="verde") {  
+							setBackground(Color.GREEN);
+							setForeground(Color.BLACK);
+							}
+							else{  
+							setBackground(null);
+							setForeground(null);
+						}	
+										
+											
+					return this;  
+				}  
+			});
+			table.getTableHeader().getColumnModel().getColumn( 0 ).setMaxWidth( 0 );  
+			table.getTableHeader().getColumnModel().getColumn( 0 ).setMinWidth( 0 ); 
+			
+
 	}
 	
 	//----------------- Gerando o Relatório -------------------\\

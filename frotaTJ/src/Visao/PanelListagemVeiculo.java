@@ -6,10 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
@@ -41,6 +45,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 
+import util.Filtros;
 import util.Pesquisa;
 import util.UsuarioUtil;
 
@@ -66,7 +71,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	public PanelListagemVeiculo() {	
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-	// ------------------- Lebel -----------------------\\
+	// ------------------- Label -----------------------\\
 		//setarUnidade();		
 		JLabel lblListagemVeiculos = new JLabel("Listagem de Veiculos\r\n");
 		lblListagemVeiculos.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
@@ -345,10 +350,10 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		});
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista", "Pend\u00EAncias"
+				"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -375,8 +380,13 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroVeiculo(id);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroVeiculo(id);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroVeiculo(id);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroVeiculo(id);
+			}
 		}
 	}
 	
@@ -402,6 +412,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	
 	public void pendencias() throws ClassNotFoundException, SQLException{
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
 		for (int i=0;i<listaVeiculo.size();i++){
 			List<TipoServicoVeiculo> listaTipoServicoVeiculo = mbTipoServicoVeiculo.ListarosTipoServicoVeiculo(Integer.parseInt(table.getValueAt(i, 0).toString()));
 			for (int j=0; j<listaTipoServicoVeiculo.size(); j++){
@@ -416,7 +427,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
-		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
+		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
 		
 
 
@@ -437,6 +449,35 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			((DefaultTableModel)table.getModel()).addRow(new String[]{listaTipoServicoVeiculo.get(i).getTipoServico().getNome(), listaTipoServicoVeiculo.get(i).getSituacao()});
 		}
 		 */
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {  
+			public Component getTableCellRendererComponent(JTable table, Object value,  
+					boolean isSelected, boolean hasFocus, int row, int column) {  
+				super.getTableCellRendererComponent(table, value, isSelected,  
+						hasFocus, row, column);  
+				// para definir cores para a linha da tabela de acordo com a situacao do servico
+				String cor =  table.getValueAt(row, 5).toString();
+				int ama = "verde".compareToIgnoreCase(cor);
+					if (ama ==-9) {  
+						setBackground(Color.RED);
+						setForeground(Color.WHITE);
+					} 
+					else if (ama ==21) {  
+						setBackground(Color.YELLOW);
+						setForeground(Color.BLACK);
+					} 
+					else if(ama==0) {  
+						setBackground(Color.GREEN);
+						setForeground(Color.BLACK);
+						}
+						else{  
+						setBackground(null);
+						setForeground(null);
+					}	
+									
+										
+				return this;  
+			}  
+		});
 	}
 	
 	public void pintarTabela() throws ClassNotFoundException, SQLException{

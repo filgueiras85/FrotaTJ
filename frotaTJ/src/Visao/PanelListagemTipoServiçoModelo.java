@@ -172,8 +172,13 @@ public class PanelListagemTipoServiçoModelo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroTipoServiçoModelo(idModelo, idTipoServiço);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroTipoServiçoModelo(idModelo, idTipoServiço);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroTipoServiçoModelo(idModelo, idTipoServiço);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroTipoServiçoModelo(idModelo, idTipoServiço);
+			}
 		}
 	}
 	public void PanelCadastroTipoServiçoModelo(){

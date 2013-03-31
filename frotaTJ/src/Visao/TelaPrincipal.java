@@ -1,7 +1,13 @@
 package Visao;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,9 +35,11 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import util.Filtros;
 import util.UsuarioUtil;
 import util.Util;
 
+import mb.MBMarca;
 import mb.MBUnidade;
 
 import dao.Marca;
@@ -40,6 +48,13 @@ import dao.Unidade;
 import dao.Usuario;
 
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.io.IOException;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class TelaPrincipal extends JFrame {
@@ -48,8 +63,10 @@ public class TelaPrincipal extends JFrame {
 	private String unidadeSelecionada;
 	private PanelInicial panelInicial = new PanelInicial();
 	private PanelConteudo panelConteudo = new PanelConteudo();
+	private JPanel panelCentro = new JPanel();
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
-
+	private JComboBox<Unidade> comboBoxUnidade = new JComboBox<Unidade>();
+		
 
 	public TelaPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
@@ -62,8 +79,33 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		panelConteudo.setBackground(UIManager.getColor("Button.background"));
 		panelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(panelConteudo);
+		
+		//setContentPane(panelConteudo);
+		setContentPane(panelCentro);
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+			}
+		});
+		//-------------------------- Ícone TJSC --------------------------\\	
+		
+		JMenu mnTjsc = new JMenu();
+		mnTjsc.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0){
+		        try
+		        {
+		        Process p = Runtime.getRuntime().exec("cmd /c start http://www.tj.sc.gov.br/");
+		        }
+		        catch(IOException e1) {System.out.println(e1);{
+		        }
+		        }
+		}
+	});
+		mnTjsc.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
+		mnTjsc.setIcon(new ImageIcon(winDir+"logo2.png"));
+		menuBar.add(mnTjsc);
 		setJMenuBar(menuBar);
 
 
@@ -300,6 +342,15 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnListar.add(menuItem_9);
+		
+		JMenuItem menuItem_10 = new JMenuItem("Total Gasto");
+		menuItem_10.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
+		menuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelRelatorioTotalGasto();
+			}
+		});
+		mnListar.add(menuItem_10);
 
 		JMenuItem menuItem_10 = new JMenuItem("Total Gasto");
 		menuItem_10.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
@@ -322,16 +373,33 @@ public class TelaPrincipal extends JFrame {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnNewMenu);
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
-		MBUnidade mbUnidade = MBUnidade.getInstance();
-		Vector<Unidade> listaUnidade = new Vector<>();
-		Vector<String> listaNomeUnidade = new Vector<>();
-		try {
-			listaUnidade.addAll(mbUnidade.listarUnidades());
+		
+		
+		
+		panelCentro.setLayout(new BorderLayout());
 
-			for (int i=0; i<listaUnidade.size(); i++){
-				listaNomeUnidade.add(listaUnidade.get(i).getNome());
-				//comboBoxUnidade.addItem(listaUnidade.get(i).getNome());
+		//INICIO MONTANDO O FILTRO POR UNIDADE
+		
+		
+		MBUnidade mbUnidade = MBUnidade.getInstance();
+		
+		comboBoxUnidade = new JComboBox<Unidade>();
+		comboBoxUnidade.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if (arg0.getStateChange() == ItemEvent.SELECTED) {
+			          Unidade item = (Unidade) arg0.getItem();
+			          //Sempre que o usuario seleciona o filtro da unidade o id é armazenado na Classe filtros
+			          Filtros.setIdUnidadeSelecionada(item.getIdunidade());
+			          //Uma vez aplicado o filtro o usuário é redirecionado para a tela principal
+			          PanelInicial();
+				}
+				
 			}
+		});
+		DefaultComboBoxModel<Unidade> modeloComboBox;
+		Vector vetorUnidades=null;
+		try {
+			vetorUnidades = new Vector(mbUnidade.listarUnidades());
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -339,9 +407,27 @@ public class TelaPrincipal extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		modeloComboBox = new DefaultComboBoxModel<Unidade>(vetorUnidades);
+		comboBoxUnidade.setModel(modeloComboBox);
+		
+		// se nenhum filtro tiver sido aplicado eu seleciono a primeira unidade da lista
+		if (Filtros.getIdUnidadeSelecionada()==null)
+			Filtros.setIdUnidadeSelecionada(comboBoxUnidade.getItemAt(0).getIdunidade());
+		
+		
+		
+		JPanel panelFiltro = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		panelFiltro.setBackground(Color.LIGHT_GRAY);
+		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panelFiltro.add(new JLabel("Filtrar por: "));
+		panelFiltro.add(comboBoxUnidade);
+		//FIM MONTANDO O FILTRO POR UNIDADE
+		//No painel centro temos 2 paineis o do filtro e o de conteudo... o do filtro não se altera... somente o de conteúdo...
 
+		panelCentro.add(panelFiltro,BorderLayout.NORTH);
+		panelCentro.add(panelConteudo,BorderLayout.CENTER);
 
-		getContentPane().setLayout(new CardLayout(0, 0));
+		//getContentPane().setLayout(new CardLayout(0, 0));
 		panelConteudo.add(panelInicial, "panelInicial");
 
 	}
@@ -666,6 +752,7 @@ public class TelaPrincipal extends JFrame {
 		if (usuarioLogado.tempoLogin()){
 			PanelListagemMotorista panelListagemMotorista = new PanelListagemMotorista();
 			panelConteudo.add(panelListagemMotorista, "panelListagemMotorista");
+			panelConteudo.setName("Visao.PanelListagemMotorista");
 			CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 			cardLayout.show(panelConteudo, "panelListagemMotorista");
 		}else{

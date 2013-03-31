@@ -214,8 +214,13 @@ public class PanelListagemTipoServico extends PanelExemplo {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroTipoServico(idTipoServico);
 		} catch (Exception e) {
-			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroTipoServico(idTipoServico);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroTipoServico(idTipoServico);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroTipoServico(idTipoServico);
+			}
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{

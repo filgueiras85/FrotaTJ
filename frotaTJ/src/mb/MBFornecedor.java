@@ -96,7 +96,10 @@ public class MBFornecedor {
 		return fornecedor;
 			
 	}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/master
 }
 
 

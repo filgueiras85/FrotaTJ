@@ -171,8 +171,13 @@ public class PanelListagemModelo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroModelo(idModeloSelecionado);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroModelo(idModeloSelecionado);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroModelo(idModeloSelecionado);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroModelo(idModeloSelecionado);
+			}
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{

@@ -25,6 +25,7 @@ public class MotoristaDAO implements IMotoristaDAO {
 	// property constants
 	public static final String MATRICULA = "matricula";
 	public static final String NOME = "nome";
+	public static final String UNIDADE = "unidade";
 	
 	private static MotoristaDAO instance = new MotoristaDAO();
 	private MotoristaDAO(){}
@@ -179,6 +180,11 @@ public class MotoristaDAO implements IMotoristaDAO {
 		return findByProperty(MATRICULA, matricula);
 	}
 
+	public List<Motorista> findByUnidade(Object unidade) {
+		return findByProperty(UNIDADE, unidade);
+	}
+
+	
 	public List<Motorista> findByNome(Object nome) {
 		return findByProperty(NOME, nome);
 	}

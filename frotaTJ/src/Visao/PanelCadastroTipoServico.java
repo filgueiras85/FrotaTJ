@@ -112,8 +112,13 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemTipoServico();
 		} catch (Exception e) {
-			TelaPrincipal parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemTipoServico();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemTipoServico();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemTipoServico();
+			}
 		}
 	}
 }

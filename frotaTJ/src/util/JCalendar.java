@@ -103,8 +103,11 @@ public class JCalendar extends JComboBox {
 		super.setSelectedItem(item);  
 	}  
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
 	public void updateUI() {  
 		ComboBoxUI cui = (ComboBoxUI) UIManager.getUI(this);  
 		if (cui instanceof MetalComboBoxUI) {  
@@ -407,9 +410,15 @@ public class JCalendar extends JComboBox {
 			header.add(label);  
 
 			label = createUpdateButton(Calendar.YEAR, 1);  
+<<<<<<< HEAD
 			label.setIcon( new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\Forward24.gif"));  
 			label.setText(">>");
 			label.setFont(new Font("Tahoma", Font.PLAIN, 5));
+=======
+			//label.setIcon( new ImageIcon("C:\\eclipse\\workspace\\Prosah Novo\\toolbarButtonGraphics\\navigation\\Forward24.gif"));  
+			label.setText(">>");
+			//label.setFont(new Font("Tahoma", Font.PLAIN, 5));
+>>>>>>> origin/master
 			label.setToolTipText("Próximo Ano");  
 
 			header.add(Box.createHorizontalStrut(5));  

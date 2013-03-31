@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
+import util.Filtros;
 import util.UsuarioUtil;
 
 
@@ -163,8 +164,13 @@ public class PanelListagemMotorista extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroMotorista(0);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroMotorista(0);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMotorista(0);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMotorista(0);
+			}
 		}
 	}
 	public void PanelEditarMotorista(){
@@ -177,9 +183,11 @@ public class PanelListagemMotorista extends PanelExemplo {
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
-		((DefaultTableModel)table.getModel()).setRowCount(0);
+		((DefaultTableModel)table.getModel()).setNumRows(0);
 		MBMotorista mbMotorista= MBMotorista.getInstance();
-		List<Motorista> listaMotorista = mbMotorista.listarMotoristas();
+		//List<Motorista> listaMotorista = mbMotorista.listarMotoristas();
+		List<Motorista> listaMotorista = mbMotorista.listarMotoristasPorUnidade(Filtros.getIdUnidadeSelecionada());
+		
 		for (int i=0;i<listaMotorista.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaMotorista.get(i).getIdmotorista()+"", listaMotorista.get(i).getNome()+"", listaMotorista.get(i).getMatricula()+""});

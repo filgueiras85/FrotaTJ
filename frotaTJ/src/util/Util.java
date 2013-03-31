@@ -1,7 +1,12 @@
 package util;
 
+<<<<<<< HEAD
 import java.sql.Timestamp;
 import java.text.DateFormat;
+=======
+import java.text.DateFormat;
+import java.text.NumberFormat;
+>>>>>>> origin/master
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,8 +15,11 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+<<<<<<< HEAD
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+=======
+>>>>>>> origin/master
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -77,6 +85,11 @@ public class Util {
 		return hodometro;
 	}
 	
+	public Date getCMBData(JComboBox combo){
+		return formataData(combo.getSelectedItem().toString());
+	}
+
+	
 	
 	
 	public JTextField mascaraData(){
@@ -108,6 +121,51 @@ public class Util {
 		}
 		return null;  
 	}
+<<<<<<< HEAD
+=======
+	
+    public Date formataData(String data) {   
+        if (data == null || data.equals(""))  
+            return null;  
+          
+        Date date = null;  
+  
+        	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+            try {
+				date = (java.util.Date)(formatter.parse(data));
+		        return date;
+            } catch (ParseException e) {
+				// TODO Auto-generated catch block
+            	e.printStackTrace();
+            	return null;
+            }    
+    }
+	
+	public Date retornaData(Date data){
+        SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date d = new Date();
+        d.setTime(data.getTime());
+        
+      	try {
+			d = sd.parse(sd.format(d));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        return d;
+	}
+	
+	public String retornaMoeda(Double valor){
+		//String valorStr = "R$ 00,000";
+		
+		NumberFormat formato = NumberFormat.getCurrencyInstance();
+		return formato.format(valor);
+		
+		
+	}
+>>>>>>> origin/master
 	
 	public Date RetornaData(Date data){
         SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");

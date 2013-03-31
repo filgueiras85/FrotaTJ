@@ -77,7 +77,12 @@ public class PanelCadastroServiço extends PanelExemplo {
 	private MBMotorista mbMotorista = MBMotorista.getInstance();
 	private MBVeiculo  mbVeiculo= MBVeiculo.getInstance();
 	private MBFornecedor mbFornecedor= MBFornecedor.getInstance();
+<<<<<<< HEAD
 	private Util util = Util.getInstance();
+=======
+	Util util = Util.getInstance();	
+
+>>>>>>> origin/master
 	/**
 	 * Create the panel.
 	 */
@@ -99,7 +104,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		
 
+<<<<<<< HEAD
+=======
+		final JCalendar cmbData = new JCalendar();
+
+>>>>>>> origin/master
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -231,8 +242,17 @@ public class PanelCadastroServiço extends PanelExemplo {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+<<<<<<< HEAD
 				String dataServico = cmbData.getSelectedItem().toString();
 				java.sql.Timestamp data = new java.sql.Timestamp(transformaData(dataServico+" 00:00:00").getTime());
+=======
+
+
+				// java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
+				
+				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
+				
+>>>>>>> origin/master
 				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
 				valorString = valorString.replaceAll(",", "."); 
 				
@@ -252,10 +272,15 @@ public class PanelCadastroServiço extends PanelExemplo {
 							s.setIdServico(null);
 						}
 						String retorno = mbServico.inserir(s);
+<<<<<<< HEAD
 						//String retorno = "Ok";
+=======
+						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
+>>>>>>> origin/master
 						if (retorno.equals("ok")){
 
-							mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+							
 
 							JOptionPane.showMessageDialog(null,"Serviço inserido!");
 
@@ -265,8 +290,10 @@ public class PanelCadastroServiço extends PanelExemplo {
 					}else{
 
 						String retorno =  mbServico.editar(s);
+						mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+						mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
 						if (retorno.equals("ok")){
-							mbVeiculo.AtualizarSituacaoServico(s, mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo()));
+							
 							JOptionPane.showMessageDialog(null,"Serviço alterado!");
 
 						}else{
@@ -284,7 +311,6 @@ public class PanelCadastroServiço extends PanelExemplo {
 		JLabel lblTipoServiço = new JLabel("Tipo Servi\u00E7o");
 		lblTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -315,7 +341,11 @@ public class PanelCadastroServiço extends PanelExemplo {
 								.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
 								.addComponent(textFieldDescrição, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
 								.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+<<<<<<< HEAD
 								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)))
+=======
+								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+>>>>>>> origin/master
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -380,6 +410,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 			try {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
+<<<<<<< HEAD
 				String dataServico = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
 				Date d = null;     
 				try {
@@ -391,12 +422,20 @@ public class PanelCadastroServiço extends PanelExemplo {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}    
+=======
+				String d = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
+				cmbData.setSelectedItem(d);
+>>>>>>> origin/master
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescrição.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
 				textFieldValor.setText(s.getValor().toString());
+<<<<<<< HEAD
 				
 				
+=======
+				//textFieldData.setText(b);
+>>>>>>> origin/master
 				textFieldOrçamento.setText(s.getNroOrcamento());
 				// selecionar combobox fornecedor	
 				boolean aux = false ;
@@ -456,8 +495,13 @@ public class PanelCadastroServiço extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemServiço();
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelListagemServiço();
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemServiço();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemServiço();
+			}
 		}
 
 	}
