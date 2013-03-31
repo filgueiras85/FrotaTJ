@@ -250,7 +250,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 				new Object[][] {
 				},
 				new String[] {
-						"Tipo Servico", "Valor"
+						"Id", "Tipo Servico", "Valor"
 				}
 				));
 		table.setAutoCreateRowSorter(true);
@@ -444,7 +444,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 			}
 			
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					tipoServico.get(j).getNome()+"",
+					""+tipoServico.get(j).getIdtipoServico() ,tipoServico.get(j).getNome()+"",
 					"" + util.retornaMoeda(valor)
 			});
 			total += valor;

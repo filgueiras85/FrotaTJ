@@ -141,9 +141,12 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 		final Vector<Modelo> listaModelo = new Vector<>();
 		final Vector<String> listaNomeModelo = new Vector<>();
 		try {
+			
 			listaModelo.addAll(mbModelo.listarModelos());
-
+			System.out.println(mbModelo.listarModelos());
+			System.out.println("---- lista Modelo ----- ");
 			for (int i = 0; i<listaModelo.size();i++){
+				System.out.println(listaModelo.get(i).getNome());
 				listaNomeModelo.add(listaModelo.get(i).getNome());
 			}
 			modelComboBoxModelo = new DefaultComboBoxModel<String>(listaNomeModelo);

@@ -103,8 +103,6 @@ public class JCalendar extends JComboBox {
 		super.setSelectedItem(item);  
 	}  
 
-
-
 	public void updateUI() {  
 		ComboBoxUI cui = (ComboBoxUI) UIManager.getUI(this);  
 		if (cui instanceof MetalComboBoxUI) {  

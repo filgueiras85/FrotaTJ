@@ -22,11 +22,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
 import util.UsuarioUtil;
+import util.Util;
 
 
 public class PanelListagemServiço extends PanelExemplo {
 	private JTable table;
-	private int idServicoSelecionado;
+	private int idServicoSelecionado = 0 ;
 
 	/**
 	 * Create the panel.
@@ -45,7 +46,7 @@ public class PanelListagemServiço extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço();
+				PanelCadastroServico();
 			}
 		});
 		
@@ -78,7 +79,7 @@ public class PanelListagemServiço extends PanelExemplo {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelEditarServico();
+				PanelEditarServico(idServicoSelecionado);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -126,6 +127,8 @@ public class PanelListagemServiço extends PanelExemplo {
 			public void mouseClicked(MouseEvent arg0) {
 				if(usuarioLogado.ehAdministrador()){
 					idServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1)+"");
+					System.out.println(idServicoSelecionado);
+					
 					btnEditar.setVisible(true);
 					btnApagar.setVisible(true);
 				}
@@ -159,7 +162,7 @@ public class PanelListagemServiço extends PanelExemplo {
 		}
 		setLayout(groupLayout);
 	}
-	public void PanelCadastroServiço(){
+	public void PanelCadastroServico(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroServiço(0);
@@ -173,24 +176,30 @@ public class PanelListagemServiço extends PanelExemplo {
 			}
 		}
 	}
-	public void PanelEditarServico(){
+	public void PanelEditarServico(int idServico){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			parent.PanelCadastroServiço(idServico);
 		} catch (Exception e) {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServicoSelecionado);
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroServiço(idServico);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroServiço(idServico);
+			}
 		}
 	}
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		MBServico mbServico= MBServico.getInstance();
+		Util util = Util.getInstance();
 		List<Servico> listaServico = mbServico.listarServicos();
 		for (int i=0;i<listaServico.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
 					listaServico.get(i).getData2().toString().substring(8, 10)+"/"+listaServico.get(i).getData2().toString().substring(5, 7)+
 					"/"+listaServico.get(i).getData2().toString().substring(0, 4), listaServico.get(i).getIdServico()+"", 
-					listaServico.get(i).getValor()+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
+					util.retornaMoeda(listaServico.get(i).getValor())+"", listaServico.get(i).getNroOrcamento(), listaServico.get(i).getNfTicket()+"",
 					listaServico.get(i).getDescricao(), listaServico.get(i).getKm()+"", listaServico.get(i).getMotorista().getNome(),
 					listaServico.get(i).getTipoServico().getNome(),	listaServico.get(i).getVeiculo().getPlaca()+"", 
 					listaServico.get(i).getFornecedor().getNome()});

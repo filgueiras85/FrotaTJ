@@ -224,6 +224,7 @@ public class PanelCadastroServiço extends PanelExemplo {
 				// java.sql.Timestamp data = new java.sql.Timestamp(transformaData(textFieldData.getText()+" 00:00:01").getTime());
 				
 				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
+				
 				String valorString = textFieldValor.getText().toString().substring(3, textFieldValor.getText().length());
 				valorString = valorString.replaceAll(",", "."); 
 				Servico s =  new Servico(new Integer(idServicoSelecionado), 
@@ -368,8 +369,8 @@ public class PanelCadastroServiço extends PanelExemplo {
 
 			try {
 				Servico s = mbServico.retornarServico(idServicoSelecionado);
-				String b = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
-				cmbData.setData(b);
+				String d = s.getData2().toString().substring(8, 10)+"/"+s.getData2().toString().substring(5, 7)+"/"+s.getData2().toString().substring(0, 4);
+				cmbData.setSelectedItem(d);
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescrição.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
