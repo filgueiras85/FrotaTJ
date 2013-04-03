@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -174,7 +177,16 @@ public class PanelGrafico extends PanelExemplo{
 			//strNome.append(mes);
 			strNome.append(mesOut);
 			strNome.append(ano);*/
-			strNome.append(System.currentTimeMillis());
+			
+	        DateFormat formatter = new SimpleDateFormat("ddMMyyyyhhmmss");
+
+
+			Calendar calendar = Calendar.getInstance();
+			String dataatual = formatter.format(calendar.getTime());
+			Nome = strNome.toString();
+			System.out.println(Nome+1);
+
+			strNome.append(dataatual);
 			strNome.append(".png");
 
 			Nome = strNome.toString();
