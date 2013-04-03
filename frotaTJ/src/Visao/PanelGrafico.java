@@ -114,69 +114,10 @@ public class PanelGrafico extends PanelExemplo{
 		Date data = new Date();
 		Util util = Util.getInstance();
 		//Nome = util.transformaData(data()).to;
-		try {
-			dia = data.getDay();
-			mes = data.getMonth();
-			ano = data.getYear();
-			/*dia = Nome.substring(0,2);
-
-			mes = Nome.substring(3,5);
-			ano = Nome.substring(6,10); */
-
-			System.out.println(dia);
-			System.out.println(mes);
-			System.out.println(ano);
-
-			String mesOut = null;
-			System.out.println(dia + mesOut + ano);
-
-
-			switch(mes) {
-			case 01:
-				mesOut = "-Janeiro-";
-
-				break;
-			case 02:
-				mesOut = "-Fevereiro-";
-
-				break;
-			case 03:
-				mesOut = "-Março-";
-				break;
-				/* case "04":
-		    	mes = "-Abril-";
-		        break;
-		    case "05":
-		    	mes = "-Maio-";
-		        break;
-		    case "06":
-		    	mes = "-Junho-";
-		        break;
-		    case "07":
-		    	mes = "-Julho-";
-		        break;
-		    case "08":
-		    	mes = "-Agosto-";
-		        break;
-		    case "09":
-		    	mes = "-Setembro-";
-		        break;
-		    case "10":
-		    	mes = "-Outubro-";
-		        break;
-		    case "11":
-		    	mes = "-Novembro-";
-		        break;
-		    case "12":
-		    	mes = "-Dezembro-";
-		        break;
-				 */}
+		
 			StringBuffer strNome = new StringBuffer();
 			strNome.append("imagens\\"); 
-			/*strNome.append(dia);
-			//strNome.append(mes);
-			strNome.append(mesOut);
-			strNome.append(ano);*/
+			
 			
 	        DateFormat formatter = new SimpleDateFormat("ddMMyyyyhhmmss");
 
@@ -193,8 +134,7 @@ public class PanelGrafico extends PanelExemplo{
 			System.out.println(Nome);
 
 
-		} catch (Exception e) {
-		}
+		
 
 
 
