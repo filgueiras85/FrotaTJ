@@ -5,9 +5,13 @@ import java.awt.GradientPaint;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import mb.MBVeiculo;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
@@ -24,10 +28,14 @@ import org.jfree.util.Rotation;
 
 import com.sun.org.apache.xml.internal.utils.CharKey;
 
+import dao.TipoServicoModelo;
+import dao.Veiculo;
+
 import util.JCalendar;
 import util.Util;
 
 public class PanelGrafico extends PanelExemplo{
+	private static MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	public PanelGrafico() {
 	}
 
@@ -53,18 +61,45 @@ public class PanelGrafico extends PanelExemplo{
 
 		JFreeChart chart = ChartFactory.createPieChart3D("Situação das Manutenções",
 				pieDataSet, true, false, false);*/
+		int verde = 0;
+		int vermelho = 0;
+		int amarelo = 0;
+		try {
+			List<Veiculo> veiculos = mbVeiculo.listarVeiculos();
+		
+			for (int i1=0;i1<veiculos.size();i1++){
+				String cor = veiculos.get(i1).getSituacao();
+				int ama = "verde".compareToIgnoreCase(cor);
+				if(ama==0){//compara se esta verde
+					verde+=1;
+				}else{if(ama==-9){//compara se esta vermelho
+					vermelho+=1;
+				}else{if(ama==21){//compara se esta amarelo
+					amarelo+=1;
+				}
+					
+				}
+					
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
 
 		JFreeChart chart = ChartFactory.createPieChart3D("Situação das Manutenções",pieDataSet,true,true,false);                
 		PiePlot ConfigurarCores = (PiePlot)chart.getPlot();
 
 		ConfigurarCores.setSectionPaint("Atualizadas", Color.GREEN);
-		pieDataSet.setValue("Atualizadas", new Integer(300));
+		pieDataSet.setValue("Atualizadas", new Integer(verde));
 		
 		ConfigurarCores.setSectionPaint("Precisam de Atenção", Color.YELLOW);
-		pieDataSet.setValue("Precisam de Atenção", new Integer(80));
+		pieDataSet.setValue("Precisam de Atenção", new Integer(amarelo));
 
 		ConfigurarCores.setSectionPaint("Pendentes", Color.red);
-		pieDataSet.setValue("Pendentes", new Integer(105));
+		pieDataSet.setValue("Pendentes", new Integer(vermelho));
 
 		
 
@@ -135,10 +170,11 @@ public class PanelGrafico extends PanelExemplo{
 				 */}
 			StringBuffer strNome = new StringBuffer();
 			strNome.append("imagens\\"); 
-			strNome.append(dia);
+			/*strNome.append(dia);
 			//strNome.append(mes);
 			strNome.append(mesOut);
-			strNome.append(ano);
+			strNome.append(ano);*/
+			strNome.append(System.currentTimeMillis());
 			strNome.append(".png");
 
 			Nome = strNome.toString();
