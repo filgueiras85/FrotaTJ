@@ -6,6 +6,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -49,6 +50,10 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import com.lowagie.text.Image;
+import com.sun.mail.handlers.image_gif;
+
 import java.awt.Button;
 
 
@@ -183,13 +188,11 @@ public class PanelInicial extends PanelExemplo {
 		btnDetalhes.setVisible(false);
 		btnRelatorioDePendencias.setVisible(false);
 		
-		JButton btnGrafico = new JButton("Grafico");
-		btnGrafico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelGrafico.grafico();
-			}
-		});
-		btnGrafico.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		ImageIcon img = new ImageIcon(panelGrafico.grafico());
+		JLabel label = new JLabel(img); 
+		panel.add(label, BorderLayout.CENTER);
 
 
 
@@ -202,27 +205,32 @@ public class PanelInicial extends PanelExemplo {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnGrafico)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRelatorioDePendencias)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDetalhes))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblPlaca)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblUnidade)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxUnidade, 0, 40, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblSitucao)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSituacao, 0, 41, Short.MAX_VALUE)
-							.addGap(32)
-							.addComponent(btnPesquisar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblPlaca)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+									.addGap(18)
+									.addComponent(lblUnidade)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(comboBoxUnidade, 0, 48, Short.MAX_VALUE)
+									.addGap(18))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(panel, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+									.addGap(16)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(lblSitucao)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(comboBoxSituacao, 0, 99, Short.MAX_VALUE)
+									.addGap(32)
+									.addComponent(btnPesquisar))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(btnRelatorioDePendencias)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnDetalhes))
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
 						.addComponent(lblTitulo))
 					.addContainerGap())
 		);
@@ -241,12 +249,13 @@ public class PanelInicial extends PanelExemplo {
 						.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnPesquisar))
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnDetalhes)
-						.addComponent(btnRelatorioDePendencias)
-						.addComponent(btnGrafico))
+						.addComponent(btnRelatorioDePendencias))
 					.addGap(0))
 		);
 
