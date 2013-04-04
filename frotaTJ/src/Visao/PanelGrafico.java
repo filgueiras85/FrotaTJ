@@ -37,23 +37,19 @@ import dao.Veiculo;
 import util.JCalendar;
 import util.Util;
 
-public class PanelGrafico extends PanelExemplo{
+public class PanelGrafico {
 	private static MBVeiculo mbVeiculo = MBVeiculo.getInstance();
+	private static PanelGrafico panelGrafico = new PanelGrafico();
+	public static PanelGrafico getInstance(){
+		return panelGrafico;
+		
+	}
+	
 	public PanelGrafico() {
 	}
-
-	public static void main(String[] args) throws FileNotFoundException, IOException {
-		Map<String, Integer> pieDataSet = new HashMap<String, Integer>();
-
-		PanelGrafico();
-
-	}
-
-
-	@SuppressWarnings({ "null", "deprecation" })
-	private static void PanelGrafico() throws FileNotFoundException, IOException {
+	public String grafico(){
 		String Nome = null;
-		int dia = 0, mes = 0, ano = 0;
+		
 
 		DefaultPieDataset pieDataSet = new DefaultPieDataset();
 
@@ -139,7 +135,12 @@ public class PanelGrafico extends PanelExemplo{
 
 
 		// Gera o gráfico própriamente  
-		ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 1000, 400, null, false, 0);  
+		try {
+			ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 1000, 400, null, false, 0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 		System.out.println(Nome);
 		//p.showForegroundAlpha(TOP_ALIGNMENT);
 		ChartFrame frame = new ChartFrame("Situação das Manutenções", chart);
@@ -160,10 +161,8 @@ public class PanelGrafico extends PanelExemplo{
 		parametrizacaoGrafico.setDirection(Rotation.ANTICLOCKWISE);  
 
 		parametrizacaoGrafico.setLabelShadowPaint(Color.BLACK);  
-
-
-
-	}
-}
+		return Nome;
+	}}
+	
 
 

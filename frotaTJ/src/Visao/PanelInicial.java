@@ -49,6 +49,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import java.awt.Button;
 
 
 public class PanelInicial extends PanelExemplo {
@@ -59,6 +60,8 @@ public class PanelInicial extends PanelExemplo {
 	private JComboBox<String> comboBoxUnidade;
 	final MBServico servicoMB = MBServico.getInstance();
 	final MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
+	final PanelGrafico panelGrafico = PanelGrafico.getInstance();
+
 
 
 	final MBVeiculo mbVeiculo = MBVeiculo.getInstance();
@@ -179,6 +182,14 @@ public class PanelInicial extends PanelExemplo {
 		btnRelatorioDePendencias.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDetalhes.setVisible(false);
 		btnRelatorioDePendencias.setVisible(false);
+		
+		JButton btnGrafico = new JButton("Grafico");
+		btnGrafico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelGrafico.grafico();
+			}
+		});
+		btnGrafico.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 
 
@@ -187,54 +198,57 @@ public class PanelInicial extends PanelExemplo {
 		//---------------------------- Codigo do Layout ----------------------------\\
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addComponent(lblPlaca)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-										.addGap(18)
-										.addComponent(lblUnidade)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(comboBoxUnidade, 0, 40, Short.MAX_VALUE)
-										.addGap(18)
-										.addComponent(lblSitucao)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(comboBoxSituacao, 0, 41, Short.MAX_VALUE)
-										.addGap(32)
-										.addComponent(btnPesquisar))
-										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-												.addComponent(btnRelatorioDePendencias)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnDetalhes))
-												.addComponent(lblTitulo))
-												.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnGrafico)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRelatorioDePendencias)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDetalhes))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblPlaca)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(lblUnidade)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBoxUnidade, 0, 40, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(lblSitucao)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBoxSituacao, 0, 41, Short.MAX_VALUE)
+							.addGap(32)
+							.addComponent(btnPesquisar))
+						.addComponent(lblTitulo))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblTitulo)
-						.addGap(24)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPlaca)
-								.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblUnidade)
-								.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSitucao)
-								.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnPesquisar))
-								.addGap(18)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-								.addGap(18)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnDetalhes)
-										.addComponent(btnRelatorioDePendencias))
-										.addGap(0))
-				);
+					.addContainerGap()
+					.addComponent(lblTitulo)
+					.addGap(24)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPlaca)
+						.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUnidade)
+						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSitucao)
+						.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnPesquisar))
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnDetalhes)
+						.addComponent(btnRelatorioDePendencias)
+						.addComponent(btnGrafico))
+					.addGap(0))
+		);
 
 
 
