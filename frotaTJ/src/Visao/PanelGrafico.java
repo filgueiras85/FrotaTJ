@@ -122,7 +122,7 @@ public class PanelGrafico {
 			String dataatual = formatter.format(calendar.getTime());
 			Nome = strNome.toString();
 			System.out.println(Nome+1);
-
+			strNome.append("Pizza");
 			strNome.append(dataatual);
 			strNome.append(".png");
 
@@ -136,7 +136,7 @@ public class PanelGrafico {
 
 		// Gera o gráfico própriamente  
 		try {
-			ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 1000, 400, null, false, 0);
+			ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 400, 200, null, false, 0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -244,7 +244,7 @@ public class PanelGrafico {
 			String dataatual = formatter.format(calendar.getTime());
 			Nome = strNome.toString();
 			System.out.println(Nome+1);
-
+			strNome.append("Pizza");
 			strNome.append(dataatual);
 			strNome.append(".png");
 
@@ -257,7 +257,7 @@ public class PanelGrafico {
 
 
 		// Gera o gráfico própriamente  
-		ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 1000, 400, null, false, 0);  
+		ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 400, 200, null, false, 0);  
 		System.out.println(Nome);
 		//p.showForegroundAlpha(TOP_ALIGNMENT);
 		ChartFrame frame = new ChartFrame("Situação das Manutenções", chart);
