@@ -1,4 +1,5 @@
 package Visao;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,7 +42,12 @@ public class PanelGraficoBarras {
 	public String Grafico() throws FileNotFoundException, IOException, ClassNotFoundException, SQLException{
 		
 		CategoryDataset dataset = PanelGraficoBarras.createDataset();
+		
 		JFreeChart chart = PanelGraficoBarras.createBarChart(dataset);
+		chart.getCategoryPlot().getRenderer(0).setSeriesPaint(0, Color.GREEN);  
+		chart.getCategoryPlot().getRenderer(0).setSeriesPaint(1, Color.YELLOW);  
+		chart.getCategoryPlot().getRenderer(0).setSeriesPaint(2, Color.RED);  
+
 		StringBuffer strNome = new StringBuffer();
 		strNome.append("imagens\\"); 
 
