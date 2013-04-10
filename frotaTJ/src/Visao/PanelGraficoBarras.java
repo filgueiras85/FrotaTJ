@@ -26,46 +26,53 @@ import dao.TipoServicoModelo;
 import dao.Veiculo;
 
 
-public class PanelGraficoBarras extends JFrame{
+public class PanelGraficoBarras {
 
 	final static MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 	final static MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
+	private static PanelGraficoBarras panelGrafico = new PanelGraficoBarras();
 
-public PanelGraficoBarras(String title) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
-super(title);
-CategoryDataset dataset = PanelGraficoBarras.createDataset();
-JFreeChart chart = PanelGraficoBarras.createBarChart(dataset);
-StringBuffer strNome = new StringBuffer();
-strNome.append("imagens\\"); 
-
-
-DateFormat formatter = new SimpleDateFormat("ddMMyyyyhhmmss");
-
-String Nome = null;
-
-Calendar calendar = Calendar.getInstance();
-String dataatual = formatter.format(calendar.getTime());
-Nome = strNome.toString();
-System.out.println(Nome+1);
-strNome.append("Barra");
-strNome.append(dataatual);
-strNome.append(".png");
-
-Nome = strNome.toString();
-System.out.println(Nome);
+	
+	public static PanelGraficoBarras getInstance(){
+		return panelGrafico;
+		
+	}
+	
+	public String Grafico() throws FileNotFoundException, IOException, ClassNotFoundException, SQLException{
+		
+		CategoryDataset dataset = PanelGraficoBarras.createDataset();
+		JFreeChart chart = PanelGraficoBarras.createBarChart(dataset);
+		StringBuffer strNome = new StringBuffer();
+		strNome.append("imagens\\"); 
 
 
+		DateFormat formatter = new SimpleDateFormat("ddMMyyyyhhmmss");
+
+		String Nome = null;
+
+		Calendar calendar = Calendar.getInstance();
+		String dataatual = formatter.format(calendar.getTime());
+		Nome = strNome.toString();
+		System.out.println(Nome+1);
+		strNome.append("Barra");
+		strNome.append(dataatual);
+		strNome.append(".png");
+
+		Nome = strNome.toString();
+		System.out.println(Nome);
 
 
 
 
-// Gera o gráfico própriamente  
-ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 400, 200, null, false, 0);  
-System.out.println(Nome);
-ChartPanel panel = new ChartPanel(chart);
-panel.setPreferredSize(new Dimension(400, 300));
-setContentPane(panel);
-}
+
+
+		// Gera o gráfico própriamente  
+		ChartUtilities.writeChartAsPNG(new FileOutputStream(Nome, true), chart, 400, 200, null, false, 0);  
+		System.out.println(Nome);
+		return Nome;
+	}
+	
+	
 
 private static CategoryDataset createDataset() throws ClassNotFoundException, SQLException {
 	List<Veiculo> veiculos = (List<Veiculo>) mbVeiculo.listarVeiculos();
@@ -107,9 +114,5 @@ return chart;
 
 
 
-public static void main( String[] args ) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
-	PanelGraficoBarras chart = new PanelGraficoBarras("Teste Bar Chart");
-chart.pack();
-chart.setVisible(true);
-}
+
 }

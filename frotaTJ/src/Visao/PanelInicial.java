@@ -55,17 +55,17 @@ import com.lowagie.text.Image;
 import com.sun.mail.handlers.image_gif;
 
 import java.awt.Button;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class PanelInicial extends PanelExemplo {
 	private JTable table;
 	private int idVeiculoSelecionado;
-	private JTextField textFieldPlaca;
-	private JComboBox<String> comboBoxSituacao;
-	private JComboBox<String> comboBoxUnidade;
 	final MBServico servicoMB = MBServico.getInstance();
 	final MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
 	final PanelGrafico panelGrafico = PanelGrafico.getInstance();
+	final PanelGraficoBarras panelGraficoBarras = PanelGraficoBarras.getInstance();
 
 
 
@@ -82,33 +82,7 @@ public class PanelInicial extends PanelExemplo {
 		lblTitulo.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		JLabel lblUnidade = new JLabel("Unidade");
-		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JLabel lblSitucao = new JLabel("Situa\u00E7\u00E3o");
-		lblSitucao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JLabel lblPlaca = new JLabel("Placa");
-		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		textFieldPlaca = new JTextField();
-		textFieldPlaca.setColumns(10);
-
 		JScrollPane scrollPane = new JScrollPane();
-
-
-		//--------------------------- ComboBox ---------------------------\\
-
-		comboBoxSituacao = new JComboBox<String>();
-		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		comboBoxSituacao.addItem("Selecionar");
-		comboBoxSituacao.addItem("ok");
-		comboBoxSituacao.addItem("a fazer");
-		comboBoxSituacao.addItem("atrasado");	
-
-
-		comboBoxUnidade = new JComboBox<String>();
-		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		DefaultComboBoxModel<String> modelComboBoxUnidade;
 		final Vector<Unidade> listaUnidade = new Vector<>();
 		final Vector<String> listaNomeUnidade = new Vector<>();
@@ -121,50 +95,9 @@ public class PanelInicial extends PanelExemplo {
 				listaNomeUnidade.add(listaUnidade.get(i).getNome());
 			}
 			modelComboBoxUnidade = new DefaultComboBoxModel<String>(listaNomeUnidade);
-			comboBoxUnidade.setModel(modelComboBoxUnidade);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
-
-
-
-		//--------------------------- Botões ---------------------------\\	
-		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setIcon(new ImageIcon("imagens\\1408_16x16.png"));
-		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				((DefaultTableModel)table.getModel()).setRowCount(0);				
-				ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
-
-				for (int i=0; i<table.getRowCount(); i++){
-					((DefaultTableModel)table.getModel()).removeRow(i);
-				}
-
-				try {
-					listaVeiculo.addAll(mbVeiculo.listarVeiculos());
-
-					for (int i=0; i<listaVeiculo.size()-1; i++){
-						if(listaVeiculo.get(i).getPlaca().equals(textFieldPlaca.getText()) &&
-								listaVeiculo.get(i).getUnidade().getNome().equals(comboBoxUnidade.getSelectedItem().toString()) &&
-								listaVeiculo.get(i).getSituacao().equals(comboBoxSituacao.getSelectedItem().toString())){
-
-							((DefaultTableModel)table.getModel()).addRow(new String[]{
-									listaVeiculo.get(i).getIdveiculo()+"", 
-									listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome(), listaVeiculo.get(i).getSituacao()});
-
-							//"ID", "Placa", "Unidade", "Motorista", "Situa\u00E7\u00E3o"
-
-						}
-					}
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-		});
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnDetalhes = new JButton("Detalhes");
 		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
@@ -192,7 +125,26 @@ public class PanelInicial extends PanelExemplo {
 		panel.setLayout(new BorderLayout());
 		ImageIcon img = new ImageIcon(panelGrafico.grafico());
 		JLabel label = new JLabel(img); 
-		panel.add(label, BorderLayout.CENTER);
+		ImageIcon img2= null;
+		try {
+			img2 = new ImageIcon(panelGraficoBarras.Grafico());
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JLabel label2 = new JLabel(img2);
+		panel.add(label, BorderLayout.SOUTH);
+		panel.add(label2, BorderLayout.NORTH);
+
 
 
 
@@ -206,31 +158,14 @@ public class PanelInicial extends PanelExemplo {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblPlaca)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(lblUnidade)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBoxUnidade, 0, 48, Short.MAX_VALUE)
-									.addGap(18))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(panel, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-									.addGap(16)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addComponent(lblSitucao)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(comboBoxSituacao, 0, 99, Short.MAX_VALUE)
-									.addGap(32)
-									.addComponent(btnPesquisar))
 								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 									.addComponent(btnRelatorioDePendencias)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnDetalhes))
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)))
 						.addComponent(lblTitulo))
 					.addContainerGap())
 		);
@@ -239,24 +174,18 @@ public class PanelInicial extends PanelExemplo {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblTitulo)
-					.addGap(24)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPlaca)
-						.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUnidade)
-						.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSitucao)
-						.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnPesquisar))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnDetalhes)
-						.addComponent(btnRelatorioDePendencias))
-					.addGap(0))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnDetalhes)
+								.addComponent(btnRelatorioDePendencias))
+							.addGap(0))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 
 
