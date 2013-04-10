@@ -22,12 +22,14 @@ import javax.swing.JButton;
 import dao.Modelo;
 import dao.TipoServicoModelo;
 import dao.Unidade;
+import dao.Usuario;
 import dao.Veiculo;
 
 import mb.MBModelo;
 import mb.MBServico;
 import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
+import mb.MBUsuario;
 import mb.MBVeiculo;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -43,13 +45,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
+import util.SendMail;
+import util.UsuarioUtil;
 
 import com.lowagie.text.Image;
 import com.sun.mail.handlers.image_gif;
@@ -66,6 +73,8 @@ public class PanelInicial extends PanelExemplo {
 	final MBTipoServiçoModelo tipoServicoModeloMB = MBTipoServiçoModelo.getInstance();
 	final PanelGrafico panelGrafico = PanelGrafico.getInstance();
 	final PanelGraficoBarras panelGraficoBarras = PanelGraficoBarras.getInstance();
+	final SendMail sendEmail = SendMail.getInstance();
+	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
 
 
@@ -123,11 +132,15 @@ public class PanelInicial extends PanelExemplo {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		ImageIcon img = new ImageIcon(panelGrafico.grafico());
+		String graficoPizza = panelGrafico.grafico();
+		String graficoBarra = null;
+
+		ImageIcon img = new ImageIcon(graficoPizza);
 		JLabel label = new JLabel(img); 
 		ImageIcon img2= null;
 		try {
-			img2 = new ImageIcon(panelGraficoBarras.Grafico());
+			graficoBarra = panelGraficoBarras.Grafico();
+			img2 = new ImageIcon(graficoBarra);
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -144,6 +157,29 @@ public class PanelInicial extends PanelExemplo {
 		JLabel label2 = new JLabel(img2);
 		panel.add(label, BorderLayout.SOUTH);
 		panel.add(label2, BorderLayout.NORTH);
+		List<String> anexos = new ArrayList();
+		anexos.add(graficoBarra);
+		anexos.add(graficoPizza);
+		SendMail sendmail = SendMail.getInstance();
+		Set<Usuario> usuarios = new HashSet<Usuario>(0);
+		MBUsuario mbUsuario = MBUsuario.getInstance();
+		try {
+			List<Usuario> lista = mbUsuario.listarUsuarios();
+				usuarios.add(mbUsuario.retornarUsuario(usuarioLogado.getIdUsuario()));
+			
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					}
+					
+
+			sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, anexos, "Graficos", "Grafico anexo, encaminhado via Sistema");
+		
+		
+		
 
 
 
