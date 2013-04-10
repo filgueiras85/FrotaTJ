@@ -43,11 +43,23 @@ import mb.MBTipoServico;
 import mb.MBTipoServiçoModelo;
 import mb.MBUnidade;
 import mb.MBVeiculo;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import util.Util;
 
 import util.JCalendar;
 import util.UsuarioUtil;
+import util.totalGastoServicos;
+
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 
 public class PanelRelatorioTotalGasto extends PanelExemplo {
@@ -63,6 +75,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 	final Util util = Util.getInstance();
 	final MBTipoServiçoModelo mbTSM = MBTipoServiçoModelo.getInstance();
+	static List listaServicos = new ArrayList();
 
 	int flagCMBDataInicio = 2;
 	int flagCMBDataFinal = 2;
@@ -87,6 +100,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 	private final JLabel lblMarca = new JLabel("Marca");
 	private final JLabel lblModelo = new JLabel("Modelo");
 	private final JLabel lblPlaca = new JLabel("Placa");
+	private JTextField txtTotal;
 
 	public PanelRelatorioTotalGasto() {
 
@@ -248,108 +262,169 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 				new Object[][] {
 				},
 				new String[] {
-						"Id", "Tipo Servico", "Valor"
+					"Placa", "Od\u00F4metro", "Fornecedor", "Tipo Servico", "Data", "Valor"
 				}
-				));
+			));
+			table.getColumnModel().getColumn(0).setPreferredWidth(51);
+			table.getColumnModel().getColumn(2).setPreferredWidth(170);
+			table.getColumnModel().getColumn(3).setPreferredWidth(141);
+			table.getColumnModel().getColumn(4).setPreferredWidth(54);
+			table.getColumnModel().getColumn(5).setPreferredWidth(83);
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
+		
+		JButton btnImprimirRelatrio = new JButton("Imprimir  Relat\u00F3rio");
+		btnImprimirRelatrio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				listaServicos.clear();
+				
+				for (int i=0;i<table.getRowCount();i++){					
+					totalGastoServicos veiculoServico = new totalGastoServicos();
+					veiculoServico.setPlaca(table.getValueAt(i, 0).toString());
+					veiculoServico.setOdometro(table.getValueAt(i, 1).toString());
+					veiculoServico.setFornecedor(table.getValueAt(i, 2).toString());
+					veiculoServico.setTipoServico(table.getValueAt(i, 3).toString());
+					veiculoServico.setData(table.getValueAt(i, 4).toString());
+					veiculoServico.setValor(table.getValueAt(i, 5).toString());
+					veiculoServico.setTotal(txtTotal.getText().toString());
+					listaServicos.add(veiculoServico);					
+				}	
+				
+				JasperReport report;
+				 
+				try {
+					report = JasperCompileManager.compileReport("relatorios/totalGastoServicos.jrxml");					
+					JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(listaServicos));
+					JasperViewer jrviewer = new JasperViewer (print,false);
+					jrviewer.show();					
+					System.out.println("Relatório gerado.");					
+				} catch (JRException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		btnImprimirRelatrio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel lblTotal = new JLabel("TOTAL:");
+		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		txtTotal = new JTextField();
+		txtTotal.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtTotal.setForeground(Color.RED);
+		txtTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
+		txtTotal.setEditable(false);
+		txtTotal.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(lblInicio, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+					.addComponent(lblInicio, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
 					.addGap(58)
-					.addComponent(lblFim, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+					.addComponent(lblFim, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
 					.addGap(37)
-					.addComponent(lblUnidade, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-					.addGap(143)
-					.addComponent(lblTipoDeServico, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+					.addComponent(lblUnidade, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblTipoDeServico, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 					.addGap(171))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(cmbDataInicio, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+					.addComponent(cmbDataInicio, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(cmbDataFinal, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+					.addComponent(cmbDataFinal, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
 					.addGap(6)
-					.addComponent(cmbUnidade, 0, 176, Short.MAX_VALUE)
+					.addComponent(cmbUnidade, 0, 178, Short.MAX_VALUE)
 					.addGap(10)
-					.addComponent(cmbTipoServico, 0, 229, Short.MAX_VALUE)
+					.addComponent(cmbTipoServico, 0, 228, Short.MAX_VALUE)
 					.addGap(28))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(lblFornecedor, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addGap(236)
-					.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(cmbFornecedor, 0, 293, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblFornecedor, GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+						.addComponent(cmbFornecedor, 0, 297, Short.MAX_VALUE))
 					.addGap(40)
-					.addComponent(cmbMotorista, 0, 290, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblMotorista, GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+						.addComponent(cmbMotorista, 0, 294, Short.MAX_VALUE))
 					.addGap(28))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(lblMarca, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addGap(114)
-					.addComponent(lblModelo, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-					.addGap(218)
-					.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(cmbMarca, 0, 159, Short.MAX_VALUE)
-					.addGap(52)
-					.addComponent(cmbModelo, 0, 253, Short.MAX_VALUE)
-					.addGap(62)
-					.addComponent(cmbPlaca, 0, 97, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnImprimirRelatrio)
+							.addPreferredGap(ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+							.addComponent(lblTotal, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtTotal, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblMarca, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+								.addComponent(cmbMarca, 0, 161, Short.MAX_VALUE))
+							.addGap(52)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblModelo, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+								.addComponent(cmbModelo, Alignment.TRAILING, 0, 255, Short.MAX_VALUE))
+							.addGap(62)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPlaca, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+								.addComponent(cmbPlaca, Alignment.TRAILING, 0, 101, Short.MAX_VALUE))))
 					.addGap(28))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(65)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-					.addGap(68))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(240)
-					.addComponent(btnPesquisar, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-					.addGap(280))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblInicio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblFim, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblUnidade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblTipoDeServico, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(lblTipoDeServico))
 					.addGap(6)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(cmbDataFinal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(cmbDataInicio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(cmbUnidade)
-						.addComponent(cmbTipoServico))
+						.addComponent(cmbUnidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cmbTipoServico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFornecedor)
 						.addComponent(lblMotorista))
 					.addGap(1)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(cmbFornecedor)
-						.addComponent(cmbMotorista))
+						.addComponent(cmbFornecedor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cmbMotorista, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(3)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMarca)
 						.addComponent(lblModelo)
 						.addComponent(lblPlaca))
-					.addGap(1)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(cmbMarca)
-						.addComponent(cmbModelo)
-						.addComponent(cmbPlaca))
-					.addGap(6)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(btnPesquisar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(62))
+						.addComponent(cmbMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cmbModelo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cmbPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtTotal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblTotal))
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
+							.addComponent(btnPesquisar)
+							.addComponent(btnImprimirRelatrio)))
+					.addGap(12))
 		);
 		setLayout(groupLayout);
 	}
@@ -436,22 +511,25 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		for(int j=0;j<tipoServico.size();j++){
 			for(int k=0;k<listaServico.size();k++){ 
-				if(tipoServico.get(j).getIdtipoServico() == listaServico.get(k).getTipoServico().getIdtipoServico()){
+				if(tipoServico.get(j).getIdtipoServico() == listaServico.get(k).getTipoServico().getIdtipoServico()
+						&& listaServico.get(k).getValor() != 0){
 					valor = (Double) (listaServico.get(k).getValor() + valor);
+					((DefaultTableModel)table.getModel()).addRow(new String[]{
+							listaServico.get(k).getVeiculo().getPlaca(),
+							listaServico.get(k).getVeiculo().getOdometro()+"",
+							listaServico.get(k).getFornecedor().getNome(),
+							tipoServico.get(j).getNome()+"",
+							listaServico.get(k).getData2().toString().substring(8, 10)+"/"+
+							listaServico.get(k).getData2().toString().substring(5, 7)+"/"+
+							listaServico.get(k).getData2().toString().substring(0, 4),							
+							"" + util.retornaMoeda(valor),							
+					});
 				}
-			}
-
-			((DefaultTableModel)table.getModel()).addRow(new String[]{
-					""+tipoServico.get(j).getIdtipoServico() ,tipoServico.get(j).getNome()+"",
-					"" + util.retornaMoeda(valor)
-			});
-			total += valor;
-			valor = 0.0;
+				total += valor;
+				valor = 0.0;
+			}			
 		}
-		((DefaultTableModel)table.getModel()).addRow(new String[]{
-				"TOTAL",
-				"" + util.retornaMoeda(total)
-		});
+		txtTotal.setText(util.retornaMoeda(total));		
 	}
 
 	public void AtualizaCombo(JComboBox combo, List lista ){
