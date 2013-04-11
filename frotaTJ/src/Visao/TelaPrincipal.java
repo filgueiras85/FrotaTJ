@@ -29,18 +29,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 import util.Filtros;
+import util.SendMail;
 import util.UsuarioUtil;
 import util.Util;
 
 import mb.MBMarca;
 import mb.MBUnidade;
+import mb.MBUsuario;
 
 import dao.Marca;
 import dao.Unidade;
@@ -50,6 +56,7 @@ import dao.Usuario;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -66,9 +73,14 @@ public class TelaPrincipal extends JFrame {
 	private JPanel panelCentro = new JPanel();
 	final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 	private JComboBox<Unidade> comboBoxUnidade = new JComboBox<Unidade>();
+	final PanelGrafico panelGrafico = PanelGrafico.getInstance();
+	final PanelGraficoBarras panelGraficoBarras = PanelGraficoBarras.getInstance();
+	final SendMail sendEmail = SendMail.getInstance();
+
 		
 
 	public TelaPrincipal() {
+		EnviarEmail();
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagens\\1517_32x32.png"));
 		setTitle("Sistema de Manuten\u00E7\u00E3o de Frotas do Tribunal de Justi\u00E7a do Estado de Santa Catarina ");
 
@@ -430,6 +442,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					//TelaPrincipal frame = new TelaPrincipal();
 					Visao.TelaLogin frame = new TelaLogin();
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -456,7 +469,57 @@ public class TelaPrincipal extends JFrame {
 		TelaLogin telaLogin = new TelaLogin();
 		telaLogin.show();
 	}
+	
+	public void EnviarEmail(){
+		
+		String graficoPizza = panelGrafico.grafico();
+		String graficoBarra = null;
 
+		try {
+			graficoBarra = panelGraficoBarras.Grafico();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		List<String> anexos = new ArrayList();
+		anexos.add(graficoBarra);
+		anexos.add(graficoPizza);
+		SendMail sendmail = SendMail.getInstance();
+		Set<Usuario> usuarios = new HashSet<Usuario>(0);
+		MBUsuario mbUsuario = MBUsuario.getInstance();
+		try {
+			List<Usuario> lista = mbUsuario.listarUsuarios();
+			
+			for(int i=0; i<lista.size();i++){
+				if(lista.get(i).getAdministrador()){
+					usuarios.add(lista.get(i));
+
+				}
+					}
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						}
+				usuarios.add(mbUsuario.retornarUsuario(usuarioLogado.getIdUsuario()));
+			
+			
+					
+
+			sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, anexos, "Graficos", "Grafico anexo, encaminhado via Sistema");
+	}
 	//--------------------- Métodos para troca de Panel de cadastro ---------------------\\
 
 

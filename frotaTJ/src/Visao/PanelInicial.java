@@ -157,26 +157,7 @@ public class PanelInicial extends PanelExemplo {
 		JLabel label2 = new JLabel(img2);
 		panel.add(label, BorderLayout.SOUTH);
 		panel.add(label2, BorderLayout.NORTH);
-		List<String> anexos = new ArrayList();
-		anexos.add(graficoBarra);
-		anexos.add(graficoPizza);
-		SendMail sendmail = SendMail.getInstance();
-		Set<Usuario> usuarios = new HashSet<Usuario>(0);
-		MBUsuario mbUsuario = MBUsuario.getInstance();
-		try {
-			List<Usuario> lista = mbUsuario.listarUsuarios();
-				usuarios.add(mbUsuario.retornarUsuario(usuarioLogado.getIdUsuario()));
-			
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					}
-					
-
-			sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, anexos, "Graficos", "Grafico anexo, encaminhado via Sistema");
+		
 		
 		
 		
