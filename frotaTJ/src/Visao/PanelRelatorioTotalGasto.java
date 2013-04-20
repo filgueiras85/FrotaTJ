@@ -80,6 +80,8 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 	int flagCMBDataInicio = 2;
 	int flagCMBDataFinal = 2;
+	boolean flagCMBPlaca = false;
+	boolean flagCMBMarca = false;
 
 
 	JComboBox<Fornecedor> cmbFornecedor = new JComboBox<Fornecedor>();
@@ -96,8 +98,8 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 	private final JLabel lblTipoDeServico = new JLabel("Tipo de Servico");
 	private final JLabel lblFornecedor = new JLabel("Fornecedor");
 	private final JLabel lblMotorista = new JLabel("Motorista");
-	private final JLabel lblMarca = new JLabel("Marca");
-	private final JLabel lblModelo = new JLabel("Modelo");
+	private final JLabel lblMarca = new JLabel("Modelo");
+	private final JLabel lblModelo = new JLabel("Marca");
 	private final JLabel lblPlaca = new JLabel("Placa");
 	private JTextField txtTotal;
 
@@ -144,67 +146,28 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 			}
 		});
-		cmbTipoServico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*if(cmbTipoServico.getSelectedIndex() == 0){
-					TipoServico tipoServico = null;
-					System.out.println("tpse 0 ");
-					AtualizaComboTipoServico(tipoServico);
-
-				}
-				if(cmbTipoServico.getSelectedIndex() > 0){
-					int idTs = cmbTipoServico.getItemAt(cmbTipoServico.getSelectedIndex()).getIdtipoServico();
-					TipoServico tipoServico = mbTipoServico.retornarTipoServico(idTs);
-					AtualizaComboTipoServico(tipoServico);
-				}*/
-			}
-		});
-
-		cmbFornecedor.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*if(cmbFornecedor.getSelectedIndex() > 0){
-					
-						Fornecedor fornecedor = mbFornecedor.retornarFornecedor(cmbFornecedor.getItemAt(cmbFornecedor.getSelectedIndex()).getIdfornecedor());
-						AtualizaComboFornecedor(fornecedor);
-					
-				}*/
-			}
-		});
 
 		cmbMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*if(cmbMarca.getSelectedIndex() > 0){
-					if(cmbUnidade.getSelectedIndex() == 0 
-							&& cmbTipoServico.getSelectedIndex() == 0
-							&& cmbFornecedor.getSelectedIndex() == 0){
-						Marca marca = cmbMarca.getItemAt(cmbMarca.getSelectedIndex());
-						AtualizaComboMarca(marca);
-					}
-				}*/
+				if( flagCMBMarca && cmbMarca.getSelectedIndex() == 0 ){
+					System.out.println("igual 0 ");
+					cmbModelo.setSelectedIndex(0);
+					cmbPlaca.setSelectedIndex(0);
+				}
+				if ( cmbMarca.getSelectedIndex() > 0){
+					System.out.println("igual 1");
+					flagCMBMarca = true;
+				}
 			}
 		});
-
-		cmbModelo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-
-		});
-
-		cmbMotorista.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*if(cmbMotorista.getSelectedIndex() > 0 && cmbModelo.getSelectedIndex()	== 0	&& cmbTipoServico.getSelectedIndex() == 0
-						&& cmbFornecedor.getSelectedIndex() == 0 && cmbMarca.getSelectedIndex() == 0){
-					Motorista motorista = mbMotorista.retornarMotorista(cmbMotorista.getItemAt(cmbMotorista.getSelectedIndex()).getIdmotorista());
-					AtualizaComboMotorista(motorista);
-				}*/	
-			}
-		});
-
-
 		cmbPlaca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(cmbPlaca.getSelectedIndex() > 0 ){
-					AtualizaComboPlaca();
+					AtualizaComboPlaca( cmbPlaca.getSelectedIndex() );
+					flagCMBPlaca = true;
+				}
+				if( cmbPlaca.getSelectedIndex() == 0 && flagCMBPlaca ){
+					AtualizaComboPlaca( cmbPlaca.getSelectedIndex() );
 				}
 			}
 		});		
@@ -461,7 +424,6 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 		}
 
-		//if ( placa.toString() != "TODOS" ){
 		if ( cmbPlaca.getSelectedIndex() > 0 ){
 			veiculos = mbVeiculo.VeiculoPorPlaca(placa);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
@@ -527,7 +489,6 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 					if ( !lstVeiculo.contains(lstServicoData.get(i).getVeiculo()) ){
 						lstVeiculo.add(lstServicoData.get(i).getVeiculo());
 						cmbPlaca.addItem(lstServicoData.get(i).getVeiculo().getPlaca());
-						System.out.println(lstServicoData.get(i).getVeiculo().getPlaca());
 					}
 				}	
 
@@ -570,19 +531,24 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 		}
 	}
 
-	public void AtualizaComboPlaca(){
+	public void AtualizaComboPlaca(int plc){
 
 		List<Veiculo> listaVeiculos;
 		try {
 			listaVeiculos = mbVeiculo.VeiculoPorServico(lstServicoData);
 			String placa = cmbPlaca.getSelectedItem().toString();
-			for(int i=0;i<listaVeiculos.size();i++){
-				if ( placa == listaVeiculos.get(i).getPlaca()){
-
-					cmbMarca.setSelectedItem(listaVeiculos.get(i).getModelo().getMarca());
-					cmbModelo.setSelectedItem(listaVeiculos.get(i).getModelo());
-				}
-			}
+			if ( plc == 0 ){
+        		cmbMarca.setSelectedIndex(0);
+        		cmbModelo.setSelectedIndex(0);
+                
+            }else{
+                for(int i=0;i<listaVeiculos.size();i++){
+				    if ( placa == listaVeiculos.get(i).getPlaca()){
+    					cmbMarca.setSelectedItem(listaVeiculos.get(i).getModelo().getMarca());
+	        			cmbModelo.setSelectedItem(listaVeiculos.get(i).getModelo());
+				    }
+			    }
+            }   
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
