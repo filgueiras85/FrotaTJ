@@ -62,7 +62,16 @@ public class MBMarca {
 		return daoMarca.findById(id);
 
 	}
-
+	public Marca retornarMarca(String marca) throws ClassNotFoundException, SQLException{
+		List<Marca> listaMarca = listarMarcas();
+		for( int i=0;i<listaMarca.size();i++){
+			if ( listaMarca.get(i).getNome().equals(marca)){
+				return listaMarca.get(i);
+			}
+		}
+		return null;		
+	}
+	
 	public List<Marca> listarMarcas() throws ClassNotFoundException, SQLException{
 		MarcaDAO daoMarca = MarcaDAO.getInstance();
 		return daoMarca.findAll();

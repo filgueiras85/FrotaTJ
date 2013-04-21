@@ -44,15 +44,15 @@ public class PanelCadastroMarca extends PanelExemplo {
 			public void actionPerformed(ActionEvent arg0) {
 				MBMarca mbMarca = MBMarca.getInstance();
 
-				Marca m =  new Marca(idMarcaSelecionado, textFieldNome.getText());
-
-
+				
+				Marca m;
 				try {
-					if (idMarcaSelecionado==0){
-						if (m.getIdmarca()==0){
-							m.setIdmarca(null);
-						}
-						String retorno = mbMarca.inserir(m);
+					System.out.println(idMarcaSelecionado);
+					if ( idMarcaSelecionado < 0 ){ 					// Vem da tela de cadastro de modelo
+
+						Marca marca = new Marca( 0, textFieldNome.getText());
+						marca.setIdmarca(null);
+						String retorno = mbMarca.inserir(marca);
 						if (retorno.equals("ok")){
 
 							JOptionPane.showMessageDialog(null,"Marca inserido!");
@@ -60,23 +60,40 @@ public class PanelCadastroMarca extends PanelExemplo {
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
 						}
+						
+						PanelCadastroModelo(textFieldNome.getText());
+
 					}else{
+						m =  new Marca(idMarcaSelecionado, textFieldNome.getText());
+						if (idMarcaSelecionado==0){
+							if (m.getIdmarca()==0){
+								m.setIdmarca(null);
+							}
+							String retorno = mbMarca.inserir(m);
+							if (retorno.equals("ok")){
 
-						String retorno =  mbMarca.editar(m);
-						if (retorno.equals("ok")){
-							JOptionPane.showMessageDialog(null,"Marca alterado!");
+								JOptionPane.showMessageDialog(null,"Marca inserido!");
 
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
 						}else{
-							JOptionPane.showMessageDialog(null,retorno);
+
+							String retorno =  mbMarca.editar(m);
+							if (retorno.equals("ok")){
+								JOptionPane.showMessageDialog(null,"Marca alterado!");
+
+							}else{
+								JOptionPane.showMessageDialog(null,retorno);
+							}
 						}
+						PanelListagemMarca();	
 					}
+				
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				PanelListagemMarca();	
-			}
-
-		});
+			}});
 
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -132,19 +149,35 @@ public class PanelCadastroMarca extends PanelExemplo {
 
 		}
 
-	}
-	public void PanelListagemMarca(){
-		try {
-			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelListagemMarca();
-		} catch (Exception e) {
+		}
+		public void PanelListagemMarca(){
 			try {
-				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 				parent.PanelListagemMarca();
-			} catch (Exception e1) {
-				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-				parent.PanelListagemMarca();
+			} catch (Exception e) {
+				try {
+					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+					parent.PanelListagemMarca();
+				} catch (Exception e1) {
+					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+					parent.PanelListagemMarca();
+				}
+			}
+		}
+		
+		public void PanelCadastroModelo(String marca){
+			try {
+				System.out.println("Castro modelo");
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+				parent.PanelCadastroModelo(0, marca);
+			} catch (Exception e) {
+				try{
+					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+					parent.PanelCadastroModelo(0, marca);
+				} catch (Exception e1) {
+					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+					parent.PanelCadastroModelo(0, marca);
+				}
 			}
 		}
 	}
-}

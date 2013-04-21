@@ -160,23 +160,23 @@ public class PanelListagemModelo extends PanelExemplo {
 	public void PanelCadastroModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroModelo(0);
+			parent.PanelCadastroModelo(0, "");
 		} catch (Exception e) {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-			parent.PanelCadastroModelo(0);
+			parent.PanelCadastroModelo(0, "");
 		}
 	}
 	public void PanelEditarModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroModelo(idModeloSelecionado);
+			parent.PanelCadastroModelo(idModeloSelecionado, "");
 		} catch (Exception e) {
 			try {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-				parent.PanelCadastroModelo(idModeloSelecionado);
+				parent.PanelCadastroModelo(idModeloSelecionado, "");
 			} catch (Exception e1) {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-				parent.PanelCadastroModelo(idModeloSelecionado);
+				parent.PanelCadastroModelo(idModeloSelecionado, "");
 			}
 		}
 	}

@@ -31,12 +31,23 @@ public class PanelCadastroModelo extends PanelExemplo {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCadastroModelo(final int idModeloSelecionado) {
+	public PanelCadastroModelo(final int idModeloSelecionado, final String marca) {
 
 		JLabel lblCadastroModelo = new JLabel("  Cadastro de Modelos");
 		lblCadastroModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
 		lblCadastroModelo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
+		JButton btnAdicionarMarca = new JButton("Marca");
+		btnAdicionarMarca.setIcon(new ImageIcon("imagens\\8391_16x16.png"));
+		
+		btnAdicionarMarca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				PanelCadastroMarca(-1);
+			}
+		});
+		
+		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setIcon(new ImageIcon(winDir+"7464_32x32.png"));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -104,8 +115,14 @@ public class PanelCadastroModelo extends PanelExemplo {
 		DefaultComboBoxModel<Marca> modeloComboBox;
 
 		try {
-			modeloComboBox = new DefaultComboBoxModel<Marca>(new Vector(mbMarca.listarMarcas()));
-			comboBoxMarca.setModel(modeloComboBox);
+			Vector<Marca> vMarca = new Vector<Marca>(mbMarca.listarMarcas());
+			comboBoxMarca.setModel(new DefaultComboBoxModel<Marca>(vMarca));
+
+			if ( marca.isEmpty()){
+
+			}else{
+				comboBoxMarca.setSelectedItem(mbMarca.retornarMarca(marca));
+			}
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -118,46 +135,55 @@ public class PanelCadastroModelo extends PanelExemplo {
 
 		//DefaultComboBoxModel<Fornecedor>(mbFornecedor.listarFornecedores());
 		comboBoxMarca.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+	
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-										.addComponent(lblNome)
-										.addGap(18)
-										.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
-										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-												.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(btnCancelar))
-												.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-														.addComponent(lblMarca)
-														.addGap(18)
-														.addComponent(comboBoxMarca, 0, 367, Short.MAX_VALUE))
-														.addComponent(lblCadastroModelo))
-														.addContainerGap())
-				);
-		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblCadastroModelo)
-						.addGap(61)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNome))
+							.addComponent(lblCadastroModelo)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblMarca)
+								.addGap(18)
+								.addComponent(comboBoxMarca, 0, 296, Short.MAX_VALUE)
 								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(comboBoxMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblMarca))
-										.addPreferredGap(ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(btnCancelar)
-												.addComponent(btnSalvar))
-												.addContainerGap())
-				);
+								.addComponent(btnAdicionarMarca)
+								.addContainerGap())
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblNome)
+								.addGap(18)
+								.addComponent(textFieldNome, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
+								.addContainerGap()))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnCancelar)
+							.addContainerGap())))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblCadastroModelo)
+					.addGap(61)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textFieldNome, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNome))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(comboBoxMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMarca)
+						.addComponent(btnAdicionarMarca))
+					.addPreferredGap(ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCancelar)
+						.addComponent(btnSalvar))
+					.addContainerGap())
+		);
 		setLayout(groupLayout);
 		if (idModeloSelecionado>0){
 			MBModelo mbModelo = MBModelo.getInstance();
@@ -201,5 +227,22 @@ public class PanelCadastroModelo extends PanelExemplo {
 			}
 		}
 	}
+	
+	public void PanelCadastroMarca(int id){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelCadastroMarca(id);
+		} catch (Exception e) {
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMarca(id);
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelCadastroMarca(id);
+			}
+		}
+	}
+	
+	
 }
 
