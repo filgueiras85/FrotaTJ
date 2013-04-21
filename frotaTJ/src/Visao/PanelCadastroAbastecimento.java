@@ -2,6 +2,8 @@ package Visao;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,9 +82,9 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
+
 		final JCalendar cmbData = new JCalendar();
-		
+
 		JLabel lblHodometro = new JLabel("Hod\u00F4metro");
 		lblHodometro.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -98,9 +100,22 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		comboBoxPlaca = new JComboBox<Veiculo>();
 		DefaultComboBoxModel<Veiculo> modeloComboBox;
 
+		JLabel lblVeiculo = new JLabel("Veiculo");
+		lblVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		final JLabel lblModelo = new JLabel("");
+		comboBoxPlaca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Veiculo v = (Veiculo) comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex());
+				lblModelo.setText(v.getModelo().getNome());
+				lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			}
+		});
+
 		try {
 			modeloComboBox = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
 			comboBoxPlaca.setModel(modeloComboBox);
+			comboBoxPlaca.setSelectedIndex(0);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,6 +123,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 		Veiculo veiculoSelecionado = (Veiculo) comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex());
 
 		comboBoxPlaca.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -117,22 +133,24 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			PanelListagemAbastecimento();
+				PanelListagemAbastecimento();
 			}
 		});
+
+
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setIcon(new ImageIcon("imagens\\7484_16x16.png"));
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			        
+
 				Util util = Util.getInstance();
 
 				java.sql.Timestamp data =  new java.sql.Timestamp(util.getCMBData(cmbData).getTime());
-				
-				
-				
+
+
+
 				MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
 				MBVeiculo mbVeiculo = MBVeiculo.getInstance();
 				Abastecimento a;
@@ -160,7 +178,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						String retorno = mbAbastecimento.inserir(a);
 						mbVeiculo.AtualizarOdometro(Integer.parseInt(textFieldHodometro.getText()), comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
 						mbTipoServiçoModelo.atualizaStatusVeiculo(mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()));
-						
+
 						if (retorno.equals("ok")){
 							JOptionPane.showMessageDialog(null,"Cadastro inserido!");
 							//PanelListagemAbastecimento();
@@ -173,7 +191,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 						mbVeiculo.AtualizarOdometro(Integer.parseInt(textFieldHodometro.getText()), comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo());
 						mbTipoServiçoModelo.atualizaStatusVeiculo(mbVeiculo.retornarVeiculo(comboBoxPlaca.getItemAt(comboBoxPlaca.getSelectedIndex()).getIdveiculo()));
 						if (retorno.equals("ok")){
-							
+
 							//PanelListagemAbastecimento();
 						}else{
 							JOptionPane.showMessageDialog(null,retorno);
@@ -182,63 +200,67 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
+
 				PanelListagemAbastecimento();
 			}
-
-			   
-			
 		});
-		
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHodometro)
-								.addComponent(lblData)
-								.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
-							.addGap(53)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(cmbData, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(comboBoxPlaca, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(textFieldHodometro, 0, 0, Short.MAX_VALUE)
-								.addComponent(btnSalvar, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addComponent(btnCancelar))
-						.addComponent(lblCadastroAbastecimento))
-					.addGap(108))
-		);
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblCadastroAbastecimento)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblHodometro)
+												.addComponent(lblData)
+												.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblVeiculo))
+												.addGap(53)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblModelo)
+														.addGroup(groupLayout.createSequentialGroup()
+																.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+																		.addComponent(cmbData, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																		.addComponent(comboBoxPlaca, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																		.addComponent(textFieldHodometro, 0, 0, Short.MAX_VALUE)
+																		.addComponent(btnSalvar, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+																		.addGap(10)
+																		.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))))
+																		.addContainerGap(92, Short.MAX_VALUE))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblCadastroAbastecimento)
-					.addGap(28)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblData)
-						.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHodometro)
-						.addComponent(textFieldHodometro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPlaca)
-						.addComponent(comboBoxPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(76)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSalvar)
-						.addComponent(btnCancelar))
-					.addGap(36))
-		);
-		
-		
-		
+						.addContainerGap()
+						.addComponent(lblCadastroAbastecimento)
+						.addGap(28)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblData)
+								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblHodometro)
+										.addComponent(textFieldHodometro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblPlaca)
+												.addComponent(comboBoxPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblVeiculo)
+														.addComponent(lblModelo))
+														.addGap(57)
+														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																.addComponent(btnSalvar)
+																.addComponent(btnCancelar))
+																.addGap(36))
+				);
+
+
+
 		setLayout(groupLayout);
 		if (idAbastecimentoSelecionado>0){
 			MBAbastecimento mbAbastecimento = MBAbastecimento.getInstance();
@@ -271,8 +293,8 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}
 	}
 	public void PanelListagemAbastecimento(){
-		
-		
+
+
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemAbastecimento();
@@ -287,7 +309,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}
 
 	}
-	
+
 	public java.util.Date transformaData(String data)  
 	{  
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
@@ -297,7 +319,7 @@ public class PanelCadastroAbastecimento extends PanelExemplo {
 		}  
 		catch(ParseException ex)  
 		{   
-			
+
 			JOptionPane.showMessageDialog(null,"Por favor, verifique a data do cadastro. /n     A data deve estar no formato: 15/11/2012");
 		}
 		return null;  

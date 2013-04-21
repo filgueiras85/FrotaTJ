@@ -77,7 +77,7 @@ public class TelaPrincipal extends JFrame {
 	final PanelGraficoBarras panelGraficoBarras = PanelGraficoBarras.getInstance();
 	final SendMail sendEmail = SendMail.getInstance();
 
-		
+
 
 	public TelaPrincipal() {
 		EnviarEmail();
@@ -91,7 +91,7 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		panelConteudo.setBackground(UIManager.getColor("Button.background"));
 		panelConteudo.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
+
 		//setContentPane(panelConteudo);
 		setContentPane(panelCentro);
 		JMenuBar menuBar = new JMenuBar();
@@ -100,8 +100,8 @@ public class TelaPrincipal extends JFrame {
 			public void componentMoved(ComponentEvent arg0) {
 			}
 		});
-		//-------------------------- Ícone TJSC --------------------------\\	
-		
+		//-------------------------- Ícone TJSC --------------------------\\
+
 		JMenu mnTjsc = new JMenu();
 		mnTjsc.addMouseListener(new MouseAdapter() {
 			@Override
@@ -135,7 +135,7 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnInicio);
 
 
-		//-------------------------- Menu Cadastrar --------------------------\\		
+		//-------------------------- Menu Cadastrar --------------------------\\
 		JMenu mnCadastrar = new JMenu("Cadastrar");
 		mnCadastrar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnCadastrar.setIcon(new ImageIcon(winDir+"6098_32x32.png"));
@@ -192,7 +192,7 @@ public class TelaPrincipal extends JFrame {
 		mntmServio.setIcon(new ImageIcon(winDir+"ico-recursos-integra.png"));
 		mntmServio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroServiço(0);
+				PanelCadastroServico(0);
 			}
 		});
 		mnCadastrar.add(mntmServio);
@@ -230,7 +230,7 @@ public class TelaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelCadastroUsuario(0);
 			}
-		});		
+		});
 		mnCadastrar.add(mntmUsuario);
 
 		//Item Cadastrar Veiculo
@@ -244,7 +244,7 @@ public class TelaPrincipal extends JFrame {
 		mnCadastrar.add(mntmCarro);
 
 
-		//-------------------------- Menu Listar --------------------------\\	
+		//-------------------------- Menu Listar --------------------------\\
 		JMenu mnListar = new JMenu("Listagem");
 		mnListar.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		mnListar.setIcon(new ImageIcon("imagens\\7674_32x32.png"));
@@ -354,7 +354,7 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnListar.add(menuItem_9);
-		
+
 		JMenuItem menuItem_10 = new JMenuItem("Total Gasto");
 		menuItem_10.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
 		menuItem_10.addActionListener(new ActionListener() {
@@ -365,8 +365,8 @@ public class TelaPrincipal extends JFrame {
 		mnListar.add(menuItem_10);
 
 
-		
-		//-------------------------- Menu Trocar Usuário --------------------------\\	
+
+		//-------------------------- Menu Trocar Usuário --------------------------\\
 		JMenu mnNewMenu = new JMenu("Trocar Usuario");
 		mnNewMenu.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -378,16 +378,16 @@ public class TelaPrincipal extends JFrame {
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 14));
 		menuBar.add(mnNewMenu);
 		mntmUnidade.setIcon(new ImageIcon(winDir+"4049_32x32.png"));
-		
-		
-		
+
+
+
 		panelCentro.setLayout(new BorderLayout());
 
 		//INICIO MONTANDO O FILTRO POR UNIDADE
-		
-		
+
+
 		MBUnidade mbUnidade = MBUnidade.getInstance();
-		
+
 		comboBoxUnidade = new JComboBox<Unidade>();
 		comboBoxUnidade.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -398,7 +398,7 @@ public class TelaPrincipal extends JFrame {
 			          //Uma vez aplicado o filtro o usuário é redirecionado para a tela principal
 			          PanelInicial();
 				}
-				
+
 			}
 		});
 		DefaultComboBoxModel<Unidade> modeloComboBox;
@@ -414,13 +414,13 @@ public class TelaPrincipal extends JFrame {
 		}
 		modeloComboBox = new DefaultComboBoxModel<Unidade>(vetorUnidades);
 		comboBoxUnidade.setModel(modeloComboBox);
-		
+
 		// se nenhum filtro tiver sido aplicado eu seleciono a primeira unidade da lista
 		if (Filtros.getIdUnidadeSelecionada()==null)
 			Filtros.setIdUnidadeSelecionada(comboBoxUnidade.getItemAt(0).getIdunidade());
-		
-		
-		
+
+
+
 		JPanel panelFiltro = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelFiltro.setBackground(Color.LIGHT_GRAY);
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -442,7 +442,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					//TelaPrincipal frame = new TelaPrincipal();
 					Visao.TelaLogin frame = new TelaLogin();
-					
+
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -451,7 +451,7 @@ public class TelaPrincipal extends JFrame {
 		});
 	}
 
-	/*/----------------------- Método para checar a unidade selecionada no sistema -----------------\\ 
+	/*/----------------------- Método para checar a unidade selecionada no sistema -----------------\\
 
 	public String retornarUnidadeSelecionada(){
 		return comboBoxUnidade.getSelectedItem()+"";
@@ -463,15 +463,15 @@ public class TelaPrincipal extends JFrame {
 		panelConteudo.add(panelInicial, "panelInicial");
 		CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 		cardLayout.show(panelConteudo, "panelInicial");
-	}	
+	}
 
 	public void TelaLogin(){
 		TelaLogin telaLogin = new TelaLogin();
 		telaLogin.show();
 	}
-	
+
 	public void EnviarEmail(){
-		
+
 		String graficoPizza = panelGrafico.grafico();
 		String graficoBarra = null;
 
@@ -499,7 +499,7 @@ public class TelaPrincipal extends JFrame {
 		MBUsuario mbUsuario = MBUsuario.getInstance();
 		try {
 			List<Usuario> lista = mbUsuario.listarUsuarios();
-			
+
 			for(int i=0; i<lista.size();i++){
 				if(lista.get(i).getAdministrador()){
 					usuarios.add(lista.get(i));
@@ -514,9 +514,9 @@ public class TelaPrincipal extends JFrame {
 						e1.printStackTrace();
 						}
 				usuarios.add(mbUsuario.retornarUsuario(usuarioLogado.getIdUsuario()));
-			
-			
-					
+
+
+
 
 			sendmail.EnviarEmailAnexoRelatorio(usuarios, usuarios, usuarios, anexos, "Graficos", "Grafico anexo, encaminhado via Sistema");
 	}
@@ -525,7 +525,7 @@ public class TelaPrincipal extends JFrame {
 
 	public void PanelCadastroTipoServiçoModelo(int j, int i){
 		if (usuarioLogado.tempoLogin()){
-			if(usuarioLogado.ehAdministrador()){			
+			if(usuarioLogado.ehAdministrador()){
 				PanelCadastroTipoServiçoModelo panelCadastroTipoServiçoModelo = new PanelCadastroTipoServiçoModelo( j, i);
 				panelConteudo.add(panelCadastroTipoServiçoModelo, "panelCadastroTipoServiçoModelo");
 				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
@@ -555,13 +555,13 @@ public class TelaPrincipal extends JFrame {
 		}
 	}
 
-	public void PanelCadastroServiço(int i){
+	public void PanelCadastroServico(int i){
 		if (usuarioLogado.tempoLogin()){
 			if(usuarioLogado.ehAdministrador()){
-				PanelCadastroServiço panelCadastroServiço = new PanelCadastroServiço(i);
-				panelConteudo.add(panelCadastroServiço, "panelCadastroServiço");
+				PanelCadastroServico PanelCadastroServico = new PanelCadastroServico(i);
+				panelConteudo.add(PanelCadastroServico, "PanelCadastroServico");
 				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
-				cardLayout.show(panelConteudo, "panelCadastroServiço");
+				cardLayout.show(panelConteudo, "PanelCadastroServico");
 			}else{
 				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
 			}
@@ -680,7 +680,7 @@ public class TelaPrincipal extends JFrame {
 		}else{
 			setVisible(false);
 			TelaLogin();
-		}	
+		}
 	}
 
 	public void PanelCadastroMarca(int id){
@@ -697,11 +697,11 @@ public class TelaPrincipal extends JFrame {
 		}else{
 			setVisible(false);
 			TelaLogin();
-		}	
+		}
 	}
 
 
-	//--------------------- Métodos para troca de Panel de Listagem ---------------------\\	
+	//--------------------- Métodos para troca de Panel de Listagem ---------------------\\
 	public void PanelListagemModelo(){
 		if (usuarioLogado.tempoLogin()){
 			PanelListagemModelo panelListagemModelo = new PanelListagemModelo();
@@ -773,7 +773,7 @@ public class TelaPrincipal extends JFrame {
 				JOptionPane.showMessageDialog(null, "Usuário sem permissão!");
 
 			}
-			
+
 		}else{
 			setVisible(false);
 			TelaLogin();
@@ -826,7 +826,7 @@ public class TelaPrincipal extends JFrame {
 		}else{
 			setVisible(false);
 			TelaLogin();
-		}	
+		}
 	}
 
 	public void PanelListagemMarca(){
@@ -838,7 +838,7 @@ public class TelaPrincipal extends JFrame {
 		}else{
 			setVisible(false);
 			TelaLogin();
-		}			
+		}
 	}
 	public void PanelRelatorioTotalGasto(){
 		if (usuarioLogado.tempoLogin()){
@@ -849,7 +849,7 @@ public class TelaPrincipal extends JFrame {
 		}else{
 			setVisible(false);
 			TelaLogin();
-		}	
+		}
 	}
 }
 
