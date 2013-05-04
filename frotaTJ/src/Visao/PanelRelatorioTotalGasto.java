@@ -425,7 +425,7 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 		}
 
 		if ( cmbPlaca.getSelectedIndex() > 0 ){
-			veiculos = mbVeiculo.VeiculoPorPlaca(placa);
+			veiculos = (List<Veiculo>) mbVeiculo.VeiculoPorPlaca(placa);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
 		}
 

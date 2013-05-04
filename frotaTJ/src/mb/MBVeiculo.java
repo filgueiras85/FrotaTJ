@@ -89,7 +89,7 @@ public class MBVeiculo {
 
 
 
-	public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
+	/*public List<Veiculo> VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
 		List<Veiculo> listaVeiculo = listarVeiculos();
 		List<Veiculo> veiculo = new ArrayList<Veiculo>();
 		for(int i=0;i<listaVeiculo.size();i++){
@@ -98,9 +98,19 @@ public class MBVeiculo {
 			}
 		}
 		return veiculo;
+	}*/
+
+	public Veiculo VeiculoPorPlaca(Object placa) throws ClassNotFoundException, SQLException{
+		List<Veiculo> listaVeiculo = listarVeiculos();
+		Veiculo veiculo = new Veiculo();
+		for(int i=0;i<listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getPlaca().equals(placa)){
+				veiculo = listaVeiculo.get(i);
+			}
+		}
+		return veiculo;
 	}
-
-
+	
 	public List<Veiculo> VeiculoTipoServico(List<Veiculo> listaVeiculos, List<Servico> tipoServico) throws ClassNotFoundException, SQLException{
 
 		List<Veiculo> veiculo = new ArrayList<Veiculo>();

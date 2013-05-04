@@ -18,6 +18,9 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -58,7 +61,7 @@ public class PanelCadastroServico extends PanelExemplo {
 	private JComboBox<Veiculo> comboBoxVeiculo;
 	private	JComboBox<TipoServico> comboBoxTipoServico;
 	private JComboBox<TipoServico> comboBoxTipoServico_1;
-	private Veiculo  veiculoselecionado;
+	private Veiculo veiculoselecionado;
 	private MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
 	private MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
 	private MBServico mbServico = MBServico.getInstance();
@@ -193,16 +196,26 @@ public class PanelCadastroServico extends PanelExemplo {
 
 		DefaultComboBoxModel<Veiculo> modeloComboBoxVeiculo;
 		try {
-			modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
-			comboBoxVeiculo.setModel(modeloComboBoxVeiculo);
+			List<Veiculo> lstVeiculo = mbVeiculo.listarVeiculos();
+		    ArrayList veiculos = new ArrayList();
+		    String veiculo = null;
+
+		    for(int i=0;i<lstVeiculo.size();i++){
+		    	veiculo = ""+lstVeiculo.get(i).getPlaca()+" - "+lstVeiculo.get(i).getModelo().getNome();
+     	    	veiculos.add(veiculo);
+
+		    }
+		    // modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(mbVeiculo.listarVeiculos()));
+		    modeloComboBoxVeiculo = new DefaultComboBoxModel<Veiculo>(new Vector(veiculos));
+		    comboBoxVeiculo.setModel(modeloComboBoxVeiculo);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
 		comboBoxVeiculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				veiculoselecionado = (Veiculo) comboBoxVeiculo.getSelectedItem();
+				//veiculoselecionado = (Veiculo) comboBoxVeiculo.getSelectedItem();
 				comboBoxTipoServico.removeAll();
-				ComboboxTipoServico(veiculoselecionado);
+				ComboboxTipoServico(retornaVeiculoSel());
 			}
 		});
 		comboBoxVeiculo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -254,7 +267,8 @@ public class PanelCadastroServico extends PanelExemplo {
 							valorString = valorString.replaceAll(",", "."); 
 							Servico s =  new Servico(new Integer(idServicoSelecionado), 
 									mbMotorista.retornarMotorista(comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()).getIdmotorista()),
-									mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
+//									mbVeiculo.retornarVeiculo(comboBoxVeiculo.getItemAt(comboBoxVeiculo.getSelectedIndex()).getIdveiculo()),
+									retornaVeiculoSel(),
 									mbFornecedor.retornarFornecedor((comboBoxFornecedor.getItemAt(comboBoxFornecedor.getSelectedIndex()).getIdfornecedor())),
 									mbTipoServico.retornarTipoServico(comboBoxTipoServico_1.getItemAt(comboBoxTipoServico_1.getSelectedIndex()).getIdtipoServico()),
 									data, Double.parseDouble(valorString), textFieldOrcamento.getText(), 
@@ -265,56 +279,56 @@ public class PanelCadastroServico extends PanelExemplo {
 
 							}
 							if (confirma == JOptionPane.YES_OPTION){
-									try {
-										if (idServicoSelecionado==0){
-											if (s.getIdServico()==0){
-												s.setIdServico(null);
-											}
-											System.out.println(valorString);
-
-											String retorno = mbServico.inserir(s);
-											mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
-											mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
-											if (retorno.equals("ok")){
-
-												JOptionPane.showMessageDialog(null,"Serviço inserido!");
-
-											}else{
-												JOptionPane.showMessageDialog(null,retorno);
-											}
-										}else{
-
-											String retorno =  mbServico.editar(s);
-											mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
-											mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
-											if (retorno.equals("ok")){
-
-												JOptionPane.showMessageDialog(null,"Serviço alterado!");
-
-											}else{
-												JOptionPane.showMessageDialog(null,retorno);
-											}
+								try {
+									if (idServicoSelecionado==0){
+										if (s.getIdServico()==0){
+											s.setIdServico(null);
 										}
-									} catch (Exception e) {
-										// TODO: handle exception
+										System.out.println(valorString);
+
+										String retorno = mbServico.inserir(s);
+										mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+										mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
+										if (retorno.equals("ok")){
+
+											JOptionPane.showMessageDialog(null,"Serviço inserido!");
+
+										}else{
+											JOptionPane.showMessageDialog(null,retorno);
+										}
+									}else{
+
+										String retorno =  mbServico.editar(s);
+										mbVeiculo.AtualizarOdometro(s.getKm(), s.getVeiculo().getIdveiculo());
+										mbTipoServiçoModelo.atualizaStatusVeiculo(s.getVeiculo());
+										if (retorno.equals("ok")){
+
+											JOptionPane.showMessageDialog(null,"Serviço alterado!");
+
+										}else{
+											JOptionPane.showMessageDialog(null,retorno);
+										}
 									}
-									PanelListagemServiço();
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+								PanelListagemServiço();
 							}else{
-								
+
 							}
 						}
-				}
-			});
+			}
+		});
 
 		JLabel lblTipoServiço = new JLabel("Tipo Servi\u00E7o");
 		lblTipoServiço.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblKm)
@@ -329,32 +343,33 @@ public class PanelCadastroServico extends PanelExemplo {
 												.addComponent(lblMotorista, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(comboBoxMotorista, 0, 310, Short.MAX_VALUE)
-														.addComponent(comboBoxTipoServico_1, 0, 310, Short.MAX_VALUE)
-														.addComponent(comboBoxVeiculo, 0, 310, Short.MAX_VALUE)
-														.addComponent(comboBoxFornecedor, 0, 310, Short.MAX_VALUE)
-														.addComponent(textFieldOrcamento, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-														.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-														.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-														.addComponent(textFieldDescricao, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-														.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-														.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+														.addComponent(comboBoxMotorista, 0, 477, Short.MAX_VALUE)
+														.addComponent(comboBoxTipoServico_1, 0, 477, Short.MAX_VALUE)
+														.addComponent(comboBoxVeiculo, 0, 477, Short.MAX_VALUE)
+														.addComponent(comboBoxFornecedor, 0, 477, Short.MAX_VALUE)
+														.addComponent(textFieldOrcamento, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+														.addComponent(textFieldCupomFiscal, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+														.addComponent(textFieldValor, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+														.addComponent(textFieldDescricao, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+														.addComponent(textFieldKm, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
 														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(btnCancelar))
-																.addComponent(lblCadastroServio))
-																.addContainerGap())
+																.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+																.addComponent(lblCadastroServio)
+																.addGap(19))))
+																.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+																		.addComponent(btnSalvar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.UNRELATED)
+																		.addComponent(btnCancelar)))
+																		.addContainerGap())
 				);
 		groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblCadastroServio)
-						.addGap(28)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblData)
-								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(cmbData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblCadastroServio))
 								.addPreferredGap(ComponentPlacement.UNRELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(lblValor)
@@ -391,11 +406,11 @@ public class PanelCadastroServico extends PanelExemplo {
 																								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 																										.addComponent(lblFornecedor)
 																										.addComponent(comboBoxFornecedor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																										.addGap(43)
+																										.addGap(18)
 																										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 																												.addComponent(btnCancelar)
 																												.addComponent(btnSalvar))
-																												.addContainerGap())
+																												.addContainerGap(51, Short.MAX_VALUE))
 				);
 		setLayout(groupLayout);
 		if (idServicoSelecionado>0){
@@ -408,7 +423,7 @@ public class PanelCadastroServico extends PanelExemplo {
 				textFieldCupomFiscal.setText(s.getNfTicket().toString());
 				textFieldDescricao.setText(s.getDescricao());
 				textFieldKm.setText(s.getKm().toString());
-				textFieldValor.setText(s.getValor().toString());
+				textFieldValor.setText(util.retornaMoeda(s.getValor()));
 				//textFieldData.setText(b);
 				textFieldOrcamento.setText(s.getNroOrcamento());
 				// selecionar combobox fornecedor	
@@ -442,6 +457,7 @@ public class PanelCadastroServico extends PanelExemplo {
 				}
 				comboBoxMotorista.setSelectedIndex(i);
 				//Selecionar combobox TipoServiço
+				
 				veiculoselecionado = s.getVeiculo();
 
 				MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
@@ -463,49 +479,62 @@ public class PanelCadastroServico extends PanelExemplo {
 
 			}}
 
-		}
-		public void PanelListagemServiço(){
-			try {
-				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-				parent.PanelListagemServiço();
-			} catch (Exception e) {
-				try {
-					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-					parent.PanelListagemServiço();
-				} catch (Exception e1) {
-					TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-					parent.PanelListagemServiço();
-				}
-			}
-
-		}
-		public java.util.Date transformaData(String data)  
-		{  
-			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
-			try  
-			{  
-				return formatador.parse(data);  
-			}  
-			catch(ParseException ex)  
-			{   
-				throw new RuntimeException(ex);  
-			}  
-		}
-
-
-
-		public void ComboboxTipoServico(Veiculo veiculo){
-			MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
-
-			DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
-			try {
-				modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculo.getModelo().getIdmodelo())));
-				comboBoxTipoServico_1.setModel(modeloComboBoxTipoServico);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-
-			comboBoxTipoServico_1.updateUI();
-			comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		}
 	}
+	public void PanelListagemServiço(){
+		try {
+			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
+			parent.PanelListagemServiço();
+		} catch (Exception e) {
+			try {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
+				parent.PanelListagemServiço();
+			} catch (Exception e1) {
+				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
+				parent.PanelListagemServiço();
+			}
+		}
+
+	}
+	public java.util.Date transformaData(String data)  
+	{  
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy kk:hh:ss");  
+		try  
+		{  
+			return formatador.parse(data);  
+		}  
+		catch(ParseException ex)  
+		{   
+			throw new RuntimeException(ex);  
+		}  
+	}
+
+	public Veiculo retornaVeiculoSel(){
+		String[] veiculo = comboBoxVeiculo.getSelectedItem().toString().split(" - ");
+		try {
+			veiculoselecionado = mbVeiculo.VeiculoPorPlaca( veiculo[0] );
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return veiculoselecionado;
+	}
+
+
+	public void ComboboxTipoServico(Veiculo veiculo){
+		MBTipoServiçoModelo mbTipoServiçoModelo = MBTipoServiçoModelo.getInstance();
+
+		DefaultComboBoxModel<TipoServico> modeloComboBoxTipoServico;
+		try {
+			modeloComboBoxTipoServico = new DefaultComboBoxModel<TipoServico>(new Vector(mbTipoServiçoModelo.ListarosTipoServicoModelo(veiculo.getModelo().getIdmodelo())));
+			comboBoxTipoServico_1.setModel(modeloComboBoxTipoServico);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		comboBoxTipoServico_1.updateUI();
+		comboBoxTipoServico_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+	}
+}
