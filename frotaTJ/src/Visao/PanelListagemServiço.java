@@ -165,28 +165,28 @@ public class PanelListagemServiço extends PanelExemplo {
 	public void PanelCadastroServico(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(0);
+			parent.PanelCadastroServico(0);
 		} catch (Exception e) {
 			try {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-				parent.PanelCadastroServiço(0);
+				parent.PanelCadastroServico(0);
 			} catch (Exception e1) {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-				parent.PanelCadastroServiço(0);
+				parent.PanelCadastroServico(0);
 			}
 		}
 	}
 	public void PanelEditarServico(int idServico){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroServiço(idServico);
+			parent.PanelCadastroServico(idServico);
 		} catch (Exception e) {
 			try {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-				parent.PanelCadastroServiço(idServico);
+				parent.PanelCadastroServico(idServico);
 			} catch (Exception e1) {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-				parent.PanelCadastroServiço(idServico);
+				parent.PanelCadastroServico(idServico);
 			}
 		}
 	}

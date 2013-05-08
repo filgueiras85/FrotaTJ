@@ -174,7 +174,7 @@ public class TelaPrincipal extends JFrame {
 		mntmModelo.setIcon(new ImageIcon(winDir+"1517_32x32.png"));
 		mntmModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroModelo(0);
+				PanelCadastroModelo(0, "");
 			}
 		});
 		mnCadastrar.add(mntmModelo);
@@ -539,10 +539,10 @@ public class TelaPrincipal extends JFrame {
 		}
 	}
 
-	public void PanelCadastroModelo(int j){
+	public void PanelCadastroModelo(int j, String marca){
 		if (usuarioLogado.tempoLogin()){
 			if(usuarioLogado.ehAdministrador()){
-				PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j);
+				PanelCadastroModelo panelCadastroModelo = new PanelCadastroModelo( j, marca);
 				panelConteudo.add(panelCadastroModelo, "panelCadastroModelo");
 				CardLayout cardLayout = (CardLayout)panelConteudo.getLayout();
 				cardLayout.show(panelConteudo, "panelCadastroModelo");
