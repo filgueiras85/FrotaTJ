@@ -364,7 +364,11 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 	private void gerarConsulta() throws ClassNotFoundException, SQLException{
 
+<<<<<<< HEAD
 		//Unidade unidade;
+=======
+		Unidade unidade = null;
+>>>>>>> projeto funcionando
 		TipoServico tipoServico;
 		Fornecedor fornecedor;
 		Motorista motorista;
@@ -375,15 +379,24 @@ public class PanelRelatorioTotalGasto extends PanelExemplo {
 
 		List<Veiculo> veiculos;
 		List<Servico> listaServico = lstServicoData;
+<<<<<<< HEAD
 		List<Modelo> listaModelo = mbModelo.listarModelos();
 		/*
+=======
+		List<Modelo> listaModelo = mbModelo.listarModelos();	
+
+>>>>>>> projeto funcionando
 		if ( Filtros.getIdUnidadeSelecionada() > 0 ){
 
 			unidade = mbUnidade.getInstance().retornarUnidade(Filtros.getIdUnidadeSelecionada());
 			veiculos = mbVeiculo.VeiculosUnidade(unidade);
 			listaServico = mbServico.ServicoPorVeiculos(veiculos, listaServico);
 
+<<<<<<< HEAD
 		}*/
+=======
+		}
+>>>>>>> projeto funcionando
 		
 //		Mantem a lista se comboBox estiver selecionado TODOS
 		if ( cmbTipoServico.getSelectedIndex() > 0 ){
