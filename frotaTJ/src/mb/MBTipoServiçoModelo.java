@@ -217,6 +217,10 @@ public class MBTipoServiçoModelo {
 				tsmResultado.add(i, tsmTemp);			
 			}								
 		}
+		// controle adicionado pelo jordan... adicionei um veiculo e nao foi setado o status talvez por algum problema no banco... de qquer forma achei prudente esse controle.
+		if (veiculo.getSituacao()==null){
+			veiculo.setSituacao("");
+		}
 		
 		int i = veiculo.getSituacao().compareToIgnoreCase("verde");
 
