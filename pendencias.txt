@@ -1,0 +1,16 @@
+listagem de motorista
+listagem de veiculo
+
+set @@foreign_key_checks=0;
+delete from abastecimento;
+delete from fornecedor;
+delete from marca;
+delete from modelo;
+delete from servico;
+delete from tipo_servico;
+delete from tipo_servico_modelo;
+delete from tipo_servico_veiculo;
+delete from unidade;
+delete from veiculo;
+delete from motorista;
+set @@foreign_key_checks=1;
