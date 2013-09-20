@@ -121,8 +121,8 @@ public class MarcaDAO implements IMarcaDAO {
 		EntityManagerHelper.log("updating Marca instance", Level.INFO, null);
 		try {
 			EntityManagerHelper.beginTransaction();
-			EntityManagerHelper.commit();
 			Marca result = getEntityManager().merge(entity);
+			EntityManagerHelper.commit();
 			EntityManagerHelper.log("update successful", Level.INFO, null);
 			return result;
 		} catch (RuntimeException re) {

@@ -205,6 +205,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 						if (v.getIdveiculo()==0){
 							v.setIdveiculo(null);
 						}
+						v.setSituacao("verde");
 						String retorno = mbVeiculo.inserir(v);
 						Situação(v, idVeiculoSelecionado);
 						if (retorno.equals("ok")){
@@ -228,7 +229,9 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
+				
 				PanelListagemVeiculo();
+				
 			}
 		});
 
@@ -364,6 +367,7 @@ public class PanelCadastroVeiculo extends PanelExemplo {
 	// ------------------------------ Metodos ---------------------------\\	
 	public void PanelListagemVeiculo(){ //Troca para o Panel listagemVeiculo
 		try {
+
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelListagemVeiculo();
 		} catch (Exception e) {

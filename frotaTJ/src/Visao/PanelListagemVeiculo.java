@@ -64,14 +64,14 @@ public class PanelListagemVeiculo extends PanelExemplo {
 	final MBUnidade mbUnidade = MBUnidade.getInstance();
 	final MBMotorista mbMotorista = MBMotorista.getInstance();
 	final MBTipoServicoVeiculo mbTipoServicoVeiculo = MBTipoServicoVeiculo.getInstance();
-	
+
 	/**
 	 * Create the panel.
 	 */
 	public PanelListagemVeiculo() {	
 		final UsuarioUtil usuarioLogado = UsuarioUtil.getInstance();
 
-	// ------------------- Label -----------------------\\
+		// ------------------- Label -----------------------\\
 		//setarUnidade();		
 		JLabel lblListagemVeiculos = new JLabel("Listagem de Veiculos\r\n");
 		lblListagemVeiculos.setIcon(new ImageIcon("imagens\\1519_32x32.png"));
@@ -79,54 +79,54 @@ public class PanelListagemVeiculo extends PanelExemplo {
 
 		JLabel lblPlaca = new JLabel("Placa");
 		lblPlaca.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		JLabel lblSituacao = new JLabel("Situa\u00E7\u00E3o");
 		lblSituacao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		JLabel lblMotrista = new JLabel("Motrista");
 		lblMotrista.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		textFieldPlaca = new JTextField();
 		textFieldPlaca.setColumns(10);
-		
+
 		JLabel lblUnidade = new JLabel("Unidade");
 		lblUnidade.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
-	//------------------------- Botões ----------------------------\\
+
+		//------------------------- Botões ----------------------------\\
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setIcon(new ImageIcon("imagens\\1408_16x16.png"));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				((DefaultTableModel)table.getModel()).setRowCount(0);				
 				List<Veiculo> listaVeiculo = new ArrayList<Veiculo>();
-				
+
 				for (int i=0; i<table.getRowCount(); i++){
 					((DefaultTableModel)table.getModel()).removeRow(i);
 				}
-				
+
 				listaVeiculo = findParametrizado(textFieldPlaca.getText(), comboBoxUnidade.getItemAt(comboBoxUnidade.getSelectedIndex()), comboBoxMotorista.getItemAt(comboBoxMotorista.getSelectedIndex()), comboBoxSituacao.getItemAt(comboBoxSituacao.getSelectedIndex()));
-				
+
 				for (int i=0; i<listaVeiculo.size(); i++){
 					((DefaultTableModel)table.getModel()).addRow(new String[]{
 							listaVeiculo.get(i).getIdveiculo()+"", 
 							listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
 							listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 							listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
-					
+
 				}
-				
+
 				/*((DefaultTableModel)table.getModel()).setRowCount(0);				
 				ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
-				
+
 				for (int i=0; i<table.getRowCount(); i++){
 					((DefaultTableModel)table.getModel()).removeRow(i);
 				}
-				
+
 				try {
 					listaVeiculo.addAll(mbVeiculo.listarVeiculos());
-					
+
 					for (int i=0; i<listaVeiculo.size()-1; i++){
 						if(listaVeiculo.get(i).getPlaca().equals(textFieldPlaca.getText()) &&
 						listaVeiculo.get(i).getUnidade().getNome().equals(comboBoxUnidade.getSelectedItem().toString()) &&
@@ -138,7 +138,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 									listaVeiculo.get(i).getPlaca(), listaVeiculo.get(i).getrenavan(), listaVeiculo.get(i).getChassi(),
 									listaVeiculo.get(i).getOdometro().toString(), listaVeiculo.get(i).getSituacao(), listaVeiculo.get(i).getModelo().getNome(),
 									listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
-							
+
 						}
 					}
 				} catch (ClassNotFoundException | SQLException e) {
@@ -148,7 +148,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		});
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 15));		
-		
+
 		JButton btnNovo = new JButton("Novo");
 		btnNovo.setIcon(new ImageIcon("imagens\\8391_16x16.png"));
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -157,7 +157,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				PanelCadastroVeiculo(0);
 			}
 		});
-		
+
 		final JButton btnDetalhes = new JButton("Detalhes");
 		btnDetalhes.setIcon(new ImageIcon("imagens\\8390_16x16.png"));
 		btnDetalhes.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -167,8 +167,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				t.show();
 			}
 		});
-		
-		
+
+
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -178,8 +178,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					Veiculo v = mbVeiculo.retornarVeiculo(idVeiculoSelecionado);
 					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Veículo selecionado?");
 					if (op==JOptionPane.YES_OPTION ) {
-						
-						
+
+
 						JOptionPane.showMessageDialog(null,mbVeiculo.apagar(v));
 						atualizarTabela();
 					}
@@ -189,7 +189,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				}
 			}
 		});
-		
+
 		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -199,19 +199,19 @@ public class PanelListagemVeiculo extends PanelExemplo {
 				PanelCadastroVeiculo(idVeiculoSelecionado);
 			}
 		});
-		
 
-	//-------------------------- ComboBox -----------------------------------\\
-		
+
+		//-------------------------- ComboBox -----------------------------------\\
+
 		comboBoxUnidade = new JComboBox<String>();
 		comboBoxUnidade.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		DefaultComboBoxModel<String> modelComboBoxUnidade;
 		final Vector<Unidade> listaUnidade = new Vector<>();
 		final Vector<String> listaNomeUnidade = new Vector<>();
-		
+
 		try {
 			listaUnidade.addAll(mbUnidade.listarUnidades());
-			
+
 			listaNomeUnidade.add("Selecionar");
 			for (int i = 0; i<listaUnidade.size();i++){
 				listaNomeUnidade.add(listaUnidade.get(i).getNome());
@@ -221,15 +221,15 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+
 		comboBoxSituacao = new JComboBox<String>();
 		comboBoxSituacao.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		comboBoxSituacao.addItem("Selecionar");
 		comboBoxSituacao.addItem("OK");
 		comboBoxSituacao.addItem("A Fazer");
 		comboBoxSituacao.addItem("Atrasado");
-		
-			
+
+
 		comboBoxMotorista = new JComboBox<String>();
 		comboBoxMotorista.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		DefaultComboBoxModel<String> modelComboBoxMotorista;
@@ -237,7 +237,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		final Vector<String> listaNomeMotorista = new Vector<>();
 		try {
 			listaMotorista.addAll(mbMotorista.listarMotoristas());
-			
+
 			listaNomeMotorista.add("Selecionar");
 			for (int i = 0; i<listaMotorista.size();i++){
 				listaNomeMotorista.add(listaMotorista.get(i).getNome());
@@ -247,78 +247,78 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
-	//----------------------------Layout do Panel ----------------------------\\
+
+
+		//----------------------------Layout do Panel ----------------------------\\
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnNovo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDetalhes)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnApagar))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxUnidade, 0, 4, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblMotrista, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxMotorista, 0, 4, Short.MAX_VALUE)
-							.addGap(18)
-							.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(comboBoxSituacao, 0, 12, Short.MAX_VALUE)
-							.addGap(40)
-							.addComponent(btnPesquisar))
-						.addComponent(lblListagemVeiculos))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+										.addComponent(btnNovo)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnDetalhes)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnEditar)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnApagar))
+										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(textFieldPlaca, GroupLayout.DEFAULT_SIZE, 6, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(comboBoxUnidade, 0, 4, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(lblMotrista, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(comboBoxMotorista, 0, 4, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(comboBoxSituacao, 0, 12, Short.MAX_VALUE)
+												.addGap(40)
+												.addComponent(btnPesquisar))
+												.addComponent(lblListagemVeiculos))
+												.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblListagemVeiculos)
-							.addGap(28)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblMotrista, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(comboBoxMotorista, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-									.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(70)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNovo)
-						.addComponent(btnApagar)
-						.addComponent(btnEditar)
-						.addComponent(btnDetalhes))
-					.addContainerGap())
-		);
-		
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(lblListagemVeiculos)
+										.addGap(28)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblPlaca, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+														.addComponent(textFieldPlaca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblUnidade, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+														.addComponent(comboBoxUnidade, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblMotrista, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+														.addComponent(comboBoxMotorista, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																.addComponent(lblSituacao, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+																.addComponent(comboBoxSituacao, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
+																.addGroup(groupLayout.createSequentialGroup()
+																		.addGap(70)
+																		.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
+																		.addGap(18)
+																		.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+																		.addGap(18)
+																		.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																				.addComponent(btnNovo)
+																				.addComponent(btnApagar)
+																				.addComponent(btnEditar)
+																				.addComponent(btnDetalhes))
+																				.addContainerGap())
+				);
+
 		if (!usuarioLogado.ehAdministrador()){
 			btnNovo.setVisible(false);
 			btnEditar.setVisible(false);
@@ -330,14 +330,14 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			btnApagar.setVisible(false);
 			btnDetalhes.setVisible(false);
 		}
-	
-		
-	//--------------------------------------Tabela ------------------------------\\
+
+
+		//--------------------------------------Tabela ------------------------------\\
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				if(usuarioLogado.ehAdministrador()){
 					idVeiculoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
 					btnEditar.setVisible(true);
@@ -349,16 +349,16 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		});
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista"
-			}
-		));
+				new Object[][] {
+						{null, null, null, null, null, null, null, null, null},
+				},
+				new String[] {
+						"Id", "Placa", "Renavan", "Chassi", "Odometro", "Situa\u00E7\u00E3o", "Modelo", "Unidade", "Motorista"
+				}
+				));
 		scrollPane.setViewportView(table);
-		
-	//--------------------------------Atualizando a Tabela ---------------------------\\	
+
+		//--------------------------------Atualizando a Tabela ---------------------------\\	
 		try {
 			//pintarTabela();
 			//pendencias();
@@ -373,8 +373,8 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		setLayout(groupLayout);
 
 	}
-	
-//-----------------------------------Métodos ---------------------------------\\
+
+	//-----------------------------------Métodos ---------------------------------\\
 	public void PanelCadastroVeiculo(int id){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
@@ -389,7 +389,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		}
 	}
-	
+
 	public void PanelInicial(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
@@ -399,7 +399,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			parent.PanelInicial();
 		}
 	}
-	
+
 	/*public void setarUnidade(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent();
@@ -409,7 +409,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			this.unidade = parent.retornarUnidadeSelecionada();
 		}
 	}*/
-	
+
 	public void pendencias() throws ClassNotFoundException, SQLException{
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
 		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
@@ -424,13 +424,14 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}
 		}
 	}
-	
+
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		//List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
-		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculosPorUnidade(Filtros.getIdUnidadeSelecionada());
-		
 
+		MBUnidade mbUnidade = MBUnidade.getInstance();
+		Unidade unidade = mbUnidade.retornarUnidade(Filtros.getIdUnidadeSelecionada());
+		List<Veiculo> listaVeiculo = mbVeiculo.VeiculosUnidade(unidade);
 
 		for (int i=0;i<listaVeiculo.size();i++){
 			((DefaultTableModel)table.getModel()).addRow(new String[]{
@@ -450,13 +451,21 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		}
 		 */
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {  
+
 			public Component getTableCellRendererComponent(JTable table, Object value,  
 					boolean isSelected, boolean hasFocus, int row, int column) {  
 				super.getTableCellRendererComponent(table, value, isSelected,  
 						hasFocus, row, column);  
-				// para definir cores para a linha da tabela de acordo com a situacao do servico
-				String cor =  table.getValueAt(row, 5).toString();
-				int ama = "verde".compareToIgnoreCase(cor);
+
+					// para definir cores para a linha da tabela de acordo com a situacao do servico
+				int ama ;
+				if (table.getValueAt(row,5) == null){
+					ama = 0;
+				}else{
+					String cor =  table.getValueAt(row, 5).toString();
+	
+					ama = "verde".compareToIgnoreCase(cor);
+				}
 					if (ama ==-9) {  
 						setBackground(Color.RED);
 						setForeground(Color.WHITE);
@@ -468,28 +477,29 @@ public class PanelListagemVeiculo extends PanelExemplo {
 					else if(ama==0) {  
 						setBackground(Color.GREEN);
 						setForeground(Color.BLACK);
-						}
-						else{  
+
+					}
+					else{  
 						setBackground(null);
 						setForeground(null);
 					}	
-									
-										
+	
+
 				return this;  
 			}  
 		});
 	}
-	
+
 	public void pintarTabela() throws ClassNotFoundException, SQLException{
 		for (int i=0; i<table.getRowCount(); i++){
 			table.getCellRenderer(i, 5);
 		}
-		
+
 	}
-	
-	
+
+
 	//---------------------------PESQUISA PARAMETRIZADA ----------------------\\
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Veiculo> findParametrizado(String param1, String param2, String param3, String param4) {
 		EntityManagerHelper.log("finding all abastecimento instances",
@@ -506,7 +516,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		if (param4.equals("Selecionar") ){
 			param4 = "";
 		}
-		
+
 		try {
 			String queryString = "select * from veiculo ";
 			boolean temWhere=false;
@@ -543,7 +553,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 			}	
 			queryString+=";";
 			System.out.println(queryString);
-			
+
 			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
 			return query.getResultList();
 		} catch (RuntimeException re) {
@@ -552,7 +562,7 @@ public class PanelListagemVeiculo extends PanelExemplo {
 		}
 	}
 	/*
-	 
+
 	public void atualizarTabela() throws ClassNotFoundException, SQLException{
 		((DefaultTableModel)table.getModel()).setRowCount(0);
 		List<Veiculo> listaVeiculo = mbVeiculo.listarVeiculos();
@@ -565,9 +575,9 @@ public class PanelListagemVeiculo extends PanelExemplo {
 						listaVeiculo.get(i).getUnidade().getNome(),	listaVeiculo.get(i).getMotorista().getNome()});
 			}
 		}
-			
+
 	}
-	 
+
 	 */
 }
 
