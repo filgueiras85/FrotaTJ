@@ -60,7 +60,26 @@ public class MBModelo {
 	public Modelo retornarModelo(int id) {
 		ModeloDAO daoModelo = ModeloDAO.getInstance();
 		return daoModelo.findById(id);
-
+	}
+	
+	public Modelo retornarModelo( String modelo ){
+		
+		List<Modelo> listaModelo;
+		try {
+			listaModelo = listarModelos();
+			Modelo m = new Modelo();
+			for( int i = 0; i<listaModelo.size();i++){
+				if ( listaModelo.get(i).getNome().equals(modelo)){
+					m = listaModelo.get(i);
+				}
+			}
+			return m;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	public List<Modelo> listarModelos() throws ClassNotFoundException, SQLException{
@@ -78,7 +97,6 @@ public class MBModelo {
 		List<Modelo> modelo = new ArrayList<Modelo>();
 		for(int i=0;i<listaVeiculo.size();i++){
 			Modelo m = retornarModelo(listaVeiculo.get(i).getModelo().getIdmodelo());
-			System.out.println(listaVeiculo.get(i).getModelo().getIdmodelo());
 			if(!modelo.contains(m)){
 				modelo.add(m);
 			}

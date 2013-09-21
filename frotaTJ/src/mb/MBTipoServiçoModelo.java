@@ -37,6 +37,9 @@ public class MBTipoServiçoModelo {
 		String retorno = "Cadastro inserido.";
 		TipoServicoModeloDAO daoTipoServicoModelo = TipoServicoModeloDAO.getInstance();
 		try {
+
+			if ( jaCadastrado(tipoServicoModelo) )
+				return "Cadastro já existente";
 			daoTipoServicoModelo.save(tipoServicoModelo);
 		} catch (Exception e) {
 			retorno = "erro";
@@ -48,6 +51,8 @@ public class MBTipoServiçoModelo {
 		String retorno = "Cadastro alterado.";
 		TipoServicoModeloDAO daoTipoServicoModelo = TipoServicoModeloDAO.getInstance();
 		try {
+			if ( jaCadastrado(tipoServicoModelo) )
+				return "Cadastro já existente";
 			daoTipoServicoModelo.update(tipoServicoModelo);
 		} catch (Exception e) {
 			retorno = "erro";
@@ -72,6 +77,18 @@ public class MBTipoServiçoModelo {
 		return daoTipoServicoModelo.findById(id);
 		
 	}
+
+	public boolean jaCadastrado( TipoServicoModelo tsm ) throws ClassNotFoundException, SQLException{
+		List<TipoServicoModelo> listaTSM = listarTipoServicosModelos();
+		boolean flag = false;
+		for( int i=0;i<listaTSM.size();i++){
+	
+			if ( listaTSM.get(i).getId().equals(tsm.getId())){
+				flag = true;
+			}
+		}
+		return flag;
+	}
 	
 	public List<TipoServico> ListarosTipoServicoModelo(Integer id) {
 		List<TipoServicoModelo> Lista1;
@@ -84,9 +101,7 @@ public class MBTipoServiçoModelo {
 					lista.add(Lista1.get(i).getTipoServico());
 				}
 				
-			}
-			
-			
+			}			
 			return lista;
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

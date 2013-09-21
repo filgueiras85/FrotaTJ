@@ -36,7 +36,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 	private int idTipoServicoSelecionado;
 	private JTable table;
 	MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-	
+
 	/**
 	 * Create the panel.
 	 */
@@ -55,30 +55,13 @@ public class PanelListagemTipoServico extends PanelExemplo {
 
 		final JButton btnApagar = new JButton("Apagar");
 		btnApagar.setIcon(new ImageIcon("imagens\\7464_32x32.png"));
-		btnApagar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MBTipoServico mbTipoServico = MBTipoServico.getInstance();
-				try {
-					TipoServico t = mbTipoServico.retornarTipoServico(idTipoServicoSelecionado);
-					int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Tipo de Serviço selecionado?");
-					if (op==JOptionPane.YES_OPTION ) {
 
-
-						JOptionPane.showMessageDialog(null,mbTipoServico.apagar(t));
-						atualizarTabela();
-					}
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null,"erro - "+e);
-					// TODO: handle exception
-				}
-			}
-		});
 		btnApagar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		final JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon("imagens\\8427_16x16.png"));
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
+
 		final JButton btnRelatrioDeGastos = new JButton("Relat\u00F3rio de gastos");
 		btnRelatrioDeGastos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -87,7 +70,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 				JasperViewer.viewReport(rel, true);
 			}
 		});
-		
+
 		if (!usuarioLogado.ehAdministrador()){
 			btnNovo.setVisible(false);
 			btnEditar.setVisible(false);
@@ -109,48 +92,48 @@ public class PanelListagemTipoServico extends PanelExemplo {
 				}
 				));
 		scrollPane.setViewportView(table);
-		
+
 
 		btnRelatrioDeGastos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
-					.addGap(10))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(256, Short.MAX_VALUE)
-					.addComponent(btnRelatrioDeGastos)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNovo)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnEditar)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnApagar)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemTipoServico)
-					.addContainerGap(378, Short.MAX_VALUE))
-		);
+						.addGap(10)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+						.addGap(10))
+						.addGroup(groupLayout.createSequentialGroup()
+								.addContainerGap(256, Short.MAX_VALUE)
+								.addComponent(btnRelatrioDeGastos)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(btnNovo)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(btnEditar)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnApagar)
+								.addContainerGap())
+								.addGroup(groupLayout.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(lblListagemTipoServico)
+										.addContainerGap(378, Short.MAX_VALUE))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblListagemTipoServico)
-					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnApagar)
-						.addComponent(btnEditar)
-						.addComponent(btnNovo)
-						.addComponent(btnRelatrioDeGastos))
-					.addGap(18))
-		);
+						.addContainerGap()
+						.addComponent(lblListagemTipoServico)
+						.addGap(18)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnApagar)
+								.addComponent(btnEditar)
+								.addComponent(btnNovo)
+								.addComponent(btnRelatrioDeGastos))
+								.addGap(18))
+				);
 		setLayout(groupLayout);
-		
+
 		try {
 			atualizarTabela();
 		} catch (ClassNotFoundException e) {
@@ -160,7 +143,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				if(usuarioLogado.ehAdministrador()){
@@ -168,7 +151,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 					btnApagar.setVisible(true);
 					btnRelatrioDeGastos.setVisible(true);
 				}
-				
+
 			}
 		});
 
@@ -185,21 +168,27 @@ public class PanelListagemTipoServico extends PanelExemplo {
 		});
 		btnApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TipoServico tipoServico = new TipoServico();
-				idTipoServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
-				tipoServico = mbTipoServico.retornarTipoServico(idTipoServicoSelecionado);
-				mbTipoServico.apagar(tipoServico);
-				try {
-					atualizarTabela();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+				int op = JOptionPane.showConfirmDialog(null,"Deseja realmente apagar o Tipo de Serviço selecionado?");
+
+				if (op==JOptionPane.YES_OPTION ) {
+
+					TipoServico tipoServico = new TipoServico();
+					idTipoServicoSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+					tipoServico = mbTipoServico.retornarTipoServico(idTipoServicoSelecionado);
+					mbTipoServico.apagar(tipoServico);
+					try {
+						atualizarTabela();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
-			
+
 		});
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -233,7 +222,7 @@ public class PanelListagemTipoServico extends PanelExemplo {
 		}
 	}
 	//----------------- Gerando o Relatório -------------------\\
-	
+
 	public JasperPrint gerar(){
 		JasperPrint rel = null;
 		try {

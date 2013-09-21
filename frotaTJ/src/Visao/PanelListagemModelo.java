@@ -45,7 +45,7 @@ public class PanelListagemModelo extends PanelExemplo {
 		btnNovo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelCadastroModelo();
+				PanelCadastroModelo(0);
 			}
 		});
 		
@@ -77,7 +77,9 @@ public class PanelListagemModelo extends PanelExemplo {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PanelEditarModelo();
+
+				idModeloSelecionado = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0)+"");
+				PanelCadastroModelo(idModeloSelecionado);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -157,7 +159,7 @@ public class PanelListagemModelo extends PanelExemplo {
 		setLayout(groupLayout);
 
 	}
-	public void PanelCadastroModelo(){
+	/*public void PanelCadastroModelo(){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
 			parent.PanelCadastroModelo(0, "");
@@ -165,18 +167,18 @@ public class PanelListagemModelo extends PanelExemplo {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
 			parent.PanelCadastroModelo(0, "");
 		}
-	}
-	public void PanelEditarModelo(){
+	}*/
+	public void PanelCadastroModelo(int idModelo){
 		try {
 			TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent();
-			parent.PanelCadastroModelo(idModeloSelecionado, "");
+			parent.PanelCadastroModelo(idModelo, "");
 		} catch (Exception e) {
 			try {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent();
-				parent.PanelCadastroModelo(idModeloSelecionado, "");
+				parent.PanelCadastroModelo(idModelo, "");
 			} catch (Exception e1) {
 				TelaPrincipal	parent = (TelaPrincipal)getParent().getParent().getParent().getParent().getParent();
-				parent.PanelCadastroModelo(idModeloSelecionado, "");
+				parent.PanelCadastroModelo(idModelo, "");
 			}
 		}
 	}

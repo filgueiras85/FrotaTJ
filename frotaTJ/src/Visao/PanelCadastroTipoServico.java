@@ -92,10 +92,12 @@ public class PanelCadastroTipoServico extends PanelExemplo {
 			public void actionPerformed(ActionEvent e) {
 				if ( idTipoServicoSelecionado == 0){
 					TipoServico tipoServico = new TipoServico(null, txtNome.getText()); //new TipoServico(null, txtNome.getText());
-					mbTipoServico.inserir(tipoServico);
+					String ret = mbTipoServico.inserir(tipoServico);
+					JOptionPane.showMessageDialog(null, ret);
 				}else{
 					TipoServico tipoServico = new TipoServico(idTipoServicoSelecionado, txtNome.getText());
-					mbTipoServico.editar(tipoServico);
+					String ret = mbTipoServico.editar(tipoServico);
+					JOptionPane.showMessageDialog(null, ret);
 				}
 				PanelListagemTipoServico();
 			}

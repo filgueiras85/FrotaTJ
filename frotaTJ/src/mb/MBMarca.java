@@ -52,7 +52,7 @@ public class MBMarca {
 		try {
 			daoMarca.delete(marca);
 		} catch (Exception e) {
-			retorno = "erro";
+			retorno = "Verifique se existe algum modelo desta marca";
 		}
 		return retorno;
 	}
